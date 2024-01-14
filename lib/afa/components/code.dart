@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
-import '../../Auth_verbal.dart';
 import '../components/contants.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';

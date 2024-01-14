@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
+  sdk: '>=2.18.2 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,6 +34,7 @@ dependencies:
 # get image and cropped image
   image_picker: ^0.8.5
   image_cropper: ^3.0.0
+  flutter_inappwebview: ^5.8.0
   get: any
   http: any
   expandable: ^5.0.1
@@ -69,7 +70,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   sizer: ^2.0.15
   flutter_email_sender: ^5.2.0
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.3
   # responsive_sizer: ^3.1.1
   google_maps_flutter: ^2.2.0
   awesome_dialog: ^3.0.2
@@ -90,8 +91,8 @@ dependencies:
   anim_search_bar: ^2.0.2
   sqflite: ^2.0.2
   flutter_image_compress: ^1.1.3
-  screenshot: ^1.3.0
-  printing: ^5.9.3
+  screenshot: ^2.1.0
+  printing: ^5.10.3
   audioplayers: ^3.0.0
   tap_builder: ^0.4.0
   invoiceninja: ^0.0.9
@@ -106,7 +107,8 @@ dependencies:
       url: https://github.com/Jollastro/liquid_progress_indicator
   barcode_widget: ^2.0.4
   connectivity_plus: ^4.0.1
-  firebase_auth: ^4.7.1
+  firebase_auth: ^4.14.0
+  pdf_widget_wrapper: ^1.0.0 
   firebase_messaging: ^14.6.5
   pin_code_fields: ^7.0.0
   phone_number: ^0.12.0+1
