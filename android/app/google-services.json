@@ -1,44 +1,64 @@
 {
   "project_info": {
-    "project_number": "596395788924",
-    "project_id": "clientinkfa",
-    "storage_bucket": "clientinkfa.appspot.com"
+    "project_number": "758451633421",
+    "project_id": "phone-otp-4b9ca",
+    "storage_bucket": "phone-otp-4b9ca.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:596395788924:android:12db3eb3cda80f96efd7f9",
+        "mobilesdk_app_id": "1:758451633421:android:9db385a12da7b5b95f0444",
         "android_client_info": {
           "package_name": "com.example.kfa_project"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "596395788924-6jpelm6ebivo0r8hpockletnhfqg442g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.kfa_project",
-            "certificate_hash": "7434610fd28f8ee10b6f3707915df441d7ccaee4"
-          }
-        },
-        {
-          "client_id": "596395788924-62jmnb3fuuc2hc15jdqtam3ph90ssf04.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBC6ggp2l-i3fDZXQZEJ3jxkZ5wqJAGtKk"
+          "current_key": "AIzaSyAjEwTxWp7RrzPHV-KcgXeM-F76Q9pFTN8"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "596395788924-62jmnb3fuuc2hc15jdqtam3ph90ssf04.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758451633421:android:6f24758e43082bd45f0444",
+        "android_client_info": {
+          "package_name": "com.example.phone_otp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjEwTxWp7RrzPHV-KcgXeM-F76Q9pFTN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758451633421:android:e371ecb937f4da705f0444",
+        "android_client_info": {
+          "package_name": "com.meng.mobilenu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjEwTxWp7RrzPHV-KcgXeM-F76Q9pFTN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

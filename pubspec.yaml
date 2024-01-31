@@ -114,7 +114,9 @@ dependencies:
   phone_number: ^0.12.0+1
   country_code_picker: ^2.0.2
   firebase_core: ^2.15.0
+  build_runner: ^2.1.4
   pinput: ^2.2.12
+  watcher: ^1.1.0
   firebase_dynamic_links: ^5.3.4
   flutter_echarts: ^2.4.0
   syncfusion_flutter_charts: ^21.2.4
