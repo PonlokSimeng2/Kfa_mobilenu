@@ -25,21 +25,26 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>app-1-758451633421-ios-085c6e2c48d203615f0444</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>oneclickonedollar.com</string>
+			<string>Bundle Id</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>app</string>
-				<string>kfa</string>
-				<string>http</string>
-				<string>https</string>
+				<string>com.meng.kfaMobilenu</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlechromes</string>
@@ -51,9 +56,9 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Access to the camera is required to capture photos.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your location use to make cross check value property.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your location use to make cross check value property.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location use to make cross check value property.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location use to make cross check value property.</string>
@@ -86,7 +91,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-    <false/>
 </dict>
 </plist>
