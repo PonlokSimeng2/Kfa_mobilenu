@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Feed_back_11 extends StatefulWidget {
-  const Feed_back_11({Key? key}) : super(key: key);
+  const Feed_back_11({Key? key, required User user}) : super(key: key);
 
   @override
   State<Feed_back_11> createState() => _HomeScreenState();

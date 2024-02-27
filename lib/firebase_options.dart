@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCos70Q2c-MSrP-4qvBTHmAwYllT2CCvnE',
-    appId: '1:758451633421:web:419a3771de060b555f0444',
-    messagingSenderId: '758451633421',
-    projectId: 'phone-otp-4b9ca',
-    authDomain: 'phone-otp-4b9ca.firebaseapp.com',
-    storageBucket: 'phone-otp-4b9ca.appspot.com',
+    apiKey: 'AIzaSyB6PM2MOYe0NdHF9rJb45yhHvLe-_tzIAU',
+    appId: '1:1070995801144:web:106ba21adeb7660e4552cd',
+    messagingSenderId: '1070995801144',
+    projectId: 'mengproject-9eb56',
+    authDomain: 'mengproject-9eb56.firebaseapp.com',
+    storageBucket: 'mengproject-9eb56.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAjEwTxWp7RrzPHV-KcgXeM-F76Q9pFTN8',
-    appId: '1:758451633421:android:9db385a12da7b5b95f0444',
-    messagingSenderId: '758451633421',
-    projectId: 'phone-otp-4b9ca',
-    storageBucket: 'phone-otp-4b9ca.appspot.com',
+    apiKey: 'AIzaSyDAz7zkN-qDkjc2c4plIwIO4kcbgNZfzig',
+    appId: '1:1070995801144:android:217930b2d7c0d1894552cd',
+    messagingSenderId: '1070995801144',
+    projectId: 'mengproject-9eb56',
+    storageBucket: 'mengproject-9eb56.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBjzzr_0m4JrevxC-ePViz1hD1y0xYUIRQ',
-    appId: '1:758451633421:ios:085c6e2c48d203615f0444',
-    messagingSenderId: '758451633421',
-    projectId: 'phone-otp-4b9ca',
-    storageBucket: 'phone-otp-4b9ca.appspot.com',
+    apiKey: 'AIzaSyDi_K47Q4-GHUAvt5AZI2SA1G-7OsJufrc',
+    appId: '1:1070995801144:ios:886b9fe3e49e64b84552cd',
+    messagingSenderId: '1070995801144',
+    projectId: 'mengproject-9eb56',
+    storageBucket: 'mengproject-9eb56.appspot.com',
     iosBundleId: 'com.meng.kfaMobilenu',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBjzzr_0m4JrevxC-ePViz1hD1y0xYUIRQ',
-    appId: '1:758451633421:ios:085c6e2c48d203615f0444',
-    messagingSenderId: '758451633421',
-    projectId: 'phone-otp-4b9ca',
-    storageBucket: 'phone-otp-4b9ca.appspot.com',
+    apiKey: 'AIzaSyDi_K47Q4-GHUAvt5AZI2SA1G-7OsJufrc',
+    appId: '1:1070995801144:ios:886b9fe3e49e64b84552cd',
+    messagingSenderId: '1070995801144',
+    projectId: 'mengproject-9eb56',
+    storageBucket: 'mengproject-9eb56.appspot.com',
     iosBundleId: 'com.meng.kfaMobilenu',
   );
 }
