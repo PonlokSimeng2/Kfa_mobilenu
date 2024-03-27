@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:kfa_mobilenu/graph_report.dart';
+import 'package:kfa_mobilenu/homescreen.dart';
 import 'package:pinput/pinput.dart';
 
-typedef OnChangeCallback = void Function(dynamic value);
+import 'screen/Home/Body.dart';
 
 class MyVerify extends StatefulWidget {
-  const MyVerify({Key? key, required this.code}) : super(key: key);
-  final OnChangeCallback code;
+  const MyVerify({Key? key}) : super(key: key);
+
   @override
   State<MyVerify> createState() => _MyVerifyState();
 }
 
 class _MyVerifyState extends State<MyVerify> {
-  var code;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -92,7 +93,7 @@ class _MyVerifyState extends State<MyVerify> {
                 // submittedPinTheme: submittedPinTheme,
 
                 showCursor: true,
-                onCompleted: (pin) => code = pin,
+                onCompleted: (pin) => print(pin),
               ),
               SizedBox(
                 height: 20,
@@ -106,11 +107,28 @@ class _MyVerifyState extends State<MyVerify> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      widget.code(code);
-                      Navigator.pop(context);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => Body(),
+                      ));
                     },
                     child: Text("Verify Phone Number")),
               ),
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'phone',
+                          (route) => false,
+                        );
+                      },
+                      child: Text(
+                        "Edit Phone Number ?",
+                        style: TextStyle(color: Colors.black),
+                      ))
+                ],
+              )
             ],
           ),
         ),
