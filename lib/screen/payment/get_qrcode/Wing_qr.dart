@@ -9,7 +9,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
-//import 'package:screenshot/screenshot.dart';
+import 'package:screenshot/screenshot.dart';
 
 class Qr_Wing extends StatefulWidget {
   const Qr_Wing(

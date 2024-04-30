@@ -198,7 +198,7 @@ class ProfileData extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Colors.grey,
                       // fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -209,7 +209,7 @@ class ProfileData extends StatelessWidget {
               ),
               Text(
                 value,
-                style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       //fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -259,7 +259,7 @@ class ProfileData1 extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Colors.grey,
                       // fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -270,7 +270,7 @@ class ProfileData1 extends StatelessWidget {
               ),
               Text(
                 value,
-                style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       //fontWeight: FontWeight.bold,
                       fontSize: 16,
