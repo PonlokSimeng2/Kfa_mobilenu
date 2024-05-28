@@ -19,7 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Memory_local/Local_data.dart';
 import '../../afa/components/contants.dart';
-import '../../afa/screens/Auth/login.dart';
+import '../../afa/screens/Auth/login_page.dart';
 import '../../api/api_service.dart';
 import '../../contants.dart';
 import '../../models/register_model.dart';
@@ -175,12 +175,9 @@ class _AccountState extends State<Account> {
       textColor: Colors.blue,
       fontSize: 20,
     );
-   // Get.off(() => Login());
-     Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Login()
-                                  ));
+    // Get.off(() => Login());
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Login()));
   }
 
   static List<PeopleModel> list = [];
@@ -214,10 +211,10 @@ class _AccountState extends State<Account> {
 
   @override
   void initState() {
-  Future.delayed(const Duration(seconds: 4), () {
-  selectPeople();
-});
-    
+    Future.delayed(const Duration(seconds: 4), () {
+      selectPeople();
+    });
+
     get_control_user_image(widget.id);
     super.initState();
   }
@@ -235,7 +232,8 @@ class _AccountState extends State<Account> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.pop(context);
             },
             icon: Icon(
               Icons.chevron_left,
