@@ -12,7 +12,7 @@ class Province_detail_List extends StatefulWidget {
       {super.key,
       required this.value_province,
       required this.property_id,
-      required this.urgent_list});
+      required this.urgent_list,});
 
   @override
   State<Province_detail_List> createState() => _HHHHSSsState();
@@ -58,14 +58,14 @@ class _HHHHSSsState extends State<Province_detail_List> {
                             padding: const EdgeInsets.all(8.0),
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
+                                  left: 10, right: 10, top: 10,),
                               child: Container(
                                 height:
                                     MediaQuery.of(context).size.height * 0.25,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(7),
-                                    color: Color.fromARGB(255, 197, 195, 195)),
+                                    color: Color.fromARGB(255, 197, 195, 195),),
                                 child: Column(
                                   children: [
                                     Row(
@@ -83,7 +83,7 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                               },
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
-                                                    left: 4, bottom: 4, top: 4),
+                                                    left: 4, bottom: 4, top: 4,),
                                                 child: Container(
                                                   height: MediaQuery.of(context)
                                                           .size
@@ -127,10 +127,10 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                     width: 50,
                                                     decoration: BoxDecoration(
                                                         color: Color.fromARGB(
-                                                            255, 109, 160, 6),
+                                                            255, 109, 160, 6,),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(5)),
+                                                                .circular(5),),
                                                     child: Text(
                                                       '${widget.value_province![i]['type']}',
                                                       style: TextStyle(
@@ -139,8 +139,8 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                               255,
                                                               250,
                                                               246,
-                                                              245),
-                                                          fontSize: 12),
+                                                              245,),
+                                                          fontSize: 12,),
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -150,17 +150,17 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
                                                         color: Color.fromARGB(
-                                                            255, 29, 7, 174),
+                                                            255, 29, 7, 174,),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(5)),
+                                                                .circular(5),),
                                                     height: 25,
                                                     width: 50,
                                                     child: Text(
                                                       '${widget.value_province![i]['urgent'].toString()}',
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          color: Colors.white),
+                                                          color: Colors.white,),
                                                     ),
                                                   ),
                                                 ],
@@ -170,7 +170,7 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 4, bottom: 4, top: 4),
+                                              left: 4, bottom: 4, top: 4,),
                                           child: Container(
                                             height: MediaQuery.of(context)
                                                     .size
@@ -184,7 +184,7 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                               borderRadius:
                                                   BorderRadius.circular(7),
                                               color: Color.fromARGB(
-                                                  255, 239, 241, 238),
+                                                  255, 239, 241, 238,),
                                             ),
                                             child: Padding(
                                               padding:
@@ -357,8 +357,8 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                       255,
                                                                       19,
                                                                       14,
-                                                                      164),
-                                                            )),
+                                                                      164,),
+                                                            ),),
                                                       ),
                                                       Container(
                                                         height: 40,
@@ -382,8 +382,8 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                       255,
                                                                       64,
                                                                       132,
-                                                                      9),
-                                                            )),
+                                                                      9,),
+                                                            ),),
                                                       ),
                                                       Container(
                                                         height: 40,
@@ -423,8 +423,8 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                       255,
                                                                       147,
                                                                       8,
-                                                                      59),
-                                                            )),
+                                                                      59,),
+                                                            ),),
                                                       ),
                                                       Container(
                                                         height: 40,
@@ -445,7 +445,7 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                         255,
                                                                         72,
                                                                         157,
-                                                                        11),
+                                                                        11,),
                                                                 btnCancelText:
                                                                     'No',
                                                                 btnCancelColor:
@@ -454,7 +454,7 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                             255,
                                                                             133,
                                                                             8,
-                                                                            8),
+                                                                            8,),
                                                                 btnOkOnPress:
                                                                     () {
                                                                   // delete_property(
@@ -463,7 +463,7 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                   //             'id_ptys']
                                                                   //         .toString());
                                                                   Navigator.pop(
-                                                                      context);
+                                                                      context,);
                                                                   // Navigator.of(
                                                                   //         context)
                                                                   //     .push(
@@ -483,8 +483,8 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                                                       255,
                                                                       147,
                                                                       8,
-                                                                      59),
-                                                            )),
+                                                                      59,),
+                                                            ),),
                                                       ),
                                                     ],
                                                   ),
@@ -498,12 +498,12 @@ class _HHHHSSsState extends State<Province_detail_List> {
                                   ],
                                 ),
                               ),
-                            ))
+                            ),)
                         : SizedBox(),
                   ],
                 ),
             ],
           ),
-        ));
+        ),);
   }
 }

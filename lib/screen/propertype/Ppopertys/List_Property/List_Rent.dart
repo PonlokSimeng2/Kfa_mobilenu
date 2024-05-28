@@ -37,7 +37,7 @@ class _Show_allState extends State<List_Rent> {
                   Text(
                     '${list2_Sale1.length}',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 188, 25, 225), fontSize: 16),
+                        color: Color.fromARGB(255, 188, 25, 225), fontSize: 16,),
                   ),
                   SizedBox(
                     width: 10,
@@ -45,7 +45,7 @@ class _Show_allState extends State<List_Rent> {
                   Text(
                     'Listings for sale',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 69, 55, 55), fontSize: 16),
+                        color: Color.fromARGB(255, 69, 55, 55), fontSize: 16,),
                   ),
                 ],
               ),
@@ -90,12 +90,12 @@ class _Show_allState extends State<List_Rent> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color:
-                                            Color.fromARGB(255, 55, 152, 10)),
+                                            Color.fromARGB(255, 55, 152, 10),),
                                     child: Text(
                                       '${list2_Sale1[index]['type'].toString()}',
                                       style: TextStyle(color: Colors.white),
                                     ),
-                                  )),
+                                  ),),
                               Positioned(
                                   left: 120,
                                   top: 60,
@@ -104,13 +104,13 @@ class _Show_allState extends State<List_Rent> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 17),
-                                  )),
+                                        fontSize: 17,),
+                                  ),),
                             ],
                           ),
                         );
                       },
-                    )),
+                    ),),
               ),
             ],
           ),
@@ -124,7 +124,7 @@ class _Show_allState extends State<List_Rent> {
   void Property_Sale_image(property_type_id) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get/$property_type_id'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get/$property_type_id',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

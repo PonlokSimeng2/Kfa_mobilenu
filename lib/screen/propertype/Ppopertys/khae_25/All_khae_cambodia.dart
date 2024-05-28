@@ -42,7 +42,7 @@ class _ALl_Khae_cambodiaState extends State<ALl_Khae_cambodia> {
               onPressed: () {
                 Property_Sale_value();
               },
-              icon: Icon(Icons.abc))
+              icon: Icon(Icons.abc),)
         ],
       ),
       body: GridView.count(
@@ -61,7 +61,7 @@ class _ALl_Khae_cambodiaState extends State<ALl_Khae_cambodia> {
                 urgent_list: list2_Sale_id5,
                 value_province: list2_Sale2,
                 property_id: property_type_id,
-              ));
+              ),);
 
               // Get.to(HHHHSSs(value_province: list2_Sale2));
               // print(list2_Sale_khae);
@@ -91,7 +91,7 @@ class _ALl_Khae_cambodiaState extends State<ALl_Khae_cambodia> {
                 urgent_list: list2_Sale_id5,
                 value_province: list2_Sale2,
                 property_id: property_type_id,
-              ));
+              ),);
               // print(list2_Sale_khae);
               // list2_Sale_khae1(property_type_id);
               // Get.to(HHHHSSs(value_province: list2_Sale_khae));
@@ -119,7 +119,7 @@ class _ALl_Khae_cambodiaState extends State<ALl_Khae_cambodia> {
                 urgent_list: list2_Sale_id5,
                 value_province: list2_Sale2,
                 property_id: property_type_id,
-              ));
+              ),);
               // print(list2_Sale_khae);
               // list2_Sale_khae1(property_type_id);
               // Get.to(HHHHSSs(value_province: list2_Sale_khae));
@@ -482,7 +482,7 @@ class _ALl_Khae_cambodiaState extends State<ALl_Khae_cambodia> {
   Future<void> Urgent() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_sale_rent_all_12'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_sale_rent_all_12',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body)['data'];
@@ -499,7 +499,7 @@ class _ALl_Khae_cambodiaState extends State<ALl_Khae_cambodia> {
   Future<void> Property_Sale_value() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_sale_rent_all_1'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_sale_rent_all_1',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body)['data'];

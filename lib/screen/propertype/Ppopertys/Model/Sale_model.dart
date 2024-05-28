@@ -5,7 +5,7 @@ class Model_sale_image {
   String? url;
 
   Model_sale_image(
-      {this.idImage, this.propertyTypeId, this.imageNameSale, this.url});
+      {this.idImage, this.propertyTypeId, this.imageNameSale, this.url,});
 
   Model_sale_image.fromJson(Map<String, dynamic> json) {
     idImage = json['id_image'];
@@ -15,11 +15,11 @@ class Model_sale_image {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_image'] = this.idImage;
-    data['property_type_id'] = this.propertyTypeId;
-    data['image_name_sale'] = this.imageNameSale;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id_image'] = idImage;
+    data['property_type_id'] = propertyTypeId;
+    data['image_name_sale'] = imageNameSale;
+    data['url'] = url;
     return data;
   }
 }

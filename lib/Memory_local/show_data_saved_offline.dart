@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:kfa_mobilenu/Memory_local/save_data_verbal_local.dart';
 
@@ -51,7 +49,7 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
             icon: const Icon(
               Icons.chevron_left_outlined,
               size: 40,
-            )),
+            ),),
       ),
       body: Visibility(
         visible: status ?? false,
@@ -65,7 +63,7 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                topLeft: Radius.circular(20), topRight: Radius.circular(20),),
           ),
           child: ListView.builder(
             itemCount: list.length,
@@ -78,7 +76,7 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                     padding: const EdgeInsets.only(left: 10),
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 212, 212, 212),
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(5),),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,12 +91,12 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *
                                           10,
-                                  shadows: [
+                                  shadows: const [
                                     BoxShadow(
                                         color: Color.fromARGB(255, 16, 22, 192),
                                         blurRadius: 3,
-                                        offset: Offset(-0.2, -1))
-                                  ]),
+                                        offset: Offset(-0.2, -1),)
+                                  ],),
                             ),
                             Text(
                               " ${list[i].verbalId}",
@@ -107,12 +105,12 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *
                                           9,
-                                  shadows: [
+                                  shadows: const [
                                     BoxShadow(
                                         color: Color.fromARGB(255, 16, 22, 192),
                                         blurRadius: 3,
-                                        offset: Offset(-0.2, -1))
-                                  ]),
+                                        offset: Offset(-0.2, -1),)
+                                  ],),
                             ),
                           ],
                         ),
@@ -126,12 +124,12 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *
                                           10,
-                                  shadows: [
+                                  shadows: const [
                                     BoxShadow(
                                         color: Color.fromARGB(255, 16, 22, 192),
                                         blurRadius: 3,
-                                        offset: Offset(-0.2, -1))
-                                  ]),
+                                        offset: Offset(-0.2, -1),)
+                                  ],),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
@@ -143,13 +141,13 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                         MediaQuery.of(context).textScaleFactor *
                                             9,
                                     overflow: TextOverflow.ellipsis,
-                                    shadows: [
+                                    shadows: const [
                                       BoxShadow(
                                           color:
                                               Color.fromARGB(255, 16, 22, 192),
                                           blurRadius: 3,
-                                          offset: Offset(-0.2, -1))
-                                    ]),
+                                          offset: Offset(-0.2, -1),)
+                                    ],),
                               ),
                             ),
                           ],
@@ -164,12 +162,12 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *
                                           10,
-                                  shadows: [
+                                  shadows: const [
                                     BoxShadow(
                                         color: Color.fromARGB(255, 16, 22, 192),
                                         blurRadius: 3,
-                                        offset: Offset(-0.2, -1))
-                                  ]),
+                                        offset: Offset(-0.2, -1),)
+                                  ],),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.5,
@@ -181,13 +179,13 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                         MediaQuery.of(context).textScaleFactor *
                                             9,
                                     overflow: TextOverflow.ellipsis,
-                                    shadows: [
+                                    shadows: const [
                                       BoxShadow(
                                           color:
                                               Color.fromARGB(255, 16, 22, 192),
                                           blurRadius: 3,
-                                          offset: Offset(-0.2, -1))
-                                    ]),
+                                          offset: Offset(-0.2, -1),)
+                                    ],),
                               ),
                             ),
                           ],
@@ -202,12 +200,12 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *
                                           10,
-                                  shadows: [
+                                  shadows: const [
                                     BoxShadow(
                                         color: Color.fromARGB(255, 16, 22, 192),
                                         blurRadius: 3,
-                                        offset: Offset(-0.2, -1))
-                                  ]),
+                                        offset: Offset(-0.2, -1),)
+                                  ],),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.5,
@@ -219,13 +217,13 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                         MediaQuery.of(context).textScaleFactor *
                                             9,
                                     overflow: TextOverflow.ellipsis,
-                                    shadows: [
+                                    shadows: const [
                                       BoxShadow(
                                           color:
                                               Color.fromARGB(255, 16, 22, 192),
                                           blurRadius: 3,
-                                          offset: Offset(-0.2, -1))
-                                    ]),
+                                          offset: Offset(-0.2, -1),)
+                                    ],),
                               ),
                             ),
                           ],
@@ -240,12 +238,12 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                   fontSize:
                                       MediaQuery.of(context).textScaleFactor *
                                           10,
-                                  shadows: [
+                                  shadows: const [
                                     BoxShadow(
                                         color: Color.fromARGB(255, 16, 22, 192),
                                         blurRadius: 3,
-                                        offset: Offset(-0.2, -1))
-                                  ]),
+                                        offset: Offset(-0.2, -1),)
+                                  ],),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.5,
@@ -257,13 +255,13 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                                         MediaQuery.of(context).textScaleFactor *
                                             9,
                                     overflow: TextOverflow.ellipsis,
-                                    shadows: [
+                                    shadows: const [
                                       BoxShadow(
                                           color:
                                               Color.fromARGB(255, 16, 22, 192),
                                           blurRadius: 3,
-                                          offset: Offset(-0.2, -1))
-                                    ]),
+                                          offset: Offset(-0.2, -1),)
+                                    ],),
                               ),
                             ),
                           ],
@@ -303,7 +301,7 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                       text: "\tDelete\t",
                       size: GFSize.MEDIUM,
                       color: Colors.red,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete_outline,
                         color: Colors.white,
                         size: 20,
@@ -311,7 +309,7 @@ class _data_verbal_savedState extends State<data_verbal_saved> {
                           Shadow(
                               color: Colors.black,
                               blurRadius: 5,
-                              offset: Offset(1, 0.5))
+                              offset: Offset(1, 0.5),)
                         ],
                       ),
                     ),

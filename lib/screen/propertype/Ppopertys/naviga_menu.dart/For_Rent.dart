@@ -41,7 +41,7 @@ class For_RentState extends State<For_Rent> {
     MapType.hybrid,
     MapType.normal,
   ];
-  final ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   int index = 0;
   @override
@@ -190,9 +190,9 @@ class For_RentState extends State<For_Rent> {
                         builder: (context) {
                           return List_Sale();
                         },
-                      ));
+                      ),);
                     },
-                    child: Text('Show all')),
+                    child: Text('Show all'),),
               ],
             ),
             Flexible(
@@ -243,7 +243,7 @@ class For_RentState extends State<For_Rent> {
                       pricere: '10000',
                       sizere: '72',
                     ),
-                  ]),
+                  ],),
             ),
             SizedBox(
               height: 10,
@@ -268,7 +268,7 @@ class For_RentState extends State<For_Rent> {
   void Property_Sale() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_get'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_get',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body)['Propery_Sale'];
@@ -324,7 +324,7 @@ class StackReusable extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 10,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,),
                 ),
               ),
             ),
@@ -339,7 +339,7 @@ class StackReusable extends StatelessWidget {
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 10,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,),
                 ),
               ),
             ),
@@ -353,7 +353,7 @@ class StackReusable extends StatelessWidget {
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,),
               ),
             ),
           ),

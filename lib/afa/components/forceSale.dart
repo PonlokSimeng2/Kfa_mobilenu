@@ -7,7 +7,7 @@ import 'contants.dart';
 
 class ForceSaleAndValuation extends StatefulWidget {
   const ForceSaleAndValuation(
-      {Key? key, required Null Function(dynamic value) value})
+      {Key? key, required Null Function(dynamic value) value,})
       : super(key: key);
 
   @override

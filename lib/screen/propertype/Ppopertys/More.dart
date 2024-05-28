@@ -22,7 +22,7 @@ class _MoreState extends State<More> {
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: 100,
             width: 300,
             child: Padding(
@@ -36,7 +36,7 @@ class _MoreState extends State<More> {
                   fontSize: 15,
                   color: Colors.black,
                 ),
-                underline: SizedBox(),
+                underline: const SizedBox(),
                 onChanged: (String? value) {
                   setState(() {
                     dropdownValue = value;
@@ -53,7 +53,7 @@ class _MoreState extends State<More> {
           ),
           Text(
             'Selected Value: ${dropdownValue ?? 'None'}',
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),

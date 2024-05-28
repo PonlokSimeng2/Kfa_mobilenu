@@ -23,7 +23,7 @@ class Edit_verbal_property extends StatefulWidget {
       required this.get_all_homeytpe,
       required this.indexv,
       required this.dg,
-      required this.number_hometype});
+      required this.number_hometype,});
   List? get_all_homeytpe;
   OnChangeCallback? dg;
   OnChangeCallback? number_hometype;
@@ -153,12 +153,12 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
               requestAutoVerbal_property.type =
                   widget.get_all_homeytpe![indexN!]['type'].toString();
               if (type != null) {
-                APi_property apIservice = APi_property();
+                final APi_property apIservice = APi_property();
                 apIservice
                     .saveAutoVerbal_Update_property(
                         requestAutoVerbal_property,
                         int.parse(widget.get_all_homeytpe![indexN!]['id_ptys']
-                            .toString()))
+                            .toString(),),)
                     .then(
                   (value) async {
                     setState(() async {
@@ -199,7 +199,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                                 // String dsss = 'Success Edit111';
                               });
                               // Navigator.pop(context);
-                            }).show();
+                            },).show();
                       } else {
                         AwesomeDialog(
                           context: context,
@@ -236,7 +236,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
               alignment: Alignment.center,
               width: 80,
               decoration: BoxDecoration(
-                  color: kImageColor, borderRadius: BorderRadius.circular(15)),
+                  color: kImageColor, borderRadius: BorderRadius.circular(15),),
               child: Text(
                 'Save',
                 style:
@@ -279,7 +279,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 13),
+                            fontSize: 13,),
                       ),
                     ),
                     Container(
@@ -287,7 +287,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                       width: MediaQuery.of(context).size.width * 0.4,
                       decoration: BoxDecoration(
                           color: Color.fromARGB(255, 43, 131, 11),
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15),),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -313,13 +313,13 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             width: 80,
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 67, 20, 175),
-                                borderRadius: BorderRadius.circular(15)),
+                                borderRadius: BorderRadius.circular(15),),
                             child: Text(
                               (ug == true) ? 'Urgent' : 'N/A',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 13,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,),
                             ),
                           ),
                         ],
@@ -363,7 +363,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
                           child: CircularProgressIndicator(
-                              value: downloadProgress.progress),
+                              value: downloadProgress.progress,),
                         ),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
@@ -388,13 +388,13 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color.fromARGB(255, 47, 22, 157)),
+                        color: Color.fromARGB(255, 47, 22, 157),),
                     child: Text(
                       'Select Image',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.white),
+                          color: Colors.white,),
                     ),
                   ),
                 ),
@@ -430,7 +430,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             style: TextStyle(
                                 fontSize:
                                     MediaQuery.textScaleFactorOf(context) * 13,
-                                height: 1),
+                                height: 1,),
                           ),
                         ),
                       )
@@ -596,7 +596,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -640,7 +640,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -685,7 +685,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -726,7 +726,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -906,7 +906,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -948,7 +948,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                             filled: true,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -988,7 +988,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                       },
                       get_log: (value) {},
                       get_lat: (value) {},
-                    ));
+                    ),);
                   },
                   child: (khan != null || songkat != null)
                       ? Container(
@@ -999,7 +999,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                           decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(10),
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                              color: Color.fromARGB(255, 255, 255, 255),),
                           child: Row(
                             children: [
                               Icon(
@@ -1022,7 +1022,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                               Text(
                                 '${khan}',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
+                                    fontWeight: FontWeight.bold, fontSize: 12,),
                               ),
                               SizedBox(
                                 width: 10,
@@ -1030,7 +1030,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                               Text(
                                 '/ ${provice_map}',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
+                                    fontWeight: FontWeight.bold, fontSize: 12,),
                               ),
                             ],
                           ),
@@ -1043,7 +1043,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                           decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(10),
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                              color: Color.fromARGB(255, 255, 255, 255),),
                           child: Row(
                             children: [
                               Icon(
@@ -1057,11 +1057,11 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
                               Text(
                                 '${widget.get_all_homeytpe![indexN!]['address'].toString()}',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 14),
+                                    fontWeight: FontWeight.bold, fontSize: 14,),
                               )
                             ],
                           ),
-                        )),
+                        ),),
               SizedBox(
                 height: 10,
               ),
@@ -1138,7 +1138,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Urgent_update_sale/${widget.get_all_homeytpe![indexN!]['id_ptys'].toString()}');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Urgent_update_sale/${widget.get_all_homeytpe![indexN!]['id_ptys'].toString()}',);
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1199,7 +1199,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
     // Create a temporary file with a unique name
     final tempDir = await Directory.systemTemp.createTemp();
     final tempFile = File(
-        '${tempDir.path}/temp_${DateTime.now().millisecondsSinceEpoch}.jpg');
+        '${tempDir.path}/temp_${DateTime.now().millisecondsSinceEpoch}.jpg',);
 
     // Write the bytes to the file
     await tempFile.writeAsBytes(bytes);
@@ -1211,7 +1211,7 @@ class _Add_verbal_saleState extends State<Edit_verbal_property> {
       one = _imageFile_input;
     }
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_post_id_last/${widget.get_all_homeytpe![indexN!]['id_ptys'].toString()}');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_post_id_last/${widget.get_all_homeytpe![indexN!]['id_ptys'].toString()}',);
 
     final request = http.MultipartRequest('POST', url);
     // request.fields['id_image'] = '202347267';

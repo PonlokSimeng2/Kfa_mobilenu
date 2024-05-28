@@ -23,7 +23,7 @@ class Title_promotion extends StatelessWidget {
          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: Colors.white,
-            border: Border.all()
+            border: Border.all(),
           ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,9 +46,9 @@ class Title_promotion extends StatelessWidget {
                         builder: (context) {
                           return All_membership();
                         },
-                      ));
+                      ),);
                     },
-                    child: Text(title_promo1)))
+                    child: Text(title_promo1),),)
           ],
         ),
       ),
@@ -74,7 +74,7 @@ class Title_promotion2 extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.white,
-          border: Border.all()
+          border: Border.all(),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,9 +108,9 @@ class Title_promotion2 extends StatelessWidget {
                         builder: (context) {
                           return All_partner();
                         },
-                      ));
+                      ),);
                     },
-                    child: Text(title_promo1)))
+                    child: Text(title_promo1),),)
           ],
         ),
       ),

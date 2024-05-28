@@ -62,7 +62,7 @@ class HomePage1 extends StatefulWidget {
 
 class _HomePageState extends State<HomePage1> {
   Future logOut() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove('email');
     Fluttertoast.showToast(
       msg: 'Log Out',
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage1> {
     });
   }
 
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   static bool c = false;
   static int number = 0;
   static var password;
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage1> {
         from: widget.from ?? '',
         tel: widget.tel ?? '',
         id: widget.id ?? '',
-      )),
+      ),),
       //  Center(child: Contacts()),
       //   Center(child: Contacts()),
       //    Center(child: Contacts()),
@@ -250,7 +250,7 @@ class _HomePageState extends State<HomePage1> {
                                         tel: widget.tel ?? '',
                                         id: widget.id ?? '',
                                       );
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -293,7 +293,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                 ),
                 MyDrawerList(
@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage1> {
                                       return Add(
                                         id: widget.id ?? '',
                                       );
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -335,7 +335,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -353,7 +353,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                 ),
                 MyDrawerList(
@@ -379,7 +379,7 @@ class _HomePageState extends State<HomePage1> {
                                       return Add_with_property(
                                         id: widget.id ?? '',
                                       );
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -395,7 +395,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -413,7 +413,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                   // Press: () {
                   //   Navigator.of(context).push(
@@ -450,7 +450,7 @@ class _HomePageState extends State<HomePage1> {
                                             refresh_hometype;
                                             // print(refresh_hometype
                                             //     .toString());
-                                            if (refresh_hometype!.length != 0) {
+                                            if (refresh_hometype!.isNotEmpty) {
                                               setState(() {
                                                 first_time();
                                                 // print(
@@ -460,7 +460,7 @@ class _HomePageState extends State<HomePage1> {
                                           });
                                         },
                                       );
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -476,7 +476,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -494,7 +494,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                 ),
                 MyDrawerList(
@@ -520,7 +520,7 @@ class _HomePageState extends State<HomePage1> {
                                       return List_Auto(
                                         verbal_id: widget.id ?? '',
                                       );
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -536,7 +536,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -554,7 +554,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                 ),
                 MyDrawerList(
@@ -580,7 +580,7 @@ class _HomePageState extends State<HomePage1> {
                                       return Menu_of_Autoverval(
                                         id: widget.id ?? '',
                                       );
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -596,7 +596,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -614,7 +614,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                 ),
                 MyDrawerList(
@@ -638,7 +638,7 @@ class _HomePageState extends State<HomePage1> {
                                     context,
                                     MaterialPageRoute(builder: (context) {
                                       return ContactsSidebar();
-                                    }),
+                                    },),
                                   );
                                 } else {
                                   setState(() {
@@ -654,7 +654,7 @@ class _HomePageState extends State<HomePage1> {
                                             content:
                                                 Text("Please try again later."),
                                           );
-                                        });
+                                        },);
                                   });
                                 }
                               });
@@ -672,7 +672,7 @@ class _HomePageState extends State<HomePage1> {
                             shouldTriggerVerification:
                                 (_verificationNotifier).stream,
                           );
-                        });
+                        },);
                   },
                 ),
               ],
@@ -691,8 +691,8 @@ class _HomePageState extends State<HomePage1> {
                 logOut();
               },
             ),
-          ]),
-        )
+          ],),
+        ),
         // bottomNavigationBar: BottomNavigationBar(
         //   selectedItemColor: kwhite_new,
         //   currentIndex: _currentIndex,

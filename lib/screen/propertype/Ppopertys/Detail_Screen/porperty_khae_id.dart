@@ -15,7 +15,7 @@ class Detail_khae_id extends StatefulWidget {
       required this.value,
       required this.list_image,
       required this.list_urgent,
-      required this.list_value});
+      required this.list_value,});
   String? value;
   List? list_urgent;
   List? list_image;
@@ -55,7 +55,7 @@ class _Detail_khae_idState extends State<Detail_khae_id> {
   }
 
   String? property_type_id_province = '1';
-  bool _isLoading = true;
+  final bool _isLoading = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -285,7 +285,7 @@ class _Detail_khae_idState extends State<Detail_khae_id> {
   Future<void> Property_Sale_image_1(value) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get/${widget.value}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get/${widget.value}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

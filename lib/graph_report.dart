@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   final Widget child;
 
    const HomePage({ Key? key, required this.child}) : super(key: key);
 
+  @override
   _HomePageState createState() => _HomePageState();
 }
 
@@ -16,19 +16,19 @@ class _HomePageState extends State<HomePage> {
   late List<charts.Series<Sales, int>> _seriesLineData;
 
   _generateData() {
-    var data1 = [
-      new Pollution(1980, 'Jan', 3),
-      new Pollution(1980, 'Feb', 4),
-      new Pollution(1980, 'Mar', 10),
-      new Pollution(1980, 'Apr', 3),
-      new Pollution(1980, 'May', 4),
-      new Pollution(1980, 'Jun', 10),
-      new Pollution(1980, 'Jul', 3),
-      new Pollution(1980, 'Aug', 4),
-      new Pollution(1980, 'Sep', 10),
-       new Pollution(1980, 'Oct', 3),
-      new Pollution(1980, 'Nov', 4),
-      new Pollution(1980, 'Dec', 10),
+    final data1 = [
+      Pollution(1980, 'Jan', 3),
+      Pollution(1980, 'Feb', 4),
+      Pollution(1980, 'Mar', 10),
+      Pollution(1980, 'Apr', 3),
+      Pollution(1980, 'May', 4),
+      Pollution(1980, 'Jun', 10),
+      Pollution(1980, 'Jul', 3),
+      Pollution(1980, 'Aug', 4),
+      Pollution(1980, 'Sep', 10),
+       Pollution(1980, 'Oct', 3),
+      Pollution(1980, 'Nov', 4),
+      Pollution(1980, 'Dec', 10),
     ];
     // var data2 = [
     //   new Pollution(1985, 'USA', 100),
@@ -41,13 +41,13 @@ class _HomePageState extends State<HomePage> {
     //   new Pollution(1985, 'Europe', 180),
     // ];
 
-    var piedata = [
-      new Task('Work', 35.8, Color(0xff3366cc)),
-      new Task('Eat', 8.3, Color(0xff990099)),
-      new Task('Commute', 10.8, Color(0xff109618)),
-      new Task('TV', 15.6, Color(0xfffdbe19)),
-      new Task('Sleep', 19.2, Color(0xffff9900)),
-      new Task('Other', 10.3, Color(0xffdc3912)),
+    final piedata = [
+      Task('Work', 35.8, const Color(0xff3366cc)),
+      Task('Eat', 8.3, const Color(0xff990099)),
+      Task('Commute', 10.8, const Color(0xff109618)),
+      Task('TV', 15.6, const Color(0xfffdbe19)),
+      Task('Sleep', 19.2, const Color(0xffff9900)),
+      Task('Other', 10.3, const Color(0xffdc3912)),
     ];
 
     // var linesalesdata = [
@@ -58,13 +58,13 @@ class _HomePageState extends State<HomePage> {
     //   new Sales(4, 61),
     //   new Sales(5, 70),
     // ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
+    final linesalesdata1 = [
+      Sales(0, 35),
+      Sales(1, 46),
+      Sales(2, 45),
+      Sales(3, 50),
+      Sales(4, 51),
+      Sales(5, 60),
     ];
 
     // var linesalesdata2 = [
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         data: data1,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (Pollution pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color.fromARGB(255, 41, 153, 0)),
+            charts.ColorUtil.fromDartColor(const Color.fromARGB(255, 41, 153, 0)),
       ), 
     );
 
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
     // );
     _seriesLineData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff109618)),
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(const Color(0xff109618)),
         id: 'Air Pollution',
         data: linesalesdata1,
         domainFn: (Sales sales, _) => sales.yearval,
@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Color(0xff1976d2),
+            backgroundColor: const Color(0xff1976d2),
             //backgroundColor: Color(0xff308e1c),
             // bottom: TabBar(
             //   indicatorColor: Color(0xff9962D0),
@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
             //   //   // Tab(icon: Icon(FontAwesomeIcons.chartLine)),
             //   // ],
             // ),
-            title: Text('Flutter Charts'),
+            title: const Text('Flutter Charts'),
           ),
           body: Container(
             color: Colors.amber,
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                       animate: true,
                       barGroupingType: charts.BarGroupingType.grouped,
                       //behaviors: [new charts.SeriesLegend()],
-                      animationDuration: Duration(seconds: 5),
+                      animationDuration: const Duration(seconds: 5),
                     ),
                   ),
                 ],

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -20,14 +22,14 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final CameraPosition initialCameraPosition = CameraPosition(
+    const CameraPosition initialCameraPosition = CameraPosition(
       target: LatLng(37.7749, -122.4194),
       zoom: 12.0,
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Maps'),
+        title: const Text('Google Maps'),
       ),
       body: Stack(
         children: [
@@ -38,8 +40,8 @@ class _MapScreenState extends State<MapScreen> {
             },
             markers: {
               Marker(
-                markerId: MarkerId('markerId'),
-                position: LatLng(37.7749, -122.4194),
+                markerId: const MarkerId('markerId'),
+                position: const LatLng(37.7749, -122.4194),
                 onTap: () {},
               ),
             },
@@ -51,8 +53,8 @@ class _MapScreenState extends State<MapScreen> {
               right: 0,
               child: Container(
                 height: 100,
-                color: Color.fromARGB(255, 17, 9, 123),
-                child: Center(
+                color: const Color.fromARGB(255, 17, 9, 123),
+                child: const Center(
                   child: Text('Marker tapped'),
                 ),
               ),

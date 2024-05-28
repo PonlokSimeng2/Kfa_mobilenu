@@ -56,13 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void getSuggestion(String input) async {
-    String kPLACES_API_KEY = "AIzaSyCeogkN2j3bqrqyIuv4GD4bT1n_4lpNlnY";
-    String type = 'address';
-    String baseURL =
+    const String kPLACES_API_KEY = "AIzaSyCeogkN2j3bqrqyIuv4GD4bT1n_4lpNlnY";
+    const String type = 'address';
+    const String baseURL =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-    String request =
+    final String request =
         '$baseURL?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken&type=$type&components=country:kh';
-    var response = await http.get(Uri.parse(request));
+    final response = await http.get(Uri.parse(request));
     if (response.statusCode == 200) {
       setState(() {
         _placeList = json.decode(response.body)['predictions'];

@@ -24,8 +24,8 @@ class _detail_searchingState extends State<detail_verbal> {
   List list = [];
 
   void get_all_autoverbal_by_id() async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_id=${widget.set_data_verbal.toString()}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_id=${widget.set_data_verbal.toString()}',),);
 
     if (rs.statusCode == 200) {
       setState(() {
@@ -40,10 +40,10 @@ class _detail_searchingState extends State<detail_verbal> {
 
   var image_i, get_image = [];
   Future<void> getimage() async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_image/${widget.set_data_verbal.toString()}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_image/${widget.set_data_verbal.toString()}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         get_image = jsonData;
         image_i = get_image[0]['url'];
@@ -60,8 +60,8 @@ class _detail_searchingState extends State<detail_verbal> {
   double? fsvM, fsvN, fx, fn;
   Future<void> Land_building() async {
     double x = 0, n = 0;
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=${widget.set_data_verbal.toString()}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=${widget.set_data_verbal.toString()}',),);
     if (rs.statusCode == 200) {
       land = jsonDecode(rs.body);
       for (int i = 0; i < land.length; i++) {
@@ -74,14 +74,14 @@ class _detail_searchingState extends State<detail_verbal> {
         n = n + double.parse(land[i]["verbal_land_minsqm"].toString());
       }
       setState(() {
-        double c1 =
+        final double c1 =
             (total_MAX! * double.parse(list[0]["verbal_con"].toString())) / 100;
         fsvM = (total_MAX! - c1);
-        double c2 =
+        final double c2 =
             (total_MIN! * double.parse(list[0]["verbal_con"].toString())) / 100;
         fsvN = (total_MIN! - c2);
 
-        if (land.length < 1) {
+        if (land.isEmpty) {
           total_MIN = 0;
           total_MAX = 0;
         } else {
@@ -91,7 +91,7 @@ class _detail_searchingState extends State<detail_verbal> {
         for (int i = 0; i < land.length - 1; i++) {
           for (int j = i + 1; j < land.length; j++) {
             if (land[i]['verbal_land_type'] == 'LS') {
-              var t = land[i];
+              final t = land[i];
               land[i] = land[j];
               land[j] = t;
             }
@@ -129,10 +129,10 @@ class _detail_searchingState extends State<detail_verbal> {
 
   @override
   Widget build(BuildContext context) {
-    var wth = MediaQuery.of(context).size.width * 9;
+    final wth = MediaQuery.of(context).size.width * 9;
     return Scaffold(
       backgroundColor: Colors.blue[50],
-      body: (list.length > 0)
+      body: (list.isNotEmpty)
           ? SafeArea(
               child: ListView(
                 children: [
@@ -143,7 +143,7 @@ class _detail_searchingState extends State<detail_verbal> {
                       color: Colors.blueAccent,
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(11),
-                          bottomRight: Radius.circular(20)),
+                          bottomRight: Radius.circular(20),),
                     ),
                     child: Row(
                       children: [
@@ -158,7 +158,7 @@ class _detail_searchingState extends State<detail_verbal> {
                               shadows: [
                                 Shadow(blurRadius: 5, color: Colors.purple)
                               ],
-                            )),
+                            ),),
                         Center(
                           child: Text(
                             "View",
@@ -193,7 +193,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                     borderRadius: BorderRadius.circular(11),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://maps.googleapis.com/maps/api/staticmap?center=${list[0]["latlong_log"]},${list[0]["latlong_la"]}&zoom=20&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${list[0]["latlong_log"]},${list[0]["latlong_la"]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'),
+                                          'https://maps.googleapis.com/maps/api/staticmap?center=${list[0]["latlong_log"]},${list[0]["latlong_la"]}&zoom=20&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${list[0]["latlong_log"]},${list[0]["latlong_la"]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -205,7 +205,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image:
-                                          NetworkImage('${image_i.toString()}'),
+                                          NetworkImage(image_i.toString()),
                                       fit: BoxFit.cover,
                                     ),
                                     borderRadius: BorderRadius.circular(11),
@@ -222,7 +222,7 @@ class _detail_searchingState extends State<detail_verbal> {
                               borderRadius: BorderRadius.circular(2),
                               image: DecorationImage(
                                 image: NetworkImage(
-                                    'https://maps.googleapis.com/maps/api/staticmap?center=${list[0]["latlong_log"]},${list[0]["latlong_la"]}&zoom=20&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${list[0]["latlong_log"]},${list[0]["latlong_la"]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'),
+                                    'https://maps.googleapis.com/maps/api/staticmap?center=${list[0]["latlong_log"]},${list[0]["latlong_la"]}&zoom=20&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${list[0]["latlong_log"]},${list[0]["latlong_la"]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -237,11 +237,11 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                       color: Color.fromARGB(251, 66, 56, 203),
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('DATE:  ${list[0]["verbal_created_date"].split(" ")[0] ??"N/A"}',
-                                    style: TextStyle(color: Colors.white),)),
-                                )
+                                    style: TextStyle(color: Colors.white),),),
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -249,11 +249,11 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                       color: Color.fromARGB(251, 66, 56, 203),
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Code: ${list[0]["verbal_id"] ?? ""}',
-                                    style: TextStyle(color: Colors.white),)),
-                                )
+                                    style: TextStyle(color: Colors.white),),),
+                                ),
                                 ),
                               ],
                             ),
@@ -268,10 +268,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Property Information: ')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -279,10 +279,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${list[0]["property_type_name"] ?? ""}')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -297,10 +297,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Address: ')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -308,10 +308,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${list[0]["verbal_address"] ?? ""}')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -326,10 +326,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Owner Name:')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -337,10 +337,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${list[0]["verbal_owner"] ?? ""}')),
-                                )
+                                ),
                                 ),
                                 
                               ],
@@ -356,10 +356,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Contact No:')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -367,10 +367,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${list[0]["verbal_contact"] ?? ""}')),
-                                )
+                                ),
                                 ),
                                 
                               ],
@@ -386,10 +386,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Bank Officer: ')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -397,10 +397,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${list[0]["verbal_bank_officer"] ?? ""}')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -415,10 +415,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Contact No: ')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -426,10 +426,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${list[0]["verbal_bank_contact"] ?? ""}')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -445,15 +445,15 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      color: Colors.blue,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Row(
                                       children: [
                                         Icon(Icons.location_on,color: Colors.white,),
                                         Text("${land[i]['address']} ",style: TextStyle(color: Colors.white),),
                                       ],
-                                    )),
-                                )
+                                    ),),
+                                ),
                                 ),
                                 //  Expanded(
                                 //   flex: 4,
@@ -479,10 +479,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Depreciation:')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -490,10 +490,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${land[i]['verbal_land_dp']} years')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -508,10 +508,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Area:')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -519,10 +519,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text(' ${formatter.format(double.parse(land[i]['verbal_land_area'].toString()))} m\u00B2')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -537,10 +537,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Min/Sqm:')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -548,10 +548,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${formatter.format(double.parse(land[i]['verbal_land_minsqm'].toString()))} \$')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -566,10 +566,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Max/Sqm:')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -577,10 +577,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${formatter.format(double.parse(land[i]['verbal_land_maxsqm'].toString()))} \$')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -595,10 +595,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Min Value: ')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -606,10 +606,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${formatter.format(double.parse(land[i]['verbal_land_minvalue'].toString()))} \$')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -624,10 +624,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('Max Value: ')),
-                                )
+                                ),
                                 ),
                                  Expanded(
                                   flex: 4,
@@ -635,10 +635,10 @@ class _detail_searchingState extends State<detail_verbal> {
                                     height: 30,
                                     decoration: BoxDecoration(
                                      // color: Colors.amber,
-                                      border: Border.all()
+                                      border: Border.all(),
                                     ),
                                     child: Center(child: Text('${formatter.format(double.parse(land[i]['verbal_land_maxvalue'].toString()))} \$')),
-                                )
+                                ),
                                 ),
                               ],
                             ),
@@ -945,12 +945,12 @@ class _detail_searchingState extends State<detail_verbal> {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 13, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 13, fontWeight: FontWeight.bold,);
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
   }
 
   var formatter = NumberFormat("##,###,###,###", "en_US");
@@ -963,7 +963,7 @@ class _detail_searchingState extends State<detail_verbal> {
     final ByteData bytes =
         await rootBundle.load('assets/images/New_KFA_Logo_pdf.png');
     final Uint8List byteList = bytes.buffer.asUint8List();
-    Uint8List bytes1 =
+    final Uint8List bytes1 =
         (await NetworkAssetBundle(Uri.parse('$image_m')).load('$image_m'))
             .buffer
             .asUint8List();
@@ -999,13 +999,13 @@ class _detail_searchingState extends State<detail_verbal> {
                                 byteList,
                                 // bytes1,
                               ),
-                              fit: pw.BoxFit.fill),
+                              fit: pw.BoxFit.fill,),
                         ),
                         pw.Text("VERBAL CHECK",
                             style: pw.TextStyle(
                                 fontWeight: pw.FontWeight.bold,
                                 fontSize: 12,
-                                font: font)),
+                                font: font,),),
                         pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.center,
                           children: [
@@ -1017,7 +1017,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   child: pw.BarcodeWidget(
                                       barcode: pw.Barcode.qrCode(),
                                       data:
-                                          "https://www.oneclickonedollar.com/#/${list[0]["verbal_id"]}"),
+                                          "https://www.oneclickonedollar.com/#/${list[0]["verbal_id"]}",),
                                 ),
                                 pw.Text(
                                   'verifications PDF',
@@ -1033,7 +1033,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   child: pw.BarcodeWidget(
                                       barcode: pw.Barcode.qrCode(),
                                       data:
-                                          "https://www.latlong.net/c/?lat=${list[0]['latlong_log']}&long=${list[0]['latlong_la']}"),
+                                          "https://www.latlong.net/c/?lat=${list[0]['latlong_log']}&long=${list[0]['latlong_la']}",),
                                 ),
                                 pw.Text(
                                   'location map',
@@ -1064,7 +1064,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 11,
                                       font: font1,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 20,
                               //color: Colors.white,
                             ),
@@ -1081,14 +1081,14 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 11,
                                       fontWeight: pw.FontWeight.bold,
-                                      font: font1)),
+                                      font: font1,),),
                               height: 20,
                               //color: Colors.yellow,
                             ),
                           ),
-                        ]))
-                      ])
-                    ]),
+                        ],),)
+                      ],)
+                    ],),
                   ),
                   pw.SizedBox(
                     child: pw.Row(
@@ -1102,7 +1102,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "Requested Date :${list[0]['verbal_created_date'].toString()} ",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1117,7 +1117,7 @@ class _detail_searchingState extends State<detail_verbal> {
                     child: pw.Text(
                         "Referring to your request letter for verbal check by ${list[0]['bank_name'].toString()} ${list[0]['bank_branch_name'] ?? ""}, we estimated the value of property as below.",
                         overflow: pw.TextOverflow.clip,
-                        style: pw.TextStyle(font: font1, fontSize: 11)),
+                        style: pw.TextStyle(font: font1, fontSize: 11),),
                     height: 34,
                     //color: Colors.blue,
                   ),
@@ -1135,7 +1135,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 style: pw.TextStyle(
                                   fontSize: 11,
                                   font: font1,
-                                )),
+                                ),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1149,7 +1149,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 " ${list[0]['property_type_name'] ?? ''}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1168,7 +1168,7 @@ class _detail_searchingState extends State<detail_verbal> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Address : ",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1182,7 +1182,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 " ${list[0]['verbal_address'] ?? ""}.${list[0]['verbal_khan'] ?? ""}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1201,7 +1201,7 @@ class _detail_searchingState extends State<detail_verbal> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Owner Name ",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1217,7 +1217,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 // name rest with api
                                 pw.Text("${list[0]['verbal_owner'] ?? ""}",
                                     style: pw.TextStyle(
-                                        fontSize: 11, font: font1)),
+                                        fontSize: 11, font: font1,),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1232,7 +1232,7 @@ class _detail_searchingState extends State<detail_verbal> {
                             // name rest with api
                             child: pw.Text(
                                 "Contact No : ${list[0]['verbal_contact'] ?? ""}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1251,7 +1251,7 @@ class _detail_searchingState extends State<detail_verbal> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Bank Officer ",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 30,
                             //color: Colors.blue,
                           ),
@@ -1264,7 +1264,7 @@ class _detail_searchingState extends State<detail_verbal> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(" ${list[0]['bank_name'] ?? ""}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 30,
                             //color: Colors.blue,
                           ),
@@ -1278,7 +1278,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "Contact No : ${list[0]['bankcontact'] ?? ""}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 30,
                             //color: Colors.blue,
                           ),
@@ -1298,7 +1298,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "Latitude: ${list[0]['latlong_log'].toString()}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1312,7 +1312,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "Longtitude: ${list[0]['latlong_la'].toString()}",
-                                style: pw.TextStyle(fontSize: 11, font: font1)),
+                                style: pw.TextStyle(fontSize: 11, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1323,7 +1323,7 @@ class _detail_searchingState extends State<detail_verbal> {
                   pw.SizedBox(height: 5),
                   pw.Text("ESTIMATED VALUE OF THE VERBAL CHECK PROPERTY",
                       textAlign: pw.TextAlign.center,
-                      style: pw.TextStyle(fontSize: 11, font: font1)),
+                      style: pw.TextStyle(fontSize: 11, font: font1),),
                   pw.SizedBox(height: 5),
                   if (image_i != null)
                     pw.Container(
@@ -1337,7 +1337,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.MemoryImage(
                                   bytes1,
                                 ),
-                                fit: pw.BoxFit.fitWidth),
+                                fit: pw.BoxFit.fitWidth,),
                           ),
                           pw.SizedBox(width: 0.1),
                           pw.Container(
@@ -1346,7 +1346,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.MemoryImage(
                                   bytes2!,
                                 ),
-                                fit: pw.BoxFit.fitWidth),
+                                fit: pw.BoxFit.fitWidth,),
                           ),
                         ],
                       ),
@@ -1360,7 +1360,7 @@ class _detail_searchingState extends State<detail_verbal> {
                           pw.MemoryImage(
                             bytes1,
                           ),
-                          fit: pw.BoxFit.fitWidth),
+                          fit: pw.BoxFit.fitWidth,),
                     ),
                   pw.SizedBox(height: 5),
                   pw.Container(
@@ -1378,9 +1378,9 @@ class _detail_searchingState extends State<detail_verbal> {
                                 style: pw.TextStyle(
                                     fontSize: 11,
                                     fontWeight: pw.FontWeight.bold,
-                                    font: font1)),
+                                    font: font1,),),
                             height: 20,
-                          )),
+                          ),),
                       pw.Expanded(
                         flex: 2,
                         child: pw.Container(
@@ -1391,7 +1391,7 @@ class _detail_searchingState extends State<detail_verbal> {
                               style: pw.TextStyle(
                                   fontSize: 11,
                                   fontWeight: pw.FontWeight.bold,
-                                  font: font1)),
+                                  font: font1,),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -1406,7 +1406,7 @@ class _detail_searchingState extends State<detail_verbal> {
                               style: pw.TextStyle(
                                   fontSize: 11,
                                   fontWeight: pw.FontWeight.bold,
-                                  font: font1)),
+                                  font: font1,),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -1421,7 +1421,7 @@ class _detail_searchingState extends State<detail_verbal> {
                               style: pw.TextStyle(
                                   fontSize: 11,
                                   fontWeight: pw.FontWeight.bold,
-                                  font: font1)),
+                                  font: font1,),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -1436,7 +1436,7 @@ class _detail_searchingState extends State<detail_verbal> {
                               style: pw.TextStyle(
                                   fontSize: 11,
                                   fontWeight: pw.FontWeight.bold,
-                                  font: font1)),
+                                  font: font1,),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -1451,13 +1451,13 @@ class _detail_searchingState extends State<detail_verbal> {
                               style: pw.TextStyle(
                                   fontSize: 11,
                                   fontWeight: pw.FontWeight.bold,
-                                  font: font1)),
+                                  font: font1,),),
                           height: 20,
                           //color: Colors.blue,
                         ),
                       ),
-                    ])),
-                    if (land.length >= 1)
+                    ],),),
+                    if (land.isNotEmpty)
                       for (int index = land.length - 1; index >= 0; index--)
                         pw.Row(children: [
                           pw.Expanded(
@@ -1472,7 +1472,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 10,
                                       fontWeight: pw.FontWeight.bold,
-                                      font: font1)),
+                                      font: font1,),),
                               height: 20,
                               //color: Colors.blue,
                             ),
@@ -1489,7 +1489,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 10,
                                       fontWeight: pw.FontWeight.bold,
-                                      font: font1)),
+                                      font: font1,),),
                               height: 20,
                               //color: Colors.blue,
                             ),
@@ -1506,7 +1506,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 10,
                                       fontWeight: pw.FontWeight.bold,
-                                      font: font1)),
+                                      font: font1,),),
                               height: 20,
                               //color: Colors.blue,
                             ),
@@ -1523,7 +1523,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 10,
                                       font: font1,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 20,
                               //color: Colors.blue,
                             ),
@@ -1540,7 +1540,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 10,
                                       fontWeight: pw.FontWeight.bold,
-                                      font: font1)),
+                                      font: font1,),),
                               height: 20,
                               //color: Colors.blue,
                             ),
@@ -1557,12 +1557,12 @@ class _detail_searchingState extends State<detail_verbal> {
                                   style: pw.TextStyle(
                                       fontSize: 10,
                                       fontWeight: pw.FontWeight.bold,
-                                      font: font1)),
+                                      font: font1,),),
                               height: 20,
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                     pw.Container(
                       child: pw.Row(children: [
                         pw.Expanded(
@@ -1577,7 +1577,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   fontSize: 10,
                                   font: font1,
                                   fontWeight: pw.FontWeight.bold,
-                                )),
+                                ),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1591,7 +1591,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 'USD ${formatter.format(double.parse(total_MIN.toString()))}',
-                                style: pw.TextStyle(fontSize: 10, font: font1)),
+                                style: pw.TextStyle(fontSize: 10, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1605,12 +1605,12 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 'USD ${formatter.format(double.parse(total_MAX.toString()))}',
-                                style: pw.TextStyle(fontSize: 10, font: font1)),
+                                style: pw.TextStyle(fontSize: 10, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
                         ),
-                      ]),
+                      ],),
                     ),
                     pw.Container(
                       child: pw.Row(children: [
@@ -1628,7 +1628,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                   fontSize: 10,
                                   font: font1,
                                   fontWeight: pw.FontWeight.bold,
-                                )),
+                                ),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1642,7 +1642,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "USD ${formatter.format(fsvN ?? double.parse('0.00'))}",
-                                style: pw.TextStyle(fontSize: 10, font: font1)),
+                                style: pw.TextStyle(fontSize: 10, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
@@ -1656,12 +1656,12 @@ class _detail_searchingState extends State<detail_verbal> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 'USD ${formatter.format(fsvM ?? double.parse('0.00'))}',
-                                style: pw.TextStyle(fontSize: 10, font: font1)),
+                                style: pw.TextStyle(fontSize: 10, font: font1),),
                             height: 20,
                             //color: Colors.blue,
                           ),
                         ),
-                      ]),
+                      ],),
                     ),
                     //  ដកចេញសិន
                     // pw.Container(
@@ -1732,12 +1732,12 @@ class _detail_searchingState extends State<detail_verbal> {
                                 style: pw.TextStyle(
                                     fontSize: 10,
                                     fontWeight: pw.FontWeight.bold,
-                                    font: font1)),
+                                    font: font1,),),
                             height: 20,
                             //color: Colors.blue,
                           ),
                         ),
-                      ]),
+                      ],),
                     ),
                     pw.Container(
                       padding: pw.EdgeInsets.all(2),
@@ -1747,15 +1747,15 @@ class _detail_searchingState extends State<detail_verbal> {
                           style: pw.TextStyle(
                               fontSize: 10,
                               fontWeight: pw.FontWeight.bold,
-                              font: font1)),
+                              font: font1,),),
                       height: 20,
                       //color: Colors.blue,
                     ),
-                  ])),
+                  ],),),
                   pw.SizedBox(height: 5),
                   pw.Text(
                       '*Note: It is only first price which you took from this verbal check data. The accurate value of property when we have the actual site property inspection.We are not responsible for this case when you provided the wrong land and building size or any fraud.',
-                      style: pw.TextStyle(fontSize: 6, font: font1)),
+                      style: pw.TextStyle(fontSize: 6, font: font1),),
                 ],
               ),
               pw.SizedBox(height: 30),
@@ -1774,8 +1774,8 @@ class _detail_searchingState extends State<detail_verbal> {
                               style: pw.TextStyle(
                                   fontWeight: pw.FontWeight.bold,
                                   fontSize: 7,
-                                  font: font1),
-                              textAlign: pw.TextAlign.right),
+                                  font: font1,),
+                              textAlign: pw.TextAlign.right,),
                           pw.SizedBox(height: 4),
                           pw.Text(' ${list[0]['tel_num'].toString()}',
                               style: pw.TextStyle(
@@ -1783,7 +1783,7 @@ class _detail_searchingState extends State<detail_verbal> {
                                 font: font1,
                                 fontSize: 11,
                               ),
-                              textAlign: pw.TextAlign.center),
+                              textAlign: pw.TextAlign.center,),
                         ],
                       ),
                     ],
@@ -1796,8 +1796,8 @@ class _detail_searchingState extends State<detail_verbal> {
                                 color: PdfColors.blue,
                                 fontWeight: pw.FontWeight.bold,
                                 fontSize: 11,
-                                font: font1)),
-                      ]),
+                                font: font1,),),
+                      ],),
                   pw.SizedBox(height: 5),
                   pw.Row(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1811,28 +1811,28 @@ class _detail_searchingState extends State<detail_verbal> {
                                 style: pw.TextStyle(
                                     fontWeight: pw.FontWeight.bold,
                                     fontSize: 7,
-                                    font: font1)),
+                                    font: font1,),),
                             pw.Row(children: [
                               pw.Text('H/P : (+855)23 988 855/(+855)23 999 761',
                                   style: pw.TextStyle(
                                       fontWeight: pw.FontWeight.bold,
                                       fontSize: 7,
-                                      font: font1)),
-                            ]),
+                                      font: font1,),),
+                            ],),
                             pw.Row(children: [
                               pw.Text('Email : info@kfa.com.kh',
                                   style: pw.TextStyle(
                                       fontWeight: pw.FontWeight.bold,
                                       fontSize: 7,
-                                      font: font1)),
-                            ]),
+                                      font: font1,),),
+                            ],),
                             pw.Row(children: [
                               pw.Text('Website: www.kfa.com.kh',
                                   style: pw.TextStyle(
                                       fontWeight: pw.FontWeight.bold,
                                       fontSize: 7,
-                                      font: font1)),
-                            ]),
+                                      font: font1,),),
+                            ],),
                           ],
                         ),
                       ),
@@ -1847,18 +1847,18 @@ class _detail_searchingState extends State<detail_verbal> {
                                 style: pw.TextStyle(
                                     fontWeight: pw.FontWeight.bold,
                                     fontSize: 7,
-                                    font: font1)),
+                                    font: font1,),),
                             pw.Text('Natural 371) Sangkat Chak Angrae Leu,',
                                 style: pw.TextStyle(
                                     fontWeight: pw.FontWeight.bold,
                                     fontSize: 7,
-                                    font: font1)),
+                                    font: font1,),),
                             pw.Text(
                                 'Khan Mean Chey, Phnom Penh City, Cambodia,',
                                 style: pw.TextStyle(
                                     fontWeight: pw.FontWeight.bold,
                                     fontSize: 7,
-                                    font: font1)),
+                                    font: font1,),),
                           ],
                         ),
                       ),
@@ -1870,14 +1870,14 @@ class _detail_searchingState extends State<detail_verbal> {
           ),
         ];
       },
-    ));
+    ),);
 
     // Get the bytes of the PDF document
     final pdfBytes = pdf.save();
 
     // Print the PDF document to the default printer
     await Printing.layoutPdf(
-        onLayout: (PdfPageFormat format) async => pdfBytes);
+        onLayout: (PdfPageFormat format) async => pdfBytes,);
     return pdf.save();
   }
 }
@@ -1889,7 +1889,7 @@ Future<pw.PageTheme> _myPageTheme(PdfPageFormat format) async {
       left: 2.0 * PdfPageFormat.cm,
       top: 1.0 * PdfPageFormat.cm,
       right: 2.0 * PdfPageFormat.cm,
-      bottom: 1.0 * PdfPageFormat.cm);
+      bottom: 1.0 * PdfPageFormat.cm,);
   return pw.PageTheme(
     pageFormat: format,
     // theme: pw.ThemeData.withFont(

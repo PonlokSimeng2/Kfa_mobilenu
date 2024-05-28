@@ -67,7 +67,7 @@ class _MyDropdownState extends State<MyDropdown111> {
                                   filled: true,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: kPrimaryColor, width: 2.0),
+                                        color: kPrimaryColor, width: 2.0,),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   enabledBorder: OutlineInputBorder(
@@ -89,7 +89,7 @@ class _MyDropdownState extends State<MyDropdown111> {
                           ),
                         ),
                       ],
-                    ))
+                    ),)
               ],
             ),
           ),
@@ -99,8 +99,8 @@ class _MyDropdownState extends State<MyDropdown111> {
                   Post_Sale();
                 });
               },
-              child: Text('Post')),
-        ]),
+              child: Text('Post'),),
+        ],),
       ),
     );
   }
@@ -121,7 +121,7 @@ class _MyDropdownState extends State<MyDropdown111> {
     };
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_Post');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_Post',);
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 class MultipleImageUploader extends StatefulWidget {
+  const MultipleImageUploader({super.key});
+
   @override
   _MultipleImageUploaderState createState() => _MultipleImageUploaderState();
 }
@@ -24,13 +26,13 @@ class _MultipleImageUploaderState extends State<MultipleImageUploader> {
         maxImages: 4,
         enableCamera: true,
       );
-    } on Exception catch (e) {
+    } on Exception {
       // Handle exception
     }
 
     List<File> files = [];
-    for (var asset in resultList) {
-      ByteData byteData = await asset.getByteData();
+    for (final asset in resultList) {
+      final ByteData byteData = await asset.getByteData();
       final tempDir = await getTemporaryDirectory();
       final file = File('${tempDir.path}/${asset.name}');
       await file.writeAsBytes(byteData.buffer.asUint8List());
@@ -44,10 +46,10 @@ class _MultipleImageUploaderState extends State<MultipleImageUploader> {
 
   Future<File?> _upload_Image_Sale() async {
     for (int i = 0; i < _images.length; i++) {
-      File image = _images[i];
+      final File image = _images[i];
 
       final url = Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/mutiple_image_post');
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/mutiple_image_post',);
 
       final request = http.MultipartRequest('POST', url);
       request.fields['id_ptys'] = '100';
@@ -63,6 +65,7 @@ class _MultipleImageUploaderState extends State<MultipleImageUploader> {
         print('Error uploading image: ${response.reasonPhrase}($i)');
       }
     }
+    return null;
   }
 
   @override

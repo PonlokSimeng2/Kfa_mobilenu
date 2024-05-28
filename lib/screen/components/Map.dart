@@ -55,7 +55,7 @@ class _HomeMapState extends State<HomeMap> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController search = TextEditingController();
+    final TextEditingController search = TextEditingController();
     return MapShow();
   }
 
@@ -93,13 +93,13 @@ class _HomeMapState extends State<HomeMap> {
                 });
               },
               onTap: (argument) {
-                MarkerId markerId = MarkerId('mark');
+                final MarkerId markerId = MarkerId('mark');
                 listMarkerIds.add(markerId);
-                Marker marker = Marker(
+                final Marker marker = Marker(
                   markerId: MarkerId('mark'),
                   position: argument,
                   icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueRed),
+                      BitmapDescriptor.hueRed,),
                 );
                 setState(() {
                   markers[markerId] = marker;
@@ -144,10 +144,10 @@ class _HomeMapState extends State<HomeMap> {
   }
 
   void Load() async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/comparable/list?page=100'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/comparable/list?page=100',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list = jsonData['data'];
       });
@@ -260,23 +260,23 @@ class _HomeMapState extends State<HomeMap> {
   // }
 
   Future<void> Show(SearchRequestModel requestModel) async {
-    var rs = await http.post(
+    final rs = await http.post(
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/comparable/map_action'),
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/comparable/map_action',),
         headers: {
           "Accept": "application/json",
           // "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: requestModel.toJson());
+        body: requestModel.toJson(),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list = jsonData['data'];
       });
     }
     print(requestModel.toJson());
     print(list.length);
-    Map map = list.asMap();
+    final Map map = list.asMap();
     // List list = [
     //   {"title": "one", "id": "1", "lat": 11.489, "lon": 105.9214},
     //   {"title": "two", "id": "2", "lat": 11.5, "lon": 104.9314},
@@ -286,9 +286,9 @@ class _HomeMapState extends State<HomeMap> {
     for (var i = 0; i < map.length; i++)
     // ignore: curly_braces_in_flow_control_structures
     {
-      MarkerId markerId = MarkerId('$i');
+      final MarkerId markerId = MarkerId('$i');
       listMarkerIds.add(markerId);
-      Marker marker = Marker(
+      final Marker marker = Marker(
         markerId: MarkerId('$i'),
         position: LatLng(
           map[i]['latlong_log'],
@@ -307,7 +307,7 @@ class _HomeMapState extends State<HomeMap> {
     final coordinates = Coordinates(latLng.latitude, latLng.longitude);
     try {
       final address = await geocoder.findAddressesFromCoordinates(coordinates);
-      var message = address.first.addressLine;
+      final message = address.first.addressLine;
       if (message == null) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -328,11 +328,11 @@ class _HomeMapState extends State<HomeMap> {
   Future<void> getLatLang(String adds) async {
     try {
       final address = await geocoder.findAddressesFromQuery(adds);
-      var message = address.first.coordinates.toString();
+      final message = address.first.coordinates.toString();
       latitude = address.first.coordinates.latitude!;
       longitude = address.first.coordinates.longitude!;
       mapController?.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(latitude, longitude), zoom: 10)));
+          CameraPosition(target: LatLng(latitude, longitude), zoom: 10),),);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),

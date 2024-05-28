@@ -50,7 +50,7 @@ class PdfApi {
         headers: headers,
         data: data,
       ),
-    ));
+    ),);
 
     return saveDocument(name: 'my_example.pdf', pdf: pdf);
   }
@@ -132,7 +132,7 @@ class PdfApi {
               Paragraph(text: LoremText().paragraph(60)),
               Paragraph(text: LoremText().paragraph(60)),
               Paragraph(text: LoremText().paragraph(60)),
-            ]));
+            ],),);
     return PdfApi.saveDocument(name: 'my_example.pdf', pdf: pdf);
   }
 

@@ -17,7 +17,6 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../../Pov_Test/map_in_add_verbal.dart';
 import '../../../../contants.dart';
-import '../../../Home/Body.dart';
 import '../Getx_api/vetbal_controller.dart';
 import '../Model/Autho_verbal.dart';
 import 'building.dart';
@@ -75,21 +74,21 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
   String? commune;
   String? district;
   Future<void> _getCurrentPosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,);
 
     setState(() {
       lat = position.latitude;
       log = position.longitude;
     });
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
     if (response.statusCode == 200) {
       // Successful response
-      var jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(response.body);
 
-      List ls = jsonResponse['results'];
+      final List ls = jsonResponse['results'];
       List ac;
       bool check_sk = false, check_kn = false;
       for (int j = 0; j < ls.length; j++) {
@@ -139,7 +138,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
         text,
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.height * 0.02),
+            fontSize: MediaQuery.of(context).size.height * 0.02,),
       ),
     );
   }
@@ -196,11 +195,11 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                 width: 80,
                 decoration: BoxDecoration(
                     color: Color.fromARGB(255, 30, 98, 4),
-                    borderRadius: BorderRadius.circular(15)),
+                    borderRadius: BorderRadius.circular(15),),
                 child: Text(
                   'Save',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold, color: Colors.white,),
                 ),
               ),
             )
@@ -220,7 +219,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                   "Please waiting...!",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: MediaQuery.of(context).size.height * 0.025),
+                      fontSize: MediaQuery.of(context).size.height * 0.025,),
                 ),
               )
             : Padding(
@@ -248,7 +247,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 13),
+                                    fontSize: 13,),
                               ),
                             ),
                             Container(
@@ -256,7 +255,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               width: MediaQuery.of(context).size.width * 0.37,
                               decoration: BoxDecoration(
                                   color: Color.fromARGB(255, 6, 25, 121),
-                                  borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10),),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -284,7 +283,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
                                         fontSize: 10,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                 ],
                               ),
@@ -298,11 +297,11 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              right: 30, left: 30, top: 10, bottom: 10),
+                              right: 30, left: 30, top: 10, bottom: 10,),
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(width: 1)),
+                                border: Border.all(width: 1),),
                             height: MediaQuery.of(context).size.height * 0.2,
                             width: double.infinity,
                             child: ClipRRect(
@@ -334,7 +333,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                             (context, url, downloadProgress) =>
                                                 Center(
                                           child: CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                              value: downloadProgress.progress,),
                                         ),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
@@ -351,7 +350,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                             'Select Image',
                                             style: TextStyle(
                                                 fontSize: 30,
-                                                fontWeight: FontWeight.w700),
+                                                fontWeight: FontWeight.w700,),
                                           ),
                                           showGradient: true,
                                           gradient: LinearGradient(
@@ -375,7 +374,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                           ),
                                         ),
                                       )
-                                    ]),
+                                    ],),
                             ),
                           ),
                         ),
@@ -409,7 +408,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                             get_lat: (value) {
                               lat = double.parse(value);
                             },
-                          ));
+                          ),);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 30, left: 30),
@@ -452,9 +451,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                       style: TextStyle(
                                           fontSize:
                                               MediaQuery.textScaleFactorOf(
-                                                      context) *
+                                                      context,) *
                                                   13,
-                                          height: 0.1),
+                                          height: 0.1,),
                                     ),
                                   ),
                                 )
@@ -477,7 +476,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: kPrimaryColor, width: 2.0),
+                                    color: kPrimaryColor, width: 2.0,),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -513,9 +512,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                       style: TextStyle(
                                           fontSize:
                                               MediaQuery.textScaleFactorOf(
-                                                      context) *
+                                                      context,) *
                                                   13,
-                                          height: 0.1),
+                                          height: 0.1,),
                                     ),
                                   ),
                                 )
@@ -538,7 +537,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: kPrimaryColor, width: 2.0),
+                                    color: kPrimaryColor, width: 2.0,),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -639,7 +638,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
@@ -727,7 +726,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       _size_10,
                       _text('Size Land*'),
@@ -854,7 +853,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
@@ -942,7 +941,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
@@ -1030,7 +1029,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       Padding(
                         padding:
@@ -1113,9 +1112,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                           style: TextStyle(
                                               fontSize:
                                                   MediaQuery.textScaleFactorOf(
-                                                          context) *
+                                                          context,) *
                                                       13,
-                                              height: 1),
+                                              height: 1,),
                                         ),
                                       ),
                                     )
@@ -1253,7 +1252,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                     ],
                   ),
                 ),
-              ));
+              ),);
   }
 
   Future<void> ID() async {
@@ -1263,7 +1262,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/post_id_sale_last');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/post_id_sale_last',);
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1296,14 +1295,14 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     }
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_image'] = controller_verbal.id_last.toString();
     request.fields['hometype'] = hometype.toString();
     request.fields['property_type_id'] = property_type_id.toString();
     if (_imageFile != null) {
-      String targetPath = '${_imageFile!.path}_compressed.jpg';
+      final String targetPath = '${_imageFile!.path}_compressed.jpg';
 
       try {
         File? compressedFile =
@@ -1317,7 +1316,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
       }
     }
     request.files.add(await http.MultipartFile.fromPath(
-        'image_name_sale', _compressedImage_only!.path));
+        'image_name_sale', _compressedImage_only!.path,),);
 
     final response = await request.send();
 
@@ -1337,7 +1336,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
               widget.refresh_homeScreen!(get_re);
             });
             Navigator.pop(context);
-          }).show();
+          },).show();
     } else {
       print('Error uploading image: ${response.reasonPhrase}');
     }
@@ -1349,14 +1348,14 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     }
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_image'] = controller_verbal.id_last.toString();
     request.fields['hometype'] = hometype.toString();
     request.fields['property_type_id'] = property_type_id.toString();
     if (_imageFile != null) {
-      String targetPath = '${_imageFile!.path}_compressed.jpg';
+      final String targetPath = '${_imageFile!.path}_compressed.jpg';
 
       try {
         File? compressedFile =
@@ -1370,7 +1369,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
       }
     }
     request.files.add(await http.MultipartFile.fromPath(
-        'image_name_rent', _compressedImage_only!.path));
+        'image_name_rent', _compressedImage_only!.path,),);
 
     final response = await request.send();
 
@@ -1390,7 +1389,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
               widget.refresh_homeScreen!(get_re);
             });
             Navigator.pop(context);
-          }).show();
+          },).show();
     } else {
       print('Error uploading image: ${response.reasonPhrase}');
     }
@@ -1412,8 +1411,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     // });
 
     List<File> files = [];
-    for (var asset in resultList) {
-      ByteData byteData = await asset.getByteData();
+    for (final asset in resultList) {
+      final ByteData byteData = await asset.getByteData();
       final tempDir = await getTemporaryDirectory();
 
       final file = File('${tempDir.path}/${asset.name}');
@@ -1435,7 +1434,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1509,7 +1508,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1524,7 +1523,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
   }
 
   Future<File?> testCompressAndGetFile(File file, String targetPath) async {
-    var result = await FlutterImageCompress.compressAndGetFile(
+    final result = await FlutterImageCompress.compressAndGetFile(
       file.path,
       targetPath,
       quality: 88,
@@ -1535,9 +1534,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
 
     // Reverse the image horizontally
     if (result != null) {
-      var image = img.decodeImage(result.readAsBytesSync());
+      final image = img.decodeImage(result.readAsBytesSync());
       // var reversedImage = img.flipHorizontal(image!);
-      var reversedImage = img.flipHorizontalVertical(image!);
+      final reversedImage = img.flipHorizontalVertical(image!);
       result.writeAsBytesSync(img.encodeJpg(reversedImage));
     }
     return result;
@@ -1557,7 +1556,7 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1573,14 +1572,14 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
 
   Future<void> _uploadImag_Multiple(_url) async {
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/',);
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_ptys'] = controller_verbal.id_last.toString();
     request.fields['property_type_id'] = property_type_id.toString();
     if (_images != null) {
-      String targetPath = '${_images[0].path}_compressed.jpg';
-      String targetPaths = '${_images[1].path}_compressed.jpg';
+      final String targetPath = '${_images[0].path}_compressed.jpg';
+      final String targetPaths = '${_images[1].path}_compressed.jpg';
 
       try {
         File? compressedFile =
@@ -1598,9 +1597,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     }
 
     request.files.add(
-        await http.MultipartFile.fromPath('image', _compressedImage!.path));
+        await http.MultipartFile.fromPath('image', _compressedImage!.path),);
     request.files.add(
-        await http.MultipartFile.fromPath('images', _compressedImages!.path));
+        await http.MultipartFile.fromPath('images', _compressedImages!.path),);
 
     final response = await request.send();
 

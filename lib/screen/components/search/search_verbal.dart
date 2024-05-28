@@ -13,7 +13,7 @@ class verbal_Search extends SearchDelegate {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close),)
     ];
   }
 
@@ -23,7 +23,7 @@ class verbal_Search extends SearchDelegate {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back),);
   }
 
   @override
@@ -35,7 +35,7 @@ class verbal_Search extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List result = name.where((element) {
+    final List result = name.where((element) {
       return element.contains(query.toString());
     }).toList();
     return ListView.builder(
@@ -69,8 +69,8 @@ class verbal_Search extends SearchDelegate {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ListTile(
-                      title: Text("${name[i].toString()}"),
-                      trailing: Text("${type[i].toString()}"),
+                      title: Text(name[i].toString()),
+                      trailing: Text(type[i].toString()),
                     ),
                   )
                 : Container(
@@ -80,8 +80,8 @@ class verbal_Search extends SearchDelegate {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ListTile(
-                      title: Text("${result[i].toString()}"),
-                      trailing: Text("${type[i].toString()}"),
+                      title: Text(result[i].toString()),
+                      trailing: Text(type[i].toString()),
                     ),
                   ),
           ),

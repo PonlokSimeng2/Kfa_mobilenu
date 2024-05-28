@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/getwidget.dart';
 
 import '../../afa/components/contants.dart';
@@ -12,7 +10,7 @@ import 'get_qrcode/Wing_qr.dart';
 
 class TopUp extends StatefulWidget {
   const TopUp(
-      {super.key, this.set_email, this.set_phone, this.up_point, this.id_user});
+      {super.key, this.set_email, this.set_phone, this.up_point, this.id_user,});
   final String? set_email;
   final String? set_phone;
   final String? up_point;
@@ -26,11 +24,11 @@ class _TopUpState extends State<TopUp> {
   List list_User_by_id = [];
   var set_id_user;
   Future get_control_user(String id) async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/$id',),);
     if (rs.statusCode == 200) {
       setState(() {
-        var jsonData = jsonDecode(rs.body);
+        final jsonData = jsonDecode(rs.body);
         list_User_by_id = jsonData;
         set_id_user = list_User_by_id[0]['control_user'].toString();
       });
@@ -40,10 +38,10 @@ class _TopUpState extends State<TopUp> {
   int v_point = 0;
   void get_count() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_count?id_user_control=${set_id_user}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_count?id_user_control=$set_id_user',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         v_point = jsonData;
         print(v_point);
@@ -118,7 +116,7 @@ class _TopUpState extends State<TopUp> {
                   ),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10))),
+                      bottomRight: Radius.circular(10),),),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -174,7 +172,7 @@ class _TopUpState extends State<TopUp> {
                             text: "Transaction history",
                             textColor: Colors.white,
                             textStyle: const TextStyle(
-                                fontSize: 10, color: Colors.white),
+                                fontSize: 10, color: Colors.white,),
                             type: GFButtonType.outline,
                             shape: GFButtonShape.pills,
                           ),
@@ -210,13 +208,13 @@ class _TopUpState extends State<TopUp> {
                       ),
                       child: Column(
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
                                 "Tariff Plans for ",
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                    fontSize: 16, color: Colors.white,),
                               ),
                               Text(
                                 "ONE DAY",
@@ -225,7 +223,7 @@ class _TopUpState extends State<TopUp> {
                                     color: Colors.blue,
                                     fontSize: 17,
                                     decorationStyle: TextDecorationStyle.dashed,
-                                    decoration: TextDecoration.underline),
+                                    decoration: TextDecoration.underline,),
                               )
                             ],
                           ),
@@ -236,7 +234,7 @@ class _TopUpState extends State<TopUp> {
                               InkWell(
                                 onTap: () {
                                   BottomSheet(context, '1.00',
-                                      widget.set_email!, '1  V / Day');
+                                      widget.set_email!, '1  V / Day',);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(6),
@@ -251,12 +249,12 @@ class _TopUpState extends State<TopUp> {
                                       BoxShadow(
                                           color: Colors.grey,
                                           blurRadius: 7,
-                                          offset: Offset(1.0, 7.0))
+                                          offset: Offset(1.0, 7.0),)
                                     ],
                                     border: Border.all(
                                         width: 1,
                                         color: const Color.fromRGBO(
-                                            255, 111, 0, 1)),
+                                            255, 111, 0, 1,),),
                                   ),
                                   alignment: Alignment.topCenter,
                                   child: Column(
@@ -271,7 +269,7 @@ class _TopUpState extends State<TopUp> {
                                               width: 15,
                                               height: 15,
                                               child: Image.asset(
-                                                  "assets/images/v.png")),
+                                                  "assets/images/v.png",),),
                                           Text(
                                             "1",
                                             style: TextStyle(
@@ -286,11 +284,11 @@ class _TopUpState extends State<TopUp> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             color: Color.fromARGB(
-                                                255, 242, 11, 134),
+                                                255, 242, 11, 134,),
                                             decorationStyle:
                                                 TextDecorationStyle.solid,
                                             decoration:
-                                                TextDecoration.underline),
+                                                TextDecoration.underline,),
                                       )
                                     ],
                                   ),
@@ -299,7 +297,7 @@ class _TopUpState extends State<TopUp> {
                               InkWell(
                                 onTap: () {
                                   BottomSheet(context, '2.50',
-                                      widget.set_email!, '3  V / Day');
+                                      widget.set_email!, '3  V / Day',);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(6),
@@ -314,12 +312,12 @@ class _TopUpState extends State<TopUp> {
                                       BoxShadow(
                                           color: Colors.grey,
                                           blurRadius: 7,
-                                          offset: Offset(1.0, 7.0))
+                                          offset: Offset(1.0, 7.0),)
                                     ],
                                     border: Border.all(
                                         width: 1,
                                         color: const Color.fromRGBO(
-                                            255, 111, 0, 1)),
+                                            255, 111, 0, 1,),),
                                   ),
                                   alignment: Alignment.topCenter,
                                   child: Column(
@@ -334,7 +332,7 @@ class _TopUpState extends State<TopUp> {
                                               width: 15,
                                               height: 15,
                                               child: Image.asset(
-                                                  "assets/images/v.png")),
+                                                  "assets/images/v.png",),),
                                           Text(
                                             "3",
                                             style: TextStyle(
@@ -349,11 +347,11 @@ class _TopUpState extends State<TopUp> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             color: Color.fromARGB(
-                                                255, 242, 11, 134),
+                                                255, 242, 11, 134,),
                                             decorationStyle:
                                                 TextDecorationStyle.solid,
                                             decoration:
-                                                TextDecoration.underline),
+                                                TextDecoration.underline,),
                                       )
                                     ],
                                   ),
@@ -362,7 +360,7 @@ class _TopUpState extends State<TopUp> {
                               InkWell(
                                 onTap: () {
                                   BottomSheet(context, '3.00',
-                                      widget.set_email!, '5  V / Day');
+                                      widget.set_email!, '5  V / Day',);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(6),
@@ -377,12 +375,12 @@ class _TopUpState extends State<TopUp> {
                                       BoxShadow(
                                           color: Colors.grey,
                                           blurRadius: 7,
-                                          offset: Offset(1.0, 7.0))
+                                          offset: Offset(1.0, 7.0),)
                                     ],
                                     border: Border.all(
                                         width: 1,
                                         color: const Color.fromRGBO(
-                                            255, 111, 0, 1)),
+                                            255, 111, 0, 1,),),
                                   ),
                                   alignment: Alignment.topCenter,
                                   child: Column(
@@ -397,7 +395,7 @@ class _TopUpState extends State<TopUp> {
                                               width: 15,
                                               height: 15,
                                               child: Image.asset(
-                                                  "assets/images/v.png")),
+                                                  "assets/images/v.png",),),
                                           Text(
                                             "5",
                                             style: TextStyle(
@@ -412,11 +410,11 @@ class _TopUpState extends State<TopUp> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             color: Color.fromARGB(
-                                                255, 242, 11, 134),
+                                                255, 242, 11, 134,),
                                             decorationStyle:
                                                 TextDecorationStyle.solid,
                                             decoration:
-                                                TextDecoration.underline),
+                                                TextDecoration.underline,),
                                       )
                                     ],
                                   ),
@@ -431,7 +429,7 @@ class _TopUpState extends State<TopUp> {
                               InkWell(
                                 onTap: () {
                                   BottomSheet(context, '5.00',
-                                      widget.set_email!, '6  V / Day');
+                                      widget.set_email!, '6  V / Day',);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(6),
@@ -446,12 +444,12 @@ class _TopUpState extends State<TopUp> {
                                       BoxShadow(
                                           color: Colors.grey,
                                           blurRadius: 7,
-                                          offset: Offset(1.0, 7.0))
+                                          offset: Offset(1.0, 7.0),)
                                     ],
                                     border: Border.all(
                                         width: 1,
                                         color: const Color.fromRGBO(
-                                            255, 111, 0, 1)),
+                                            255, 111, 0, 1,),),
                                   ),
                                   alignment: Alignment.topCenter,
                                   child: Column(
@@ -466,7 +464,7 @@ class _TopUpState extends State<TopUp> {
                                               width: 15,
                                               height: 15,
                                               child: Image.asset(
-                                                  "assets/images/v.png")),
+                                                  "assets/images/v.png",),),
                                           Text(
                                             "6",
                                             style: TextStyle(
@@ -481,11 +479,11 @@ class _TopUpState extends State<TopUp> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             color: Color.fromARGB(
-                                                255, 242, 11, 134),
+                                                255, 242, 11, 134,),
                                             decorationStyle:
                                                 TextDecorationStyle.solid,
                                             decoration:
-                                                TextDecoration.underline),
+                                                TextDecoration.underline,),
                                       )
                                     ],
                                   ),
@@ -494,7 +492,7 @@ class _TopUpState extends State<TopUp> {
                               InkWell(
                                 onTap: () {
                                   BottomSheet(context, '6.50',
-                                      widget.set_email!, '8  V / Day');
+                                      widget.set_email!, '8  V / Day',);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(6),
@@ -509,12 +507,12 @@ class _TopUpState extends State<TopUp> {
                                       BoxShadow(
                                           color: Colors.grey,
                                           blurRadius: 7,
-                                          offset: Offset(1.0, 7.0))
+                                          offset: Offset(1.0, 7.0),)
                                     ],
                                     border: Border.all(
                                         width: 1,
                                         color: const Color.fromRGBO(
-                                            255, 111, 0, 1)),
+                                            255, 111, 0, 1,),),
                                   ),
                                   alignment: Alignment.topCenter,
                                   child: Column(
@@ -529,7 +527,7 @@ class _TopUpState extends State<TopUp> {
                                               width: 15,
                                               height: 15,
                                               child: Image.asset(
-                                                  "assets/images/v.png")),
+                                                  "assets/images/v.png",),),
                                           Text(
                                             "8",
                                             style: TextStyle(
@@ -544,11 +542,11 @@ class _TopUpState extends State<TopUp> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             color: Color.fromARGB(
-                                                255, 242, 11, 134),
+                                                255, 242, 11, 134,),
                                             decorationStyle:
                                                 TextDecorationStyle.solid,
                                             decoration:
-                                                TextDecoration.underline),
+                                                TextDecoration.underline,),
                                       )
                                     ],
                                   ),
@@ -557,7 +555,7 @@ class _TopUpState extends State<TopUp> {
                               InkWell(
                                 onTap: () {
                                   BottomSheet(context, '8.00',
-                                      widget.set_email!, '10  V / Day');
+                                      widget.set_email!, '10  V / Day',);
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.all(6),
@@ -572,12 +570,12 @@ class _TopUpState extends State<TopUp> {
                                       BoxShadow(
                                           color: Colors.grey,
                                           blurRadius: 7,
-                                          offset: Offset(1.0, 7.0))
+                                          offset: Offset(1.0, 7.0),)
                                     ],
                                     border: Border.all(
                                         width: 1,
                                         color: const Color.fromRGBO(
-                                            255, 111, 0, 1)),
+                                            255, 111, 0, 1,),),
                                   ),
                                   alignment: Alignment.topCenter,
                                   child: Column(
@@ -592,7 +590,7 @@ class _TopUpState extends State<TopUp> {
                                               width: 15,
                                               height: 15,
                                               child: Image.asset(
-                                                  "assets/images/v.png")),
+                                                  "assets/images/v.png",),),
                                           Text(
                                             "10",
                                             style: TextStyle(
@@ -607,11 +605,11 @@ class _TopUpState extends State<TopUp> {
                                         style: TextStyle(
                                             fontSize: 17,
                                             color: Color.fromARGB(
-                                                255, 242, 11, 134),
+                                                255, 242, 11, 134,),
                                             decorationStyle:
                                                 TextDecorationStyle.solid,
                                             decoration:
-                                                TextDecoration.underline),
+                                                TextDecoration.underline,),
                                       )
                                     ],
                                   ),
@@ -629,7 +627,7 @@ class _TopUpState extends State<TopUp> {
                       child: Image.asset(
                         "assets/images/pay.png",
                         width: 125,
-                      ))
+                      ),)
                 ],
               ),
             ),
@@ -666,7 +664,7 @@ class _TopUpState extends State<TopUp> {
                               const Text(
                                 "Tariff Plans for",
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                    fontSize: 16, color: Colors.white,),
                               ),
                               SizedBox(
                                 height: 25,
@@ -678,7 +676,7 @@ class _TopUpState extends State<TopUp> {
                                       fontSize: 17,
                                       decorationStyle:
                                           TextDecorationStyle.dashed,
-                                      decoration: TextDecoration.underline),
+                                      decoration: TextDecoration.underline,),
                                   child: AnimatedTextKit(
                                     animatedTexts: [
                                       RotateAnimatedText('WEEK '),
@@ -695,20 +693,20 @@ class _TopUpState extends State<TopUp> {
                           InkWell(
                             onTap: () {
                               BottomSheet(context, '10.00', widget.set_email!,
-                                  '5  V / Week');
+                                  '5  V / Week',);
                             },
-                            child: Card(
+                            child: const Card(
                               color: Colors.white,
                               elevation: 5,
                               child: ListTile(
                                 minVerticalPadding: 5,
                                 title: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children: const [
+                                  children: [
                                     Text(
                                       "Use ",
                                       style: TextStyle(
-                                          fontSize: 13, color: Colors.black),
+                                          fontSize: 13, color: Colors.black,),
                                     ),
                                     Text(
                                       "5 VERBAL CKECK",
@@ -718,12 +716,12 @@ class _TopUpState extends State<TopUp> {
                                           fontSize: 13,
                                           decorationStyle:
                                               TextDecorationStyle.dotted,
-                                          decoration: TextDecoration.underline),
+                                          decoration: TextDecoration.underline,),
                                     ),
                                     Text(
                                       " for ",
                                       style: TextStyle(
-                                          fontSize: 13, color: Colors.black),
+                                          fontSize: 13, color: Colors.black,),
                                     ),
                                     Text(
                                       "1 week",
@@ -733,31 +731,31 @@ class _TopUpState extends State<TopUp> {
                                           fontSize: 13,
                                           decorationStyle:
                                               TextDecorationStyle.dashed,
-                                          decoration: TextDecoration.underline),
+                                          decoration: TextDecoration.underline,),
                                     ),
                                   ],
                                 ),
-                                subtitle: const Text("10 \$"),
+                                subtitle: Text("10 \$"),
                               ),
                             ),
                           ),
                           InkWell(
                             onTap: () {
                               BottomSheet(context, '30.00', widget.set_email!,
-                                  '30  V / Week');
+                                  '30  V / Week',);
                             },
-                            child: Card(
+                            child: const Card(
                               color: Colors.white,
                               elevation: 5,
                               child: ListTile(
                                 minVerticalPadding: 5,
                                 title: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children: const [
+                                  children: [
                                     Text(
                                       "Use ",
                                       style: TextStyle(
-                                          fontSize: 13, color: Colors.black),
+                                          fontSize: 13, color: Colors.black,),
                                     ),
                                     Text(
                                       "40 VERBAL CKECK",
@@ -767,12 +765,12 @@ class _TopUpState extends State<TopUp> {
                                           fontSize: 13,
                                           decorationStyle:
                                               TextDecorationStyle.dotted,
-                                          decoration: TextDecoration.underline),
+                                          decoration: TextDecoration.underline,),
                                     ),
                                     Text(
                                       " for ",
                                       style: TextStyle(
-                                          fontSize: 13, color: Colors.black),
+                                          fontSize: 13, color: Colors.black,),
                                     ),
                                     Text(
                                       "1 month",
@@ -782,11 +780,11 @@ class _TopUpState extends State<TopUp> {
                                           fontSize: 13,
                                           decorationStyle:
                                               TextDecorationStyle.dashed,
-                                          decoration: TextDecoration.underline),
+                                          decoration: TextDecoration.underline,),
                                     ),
                                   ],
                                 ),
-                                subtitle: const Text("30 \$"),
+                                subtitle: Text("30 \$"),
                               ),
                             ),
                           ),
@@ -799,7 +797,7 @@ class _TopUpState extends State<TopUp> {
                       child: Image.asset(
                         "assets/images/pay.png",
                         width: 125,
-                      ))
+                      ),)
                 ],
               ),
             ),
@@ -812,10 +810,10 @@ class _TopUpState extends State<TopUp> {
 
   // ignore: non_constant_identifier_names
   Future BottomSheet(
-      BuildContext context, String price, String account, String option) {
+      BuildContext context, String price, String account, String option,) {
     return showModalBottomSheet(
       context: context,
-      backgroundColor: Color.fromARGB(0, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(0, 33, 149, 243),
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.2,
@@ -823,7 +821,7 @@ class _TopUpState extends State<TopUp> {
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                topLeft: Radius.circular(20), topRight: Radius.circular(20),),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -849,12 +847,12 @@ class _TopUpState extends State<TopUp> {
                           BoxShadow(
                               blurRadius: 5,
                               offset: Offset(3, -3),
-                              color: kwhite_new)
-                        ]),
+                              color: kwhite_new,)
+                        ],),
                     child: InkWell(
                       onTap: () {
                         _dialogBuilder(
-                            context, price, widget.set_email!, option, 0);
+                            context, price, widget.set_email!, option, 0,);
                       },
                       child: Column(
                         children: [
@@ -882,12 +880,12 @@ class _TopUpState extends State<TopUp> {
                           BoxShadow(
                               blurRadius: 5,
                               offset: Offset(3, -3),
-                              color: kwhite_new)
-                        ]),
+                              color: kwhite_new,)
+                        ],),
                     child: InkWell(
                       onTap: () {
                         _dialogBuilder(
-                            context, price, widget.set_email!, option, 1);
+                            context, price, widget.set_email!, option, 1,);
                       },
                       child: Column(
                         children: [
@@ -915,12 +913,12 @@ class _TopUpState extends State<TopUp> {
                           BoxShadow(
                               blurRadius: 5,
                               offset: Offset(3, -3),
-                              color: kwhite_new)
-                        ]),
+                              color: kwhite_new,)
+                        ],),
                     child: InkWell(
                       onTap: () {
                         _dialogBuilder(
-                            context, price, widget.set_email!, option, 2);
+                            context, price, widget.set_email!, option, 2,);
                       },
                       child: Column(
                         children: [
@@ -948,8 +946,8 @@ class _TopUpState extends State<TopUp> {
                           BoxShadow(
                               blurRadius: 5,
                               offset: Offset(3, -3),
-                              color: kwhite_new)
-                        ]),
+                              color: kwhite_new,)
+                        ],),
                     child: InkWell(
                       onTap: () async {
                         await Navigator.of(context).push(
@@ -961,7 +959,7 @@ class _TopUpState extends State<TopUp> {
                                     option: option,
                                     id: widget.id_user ?? 'set',
                                     control_user: set_id_user,
-                                  )),
+                                  ),),
                         );
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
@@ -994,8 +992,8 @@ class _TopUpState extends State<TopUp> {
   }
 
   Future<void> _dialogBuilder(BuildContext context, String price,
-      String account, String option, int index) {
-    List<Image> set_images = [
+      String account, String option, int index,) {
+    List<Image> setImages = [
       Image.asset(
         'assets/images/UPAY-logo.png',
         fit: BoxFit.scaleDown,
@@ -1009,7 +1007,7 @@ class _TopUpState extends State<TopUp> {
         fit: BoxFit.scaleDown,
       ),
     ];
-    List<Text> set_title = [
+    List<Text> setTitle = [
       const Text(
         'U-Pay Pay',
         style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -1023,7 +1021,7 @@ class _TopUpState extends State<TopUp> {
         style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
       ),
     ];
-    List<String> set_Subtitle = [
+    List<String> setSubtitle = [
       'U-Pay',
       'Wing',
       'ABA',
@@ -1034,7 +1032,7 @@ class _TopUpState extends State<TopUp> {
         return AlertDialog(
           title: const Text('PLease choose option'),
           titleTextStyle: const TextStyle(fontSize: 15, color: Colors.black),
-          content: Container(
+          content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.25,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1050,20 +1048,20 @@ class _TopUpState extends State<TopUp> {
                               SizedBox(
                                 height: 50,
                                 width: 60,
-                                child: set_images.elementAt(index),
+                                child: setImages.elementAt(index),
                               ),
-                              set_title.elementAt(index),
+                              setTitle.elementAt(index),
                             ],
                           ),
                         ),
                         Text(
-                          "Tap to pay with ${set_Subtitle.elementAt(index)} App",
+                          "Tap to pay with ${setSubtitle.elementAt(index)} App",
                           style: TextStyle(
                               overflow: TextOverflow.visible,
-                              color: Color.fromRGBO(158, 158, 158, 1),
+                              color: const Color.fromRGBO(158, 158, 158, 1),
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  MediaQuery.textScaleFactorOf(context) * 10),
+                                  MediaQuery.textScaleFactorOf(context) * 10,),
                         ),
                       ],
                     ),
@@ -1080,7 +1078,7 @@ class _TopUpState extends State<TopUp> {
                                 option: option,
                                 id: widget.id_user ?? 'set',
                                 control_user: set_id_user,
-                              )),
+                              ),),
                     );
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
@@ -1103,7 +1101,7 @@ class _TopUpState extends State<TopUp> {
                               const Text(
                                 'KHQR',
                                 style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                    fontSize: 12, fontWeight: FontWeight.bold,),
                               ),
                             ],
                           ),
@@ -1112,10 +1110,10 @@ class _TopUpState extends State<TopUp> {
                           "Tap to pay with KHQR",
                           style: TextStyle(
                               overflow: TextOverflow.visible,
-                              color: Color.fromRGBO(158, 158, 158, 1),
+                              color: const Color.fromRGBO(158, 158, 158, 1),
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  MediaQuery.textScaleFactorOf(context) * 10),
+                                  MediaQuery.textScaleFactorOf(context) * 10,),
                         ),
                       ],
                     ),

@@ -27,6 +27,8 @@ class Property {
 }
 
 class ListSearchExample extends StatefulWidget {
+  const ListSearchExample({super.key});
+
   @override
   _ListSearchExampleState createState() => _ListSearchExampleState();
 }
@@ -78,7 +80,7 @@ class _ListSearchExampleState extends State<ListSearchExample> {
             property.type.toLowerCase().contains(query.toLowerCase()) ||
             property.commune.toLowerCase().contains(query.toLowerCase()) ||
             property.description.toLowerCase().contains(query.toLowerCase()) ||
-            property.homeType.toLowerCase().contains(query.toLowerCase()))
+            property.homeType.toLowerCase().contains(query.toLowerCase()),)
         .toList();
     setState(() {});
   }
@@ -87,17 +89,17 @@ class _ListSearchExampleState extends State<ListSearchExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Property Search Example'),
+        title: const Text('Property Search Example'),
       ),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               onChanged: (value) {
                 filterItems(value);
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search',
               ),
             ),
@@ -110,7 +112,7 @@ class _ListSearchExampleState extends State<ListSearchExample> {
                 return ListTile(
                   title: Text('Type: ${property.type}'),
                   subtitle: Text(
-                      'Commune: ${property.commune}\nPrice: \$${property.price}\nDescription: ${property.description}\nBedrooms: ${property.bed}\nUrgent: ${property.urgent}\nHome Type: ${property.homeType}\nBathrooms: ${property.bath}\nLand: ${property.land}'),
+                      'Commune: ${property.commune}\nPrice: \$${property.price}\nDescription: ${property.description}\nBedrooms: ${property.bed}\nUrgent: ${property.urgent}\nHome Type: ${property.homeType}\nBathrooms: ${property.bath}\nLand: ${property.land}',),
                 );
               },
             ),
@@ -122,7 +124,7 @@ class _ListSearchExampleState extends State<ListSearchExample> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: ListSearchExample(),
-  ));
+  ),);
 }

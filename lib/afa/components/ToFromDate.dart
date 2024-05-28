@@ -75,7 +75,7 @@ class _ToFromDateState extends State<ToFromDate> {
                   if (pickedDate != null) {
                     // print(
                     //     pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                    String formattedDate =
+                    final String formattedDate =
                         DateFormat('yyyy-MM-dd').format(pickedDate);
                     // print(
                     //     formattedDate); //formatted date output using intl package =>  2021-03-16
@@ -84,7 +84,7 @@ class _ToFromDateState extends State<ToFromDate> {
                     setState(() {
                       fromdate.text = formattedDate;
                       widget.fromDate(
-                          formattedDate); //set output date to TextField value.
+                          formattedDate,); //set output date to TextField value.
                     });
                   } else {
                     print("Date is not selected");
@@ -134,13 +134,13 @@ class _ToFromDateState extends State<ToFromDate> {
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(
-                          2000), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime(2101));
+                          2000,), //DateTime.now() - not to allow to choose before today.
+                      lastDate: DateTime(2101),);
 
                   if (pickedDate != null) {
                     //   print(
                     //      pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                    String formattedDate =
+                    final String formattedDate =
                         DateFormat('yyyy-MM-dd').format(pickedDate);
                     // print(
                     //     formattedDate); //formatted date output using intl package =>  2021-03-16
@@ -149,7 +149,7 @@ class _ToFromDateState extends State<ToFromDate> {
                     setState(() {
                       todate.text = formattedDate;
                       widget.toDate(
-                          formattedDate); //set output date to TextField value.
+                          formattedDate,); //set output date to TextField value.
                     });
                   } else {
                     print("Date is not selected");

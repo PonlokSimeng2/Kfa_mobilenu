@@ -2,13 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:flutter/rendering.dart';
-import 'dart:ui' as ui;
-import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:barcode_widget/barcode_widget.dart';
@@ -30,8 +25,8 @@ class _save_image_after_add_verbalState
   List list = [];
   ScreenshotController screenshotController = ScreenshotController();
   void get_all_autoverbal_by_id() async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_id=${widget.set_data_verbal.toString()}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_id=${widget.set_data_verbal.toString()}',),);
 
     if (rs.statusCode == 200) {
       setState(() {
@@ -46,10 +41,10 @@ class _save_image_after_add_verbalState
 
   var image_i, get_image = [];
   Future<void> getimage() async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_image/${widget.set_data_verbal.toString()}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_image/${widget.set_data_verbal.toString()}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         get_image = jsonData;
         image_i = get_image[0]['url'];
@@ -67,8 +62,8 @@ class _save_image_after_add_verbalState
   double? fsvM, fsvN, fx, fn;
   Future<void> Land_building() async {
     double x = 0, n = 0;
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=${widget.set_data_verbal.toString()}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=${widget.set_data_verbal.toString()}',),);
     if (rs.statusCode == 200) {
       land = jsonDecode(rs.body);
       for (int i = 0; i < land.length; i++) {
@@ -81,14 +76,14 @@ class _save_image_after_add_verbalState
         n = n + double.parse(land[i]["verbal_land_minsqm"].toString());
       }
       setState(() {
-        double c1 =
+        final double c1 =
             (total_MAX! * double.parse(list[0]["verbal_con"].toString())) / 100;
         fsvM = (total_MAX! - c1);
-        double c2 =
+        final double c2 =
             (total_MIN! * double.parse(list[0]["verbal_con"].toString())) / 100;
         fsvN = (total_MIN! - c2);
 
-        if (land.length < 1) {
+        if (land.isEmpty) {
           total_MIN = 0;
           total_MAX = 0;
         } else {
@@ -98,7 +93,7 @@ class _save_image_after_add_verbalState
         for (int i = 0; i < land.length - 1; i++) {
           for (int j = i + 1; j < land.length; j++) {
             if (land[i]['verbal_land_type'] == 'LS') {
-              var t = land[i];
+              final t = land[i];
               land[i] = land[j];
               land[j] = t;
             }
@@ -129,12 +124,12 @@ class _save_image_after_add_verbalState
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          HomePage1(id: list[0]['id'].toString())));
+                          HomePage1(id: list[0]['id'].toString()),),);
             },
-            icon: const Icon(Icons.arrow_back_ios_new_sharp)),
+            icon: const Icon(Icons.arrow_back_ios_new_sharp),),
         title: const Text("Get Photo like this"),
       ),
-      body: (list.isNotEmpty && land.length >= 1)
+      body: (list.isNotEmpty && land.isNotEmpty)
           ? Screenshot(
               controller: screenshotController,
               child: Container(
@@ -144,25 +139,25 @@ class _save_image_after_add_verbalState
                     color: Colors.white,
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/Letter En-Kh.png'))),
+                        image: AssetImage('assets/images/Letter En-Kh.png'),),),
                 child: ListView(
                   children: [
                     Container(
                       height: 70,
-                      margin: EdgeInsets.only(bottom: 6),
+                      margin: const EdgeInsets.only(bottom: 6),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          SizedBox(
                               width: 75,
                               height: 50,
                               child: Image.asset(
-                                  'assets/images/New_KFA_Logo_pdf.png')),
+                                  'assets/images/New_KFA_Logo_pdf.png',),),
                           const Text("VERBAL CHECK",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
-                              )),
+                              ),),
                           Row(
                             children: [
                               Column(
@@ -255,7 +250,7 @@ class _save_image_after_add_verbalState
                             child: Text(
                                 "DATE: ${list[0]['verbal_created_date'].toString()}",
                                 style: const TextStyle(
-                                    fontSize: 7, fontWeight: FontWeight.bold)),
+                                    fontSize: 7, fontWeight: FontWeight.bold,),),
                             //color: Colors.white,
                           ),
                         ),
@@ -272,19 +267,19 @@ class _save_image_after_add_verbalState
                                     style: const TextStyle(
                                       fontSize: 7,
                                       fontWeight: FontWeight.bold,
-                                    )),
+                                    ),),
                             //color: Colors.yellow,
                           ),
                         ),
-                      ])
-                    ]),
+                      ],)
+                    ],),
                     SizedBox(
                       child: Row(
                         children: [
                           Expanded(
                             flex: 6,
                             child: Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               alignment: Alignment.centerLeft,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
@@ -293,7 +288,7 @@ class _save_image_after_add_verbalState
                                   "Requested Date :${list[0]['verbal_created_date'].toString()} ",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -308,7 +303,7 @@ class _save_image_after_add_verbalState
                       child: Text(
                           "Referring to your request letter for verbal check by ${list[0]['bank_name'].toString()}, we estimated the value of property as below.",
                           overflow: TextOverflow.clip,
-                          style: const TextStyle(fontSize: 6)),
+                          style: const TextStyle(fontSize: 6),),
                       //color: Colors.blue,
                     ),
                     SizedBox(
@@ -325,7 +320,7 @@ class _save_image_after_add_verbalState
                               child: const Text("Property Information: ",
                                   style: TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -341,7 +336,7 @@ class _save_image_after_add_verbalState
                                   " ${list[0]['property_type_name'] ?? ''}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -362,7 +357,7 @@ class _save_image_after_add_verbalState
                               child: const Text("Address : ",
                                   style: TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                             ),
                           ),
                           Expanded(
@@ -377,7 +372,7 @@ class _save_image_after_add_verbalState
                                   " ${list[0]['verbal_address'] ?? ""}.${list[0]['verbal_khan'] ?? ""}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                             ),
                           ),
                         ],
@@ -397,7 +392,7 @@ class _save_image_after_add_verbalState
                               child: const Text("Owner Name ",
                                   style: TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                             ),
                           ),
                           Expanded(
@@ -411,7 +406,7 @@ class _save_image_after_add_verbalState
                               child: Text(" ${list[0]['verbal_owner'] ?? ""}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
 
                               //color: Colors.blue,
                             ),
@@ -429,7 +424,7 @@ class _save_image_after_add_verbalState
                                   "Contact No : ${list[0]['verbal_contact'] ?? ""}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -450,7 +445,7 @@ class _save_image_after_add_verbalState
                               child: const Text("Bank Officer ",
                                   style: TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -465,7 +460,7 @@ class _save_image_after_add_verbalState
                               child: Text(" ${list[0]['bank_name'] ?? ""}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -481,7 +476,7 @@ class _save_image_after_add_verbalState
                                   "Contact No : ${list[0]['bankcontact'] ?? ""}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -503,7 +498,7 @@ class _save_image_after_add_verbalState
                                   "Latitude: ${list[0]['latlong_log'].toString()}",
                                   style: const TextStyle(
                                     fontSize: 7,
-                                  )),
+                                  ),),
                             ),
                           ),
                           Expanded(
@@ -516,7 +511,7 @@ class _save_image_after_add_verbalState
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               child: Text(
                                   "Longtitude: ${list[0]['latlong_la'].toString()}",
-                                  style: const TextStyle(fontSize: 7)),
+                                  style: const TextStyle(fontSize: 7),),
                             ),
                           ),
                         ],
@@ -527,7 +522,7 @@ class _save_image_after_add_verbalState
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 7,
-                        )),
+                        ),),
                     const SizedBox(height: 6),
                     if (image_i != null)
                       SizedBox(
@@ -580,8 +575,8 @@ class _save_image_after_add_verbalState
                                 style: TextStyle(
                                   fontSize: 7,
                                   fontWeight: FontWeight.bold,
-                                )),
-                          )),
+                                ),),
+                          ),),
                       Expanded(
                         flex: 2,
                         child: Container(
@@ -594,7 +589,7 @@ class _save_image_after_add_verbalState
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              )),
+                              ),),
                           //color: Colors.blue,
                         ),
                       ),
@@ -610,7 +605,7 @@ class _save_image_after_add_verbalState
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              )),
+                              ),),
                           //color: Colors.blue,
                         ),
                       ),
@@ -626,7 +621,7 @@ class _save_image_after_add_verbalState
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              )),
+                              ),),
                           //color: Colors.blue,
                         ),
                       ),
@@ -642,7 +637,7 @@ class _save_image_after_add_verbalState
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              )),
+                              ),),
                           //color: Colors.blue,
                         ),
                       ),
@@ -657,12 +652,12 @@ class _save_image_after_add_verbalState
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              )),
+                              ),),
 
                           //color: Colors.blue,
                         ),
                       ),
-                    ]),
+                    ],),
 
                     for (int index = land.length - 1; index >= 0; index--)
                       SizedBox(
@@ -671,7 +666,7 @@ class _save_image_after_add_verbalState
                           Expanded(
                             flex: 3,
                             child: Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               alignment: Alignment.centerLeft,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
@@ -680,14 +675,14 @@ class _save_image_after_add_verbalState
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               alignment: Alignment.centerLeft,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
@@ -697,14 +692,14 @@ class _save_image_after_add_verbalState
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               alignment: Alignment.centerLeft,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
@@ -714,14 +709,14 @@ class _save_image_after_add_verbalState
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               alignment: Alignment.centerLeft,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
@@ -730,7 +725,7 @@ class _save_image_after_add_verbalState
                                   'USD ${formatter.format(double.parse(land[index]["verbal_land_maxsqm"].toString()))}',
                                   style: const TextStyle(
                                       fontSize: 5,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold,),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -747,7 +742,7 @@ class _save_image_after_add_verbalState
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),),
                               //color: Colors.blue,
                             ),
                           ),
@@ -764,10 +759,10 @@ class _save_image_after_add_verbalState
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  )),
+                                  ),),
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                     Row(children: [
                       Expanded(
@@ -782,13 +777,13 @@ class _save_image_after_add_verbalState
                               style: TextStyle(
                                 fontSize: 6,
                                 fontWeight: FontWeight.bold,
-                              )),
+                              ),),
                         ),
                       ),
                       Expanded(
                         flex: 3,
                         child: Container(
-                          padding: EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(2),
                           alignment: Alignment.centerLeft,
                           decoration:
                               BoxDecoration(border: Border.all(width: 0.4)),
@@ -797,14 +792,14 @@ class _save_image_after_add_verbalState
                               'USD ${formatter.format(double.parse(total_MIN.toString()))}',
                               style: const TextStyle(
                                 fontSize: 6,
-                              )),
+                              ),),
                           //color: Colors.blue,
                         ),
                       ),
                       Expanded(
                         flex: 3,
                         child: Container(
-                          padding: EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(2),
                           alignment: Alignment.centerLeft,
                           decoration:
                               BoxDecoration(border: Border.all(width: 0.4)),
@@ -813,11 +808,11 @@ class _save_image_after_add_verbalState
                               'USD ${formatter.format(double.parse(total_MAX.toString()))}',
                               style: const TextStyle(
                                 fontSize: 6,
-                              )),
+                              ),),
                           //color: Colors.blue,
                         ),
                       ),
-                    ]),
+                    ],),
                     Container(
                       child: Row(children: [
                         Expanded(
@@ -827,21 +822,21 @@ class _save_image_after_add_verbalState
                             alignment: Alignment.centerLeft,
                             decoration:
                                 BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
                             // ទាយយក forceSale from  ForceSaleAndValuation
                             child: Text(
                                 "Force Sale Value ${list[0]['verbal_con'].toString()}% ",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 6,
                                   fontWeight: FontWeight.bold,
-                                )),
-                            height: 18,
+                                ),),
                             //color: Colors.blue,
                           ),
                         ),
                         Expanded(
                           flex: 3,
                           child: Container(
-                            padding: EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(2),
                             alignment: Alignment.centerLeft,
                             decoration:
                                 BoxDecoration(border: Border.all(width: 0.4)),
@@ -850,27 +845,27 @@ class _save_image_after_add_verbalState
                                 "USD ${formatter.format(fsvN ?? double.parse('0.00'))}",
                                 style: const TextStyle(
                                   fontSize: 6,
-                                )),
+                                ),),
                             //color: Colors.blue,
                           ),
                         ),
                         Expanded(
                           flex: 3,
                           child: Container(
-                            padding: EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(2),
                             alignment: Alignment.centerLeft,
                             decoration:
                                 BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
                             child: Text(
                                 'USD ${formatter.format(fsvM ?? double.parse('0.00'))}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 6,
-                                )),
-                            height: 18,
+                                ),),
                             //color: Colors.blue,
                           ),
                         ),
-                      ]),
+                      ],),
                     ),
                     //  ដកចេញសិន
                     // Container(
@@ -932,21 +927,21 @@ class _save_image_after_add_verbalState
                         Expanded(
                           flex: 6,
                           child: Container(
-                            padding: EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(2),
                             alignment: Alignment.centerLeft,
                             decoration:
                                 BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
                             child: Text(
                                 "COMMENT: ${list[0]['verbal_comment'] ?? ''}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 6,
                                   fontWeight: FontWeight.bold,
-                                )),
-                            height: 18,
+                                ),),
                             //color: Colors.blue,
                           ),
                         ),
-                      ]),
+                      ],),
                     ),
                     Container(
                       padding: const EdgeInsets.all(2),
@@ -957,7 +952,7 @@ class _save_image_after_add_verbalState
                           style: TextStyle(
                             fontSize: 6,
                             fontWeight: FontWeight.bold,
-                          )),
+                          ),),
                       //color: Colors.blue,
                     ),
                     const SizedBox(height: 6),
@@ -965,7 +960,7 @@ class _save_image_after_add_verbalState
                         '*Note: It is only first price which you took from this verbal check data. The accurate value of property when we have the actual site property inspection.We are not responsible for this case when you provided the wrong land and building size or any fraud.',
                         style: TextStyle(
                           fontSize: 5,
-                        )),
+                        ),),
                     const SizedBox(height: 30),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -983,19 +978,19 @@ class _save_image_after_add_verbalState
                                       fontWeight: FontWeight.bold,
                                       fontSize: 6,
                                     ),
-                                    textAlign: TextAlign.right),
+                                    textAlign: TextAlign.right,),
                                 const SizedBox(height: 4),
                                 Text(' ${list[0]['tel_num'].toString()}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 6,
                                     ),
-                                    textAlign: TextAlign.center),
+                                    textAlign: TextAlign.center,),
                               ],
                             ),
                           ],
                         ),
-                        Row(
+                        const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text('KHMER FOUNDATION APPRAISALS Co.,Ltd',
@@ -1003,10 +998,10 @@ class _save_image_after_add_verbalState
                                     color: Colors.blue,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 6,
-                                  )),
-                            ]),
-                        SizedBox(height: 6),
-                        Row(
+                                  ),),
+                            ],),
+                        const SizedBox(height: 6),
+                        const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
@@ -1014,33 +1009,33 @@ class _save_image_after_add_verbalState
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text('Hotline: 099 283 388',
+                                  Text('Hotline: 099 283 388',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 6,
-                                      )),
+                                      ),),
                                   Row(children: [
                                     Text(
                                         'H/P : (+855)23 988 855/(+855)23 999 761',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 6,
-                                        )),
-                                  ]),
+                                        ),),
+                                  ],),
                                   Row(children: [
                                     Text('Email : info@kfa.com.kh',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 6,
-                                        )),
-                                  ]),
+                                        ),),
+                                  ],),
                                   Row(children: [
                                     Text('Website: www.kfa.com.kh',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 6,
-                                        )),
-                                  ]),
+                                        ),),
+                                  ],),
                                 ],
                               ),
                             ),
@@ -1055,18 +1050,18 @@ class _save_image_after_add_verbalState
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 6,
-                                      )),
+                                      ),),
                                   Text('Natural 371) Sangkat Chak Angrae Leu,',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 6,
-                                      )),
+                                      ),),
                                   Text(
                                       'Khan Mean Chey, Phnom Penh City, Cambodia,',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 6,
-                                      )),
+                                      ),),
                                 ],
                               ),
                             ),
@@ -1092,7 +1087,7 @@ class _save_image_after_add_verbalState
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        HomePage1(id: list[0]['id'].toString())));
+                        HomePage1(id: list[0]['id'].toString()),),);
           }).catchError((onError) {
             print(onError);
           });

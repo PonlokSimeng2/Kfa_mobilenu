@@ -5,8 +5,6 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:http/http.dart' as http;
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -81,8 +79,8 @@ class _RegisterState extends State<Register> {
           AndroidUiSettings(
               lockAspectRatio: false,
               backgroundColor: Colors.black,
-              initAspectRatio: CropAspectRatioPreset.original)
-        ]);
+              initAspectRatio: CropAspectRatioPreset.original,)
+        ],);
         _file = XFile(cropFile!.path);
         imagepath = pickedFile.path;
         // _file = imagefile;
@@ -92,9 +90,9 @@ class _RegisterState extends State<Register> {
         File? imagefile = File(imagepath); //convert Path to File
         // saveAutoVerbal(imagefile);
         get_bytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
+        final String base64string =
             base64.encode(get_bytes!); //convert bytes to base64 string
-        Uint8List decodedbytes = base64.decode(base64string);
+        final Uint8List decodedbytes = base64.decode(base64string);
         //decode base64 stirng to bytes
         setState(() async {
           _file = imagefile as XFile;
@@ -123,8 +121,8 @@ class _RegisterState extends State<Register> {
       AndroidUiSettings(
           lockAspectRatio: false,
           backgroundColor: Colors.black,
-          initAspectRatio: CropAspectRatioPreset.original)
-    ]);
+          initAspectRatio: CropAspectRatioPreset.original,)
+    ],);
 
     _file = XFile(cropFile!.path);
     imagepath = pickedFile.path;
@@ -135,9 +133,9 @@ class _RegisterState extends State<Register> {
     File? imagefile = File(imagepath); //convert Path to File
     // saveAutoVerbal(imagefile);
     get_bytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    final String base64string =
         base64.encode(get_bytes!); //convert bytes to base64 string
-    Uint8List decodedbytes = base64.decode(base64string);
+    final Uint8List decodedbytes = base64.decode(base64string);
     //decode base64 stirng to bytes
     setState(() {
       _file = imagefile as XFile;
@@ -146,16 +144,16 @@ class _RegisterState extends State<Register> {
 
   String? set_id_user;
   int? user_last_id;
-  Random random = new Random();
+  Random random = Random();
 
   Uint8List? get_bytes;
   Uint8List? _byesData;
   void get_user_last_id() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_last_user'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_last_user',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         user_last_id = jsonData;
@@ -166,26 +164,26 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> uploadImage() async {
-    var request = http.MultipartRequest(
+    final request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user'));
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',),);
     request.fields['id_user'] = set_id_user ?? '';
     if (get_bytes != null) {
-      request.files.add(await http.MultipartFile.fromBytes('image', get_bytes!,
+      request.files.add(http.MultipartFile.fromBytes('image', get_bytes!,
           filename:
-              'User ID :${set_id_user} photo ${random.nextInt(999)}.jpg'));
+              'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',),);
     } else {
-      request.files.add(await http.MultipartFile.fromBytes('image', _byesData!,
+      request.files.add(http.MultipartFile.fromBytes('image', _byesData!,
           filename:
-              'User ID :${set_id_user} Photo ${random.nextInt(999)}.jpg'));
+              'User ID :$set_id_user Photo ${random.nextInt(999)}.jpg',),);
     }
 
-    var res = await request.send();
+    final res = await request.send();
   }
 
   bool _isObscure = true;
-  RegisterRequestModel requestModel = new RegisterRequestModel(
+  RegisterRequestModel requestModel = RegisterRequestModel(
     email: "",
     password: "",
     first_name: '',
@@ -352,7 +350,7 @@ class _RegisterState extends State<Register> {
                                 alignment: Alignment.bottomCenter,
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(96, 102, 102, 102),
-                                    borderRadius: BorderRadius.circular(5)),
+                                    borderRadius: BorderRadius.circular(5),),
                                 child: Icon(
                                   Icons.camera_alt_outlined,
                                   color: Colors.white,
@@ -366,21 +364,21 @@ class _RegisterState extends State<Register> {
                               GFAvatar(
                                   size: 100,
                                   backgroundImage:
-                                      FileImage(File(_file!.path))),
+                                      FileImage(File(_file!.path)),),
                               Container(
                                 height: 20,
                                 width: 30,
                                 alignment: Alignment.bottomCenter,
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(96, 102, 102, 102),
-                                    borderRadius: BorderRadius.circular(5)),
+                                    borderRadius: BorderRadius.circular(5),),
                                 child: Icon(
                                   Icons.crop,
                                   color: Colors.white,
                                 ),
                               )
                             ],
-                          )),
+                          ),),
               ),
               SizedBox(
                 height: 30.0,
@@ -392,9 +390,9 @@ class _RegisterState extends State<Register> {
                     padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                     child: TextFormField(
                       readOnly: true,
-                      initialValue: 'Identity ${set_id_user}',
+                      initialValue: 'Identity $set_id_user',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.grey),
+                          fontWeight: FontWeight.w600, color: Colors.grey,),
                       decoration: InputDecoration(
                         fillColor: kwhite,
                         filled: true,
@@ -404,7 +402,7 @@ class _RegisterState extends State<Register> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: kPrimaryColor, width: 2.0),
+                              color: kPrimaryColor, width: 2.0,),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -441,7 +439,7 @@ class _RegisterState extends State<Register> {
                   icon2: Icon(
                     Icons.person,
                     color: kImageColor,
-                  )),
+                  ),),
               SizedBox(
                 height: 10,
               ),
@@ -785,14 +783,14 @@ class _RegisterState extends State<Register> {
                       //   },
                       //   codeAutoRetrievalTimeout: (String verificationId) {},
                       // );
-                      APIservice apIservice = APIservice();
+                      final APIservice apIservice = APIservice();
 
                       await apIservice.register(requestModel).then((value) {
                         setState(() {
                           isApiCallProcess = false;
                         });
                         if (value.message == "User successfully registered") {
-                          var people = PeopleModel(
+                          final people = PeopleModel(
                             id: 0,
                             name: requestModel.email,
                             password: requestModel.password,
@@ -853,7 +851,7 @@ class _RegisterState extends State<Register> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      LoginPage(lat: 0, log: 0, thi: 0)));
+                                      LoginPage(lat: 0, log: 0, thi: 0),),);
                         },
                       style: TextStyle(
                         fontSize: 16.0,

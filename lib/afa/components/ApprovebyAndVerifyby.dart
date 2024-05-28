@@ -7,7 +7,7 @@ typedef OnChangeCallback = void Function(dynamic value);
 
 class ApprovebyAndVerifyby extends StatefulWidget {
   const ApprovebyAndVerifyby(
-      {Key? key, required this.approve, required this.verify})
+      {Key? key, required this.approve, required this.verify,})
       : super(key: key);
   final OnChangeCallback approve;
   final OnChangeCallback verify;
@@ -89,13 +89,13 @@ class _ApprovebyAndVerifybyState extends State<ApprovebyAndVerifyby> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10.0,
         ),
         Expanded(
           child: Container(
             height: 55,
-            padding: EdgeInsets.only(right: 30),
+            padding: const EdgeInsets.only(right: 30),
             child: DropdownButtonFormField<String>(
               //value: genderValue,
               isExpanded: true,
@@ -116,7 +116,7 @@ class _ApprovebyAndVerifybyState extends State<ApprovebyAndVerifyby> {
                   )
                   .toList(),
               // add extra sugar..
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_drop_down,
                 color: kImageColor,
               ),
@@ -126,7 +126,7 @@ class _ApprovebyAndVerifybyState extends State<ApprovebyAndVerifyby> {
                 filled: true,
                 labelText: 'Approve by',
                 hintText: 'Select one',
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.person_outlined,
                   color: kImageColor,
                 ),
@@ -136,7 +136,7 @@ class _ApprovebyAndVerifybyState extends State<ApprovebyAndVerifyby> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: kPrimaryColor,
                   ),
@@ -152,10 +152,10 @@ class _ApprovebyAndVerifybyState extends State<ApprovebyAndVerifyby> {
 
   void LoadApprove() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/approve?approve_published=0'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/approve?approve_published=0',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         listApprove = jsonData;
@@ -166,10 +166,10 @@ class _ApprovebyAndVerifybyState extends State<ApprovebyAndVerifyby> {
 
   void LoadVerify() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verify_by?agenttype_published=0'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verify_by?agenttype_published=0',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         listVerify = jsonData;

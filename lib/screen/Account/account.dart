@@ -68,17 +68,17 @@ class _AccountState extends State<Account> {
     'Private',
     'Other',
   ];
-  Random random = new Random();
+  Random random = Random();
   Future<void> uploadImage() async {
-    var request = http.MultipartRequest(
+    final request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user'));
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',),);
     request.fields['id_user'] = set_id_user ?? '';
-    request.files.add(await http.MultipartFile.fromBytes('image', imagebytes!,
-        filename: 'User ID :${set_id_user} photo ${random.nextInt(999)}.jpg'));
+    request.files.add(http.MultipartFile.fromBytes('image', imagebytes!,
+        filename: 'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',),);
 
-    var res = await request.send();
+    final res = await request.send();
   }
 
   late File _image;
@@ -101,7 +101,7 @@ class _AccountState extends State<Account> {
             AndroidUiSettings(
                 lockAspectRatio: false,
                 backgroundColor: Colors.blue,
-                initAspectRatio: CropAspectRatioPreset.original)
+                initAspectRatio: CropAspectRatioPreset.original,)
           ],
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -119,9 +119,9 @@ class _AccountState extends State<Account> {
         // imagepath = pickedFile.path;
         File? imagefile = File(cropFile.path); //convert Path to File
         imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
+        final String base64string =
             base64.encode(imagebytes!); //convert bytes to base64 string
-        Uint8List decodedbytes = base64.decode(base64string);
+        final Uint8List decodedbytes = base64.decode(base64string);
         //decode base64 stirng to bytes
         setState(() {
           _file = imagefile as XFile;
@@ -137,11 +137,11 @@ class _AccountState extends State<Account> {
   List list_User_by_id = [];
   var set_id_user;
   void get_control_user_image(String id) async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/$id',),);
     if (rs.statusCode == 200) {
       setState(() {
-        var jsonData = jsonDecode(rs.body);
+        final jsonData = jsonDecode(rs.body);
         list_User_by_id = jsonData;
         if (list_User_by_id[0]['control_user'] != null) {
           url;
@@ -154,10 +154,10 @@ class _AccountState extends State<Account> {
 
   void get_image(String id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user_profile/${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user_profile/$id',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         url = jsonData[0]['url'];
       });
@@ -177,7 +177,7 @@ class _AccountState extends State<Account> {
     );
     // Get.off(() => Login());
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Login()));
+        context, MaterialPageRoute(builder: (context) => Login()),);
   }
 
   static List<PeopleModel> list = [];
@@ -192,7 +192,7 @@ class _AccountState extends State<Account> {
             return Center(
               child: CircularProgressIndicator(),
             );
-          });
+          },);
     } else {
       setState(() {
         Password = TextEditingController(text: list[0].password);
@@ -238,7 +238,7 @@ class _AccountState extends State<Account> {
             icon: Icon(
               Icons.chevron_left,
               size: 35,
-            )),
+            ),),
         title: Text(
           'Account',
           style: TextStyle(
@@ -288,10 +288,10 @@ class _AccountState extends State<Account> {
                                 child: Stack(
                                   alignment: Alignment.bottomCenter,
                                   children: [
-                                    if (url != null && _file == null)
+                                    if (_file == null)
                                       GFAvatar(
                                         size: 65,
-                                        backgroundImage: NetworkImage('${url}'),
+                                        backgroundImage: NetworkImage('$url'),
                                       ),
                                     if (_file != null)
                                       GFAvatar(
@@ -306,7 +306,7 @@ class _AccountState extends State<Account> {
                                       decoration: BoxDecoration(
                                           color: Color.fromARGB(95, 67, 67, 67),
                                           borderRadius:
-                                              BorderRadius.circular(5)),
+                                              BorderRadius.circular(5),),
                                       child: Icon(
                                         (url != null) ? Icons.edit : Icons.crop,
                                         color: Colors.white,
@@ -331,7 +331,7 @@ class _AccountState extends State<Account> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -451,7 +451,7 @@ class _AccountState extends State<Account> {
                           height: 2,
                         ),
                         if (Password != null)
-                          Container(
+                          SizedBox(
                             height: 60,
                             width: 280,
                             child: TextFormField(
@@ -503,9 +503,9 @@ class _AccountState extends State<Account> {
                               if (_file != null) {
                                 await uploadImage();
                               }
-                              APIservice apIservice = APIservice();
+                              final APIservice apIservice = APIservice();
                               await apIservice.update_user(
-                                  requestModel!, int.parse(widget.id));
+                                  requestModel!, int.parse(widget.id),);
                               logOut();
                             },
                           ),
@@ -528,7 +528,7 @@ class _AccountState extends State<Account> {
                 //   ],
                 // ),
               ],
-            )),
+            ),),
       ),
     );
   }
@@ -566,7 +566,7 @@ class EditPicture extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black),
+                    color: Colors.black,),
               )
             ],
           ),

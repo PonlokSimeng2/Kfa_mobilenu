@@ -15,9 +15,9 @@ class MenuProperty extends StatefulWidget {
 class _MenuPropertyState extends State<MenuProperty> {
   List<Text> option = const [
     Text("New Property",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
     Text("Property List",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
   ];
   List<Icon> optionIconList = const [
     Icon(Icons.add_circle),
@@ -32,17 +32,17 @@ class _MenuPropertyState extends State<MenuProperty> {
         title: const Text(
           "Property",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white,),
         ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height * 1,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: ExactAssetImage('assets/images/New_KFA_Logo.png'),
               fit: BoxFit.contain,
-              alignment: Alignment.topCenter),
+              alignment: Alignment.topCenter,),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,15 +52,15 @@ class _MenuPropertyState extends State<MenuProperty> {
                 onTap: () {
                    if (i == 0) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Home_Screen_property(
+                      builder: (context) => const Home_Screen_property(
                             //id: widget.id,
-                          )));
+                          ),),);
                 }
                 if (i == 1) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Home_Screen_property(
+                      builder: (context) => const Home_Screen_property(
                             //id: widget.id,
-                          )));
+                          ),),);
                 }
                 },
                 child: Container(
@@ -69,7 +69,7 @@ class _MenuPropertyState extends State<MenuProperty> {
                   height: MediaQuery.of(context).size.height * 0.07,
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [
                           Colors.cyan,
                           Colors.indigo,
@@ -81,8 +81,8 @@ class _MenuPropertyState extends State<MenuProperty> {
                             spreadRadius: 3,
                             blurRadius: 2,
                             color: Colors.black,
-                            blurStyle: BlurStyle.outer)
-                      ]),
+                            blurStyle: BlurStyle.outer,)
+                      ],),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

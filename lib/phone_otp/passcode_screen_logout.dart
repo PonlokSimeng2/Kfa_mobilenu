@@ -25,8 +25,8 @@ class _MyPasscodeHomePageLogOutState extends State<MyPasscodeHomePageLogOut> {
     return Scaffold(
       body: PasscodeScreen(
         passwordDigits: 4,
-        cancelButton: Text('Cancel'),
-        deleteButton: Text('Delete'),
+        cancelButton: const Text('Cancel'),
+        deleteButton: const Text('Delete'),
         passwordEnteredCallback: (Val) async {
           setState(() {
             password = int.parse(Val);
@@ -44,7 +44,7 @@ class _MyPasscodeHomePageLogOutState extends State<MyPasscodeHomePageLogOut> {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return AlertDialog(
+                      return const AlertDialog(
                         actions: [
                           // FlatButton(
                           //     textColor: Colors.white,
@@ -58,13 +58,13 @@ class _MyPasscodeHomePageLogOutState extends State<MyPasscodeHomePageLogOut> {
                         title: Text("Error Password"),
                         content: Text("Please try again later."),
                       );
-                    });
+                    },);
               });
             }
           });
         },
         shouldTriggerVerification: (_verificationNotifier).stream,
-        title: Text(""),
+        title: const Text(""),
       ),
     );
   }

@@ -3,12 +3,9 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart' as crypto;
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +19,7 @@ class Qr_UPay extends StatefulWidget {
       required this.phone,
       required this.option,
       required this.id,
-      required this.control_user});
+      required this.control_user,});
   final String price;
   final String accont;
   final String phone;
@@ -35,10 +32,10 @@ class Qr_UPay extends StatefulWidget {
 
 class Qr_UPayState extends State<Qr_UPay> {
   generateMd5() {
-    var content = new Utf8Encoder().convert(
-        'currency=USD&goodsDetail=test0001&mcId=1427830347298627585&mcOrderId=test00200007&money=sefs&notifyUrl=http://127.0.0.1:30005/upayApi/test/notify6c509474001d099e8ee25540cb5ad0a8');
-    var md5 = crypto.md5;
-    var digest = md5.convert(content);
+    final content = const Utf8Encoder().convert(
+        'currency=USD&goodsDetail=test0001&mcId=1427830347298627585&mcOrderId=test00200007&money=sefs&notifyUrl=http://127.0.0.1:30005/upayApi/test/notify6c509474001d099e8ee25540cb5ad0a8',);
+    const md5 = crypto.md5;
+    final digest = md5.convert(content);
     return hex.encode(digest.bytes);
   }
 
@@ -73,15 +70,11 @@ class Qr_UPayState extends State<Qr_UPay> {
     );
 
     if (response.statusCode == 200) {
-      print('Invoice created successfully. ${response}');
+      print('Invoice created successfully. $response');
       final responseBody = json.decode(response.body);
       setState(() {
         url_qr = responseBody['body']['qr_code_url'];
-        print('\n' +
-            'trace_id ' +
-            responseBody['trace_id '].toString() +
-            '\n' +
-            widget.id);
+        print('\ntrace_id ${responseBody['trace_id ']}\n${widget.id}',);
       });
     } else {
       // Failed to create invoice
@@ -91,9 +84,9 @@ class Qr_UPayState extends State<Qr_UPay> {
 
   bool success_payment = false;
   Future<void> Load(BuildContext context) async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_done?order_reference_no=${order_reference_no}'));
-    var jsonData = jsonDecode(rs.body);
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_done?order_reference_no=$order_reference_no',),);
+    final jsonData = jsonDecode(rs.body);
     setState(() {
       if (jsonData.toString() == order_reference_no.toString()) {
         success_payment = true;
@@ -101,14 +94,14 @@ class Qr_UPayState extends State<Qr_UPay> {
     });
 
     if (success_payment) {
-      var count_number = widget.option.split(' ');
+      final countNumber = widget.option.split(' ');
       final Data = {
         "id_user_control": widget.control_user.toString(),
-        "count_autoverbal": int.parse(count_number[0].toString()),
+        "count_autoverbal": int.parse(countNumber[0].toString()),
       };
       final response = await http.post(
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/updart_count_verbal'),
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/updart_count_verbal',),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -137,7 +130,7 @@ class Qr_UPayState extends State<Qr_UPay> {
     //         "${order_reference_no}|USD|${widget.price}";
     // setState(() {
     //   crc = generateCRC(state);
-    String md5 = generateMd5();
+    final String md5 = generateMd5();
     roll_id = TextEditingController(text: md5);
     //   _Url_call_back =
     //       'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/call_back/${widget.control_user}/6560';
@@ -151,12 +144,12 @@ class Qr_UPayState extends State<Qr_UPay> {
   ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
-    var formatterDate = DateFormat('dd/MM/yy kk:mm');
-    var dateTime = DateFormat('yyyy-MM-ddThh:mm:ss');
+    final now = DateTime.now();
+    final formatterDate = DateFormat('dd/MM/yy kk:mm');
+    final dateTime = DateFormat('yyyy-MM-ddThh:mm:ss');
 
-    String actualDate = formatterDate.format(now);
-    String actualDate1 = dateTime.format(now);
+    final String actualDate = formatterDate.format(now);
+    final String actualDate1 = dateTime.format(now);
     // Future.delayed(const Duration(seconds: 10), () async {
     //   await Load(context);
     //   setState(() {
@@ -175,13 +168,13 @@ class Qr_UPayState extends State<Qr_UPay> {
               icon: const Icon(
                 Icons.arrow_back_ios,
                 color: Color.fromRGBO(49, 27, 146, 1),
-              )),
+              ),),
           title: Text(
             "Scan for payments",
             style: TextStyle(
-                color: Color.fromRGBO(49, 27, 146, 1),
+                color: const Color.fromRGBO(49, 27, 146, 1),
                 fontSize: MediaQuery.textScaleFactorOf(context) * 18,
-                fontWeight: FontWeight.w900),
+                fontWeight: FontWeight.w900,),
           ),
           centerTitle: true,
           actions: [
@@ -208,9 +201,9 @@ class Qr_UPayState extends State<Qr_UPay> {
                     Shadow(
                         offset: Offset(3, -3),
                         blurRadius: 5,
-                        color: Colors.black54)
+                        color: Colors.black54,)
                   ],
-                ))
+                ),)
           ],
         ),
         body: SingleChildScrollView(
@@ -229,7 +222,7 @@ class Qr_UPayState extends State<Qr_UPay> {
               ),
               TextField(
                 controller: roll_id,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               if (url_qr != null)
                 Screenshot(
@@ -262,9 +255,9 @@ class Qr_UPayState extends State<Qr_UPay> {
                   'Scan with Bakong App Or Mobile Banking app that support KHQR',
                   style: TextStyle(
                       overflow: TextOverflow.visible,
-                      color: Color.fromRGBO(158, 158, 158, 1),
+                      color: const Color.fromRGBO(158, 158, 158, 1),
                       fontWeight: FontWeight.w500,
-                      fontSize: MediaQuery.textScaleFactorOf(context) * 10),
+                      fontSize: MediaQuery.textScaleFactorOf(context) * 10,),
                 ),
               ),
               if (success_payment)
@@ -272,9 +265,9 @@ class Qr_UPayState extends State<Qr_UPay> {
                   titleText: 'Payment Success',
                   size: 25,
                   activeBgColor: Colors.green,
-                  listItemTextColor: Color.fromRGBO(158, 158, 158, 1),
+                  listItemTextColor: const Color.fromRGBO(158, 158, 158, 1),
                   type: GFCheckboxType.square,
-                  activeIcon: Icon(
+                  activeIcon: const Icon(
                     Icons.check,
                     size: 15,
                     color: Colors.white,
@@ -296,18 +289,18 @@ class Qr_UPayState extends State<Qr_UPay> {
                       'Subtotal',
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                     // Text(' ${count.toString()}'),
                     Text(
                       " ${widget.price} USD",
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                   ],
                 ),
@@ -327,17 +320,17 @@ class Qr_UPayState extends State<Qr_UPay> {
                       'V-Point',
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                     Text(
                       " ${widget.option}",
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                   ],
                 ),
@@ -360,34 +353,34 @@ class Qr_UPayState extends State<Qr_UPay> {
                       'Total:',
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 12),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 12,),
                     ),
                     Text(
                       " ${widget.price} USD",
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 12),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 12,),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-        ));
+        ),);
   }
 }
 
 class SignUtil {
   static StringBuffer getKeys(Map<String, String> inMap, List<String> keys) {
-    StringBuffer sbf = StringBuffer();
+    final StringBuffer sbf = StringBuffer();
     for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
+      final key = keys[i];
       if (key != 'sign' && key.isNotEmpty) {
-        var value = inMap[key];
+        final value = inMap[key];
         if (value == '' || value == null) {
           continue;
         }
@@ -405,16 +398,16 @@ class SignUtil {
 
   static String generateMD5(String data) {
     print(data);
-    Uint8List content = const Utf8Encoder().convert(data);
-    Digest digest = md5.convert(content);
+    final Uint8List content = const Utf8Encoder().convert(data);
+    final Digest digest = md5.convert(content);
     return digest.toString();
   }
 
   static String getSign(Map<String, String> inMap, String secretKey) {
-    var keys = <String>[];
+    final keys = <String>[];
     keys.addAll(inMap.keys);
     keys.sort();
-    var sbf = getKeys(inMap, keys);
+    final sbf = getKeys(inMap, keys);
     sbf.write(secretKey);
     print(sbf.toString());
     return generateMD5(sbf.toString()).toUpperCase();

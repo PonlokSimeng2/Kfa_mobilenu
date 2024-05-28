@@ -7,28 +7,30 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:http/http.dart' as http;
 
 class MyImagePicker2222 extends StatefulWidget {
+  const MyImagePicker2222({super.key});
+
   @override
   _MyImagePickerState createState() => _MyImagePickerState();
 }
 
 class _MyImagePickerState extends State<MyImagePicker2222> {
   List<Asset> images = <Asset>[];
-  List<File> _images = [];
+  final List<File> _images = [];
   Future<void> postImages() async {
-    var request = http.MultipartRequest(
+    final request = http.MultipartRequest(
       'POST',
       Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/upload_45'),
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/upload_45',),
     );
 
-    for (var image in _images) {
+    for (final image in _images) {
       request.files.add(await http.MultipartFile.fromPath(
         'images_mutiple[]',
         image.path,
-      ));
+      ),);
     }
 
-    var response = await request.send();
+    final response = await request.send();
     if (response.statusCode == 200) {
       print('Images uploaded successfully');
     } else {
@@ -57,7 +59,7 @@ class _MyImagePickerState extends State<MyImagePicker2222> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-    } on Exception catch (e) {
+    } on Exception {
       // handle error
     }
 
@@ -73,7 +75,7 @@ class _MyImagePickerState extends State<MyImagePicker2222> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Image Picker"),
+        title: const Text("Image Picker"),
       ),
       body: Column(
         children: <Widget>[
@@ -81,12 +83,12 @@ class _MyImagePickerState extends State<MyImagePicker2222> {
             child: buildGridView(),
           ),
           ElevatedButton(
-            child: Text("Select Images"),
             onPressed: loadAssets,
+            child: const Text("Select Images"),
           ),
           ElevatedButton(
-            child: Text("Post"),
             onPressed: postImages,
+            child: const Text("Post"),
           ),
         ],
       ),

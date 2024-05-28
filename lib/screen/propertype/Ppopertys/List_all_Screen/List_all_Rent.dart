@@ -28,7 +28,7 @@ class List_All_Rent extends StatefulWidget {
       {super.key,
       required this.list_get,
       required this.hometype_api,
-      required this.controller_id_get});
+      required this.controller_id_get,});
   List? list_get;
   final OnChangeCallback controller_id_get;
   String? indexv;
@@ -168,9 +168,9 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                           style: TextStyle(
                                               fontSize:
                                                   MediaQuery.textScaleFactorOf(
-                                                          context) *
+                                                          context,) *
                                                       13,
-                                              height: 1),
+                                              height: 1,),
                                         ),
                                       ),
                                     )
@@ -192,7 +192,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                        color: kPrimaryColor, width: 2.0),
+                                        color: kPrimaryColor, width: 2.0,),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   enabledBorder: OutlineInputBorder(
@@ -241,7 +241,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                   'All List',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Colors.white,),
                                 ),
                               ),
                             )
@@ -263,8 +263,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                 10)
                                             .ceil(),
                                     itemBuilder: (context, index) {
-                                      int startIndex = index * 10;
-                                      int endIndex = (startIndex + 10) >
+                                      final int startIndex = index * 10;
+                                      final int endIndex = (startIndex + 10) >
                                               controller_id
                                                   .list_value_all1.length
                                           ? controller_id.list_value_all1.length
@@ -277,7 +277,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                         itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10, right: 10, top: 10),
+                                                left: 10, right: 10, top: 10,),
                                             child: Container(
                                               height: MediaQuery.of(context)
                                                       .size
@@ -288,7 +288,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                   borderRadius:
                                                       BorderRadius.circular(7),
                                                   color: Color.fromARGB(
-                                                      255, 197, 195, 195)),
+                                                      255, 197, 195, 195,),),
                                               child: Column(
                                                 children: [
                                                   Row(
@@ -301,7 +301,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                   index,
                                                                   items[index][
                                                                           'id_ptys']
-                                                                      .toString());
+                                                                      .toString(),);
                                                               setState(() {
                                                                 verbal_ID = items[
                                                                             index]
@@ -317,10 +317,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           .only(
                                                                       left: 4,
                                                                       bottom: 4,
-                                                                      top: 4),
+                                                                      top: 4,),
                                                               child: Container(
                                                                 height: MediaQuery.of(
-                                                                            context)
+                                                                            context,)
                                                                         .size
                                                                         .height *
                                                                     0.23,
@@ -341,17 +341,17 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                   progressIndicatorBuilder:
                                                                       (context,
                                                                               url,
-                                                                              downloadProgress) =>
+                                                                              downloadProgress,) =>
                                                                           Center(
                                                                     child: CircularProgressIndicator(
                                                                         value: downloadProgress
-                                                                            .progress),
+                                                                            .progress,),
                                                                   ),
                                                                   errorWidget: (context,
                                                                           url,
-                                                                          error) =>
+                                                                          error,) =>
                                                                       Icon(Icons
-                                                                          .error),
+                                                                          .error,),
                                                                 ),
                                                               ),
                                                             ),
@@ -372,16 +372,16 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           255,
                                                                           109,
                                                                           160,
-                                                                          6),
+                                                                          6,),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              5)),
+                                                                              5,),),
                                                                   child: Text(
                                                                     'For Rent',
                                                                     style: TextStyle(
                                                                         // fontWeight: FontWeight.bold,
                                                                         color: Color.fromARGB(255, 250, 246, 245),
-                                                                        fontSize: 12),
+                                                                        fontSize: 12,),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
@@ -396,10 +396,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           255,
                                                                           29,
                                                                           7,
-                                                                          174),
+                                                                          174,),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              5)),
+                                                                              5,),),
                                                                   height: 25,
                                                                   width: 50,
                                                                   child: Text(
@@ -408,7 +408,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                         fontSize:
                                                                             12,
                                                                         color: Colors
-                                                                            .white),
+                                                                            .white,),
                                                                   ),
                                                                 ),
                                                               ],
@@ -422,10 +422,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                     .only(
                                                                 left: 4,
                                                                 bottom: 4,
-                                                                top: 4),
+                                                                top: 4,),
                                                         child: Container(
                                                           height: MediaQuery.of(
-                                                                      context)
+                                                                      context,)
                                                                   .size
                                                                   .height *
                                                               0.23,
@@ -435,13 +435,13 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        7),
+                                                                        7,),
                                                             color:
                                                                 Color.fromARGB(
                                                                     255,
                                                                     239,
                                                                     241,
-                                                                    238),
+                                                                    238,),
                                                           ),
                                                           child: Padding(
                                                             padding:
@@ -637,8 +637,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                                 255,
                                                                                 19,
                                                                                 14,
-                                                                                164),
-                                                                          )),
+                                                                                164,),
+                                                                          ),),
                                                                     ),
                                                                     Container(
                                                                       height:
@@ -647,7 +647,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                       child: IconButton(
                                                                           onPressed: () {
                                                                             detail_property_id(index,
-                                                                                items[index]['id_ptys'].toString());
+                                                                                items[index]['id_ptys'].toString(),);
                                                                             setState(() {
                                                                               verbal_ID = items[index]['id_ptys'].toString();
                                                                               // print(verbal_ID);
@@ -661,8 +661,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                                 255,
                                                                                 64,
                                                                                 132,
-                                                                                9),
-                                                                          )),
+                                                                                9,),
+                                                                          ),),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -692,8 +692,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                         (controller_id.list_value_urgent.length)
                                             .ceil(),
                                     itemBuilder: (context, index) {
-                                      int startIndex = index * 10;
-                                      int endIndex = (startIndex + 10) >
+                                      final int startIndex = index * 10;
+                                      final int endIndex = (startIndex + 10) >
                                               controller_id
                                                   .list_value_urgent.length
                                           ? controller_id
@@ -707,7 +707,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                         itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10, right: 10, top: 10),
+                                                left: 10, right: 10, top: 10,),
                                             child: Container(
                                               height: MediaQuery.of(context)
                                                       .size
@@ -718,7 +718,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                   borderRadius:
                                                       BorderRadius.circular(7),
                                                   color: Color.fromARGB(
-                                                      255, 197, 195, 195)),
+                                                      255, 197, 195, 195,),),
                                               child: Column(
                                                 children: [
                                                   Row(
@@ -731,7 +731,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                   index,
                                                                   items[index][
                                                                           'id_ptys']
-                                                                      .toString());
+                                                                      .toString(),);
                                                               setState(() {
                                                                 verbal_ID = items[
                                                                             index]
@@ -747,10 +747,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           .only(
                                                                       left: 4,
                                                                       bottom: 4,
-                                                                      top: 4),
+                                                                      top: 4,),
                                                               child: Container(
                                                                 height: MediaQuery.of(
-                                                                            context)
+                                                                            context,)
                                                                         .size
                                                                         .height *
                                                                     0.23,
@@ -771,17 +771,17 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                   progressIndicatorBuilder:
                                                                       (context,
                                                                               url,
-                                                                              downloadProgress) =>
+                                                                              downloadProgress,) =>
                                                                           Center(
                                                                     child: CircularProgressIndicator(
                                                                         value: downloadProgress
-                                                                            .progress),
+                                                                            .progress,),
                                                                   ),
                                                                   errorWidget: (context,
                                                                           url,
-                                                                          error) =>
+                                                                          error,) =>
                                                                       Icon(Icons
-                                                                          .error),
+                                                                          .error,),
                                                                 ),
                                                               ),
                                                             ),
@@ -802,16 +802,16 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           255,
                                                                           109,
                                                                           160,
-                                                                          6),
+                                                                          6,),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              5)),
+                                                                              5,),),
                                                                   child: Text(
                                                                     'For Rent',
                                                                     style: TextStyle(
                                                                         // fontWeight: FontWeight.bold,
                                                                         color: Color.fromARGB(255, 250, 246, 245),
-                                                                        fontSize: 12),
+                                                                        fontSize: 12,),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
@@ -826,10 +826,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           255,
                                                                           29,
                                                                           7,
-                                                                          174),
+                                                                          174,),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              5)),
+                                                                              5,),),
                                                                   height: 25,
                                                                   width: 50,
                                                                   child: Text(
@@ -838,7 +838,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                         fontSize:
                                                                             12,
                                                                         color: Colors
-                                                                            .white),
+                                                                            .white,),
                                                                   ),
                                                                 ),
                                                               ],
@@ -852,10 +852,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                     .only(
                                                                 left: 4,
                                                                 bottom: 4,
-                                                                top: 4),
+                                                                top: 4,),
                                                         child: Container(
                                                           height: MediaQuery.of(
-                                                                      context)
+                                                                      context,)
                                                                   .size
                                                                   .height *
                                                               0.23,
@@ -865,13 +865,13 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        7),
+                                                                        7,),
                                                             color:
                                                                 Color.fromARGB(
                                                                     255,
                                                                     239,
                                                                     241,
-                                                                    238),
+                                                                    238,),
                                                           ),
                                                           child: Padding(
                                                             padding:
@@ -1061,8 +1061,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                                 255,
                                                                                 19,
                                                                                 14,
-                                                                                164),
-                                                                          )),
+                                                                                164,),
+                                                                          ),),
                                                                     ),
                                                                     Container(
                                                                       height:
@@ -1071,7 +1071,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                       child: IconButton(
                                                                           onPressed: () {
                                                                             detail_property_id(index,
-                                                                                items[index]['id_ptys'].toString());
+                                                                                items[index]['id_ptys'].toString(),);
                                                                             setState(() {
                                                                               verbal_ID = items[index]['id_ptys'].toString();
                                                                               // print(verbal_ID);
@@ -1085,8 +1085,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                                 255,
                                                                                 64,
                                                                                 132,
-                                                                                9),
-                                                                          )),
+                                                                                9,),
+                                                                          ),),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1107,7 +1107,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                   ),
                                 ),
                     ],
-                  ))
+                  ),)
                 // ? Text('ook')
                 ////////////////////////////// Screen No delete
                 : SingleChildScrollView(
@@ -1149,9 +1149,9 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                             style: TextStyle(
                                                 fontSize: MediaQuery
                                                         .textScaleFactorOf(
-                                                            context) *
+                                                            context,) *
                                                     13,
-                                                height: 1),
+                                                height: 1,),
                                           ),
                                         ),
                                       )
@@ -1173,7 +1173,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          color: kPrimaryColor, width: 2.0),
+                                          color: kPrimaryColor, width: 2.0,),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
@@ -1223,7 +1223,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                     'All List',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                        color: Colors.white,),
                                   ),
                                 ),
                               )
@@ -1242,8 +1242,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                       itemCount:
                                           (widget.list_get!.length / 10).ceil(),
                                       itemBuilder: (context, index) {
-                                        int startIndex = index * 10;
-                                        int endIndex = (startIndex + 10) >
+                                        final int startIndex = index * 10;
+                                        final int endIndex = (startIndex + 10) >
                                                 widget.list_get!.length
                                             ? widget.list_get!.length
                                             : startIndex + 10;
@@ -1254,7 +1254,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                           itemBuilder: (context, index) {
                                             return Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 10, right: 10, top: 10),
+                                                  left: 10, right: 10, top: 10,),
                                               child: Container(
                                                 height: MediaQuery.of(context)
                                                         .size
@@ -1264,9 +1264,9 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            7),
+                                                            7,),
                                                     color: Color.fromARGB(
-                                                        255, 197, 195, 195)),
+                                                        255, 197, 195, 195,),),
                                                 child: Column(
                                                   children: [
                                                     Row(
@@ -1280,7 +1280,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                     items[index]
                                                                             [
                                                                             'id_ptys']
-                                                                        .toString());
+                                                                        .toString(),);
                                                                 setState(() {
                                                                   verbal_ID = items[
                                                                               index]
@@ -1297,11 +1297,11 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                         left: 4,
                                                                         bottom:
                                                                             4,
-                                                                        top: 4),
+                                                                        top: 4,),
                                                                 child:
                                                                     Container(
                                                                   height: MediaQuery.of(
-                                                                              context)
+                                                                              context,)
                                                                           .size
                                                                           .height *
                                                                       0.23,
@@ -1320,17 +1320,17 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                         .cover,
                                                                     progressIndicatorBuilder: (context,
                                                                             url,
-                                                                            downloadProgress) =>
+                                                                            downloadProgress,) =>
                                                                         Center(
                                                                       child: CircularProgressIndicator(
                                                                           value:
-                                                                              downloadProgress.progress),
+                                                                              downloadProgress.progress,),
                                                                     ),
                                                                     errorWidget: (context,
                                                                             url,
-                                                                            error) =>
+                                                                            error,) =>
                                                                         Icon(Icons
-                                                                            .error),
+                                                                            .error,),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1351,15 +1351,15 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                             255,
                                                                             109,
                                                                             160,
-                                                                            6),
+                                                                            6,),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(5)),
+                                                                            BorderRadius.circular(5),),
                                                                     child: Text(
                                                                       'For Rent',
                                                                       style: TextStyle(
                                                                           // fontWeight: FontWeight.bold,
                                                                           color: Color.fromARGB(255, 250, 246, 245),
-                                                                          fontSize: 12),
+                                                                          fontSize: 12,),
                                                                     ),
                                                                   ),
                                                                   SizedBox(
@@ -1374,9 +1374,9 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                             255,
                                                                             29,
                                                                             7,
-                                                                            174),
+                                                                            174,),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(5)),
+                                                                            BorderRadius.circular(5),),
                                                                     height: 25,
                                                                     width: 50,
                                                                     child: Text(
@@ -1385,7 +1385,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           fontSize:
                                                                               12,
                                                                           color:
-                                                                              Colors.white),
+                                                                              Colors.white,),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -1399,10 +1399,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                       .only(
                                                                   left: 4,
                                                                   bottom: 4,
-                                                                  top: 4),
+                                                                  top: 4,),
                                                           child: Container(
                                                             height: MediaQuery.of(
-                                                                        context)
+                                                                        context,)
                                                                     .size
                                                                     .height *
                                                                 0.23,
@@ -1412,13 +1412,13 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          7),
+                                                                          7,),
                                                               color: Color
                                                                   .fromARGB(
                                                                       255,
                                                                       239,
                                                                       241,
-                                                                      238),
+                                                                      238,),
                                                             ),
                                                             child: Padding(
                                                               padding:
@@ -1590,7 +1590,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                               Icons.print,
                                                                               size: 25,
                                                                               color: Color.fromARGB(255, 19, 14, 164),
-                                                                            )),
+                                                                            ),),
                                                                       ),
                                                                       Container(
                                                                         height:
@@ -1609,7 +1609,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                               Icons.details_outlined,
                                                                               size: 25,
                                                                               color: Color.fromARGB(255, 64, 132, 9),
-                                                                            )),
+                                                                            ),),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1646,8 +1646,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                               .list_value_urgent.length)
                                           .ceil(),
                                       itemBuilder: (context, index) {
-                                        int startIndex = index * 10;
-                                        int endIndex = (startIndex + 10) >
+                                        final int startIndex = index * 10;
+                                        final int endIndex = (startIndex + 10) >
                                                 controller_id
                                                     .list_value_urgent.length
                                             ? controller_id
@@ -1661,7 +1661,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                           itemBuilder: (context, index) {
                                             return Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 10, right: 10, top: 10),
+                                                  left: 10, right: 10, top: 10,),
                                               child: Container(
                                                 height: MediaQuery.of(context)
                                                         .size
@@ -1671,9 +1671,9 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            7),
+                                                            7,),
                                                     color: Color.fromARGB(
-                                                        255, 197, 195, 195)),
+                                                        255, 197, 195, 195,),),
                                                 child: Column(
                                                   children: [
                                                     Row(
@@ -1687,7 +1687,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                     items[index]
                                                                             [
                                                                             'id_ptys']
-                                                                        .toString());
+                                                                        .toString(),);
                                                                 setState(() {
                                                                   verbal_ID = items[
                                                                               index]
@@ -1704,11 +1704,11 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                         left: 4,
                                                                         bottom:
                                                                             4,
-                                                                        top: 4),
+                                                                        top: 4,),
                                                                 child:
                                                                     Container(
                                                                   height: MediaQuery.of(
-                                                                              context)
+                                                                              context,)
                                                                           .size
                                                                           .height *
                                                                       0.23,
@@ -1727,17 +1727,17 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                         .cover,
                                                                     progressIndicatorBuilder: (context,
                                                                             url,
-                                                                            downloadProgress) =>
+                                                                            downloadProgress,) =>
                                                                         Center(
                                                                       child: CircularProgressIndicator(
                                                                           value:
-                                                                              downloadProgress.progress),
+                                                                              downloadProgress.progress,),
                                                                     ),
                                                                     errorWidget: (context,
                                                                             url,
-                                                                            error) =>
+                                                                            error,) =>
                                                                         Icon(Icons
-                                                                            .error),
+                                                                            .error,),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1758,15 +1758,15 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                             255,
                                                                             109,
                                                                             160,
-                                                                            6),
+                                                                            6,),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(5)),
+                                                                            BorderRadius.circular(5),),
                                                                     child: Text(
                                                                       'For Rent',
                                                                       style: TextStyle(
                                                                           // fontWeight: FontWeight.bold,
                                                                           color: Color.fromARGB(255, 250, 246, 245),
-                                                                          fontSize: 12),
+                                                                          fontSize: 12,),
                                                                     ),
                                                                   ),
                                                                   SizedBox(
@@ -1781,9 +1781,9 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                             255,
                                                                             29,
                                                                             7,
-                                                                            174),
+                                                                            174,),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(5)),
+                                                                            BorderRadius.circular(5),),
                                                                     height: 25,
                                                                     width: 50,
                                                                     child: Text(
@@ -1792,7 +1792,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                           fontSize:
                                                                               12,
                                                                           color:
-                                                                              Colors.white),
+                                                                              Colors.white,),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -1806,10 +1806,10 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                       .only(
                                                                   left: 4,
                                                                   bottom: 4,
-                                                                  top: 4),
+                                                                  top: 4,),
                                                           child: Container(
                                                             height: MediaQuery.of(
-                                                                        context)
+                                                                        context,)
                                                                     .size
                                                                     .height *
                                                                 0.23,
@@ -1819,13 +1819,13 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          7),
+                                                                          7,),
                                                               color: Color
                                                                   .fromARGB(
                                                                       255,
                                                                       239,
                                                                       241,
-                                                                      238),
+                                                                      238,),
                                                             ),
                                                             child: Padding(
                                                               padding:
@@ -1991,7 +1991,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                               Icons.print,
                                                                               size: 25,
                                                                               color: Color.fromARGB(255, 19, 14, 164),
-                                                                            )),
+                                                                            ),),
                                                                       ),
                                                                       Container(
                                                                         height:
@@ -2010,7 +2010,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                                                               Icons.details_outlined,
                                                                               size: 25,
                                                                               color: Color.fromARGB(255, 64, 132, 9),
-                                                                            )),
+                                                                            ),),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -2039,7 +2039,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                 onTap: () {
                                   _pageController.previousPage(
                                       duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut);
+                                      curve: Curves.easeInOut,);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -2048,13 +2048,13 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                       MediaQuery.of(context).size.width * 0.2,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color.fromARGB(255, 152, 33, 25)),
+                                      color: Color.fromARGB(255, 152, 33, 25),),
                                   child: Text(
                                     'Back',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                 ),
                               ),
@@ -2062,7 +2062,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                 onTap: () {
                                   _pageController.nextPage(
                                       duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut);
+                                      curve: Curves.easeInOut,);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -2071,13 +2071,13 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                                       MediaQuery.of(context).size.width * 0.2,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color.fromARGB(255, 18, 36, 142)),
+                                      color: Color.fromARGB(255, 18, 36, 142),),
                                   child: Text(
                                     'Next',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                 ),
                               ),
@@ -2086,7 +2086,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                         ),
                       ],
                     ),
-                  ));
+                  ),);
   }
 
   String? verbal_ID;
@@ -2119,7 +2119,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
 
   void delete_property({required String id_ptys}) async {
     final response = await http.delete(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal_property_rent/delete/$id_ptys'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal_property_rent/delete/$id_ptys',),);
     if (response.statusCode == 200) {
       dg = 'Success Deleted';
     } else {
@@ -2140,24 +2140,24 @@ class _List_Sale_AllState extends State<List_All_Rent> {
   }
 
   Future<Uint8List> _generatePdf(
-      PdfPageFormat format, List items, int index) async {
+      PdfPageFormat format, List items, int index,) async {
     // Create a new PDF document
     final pdf = pw.Document(version: PdfVersion.pdf_1_4, compress: true);
     final font = await PdfGoogleFonts.nunitoExtraLight();
     final ByteData bytes =
         await rootBundle.load('assets/images/New_KFA_Logo.png');
     final Uint8List byteList = bytes.buffer.asUint8List();
-    Uint8List bytes1 =
+    final Uint8List bytes1 =
         (await NetworkAssetBundle(Uri.parse('${items[index]['url']}'))
                 .load('${items[index]['url']}'))
             .buffer
             .asUint8List();
-    Uint8List bytes2 =
+    final Uint8List bytes2 =
         (await NetworkAssetBundle(Uri.parse('${items[index]['url_1']}'))
                 .load('${items[index]['url_1']}'))
             .buffer
             .asUint8List();
-    Uint8List bytes3 =
+    final Uint8List bytes3 =
         (await NetworkAssetBundle(Uri.parse('${items[index]['url_2']}'))
                 .load('${items[index]['url_2']}'))
             .buffer
@@ -2189,12 +2189,12 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                               byteList,
                               // bytes1,
                             ),
-                            fit: pw.BoxFit.fill),
+                            fit: pw.BoxFit.fill,),
                       ),
                       pw.Text('verbal ID = ${items[index]['id_ptys']}'),
                       pw.Text("Property Check",
                           style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.bold, fontSize: 20)),
+                              fontWeight: pw.FontWeight.bold, fontSize: 20,),),
                       pw.Container(
                         height: 50,
                         width: 79,
@@ -2212,7 +2212,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                     width: double.infinity,
                     child: (items[index]['Title'].toString() != null)
                         ? pw.Text('${items[index]['Title'] ?? "N/A"}')
-                        : pw.SizedBox()),
+                        : pw.SizedBox(),),
                 pw.Text('${items[index]['address'] ?? "N/A"}'),
                 pw.SizedBox(height: 10),
                 //Big image
@@ -2234,7 +2234,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           alignment: pw.Alignment.centerLeft,
                           decoration: pw.BoxDecoration(color: PdfColors.green),
                           child: pw.Image(pw.MemoryImage(bytes2),
-                              fit: pw.BoxFit.fill),
+                              fit: pw.BoxFit.fill,),
                           height: 80,
                           //color: Colors.blue,
                         ),
@@ -2250,7 +2250,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
 
                               ),
                           child: pw.Image(pw.MemoryImage(bytes3),
-                              fit: pw.BoxFit.fill),
+                              fit: pw.BoxFit.fill,),
                           // name rest with api
 
                           height: 80,
@@ -2273,7 +2273,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           child:
                               // name rest with api
                               pw.Text("Price",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 25,
                           //color: Colors.blue,
                         ),
@@ -2286,7 +2286,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['price'] ?? "N/A"} \$',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 25,
                           //color: Colors.blue,
                         ),
@@ -2306,7 +2306,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           child:
                               // name rest with api
                               pw.Text("land",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2319,7 +2319,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['land'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2339,7 +2339,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           child:
                               // name rest with api
                               pw.Text("sqm",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2355,7 +2355,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                               '${items[index]['sqm'] ?? "N/A"} ' +
                                   'm' +
                                   '\u00B2',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2375,7 +2375,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           child:
                               // name rest with api
                               pw.Text("bed",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2388,7 +2388,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['bed'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2408,7 +2408,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           child:
                               // name rest with api
                               pw.Text("bath",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2421,7 +2421,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['bath'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2441,7 +2441,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           child:
                               // name rest with api
                               pw.Text("type",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2454,7 +2454,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['type'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -2467,7 +2467,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                     mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
                       pw.Text('DESCRIPTION'),
-                    ]),
+                    ],),
                 pw.Container(
                   padding: pw.EdgeInsets.all(8),
                   height: 110,
@@ -2479,7 +2479,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                         (items[index]['description'].toString() != null)
                             ? pw.Text('${items[index]['description'] ?? "N/A"}')
                             : pw.SizedBox()
-                      ]),
+                      ],),
                 ),
                 pw.SizedBox(
                   height: 5,
@@ -2489,8 +2489,8 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                     children: [
                       pw.Text('CONTACT AGENT',
                           style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.bold, fontSize: 7)),
-                    ]),
+                              fontWeight: pw.FontWeight.bold, fontSize: 7,),),
+                    ],),
                 pw.SizedBox(height: 3),
                 pw.Column(children: [
                   pw.Row(children: [
@@ -2503,7 +2503,7 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           pw.Text('Email :'),
                           pw.SizedBox(height: 3),
                           pw.Text('Website :'),
-                        ]),
+                        ],),
                     pw.SizedBox(width: 10),
                     pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -2515,22 +2515,22 @@ class _List_Sale_AllState extends State<List_All_Rent> {
                           pw.Text('info@kfa.com.kh'),
                           pw.SizedBox(height: 3),
                           pw.Text('www.kfa.com.kh'),
-                        ]),
-                  ]),
-                ])
+                        ],),
+                  ],),
+                ],)
               ],
             ),
           )
         ];
       },
-    ));
+    ),);
     final Color_Test = Color.fromARGB(255, 131, 18, 10);
     // Get the bytes of the PDF document
     final pdfBytes = pdf.save();
 
     // Print the PDF document to the default printer
     await Printing.layoutPdf(
-        onLayout: (PdfPageFormat format) async => pdfBytes);
+        onLayout: (PdfPageFormat format) async => pdfBytes,);
     return pdf.save();
   }
 

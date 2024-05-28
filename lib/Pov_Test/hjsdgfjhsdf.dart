@@ -19,7 +19,7 @@ class _nanananState extends State<nananan> {
             onPressed: () {
               Get.to(MyDropdown111());
             },
-            child: Text('GO')),
+            child: const Text('GO'),),
       ),
     );
   }

@@ -10,12 +10,12 @@ class DatabaseHelper {
   }
 
   Future<Database> initDatabase() async {
-    String path = join(await getDatabasesPath(), 'passcode_database.db');
+    final String path = join(await getDatabasesPath(), 'passcode_database.db');
     return openDatabase(path, version: 1, onCreate: (db, version) async {
       await db.execute(
         'CREATE TABLE passcode(id INTEGER PRIMARY KEY, passcode TEXT)',
       );
-    });
+    },);
   }
 
   Future<void> setPasscode(String passcode) async {

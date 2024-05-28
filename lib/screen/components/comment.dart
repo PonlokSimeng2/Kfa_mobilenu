@@ -24,7 +24,7 @@ class CommentAndOption extends StatefulWidget {
       required this.id,
       required this.opt_type_id,
       this.option,
-      this.comment1})
+      this.comment1,})
       : super(key: key);
 
   @override
@@ -134,10 +134,10 @@ class _CommentAndOptionState extends State<CommentAndOption> {
 
   void Load() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         _list = jsonData;
@@ -149,10 +149,10 @@ class _CommentAndOptionState extends State<CommentAndOption> {
 
   void Load2(id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options?opt_id=${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options?opt_id=$id',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         _list2 = jsonData;

@@ -88,7 +88,7 @@ class _SideBarState extends State<SideBar>
                             context,
                             MaterialPageRoute(builder: (context) {
                               return Test();
-                            }),
+                            },),
                           );
                         },
                       ),
@@ -168,13 +168,13 @@ class _SideBarState extends State<SideBar>
 class CustomMenuClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Paint paint = Paint();
+    final Paint paint = Paint();
     paint.color = Colors.white;
 
     final width = size.width;
     final heigth = size.height;
 
-    Path path = Path();
+    final Path path = Path();
     path.moveTo(0, 0);
     path.quadraticBezierTo(0, 8, 10, 16);
     path.quadraticBezierTo(width - 1, heigth / 2 - 20, width, heigth / 2);

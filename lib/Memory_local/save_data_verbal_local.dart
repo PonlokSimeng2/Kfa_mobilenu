@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, no_leading_underscores_for_local_identifiers
 
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,7 +17,7 @@ class PeopleController {
   }
 
   Future<List<verbalModel>> selectverbal() async {
-    var response = await _repository.selectverbal('tbverbal') as List;
+    final response = await _repository.selectverbal('tbverbal') as List;
     List<verbalModel> verbalList = [];
     response.map((value) {
       return verbalList.add(verbalModel.fromJson(value));
@@ -112,7 +111,7 @@ class Repository {
   }
 
   insertverbal(table, verbalModel data) async {
-    var _con = await database;
+    final _con = await database;
     return await _con!.rawInsert(
       'INSERT INTO tbverbal(verbalId,verbal_date,bank_name,bank_branch_name,property_type_name,verbal_address,verbal_owner,verbal_contact,username,tel_num) VALUES(?,?,?,?,?,?,?,?,?,?)',
       [
@@ -131,18 +130,18 @@ class Repository {
   }
 
   selectverbal(table) async {
-    var _con = await database;
+    final _con = await database;
     return await _con!.query(table);
   }
 
   deleteverbal(table, id) async {
-    var con = await database;
+    final con = await database;
 
     return await con!.delete(table, where: "verbalId= ?", whereArgs: [id]);
   }
 
   updateverbal(table, data, id) async {
-    var con = await database;
+    final con = await database;
     return await con!
         .update(table, data, where: "verbalId= ?", whereArgs: [id]);
   }
@@ -151,9 +150,9 @@ class Repository {
 class ConnectionDb {
   // Create a Database
   setDatabase() async {
-    var directory = await getApplicationDocumentsDirectory();
-    var path = join(directory.path, 'kfa_project1');
-    var database =
+    final directory = await getApplicationDocumentsDirectory();
+    final path = join(directory.path, 'kfa_project1');
+    final database =
         await openDatabase(path, version: 1, onCreate: _onCreateDatabase);
     return database;
   }
@@ -192,7 +191,7 @@ class _ShowPeoplePageState extends State<ShowPeoplePage1> {
       verbal_address: 'sdf',
       verbal_contact: 'sdf',
       verbal_date: 'sdf',
-      verbal_owner: 'sdf');
+      verbal_owner: 'sdf',);
   selectPeople() async {
     await PeopleController().insertverbal(data);
     list = await PeopleController().selectverbal();
@@ -222,7 +221,7 @@ class _ShowPeoplePageState extends State<ShowPeoplePage1> {
         child: ListView.builder(
           itemCount: list.length,
           itemBuilder: (context, index) {
-            var data = list[index];
+            final data = list[index];
             return Card(
               child: ListTile(
                 onTap: () {
@@ -237,7 +236,7 @@ class _ShowPeoplePageState extends State<ShowPeoplePage1> {
                   child: InkWell(
                       onTap: () => PeopleController()
                           .deleteverbal(data.verbalId.toString()),
-                      child: Text("delete")),
+                      child: const Text("delete"),),
                 ),
                 title: Text(data.verbalId),
                 subtitle: Text(data.verbalId),

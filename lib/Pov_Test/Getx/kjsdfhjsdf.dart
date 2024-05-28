@@ -3,13 +3,13 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:printing/printing.dart';
 
 class dfdf extends StatefulWidget {
+  const dfdf({super.key});
+
   @override
   State<dfdf> createState() => _dfdfState();
 }
@@ -31,7 +31,7 @@ class _dfdfState extends State<dfdf> {
 class PageViewBuilderExample extends StatefulWidget {
   final String apiUrl;
 
-  PageViewBuilderExample({required this.apiUrl});
+  const PageViewBuilderExample({super.key, required this.apiUrl});
 
   @override
   _PageViewBuilderExampleState createState() => _PageViewBuilderExampleState();
@@ -69,8 +69,8 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                     controller: _pageController,
                     itemCount: (snapshot.data!.length / 10).ceil(),
                     itemBuilder: (context, index) {
-                      int startIndex = index * 10;
-                      int endIndex = (startIndex + 10) > snapshot.data!.length
+                      final int startIndex = index * 10;
+                      final int endIndex = (startIndex + 10) > snapshot.data!.length
                           ? snapshot.data!.length
                           : startIndex + 10;
                       List<dynamic> items =
@@ -78,14 +78,14 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                       return ListView.builder(
                         itemCount: items.length,
                         itemBuilder: (context, index) {
-                          return Container(
+                          return SizedBox(
                             height: MediaQuery.of(context).size.height * 0.27,
                             width: double.infinity,
                             child: Column(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10, right: 10, top: 10),
+                                      left: 10, right: 10, top: 10,),
                                   child: Container(
                                     height: MediaQuery.of(context).size.height *
                                         0.25,
@@ -93,7 +93,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                         color:
-                                            Color.fromARGB(255, 197, 195, 195)),
+                                            Color.fromARGB(255, 197, 195, 195),),
                                     child: Column(
                                       children: [
                                         Row(
@@ -113,8 +113,8 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                         const EdgeInsets.only(
                                                             left: 4,
                                                             bottom: 4,
-                                                            top: 4),
-                                                    child: Container(
+                                                            top: 4,),
+                                                    child: SizedBox(
                                                       height:
                                                           MediaQuery.of(context)
                                                                   .size
@@ -132,15 +132,15 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                         fit: BoxFit.cover,
                                                         progressIndicatorBuilder:
                                                             (context, url,
-                                                                    downloadProgress) =>
+                                                                    downloadProgress,) =>
                                                                 Center(
                                                           child: CircularProgressIndicator(
                                                               value:
                                                                   downloadProgress
-                                                                      .progress),
+                                                                      .progress,),
                                                         ),
                                                         errorWidget: (context,
-                                                                url, error) =>
+                                                                url, error,) =>
                                                             Icon(Icons.error),
                                                       ),
                                                     ),
@@ -162,11 +162,11 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                     255,
                                                                     109,
                                                                     160,
-                                                                    6),
+                                                                    6,),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        5)),
+                                                                        5,),),
                                                         child: Text(
                                                           'For Sale',
                                                           style: TextStyle(
@@ -176,8 +176,8 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                       255,
                                                                       250,
                                                                       246,
-                                                                      245),
-                                                              fontSize: 12),
+                                                                      245,),
+                                                              fontSize: 12,),
                                                         ),
                                                       ),
                                                       SizedBox(
@@ -192,11 +192,11 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                     255,
                                                                     29,
                                                                     7,
-                                                                    174),
+                                                                    174,),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        5)),
+                                                                        5,),),
                                                         height: 25,
                                                         width: 50,
                                                         child: Text(
@@ -204,7 +204,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                           style: TextStyle(
                                                               fontSize: 12,
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.white,),
                                                         ),
                                                       ),
                                                     ],
@@ -214,7 +214,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 4, bottom: 4, top: 4),
+                                                  left: 4, bottom: 4, top: 4,),
                                               child: Container(
                                                 height: MediaQuery.of(context)
                                                         .size
@@ -225,7 +225,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                   borderRadius:
                                                       BorderRadius.circular(7),
                                                   color: Color.fromARGB(
-                                                      255, 239, 241, 238),
+                                                      255, 239, 241, 238,),
                                                 ),
                                                 child: Padding(
                                                   padding:
@@ -339,9 +339,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                 height: 5,
                                                               ),
                                                               Text(
-                                                                '${items[index]['land'].toString()} ' +
-                                                                    'm' +
-                                                                    '\u00B2',
+                                                                '${items[index]['land'].toString()} m\u00B2',
                                                                 style:
                                                                     TextStyle(
                                                                   fontWeight:
@@ -390,7 +388,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                             MainAxisAlignment
                                                                 .spaceAround,
                                                         children: [
-                                                          Container(
+                                                          SizedBox(
                                                             height: 40,
                                                             width: 30,
                                                             child: IconButton(
@@ -409,10 +407,10 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                           255,
                                                                           19,
                                                                           14,
-                                                                          164),
-                                                                )),
+                                                                          164,),
+                                                                ),),
                                                           ),
-                                                          Container(
+                                                          SizedBox(
                                                             height: 40,
                                                             width: 30,
                                                             child: IconButton(
@@ -438,10 +436,10 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                           255,
                                                                           64,
                                                                           132,
-                                                                          9),
-                                                                )),
+                                                                          9,),
+                                                                ),),
                                                           ),
-                                                          Container(
+                                                          SizedBox(
                                                             height: 40,
                                                             width: 30,
                                                             child: IconButton(
@@ -467,10 +465,10 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                           255,
                                                                           147,
                                                                           8,
-                                                                          59),
-                                                                )),
+                                                                          59,),
+                                                                ),),
                                                           ),
-                                                          Container(
+                                                          SizedBox(
                                                             height: 40,
                                                             width: 30,
                                                             child: IconButton(
@@ -489,7 +487,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                             255,
                                                                             72,
                                                                             157,
-                                                                            11),
+                                                                            11,),
                                                                     btnCancelText:
                                                                         'No',
                                                                     btnCancelColor:
@@ -497,7 +495,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                             255,
                                                                             133,
                                                                             8,
-                                                                            8),
+                                                                            8,),
                                                                     btnOkOnPress:
                                                                         () {
                                                                       // delete_property(
@@ -515,7 +513,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                     btnCancelOnPress:
                                                                         () {
                                                                       print(
-                                                                          'No');
+                                                                          'No',);
                                                                     },
                                                                   ).show();
                                                                 },
@@ -527,8 +525,8 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                                                                           255,
                                                                           147,
                                                                           8,
-                                                                          59),
-                                                                )),
+                                                                          59,),
+                                                                ),),
                                                           ),
                                                         ],
                                                       ),
@@ -558,7 +556,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                       onPressed: () {
                         _pageController.previousPage(
                             duration: Duration(milliseconds: 300),
-                            curve: Curves.easeInOut);
+                            curve: Curves.easeInOut,);
                       },
                       child: Text('Prev'),
                     ),
@@ -566,7 +564,7 @@ class _PageViewBuilderExampleState extends State<PageViewBuilderExample> {
                       onPressed: () {
                         _pageController.nextPage(
                             duration: Duration(milliseconds: 300),
-                            curve: Curves.easeInOut);
+                            curve: Curves.easeInOut,);
                       },
                       child: Text('Next'),
                     ),

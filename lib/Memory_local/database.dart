@@ -5,8 +5,8 @@ class MyDb {
   late Database db;
   Future open_user() async {
     // Get a location using getDatabasesPath
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'demo.db');
+    final databasesPath = await getDatabasesPath();
+    final String path = join(databasesPath, 'demo.db');
     //join is from path package
     // print(
     //     path); //output /data/user/0/com.testapp.flutter.testapp/databases/demo.db
@@ -31,8 +31,8 @@ class MyDb {
   }
 
   Future open_land_verbal() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'demo1.db');
+    final databasesPath = await getDatabasesPath();
+    final String path = join(databasesPath, 'demo1.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -55,8 +55,8 @@ class MyDb {
   }
 
   Future open_verbal() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'demo2.db');
+    final databasesPath = await getDatabasesPath();
+    final String path = join(databasesPath, 'demo2.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -91,8 +91,8 @@ class MyDb {
   }
 
   Future open_offline() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'demo3.db');
+    final databasesPath = await getDatabasesPath();
+    final String path = join(databasesPath, 'demo3.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''

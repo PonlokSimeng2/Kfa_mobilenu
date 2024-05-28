@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +16,7 @@ class _HHHHHHHHHHHHHHHssState extends State<HHHHHHHHHHHHHHHss> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
       ),
       body: Column(
         children: [
@@ -26,7 +25,7 @@ class _HHHHHHHHHHHHHHHssState extends State<HHHHHHHHHHHHHHHss> {
                 widget.kkaa!(dd);
                 Get.back();
               },
-              child: Text('back')),
+              child: const Text('back'),),
         ],
       ),
     );

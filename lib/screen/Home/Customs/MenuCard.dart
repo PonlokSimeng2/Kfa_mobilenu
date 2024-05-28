@@ -30,7 +30,7 @@ class Menu extends StatefulWidget {
       required this.gender,
       required this.from,
       required this.tel,
-      required this.id})
+      required this.id,})
       : super(key: key);
 
   @override
@@ -148,7 +148,7 @@ class _McardState extends State<Mcard> {
                   tel: widget.tel,
                   id: widget.id,
                 );
-              }));
+              },),);
             },
           ),
           Card(

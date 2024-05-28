@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:math';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +24,6 @@ import 'Screen_Page/For_Rent.dart';
 import 'Screen_Page/For_Sale.dart';
 import 'Screen_Page/Home_type.dart';
 import 'Search_button/Screen_search.dart';
-import 'Search_homepage/search_link_all.dart';
 
 import 'khae_25/All_khae_cambodia.dart';
 import 'khae_25/Propert_khae.dart';
@@ -283,7 +281,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20),),
               color: Color.fromARGB(255, 239, 239, 244),
             ),
             child: Column(
@@ -295,7 +293,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       'More Option',
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.03,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.bold,),
                     ),
                     GFButton(
                       color: Color.fromARGB(255, 160, 41, 32),
@@ -327,7 +325,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.height * 0.22,
                         child: DropdownButtonFormField<String>(
@@ -338,7 +336,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             hintText: 'Bedrooms',
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -383,7 +381,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,),
                               ),
                             );
                           }).toList(),
@@ -399,7 +397,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.height * 0.22,
                         child: DropdownButtonFormField<String>(
@@ -410,7 +408,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             hintText: 'bathrooms',
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -455,7 +453,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,),
                               ),
                             );
                           }).toList(),
@@ -479,7 +477,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.height * 0.22,
                         child: DropdownButtonFormField<String>(
@@ -490,7 +488,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             hintText: 'Province/City',
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -535,7 +533,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,),
                               ),
                             );
                           }).toList(),
@@ -551,7 +549,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.height * 0.22,
                         child: DropdownButtonFormField<String>(
@@ -562,7 +560,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             hintText: 'ProepertyType',
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -607,7 +605,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,),
                               ),
                             );
                           }).toList(),
@@ -631,7 +629,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.height * 0.22,
                         child: DropdownButtonFormField<String>(
@@ -642,7 +640,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             hintText: 'Pirce Min',
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -687,7 +685,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,),
                               ),
                             );
                           }).toList(),
@@ -703,7 +701,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         height: MediaQuery.of(context).size.height * 0.07,
                         width: MediaQuery.of(context).size.height * 0.22,
                         child: DropdownButtonFormField<String>(
@@ -714,7 +712,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             hintText: 'Pirce Max',
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
-                                  color: kPrimaryColor, width: 2.0),
+                                  color: kPrimaryColor, width: 2.0,),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -759,7 +757,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     fontSize:
                                         MediaQuery.of(context).size.height *
                                             0.015,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,),
                               ),
                             );
                           }).toList(),
@@ -788,7 +786,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.017,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(172, 143, 10, 10)),
+                            color: Color.fromARGB(172, 143, 10, 10),),
                       ),
                       Text(
                         'Price Min and Price Max You need select Min and Max',
@@ -796,7 +794,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.017,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(173, 158, 158, 158)),
+                            color: Color.fromARGB(173, 158, 158, 158),),
                       ),
                     ],
                   ),
@@ -814,7 +812,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                           min: price_dropdown_min,
                         );
                       },
-                    ));
+                    ),);
                   },
                   child: Padding(
                     padding:
@@ -825,7 +823,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: Color.fromARGB(255, 18, 26, 136),
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10),),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -839,7 +837,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize:
-                                    MediaQuery.of(context).size.height * 0.03),
+                                    MediaQuery.of(context).size.height * 0.03,),
                           ),
                         ],
                       ),
@@ -882,7 +880,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.022),
+                                  MediaQuery.of(context).size.height * 0.022,),
                         ),
                         InkWell(
                           onTap: () {
@@ -893,7 +891,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             width: MediaQuery.of(context).size.width * 0.33,
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 100, 98, 106),
-                                borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(10),),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -954,7 +952,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                   prefixIcon: Icon(Icons.search),
                                   border: OutlineInputBorder(),
                                   hintText: 'Search listing here...',
-                                )),
+                                ),),
                           ),
                         ),
                         SizedBox(
@@ -969,7 +967,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             width: MediaQuery.of(context).size.width * 0.3,
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 20, 20, 163),
-                                borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(10),),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -995,11 +993,11 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                       : (search_list!.length != 0)
                           ? Padding(
                               padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
+                                  left: 10, right: 10, top: 10,),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(255, 221, 220, 220),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(10),),
                                 height: h,
                                 width: double.infinity,
                                 child: ListView.builder(
@@ -1012,16 +1010,16 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                         detail_property_id_1(
                                             search_list!,
                                             search_list![index]['id_ptys']
-                                                .toString());
+                                                .toString(),);
                                       },
                                       child: Padding(
                                           padding: const EdgeInsets.only(
-                                              right: 20, left: 20, top: 15),
+                                              right: 20, left: 20, top: 15,),
                                           child: Text(
                                             '${search_list![index]['address']} / ${search_list![index]['hometype']} / ${search_list![index]['urgent']} / ${search_list![index]['type']} / ${search_list![index]['id_ptys']}',
                                             style:
                                                 TextStyle(color: Colors.black),
-                                          )),
+                                          ),),
                                     );
                                   },
                                 ),
@@ -1143,7 +1141,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                         Text(
                           'Location In Combodia',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                              fontWeight: FontWeight.bold, fontSize: 15,),
 
                           //color: Colors.blue,
                         ),
@@ -1155,11 +1153,11 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     property_type_id: property_type_id,
                                   );
                                 },
-                              ));
+                              ),);
 
                               print(property_type_id);
                             },
-                            child: Text('View All')),
+                            child: Text('View All'),),
                       ],
                     ),
                   ),
@@ -1204,7 +1202,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     Icons.house_outlined,
                                     size: 28,
                                     color: Colors.blue,
-                                  )),
+                                  ),),
                               Text(
                                 "Home",
                                 style: TextStyle(
@@ -1224,7 +1222,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                         setState(() {
                                           list_get_ForSale;
                                           print(
-                                              'list of For Sale : ${list_get_ForSale.toString()}');
+                                              'list of For Sale : ${list_get_ForSale.toString()}',);
                                           if (list_get_ForSale == 'no data') {
                                             print('khae data');
                                           } else {
@@ -1235,12 +1233,12 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                           }
                                         });
                                       },
-                                    ));
+                                    ),);
                                   },
                                   icon: Icon(
                                     Icons.real_estate_agent_outlined,
                                     size: 28,
-                                  )),
+                                  ),),
                               Text(
                                 "For Sale",
                                 style: TextStyle(fontSize: 11),
@@ -1261,7 +1259,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                     setState(() {
                                                       list_get_ForRent;
                                                       print(list_get_ForRent
-                                                          .toString());
+                                                          .toString(),);
                                                       if (list_get_ForRent ==
                                                           'no data') {
                                                         print('khae data');
@@ -1273,14 +1271,14 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                       }
                                                     });
                                                   },
-                                                )),
+                                                ),),
                                       );
                                     });
                                   },
                                   icon: Icon(
                                     Icons.night_shelter_outlined,
                                     size: 28,
-                                  )),
+                                  ),),
                               Text(
                                 "For Rent",
                                 style: TextStyle(fontSize: 11),
@@ -1343,7 +1341,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                           .list_hometype,
                                                   list_get: controller_2
                                                       .list_value_all_2SR,
-                                                )
+                                                ),
                                                 ),
                                       );
                                     });
@@ -1351,7 +1349,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                   icon: Icon(
                                     Icons.add_home_work_outlined,
                                     size: 28,
-                                  )),
+                                  ),),
                               Text(
                                 "Home Type",
                                 style: TextStyle(fontSize: 11),
@@ -1385,14 +1383,14 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                       }
                                                     });
                                                   },
-                                                )),
+                                                ),),
                                       );
                                     });
                                   },
                                   icon: Icon(
                                     Icons.post_add,
                                     size: 28,
-                                  )),
+                                  ),),
                               Text(
                                 "Add Property",
                                 style: TextStyle(fontSize: 11),
@@ -1413,12 +1411,12 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                       get_max1: (value) {},
                                       get_min2: (value) {},
                                       get_max2: (value) {},
-                                    ));
+                                    ),);
                                   },
                                   icon: Icon(
                                     Icons.search,
                                     size: 28,
-                                  )),
+                                  ),),
                               Text(
                                 "Search",
                                 style: TextStyle(fontSize: 11),
@@ -1440,16 +1438,16 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                         Text(
                           'Property For Sale',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
+                              fontWeight: FontWeight.bold, fontSize: 17,),
                         ),
                         TextButton(
                           onPressed: () {
                             Get.to(List_Sale(
                               listget: controller_value.list_value_all,
-                            ));
+                            ),);
                           },
                           child: Text(
-                              'View All (${controller_value.list_value_all.length.toString()}) Listings'),
+                              'View All (${controller_value.list_value_all.length.toString()}) Listings',),
                         ),
                       ],
                     ),
@@ -1506,7 +1504,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                             detail_property_sale(
                                                 index,
                                                 controller_value
-                                                    .list_value_all);
+                                                    .list_value_all,);
                                           },
                                           child: Stack(
                                             children: [
@@ -1529,17 +1527,17 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                     fit: BoxFit.cover,
                                                     progressIndicatorBuilder:
                                                         (context, url,
-                                                                downloadProgress) =>
+                                                                downloadProgress,) =>
                                                             Center(
                                                       child: CircularProgressIndicator(
                                                           value:
                                                               downloadProgress
-                                                                  .progress),
+                                                                  .progress,),
                                                     ),
                                                     errorWidget:
                                                         (context, url, error) =>
                                                             Icon(Icons.error),
-                                                  )
+                                                  ),
 
                                                   // child: Image.network(
                                                   //   '${obj.url.toString()}',
@@ -1553,7 +1551,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                     0.186,
                                                 child: Container(
                                                   color: Color.fromARGB(
-                                                      255, 8, 103, 13),
+                                                      255, 8, 103, 13,),
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *
@@ -1583,9 +1581,9 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                             255,
                                                                             251,
                                                                             250,
-                                                                            250),
+                                                                            250,),
                                                                         fontSize:
-                                                                            10),
+                                                                            10,),
                                                                   )
                                                                 : Text('N/A'),
                                                             Text(
@@ -1599,8 +1597,8 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                           255,
                                                                           119,
                                                                           234,
-                                                                          5),
-                                                                  fontSize: 10),
+                                                                          5,),
+                                                                  fontSize: 10,),
                                                             ),
                                                             SizedBox(
                                                               width: 5,
@@ -1618,9 +1616,9 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                             255,
                                                                             250,
                                                                             249,
-                                                                            249),
+                                                                            249,),
                                                                         fontSize:
-                                                                            10),
+                                                                            10,),
                                                                   )
                                                                 : Text('N/A'),
                                                             SizedBox(
@@ -1652,7 +1650,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
-                                                                            10),
+                                                                            10,),
                                                                   )
                                                                 : Text('N/A'),
                                                             SizedBox(
@@ -1670,7 +1668,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
-                                                                            10),
+                                                                            10,),
                                                                   )
                                                                 : Text('N/A'),
                                                           ],
@@ -1694,10 +1692,10 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                           Alignment.center,
                                                       decoration: BoxDecoration(
                                                           color: Color.fromARGB(
-                                                              255, 106, 7, 86),
+                                                              255, 106, 7, 86,),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(5)),
+                                                                  .circular(5),),
                                                       height: 25,
                                                       width: 50,
                                                       child: obj_controller_value[
@@ -1708,9 +1706,9 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                               style: TextStyle(
                                                                   fontSize: 12,
                                                                   color: Colors
-                                                                      .white),
+                                                                      .white,),
                                                             )
-                                                          : Text('N/A'))),
+                                                          : Text('N/A'),),),
                                               Positioned(
                                                   left: MediaQuery.of(context)
                                                           .size
@@ -1726,10 +1724,10 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                           Alignment.center,
                                                       decoration: BoxDecoration(
                                                           color: Color.fromARGB(
-                                                              255, 8, 48, 170),
+                                                              255, 8, 48, 170,),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(5)),
+                                                                  .circular(5),),
                                                       height: 25,
                                                       width: 80,
                                                       child: obj_controller_value[
@@ -1740,9 +1738,9 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                               style: TextStyle(
                                                                   fontSize: 12,
                                                                   color: Colors
-                                                                      .white),
+                                                                      .white,),
                                                             )
-                                                          : Text('N/A'))),
+                                                          : Text('N/A'),),),
                                               Positioned(
                                                 left: MediaQuery.of(context)
                                                         .size
@@ -1758,18 +1756,18 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                   width: 60,
                                                   decoration: BoxDecoration(
                                                       color: Color.fromARGB(
-                                                          255, 109, 160, 6),
+                                                          255, 109, 160, 6,),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10)),
+                                                              10,),),
                                                   child: Text(
                                                     'For Sale',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Color.fromARGB(
-                                                            255, 250, 246, 245),
-                                                        fontSize: 12),
+                                                            255, 250, 246, 245,),
+                                                        fontSize: 12,),
                                                   ),
                                                 ),
                                               ),
@@ -1786,7 +1784,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             )
                           : Padding(
                               padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
+                                  left: 10, right: 10, top: 10,),
                               child: Container(
                                 alignment: Alignment.center,
                                 width: double.infinity,
@@ -1794,13 +1792,13 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     MediaQuery.of(context).size.height * 0.07,
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(255, 45, 20, 173),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(10),),
                                 child: Text(
                                   'No Data',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Colors.white,),
                                 ),
                               ),
                             ),
@@ -1815,16 +1813,16 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                         Text(
                           'Properties For Rent',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
+                              fontWeight: FontWeight.bold, fontSize: 17,),
                         ),
                         TextButton(
                           onPressed: () {
                             Get.to(List_Rent(
                               listget: controller_rent.list_value_pid,
-                            ));
+                            ),);
                           },
                           child: Text(
-                              'View All (${controller_rent.list_value_pid.length.toString()}) Listings'),
+                              'View All (${controller_rent.list_value_pid.length.toString()}) Listings',),
                         ),
                       ],
                     ),
@@ -1877,7 +1875,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                               // print(verbal_ID);
                                             });
                                             detail_property_sale(index,
-                                                controller_rent.list_value_pid);
+                                                controller_rent.list_value_pid,);
                                           },
                                           child: Stack(
                                             children: [
@@ -1900,17 +1898,17 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                     fit: BoxFit.cover,
                                                     progressIndicatorBuilder:
                                                         (context, url,
-                                                                downloadProgress) =>
+                                                                downloadProgress,) =>
                                                             Center(
                                                       child: CircularProgressIndicator(
                                                           value:
                                                               downloadProgress
-                                                                  .progress),
+                                                                  .progress,),
                                                     ),
                                                     errorWidget:
                                                         (context, url, error) =>
                                                             Icon(Icons.error),
-                                                  )
+                                                  ),
 
                                                   // child: Image.network(
                                                   //   '${obj.url.toString()}',
@@ -1924,7 +1922,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                     0.186,
                                                 child: Container(
                                                   color: Color.fromARGB(
-                                                      255, 8, 103, 13),
+                                                      255, 8, 103, 13,),
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *
@@ -1952,8 +1950,8 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                           255,
                                                                           251,
                                                                           250,
-                                                                          250),
-                                                                  fontSize: 10),
+                                                                          250,),
+                                                                  fontSize: 10,),
                                                             ),
                                                             Text(
                                                               '\$',
@@ -1966,8 +1964,8 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                           255,
                                                                           119,
                                                                           234,
-                                                                          5),
-                                                                  fontSize: 10),
+                                                                          5,),
+                                                                  fontSize: 10,),
                                                             ),
                                                             SizedBox(
                                                               width: 5,
@@ -1983,8 +1981,8 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                           255,
                                                                           250,
                                                                           249,
-                                                                          249),
-                                                                  fontSize: 10),
+                                                                          249,),
+                                                                  fontSize: 10,),
                                                             ),
                                                             SizedBox(
                                                               width: 5,
@@ -2015,7 +2013,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
-                                                                            10),
+                                                                            10,),
                                                                   )
                                                                 : Text('N/A'),
                                                             SizedBox(
@@ -2033,7 +2031,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
-                                                                            10),
+                                                                            10,),
                                                                   )
                                                                 : Text('N/A'),
                                                           ],
@@ -2057,10 +2055,10 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                           Alignment.center,
                                                       decoration: BoxDecoration(
                                                           color: Color.fromARGB(
-                                                              255, 106, 7, 86),
+                                                              255, 106, 7, 86,),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(5)),
+                                                                  .circular(5),),
                                                       height: 25,
                                                       width: 50,
                                                       child: controller_rent
@@ -2072,9 +2070,9 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                               style: TextStyle(
                                                                   fontSize: 12,
                                                                   color: Colors
-                                                                      .white),
+                                                                      .white,),
                                                             )
-                                                          : Text('N/A'))),
+                                                          : Text('N/A'),),),
                                               Positioned(
                                                   left: MediaQuery.of(context)
                                                           .size
@@ -2090,10 +2088,10 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                           Alignment.center,
                                                       decoration: BoxDecoration(
                                                           color: Color.fromARGB(
-                                                              255, 8, 48, 170),
+                                                              255, 8, 48, 170,),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(5)),
+                                                                  .circular(5),),
                                                       height: 25,
                                                       width: 80,
                                                       child: controller_rent
@@ -2105,9 +2103,9 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                               style: TextStyle(
                                                                   fontSize: 12,
                                                                   color: Colors
-                                                                      .white),
+                                                                      .white,),
                                                             )
-                                                          : Text('N/A'))),
+                                                          : Text('N/A'),),),
                                               Positioned(
                                                 left: MediaQuery.of(context)
                                                         .size
@@ -2123,18 +2121,18 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                                   width: 60,
                                                   decoration: BoxDecoration(
                                                       color: Color.fromARGB(
-                                                          255, 109, 160, 6),
+                                                          255, 109, 160, 6,),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10)),
+                                                              10,),),
                                                   child: Text(
                                                     'For Rent',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Color.fromARGB(
-                                                            255, 250, 246, 245),
-                                                        fontSize: 12),
+                                                            255, 250, 246, 245,),
+                                                        fontSize: 12,),
                                                   ),
                                                 ),
                                               ),
@@ -2151,7 +2149,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                             )
                           : Padding(
                               padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
+                                  left: 10, right: 10, top: 10,),
                               child: Container(
                                 alignment: Alignment.center,
                                 width: double.infinity,
@@ -2159,27 +2157,27 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
                                     MediaQuery.of(context).size.height * 0.07,
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(255, 45, 20, 173),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(10),),
                                 child: Text(
                                   'No Data',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Colors.white,),
                                 ),
                               ),
                             ),
                   ////////////////// write at this
                   // (lis)
                 ],
-              ));
+              ),);
   }
 
   List list2_Sale_khae = [];
   Future<void> list2_Sale_khae1() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Commune_25/$property_type_id_province'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Commune_25/$property_type_id_province',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -2205,7 +2203,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
   Future<void> Property_rent_image(value) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_rent_property_type_id/${value}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_rent_property_type_id/${value}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -2224,7 +2222,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
   Future<void> Property_Rent_id(value) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/rent_id_value/${value}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/rent_id_value/${value}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -2239,7 +2237,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
   Future<void> Hometype() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_homeytpe'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_homeytpe',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body)['data'];
@@ -2256,7 +2254,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
   Future<void> Ugrent_rent(value) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Urgen_rent/$value'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Urgen_rent/$value',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -2271,7 +2269,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
   Future<void> proerty_rent_value(value) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_get/$value'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_get/$value',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -2318,7 +2316,7 @@ class _Home_Screen_propertyState extends State<Home_Screen_property> {
   Future<void> proerty_search(query) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search_down?search=$query'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search_down?search=$query',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

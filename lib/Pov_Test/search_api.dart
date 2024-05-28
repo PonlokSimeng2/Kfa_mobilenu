@@ -50,6 +50,8 @@ class PropertyModel {
 }
 
 class ListSearchExamplessss extends StatefulWidget {
+  const ListSearchExamplessss({super.key});
+
   @override
   _ListSearchExampleState createState() => _ListSearchExampleState();
 }
@@ -72,7 +74,7 @@ class _ListSearchExampleState extends State<ListSearchExamplessss> {
 
   Future<void> filterItems(query) async {
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search_down?search=$query');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search_down?search=$query',);
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -93,7 +95,7 @@ class _ListSearchExampleState extends State<ListSearchExamplessss> {
     filteredList = propertyList
         .where((property) =>
             property.address.contains(query.toLowerCase()) ||
-            property.id_ptys.toString().contains(query.toLowerCase()))
+            property.id_ptys.toString().contains(query.toLowerCase()),)
         .toList();
   }
 
@@ -142,9 +144,9 @@ class _ListSearchExampleState extends State<ListSearchExamplessss> {
                           final property = filteredList[index];
                           return Padding(
                               padding: const EdgeInsets.only(
-                                  right: 10, left: 10, top: 10),
+                                  right: 10, left: 10, top: 10,),
                               child: Text(
-                                  '${property.address} / ${property.homeType} / ${property.urgent} / ${property.type} / ${property.id_ptys}'));
+                                  '${property.address} / ${property.homeType} / ${property.urgent} / ${property.type} / ${property.id_ptys}',),);
                         },
                       ),
                     )

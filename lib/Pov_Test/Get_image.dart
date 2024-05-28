@@ -1,13 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyDataList extends StatefulWidget {
+  const MyDataList({super.key});
+
   @override
   _MyDataListState createState() => _MyDataListState();
 }
 
 class _MyDataListState extends State<MyDataList> {
-  List<Map<String, dynamic>> _listData = [
+  final List<Map<String, dynamic>> _listData = [
     {'id': 1, 'name': 'oukpov'},
     {'id': 2, 'name': 'ouk'},
   ];
@@ -22,7 +23,7 @@ class _MyDataListState extends State<MyDataList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Data List'),
+        title: const Text('My Data List'),
       ),
       body: ListView.builder(
         itemCount: _listData.length,
@@ -31,7 +32,7 @@ class _MyDataListState extends State<MyDataList> {
           return ListTile(
             title: Text(item['name']),
             trailing: IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () => deleteItem(item['id']),
             ),
           );

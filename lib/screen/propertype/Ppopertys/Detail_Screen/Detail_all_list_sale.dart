@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_typing_uninitialized_variables, body_might_complete_normally_nullable, sized_box_for_whitespace, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings, avoid_unnecessary_containers, prefer_adjacent_string_concatenation, avoid_print, unused_local_variable, must_be_immutable, unnecessary_brace_in_string_interps
 
-import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class Detail_property_sale_all extends StatefulWidget {
   List? list_get_sale;
@@ -29,8 +27,8 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
     super.initState();
 
     List<int> myNumbers = widget.verbal_ID!.split(',').map(int.parse).toList();
-    int myId = int.parse(widget.verbal_ID!);
-    for (int num in myNumbers) {
+    final int myId = int.parse(widget.verbal_ID!);
+    for (final int num in myNumbers) {
       if (num == myId) {
         myMatch = num;
         break;
@@ -63,7 +61,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
           child: ListView.builder(
             itemCount: 1,
             itemBuilder: (context, index) {
-              int id_pa = index;
+              final int id_pa = index;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -88,7 +86,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                         (context, url, downloadProgress) =>
                                             Center(
                                       child: CircularProgressIndicator(
-                                          value: downloadProgress.progress),
+                                          value: downloadProgress.progress,),
                                     ),
                                     errorWidget: (context, url, error) =>
                                         Icon(Icons.error),
@@ -116,7 +114,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                             progressIndicatorBuilder:
                                 (context, url, downloadProgress) => Center(
                               child: CircularProgressIndicator(
-                                  value: downloadProgress.progress),
+                                  value: downloadProgress.progress,),
                             ),
                             errorWidget: (context, url, error) =>
                                 Icon(Icons.error),
@@ -145,7 +143,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                 fontWeight: FontWeight.bold,
                                 fontSize:
                                     MediaQuery.of(context).size.height * 0.012,
-                                color: Colors.white),
+                                color: Colors.white,),
                           ),
                         ),
                       ),
@@ -157,9 +155,9 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 2, color: Colors.white),
+                                        width: 2, color: Colors.white,),
                                     color: Color.fromARGB(255, 23, 8, 123),
-                                    borderRadius: BorderRadius.circular(5)),
+                                    borderRadius: BorderRadius.circular(5),),
                                 height: 35,
                                 width: 90,
                                 child: Text(
@@ -168,9 +166,9 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                       fontSize:
                                           MediaQuery.of(context).size.height *
                                               0.019,
-                                      color: Colors.white),
+                                      color: Colors.white,),
                                 ),
-                              ))
+                              ),)
                           : SizedBox(),
                       Positioned(
                           top: 50,
@@ -181,7 +179,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                 border:
                                     Border.all(width: 2, color: Colors.white),
                                 color: Color.fromARGB(255, 25, 127, 13),
-                                borderRadius: BorderRadius.circular(5)),
+                                borderRadius: BorderRadius.circular(5),),
                             height: 35,
                             width: 90,
                             child: Text(
@@ -189,9 +187,9 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                               style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.019,
-                                  color: Colors.white),
+                                  color: Colors.white,),
                             ),
-                          )),
+                          ),),
                       Positioned(
                         top: MediaQuery.of(context).size.height * 0.22,
                         left: 15,
@@ -210,7 +208,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                         builder: (context) {
                                           return Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10, right: 10),
+                                                left: 10, right: 10,),
                                             child: Container(
                                               // child: Image.network(
                                               //   list2_Sale223![index]['url']
@@ -221,13 +219,13 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                                     .toString(),
                                                 progressIndicatorBuilder:
                                                     (context, url,
-                                                            downloadProgress) =>
+                                                            downloadProgress,) =>
                                                         Center(
                                                   child:
                                                       CircularProgressIndicator(
                                                           value:
                                                               downloadProgress
-                                                                  .progress),
+                                                                  .progress,),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
@@ -248,7 +246,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                         border: Border.all(
                                             width: 2,
                                             color: Color.fromARGB(
-                                                255, 235, 227, 227)),
+                                                255, 235, 227, 227,),),
                                         // image: DecorationImage(
                                         //     image: NetworkImage(
                                         //         list2_Sale22![index]['url']
@@ -262,7 +260,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                             (context, url, downloadProgress) =>
                                                 Center(
                                           child: CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                              value: downloadProgress.progress,),
                                         ),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
@@ -279,7 +277,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                         builder: (context) {
                                           return Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10, right: 10),
+                                                left: 10, right: 10,),
                                             child: Container(
                                               // child: Image.network(
                                               //   list2_Sale223![index]['url']
@@ -290,13 +288,13 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                                     .toString(),
                                                 progressIndicatorBuilder:
                                                     (context, url,
-                                                            downloadProgress) =>
+                                                            downloadProgress,) =>
                                                         Center(
                                                   child:
                                                       CircularProgressIndicator(
                                                           value:
                                                               downloadProgress
-                                                                  .progress),
+                                                                  .progress,),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
@@ -317,7 +315,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                         border: Border.all(
                                             width: 2,
                                             color: Color.fromARGB(
-                                                255, 235, 227, 227)),
+                                                255, 235, 227, 227,),),
                                         // image: DecorationImage(
                                         //     image: NetworkImage(
                                         //         list2_Sale22![index]['url']
@@ -331,7 +329,7 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                             (context, url, downloadProgress) =>
                                                 Center(
                                           child: CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                              value: downloadProgress.progress,),
                                         ),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
@@ -340,9 +338,9 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                   ),
                                 ),
                               ],
-                            )),
+                            ),),
                       ),
-                    ]),
+                    ],),
                     // SizedBox(
                     //   height: 10,
                     // ),

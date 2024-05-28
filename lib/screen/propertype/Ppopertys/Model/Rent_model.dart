@@ -14,11 +14,11 @@ class model_rent {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_image'] = this.idImage;
-    data['property_type_id'] = this.propertyTypeId;
-    data['image_name_rent'] = this.imageNameRent;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id_image'] = idImage;
+    data['property_type_id'] = propertyTypeId;
+    data['image_name_rent'] = imageNameRent;
+    data['url'] = url;
     return data;
   }
 }

@@ -128,10 +128,10 @@ class _AboutSidebarState extends State<AboutSidebar> {
                         return Builder(builder: (BuildContext context) {
                           return Container(
                             margin: EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 0),
+                                horizontal: 0, vertical: 0,),
                             child: Image.asset(item),
                           );
-                        });
+                        },);
                       }).toList(),
                     ),
                     SizedBox(
@@ -250,10 +250,10 @@ class _AboutSidebarState extends State<AboutSidebar> {
                   children: const [
                     Image(
                         image: AssetImage(
-                            'assets/images/Company-Profile-Cover2020_1.png')),
+                            'assets/images/Company-Profile-Cover2020_1.png',),),
                     Image(
                         image: AssetImage(
-                            'assets/images/Bank-Panel-for-web-icon.png')),
+                            'assets/images/Bank-Panel-for-web-icon.png',),),
                   ],
                 ),
               ],

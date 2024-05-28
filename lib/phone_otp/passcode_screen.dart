@@ -26,9 +26,9 @@ class _MyPasscodeHomePageState extends State<MyPasscodeHomePage> {
         onPressed: () {
           _showPasscodeSetup(context);
         },
-        child: Text('Set Passcode'),
+        child: const Text('Set Passcode'),
       ),
-    )
+    ),
         // body: PasscodeScreen(
         //   passwordDigits: 4,
         //   cancelButton: const Text('Cancel'),
@@ -84,18 +84,18 @@ class _MyPasscodeHomePageState extends State<MyPasscodeHomePage> {
 }
 
 _showPasscodeSetup(BuildContext context) async {
-  String passcode = await Navigator.push(
+  final String passcode = await Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => PasscodeScreen(
-        title: Text('Set Passcode'),
+        title: const Text('Set Passcode'),
         passwordEnteredCallback: (String enteredPasscode) {
           // For simplicity, we'll just accept any passcode entered by the user
           // In a real-world scenario, you should add your own validation logic here
           print('User entered passcode: $enteredPasscode');
         },
-        cancelButton: Text('Cancel'),
-        deleteButton: Text('Delete'),
+        cancelButton: const Text('Cancel'),
+        deleteButton: const Text('Delete'),
         shouldTriggerVerification: (_verificationNotifier).stream,
         //shouldTriggerVerification: false, // No need to verify the passcode
       ),
@@ -109,12 +109,12 @@ _showPasscodeSetup(BuildContext context) async {
   //   print('User set passcode: $passcode');
   // }
   // Handle the retrieved passcode
-  if (passcode != null && passcode.isNotEmpty) {
+  if (passcode.isNotEmpty) {
     // Save or process the passcode as needed
     print('User set passcode: $passcode');
     // In a real app, you would save the passcode securely here
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const MyPasscodeHomePageLogOut()));
+        builder: (context) => const MyPasscodeHomePageLogOut(),),);
   }
 }
 // class PasscodeSetupScreen extends StatelessWidget {

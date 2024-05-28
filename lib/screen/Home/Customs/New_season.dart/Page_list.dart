@@ -12,7 +12,7 @@ class _List_verbalState extends State<List_verbal1> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('List'),
+          title: const Text('List'),
           centerTitle: true,
         ),
         body: ListView(
@@ -24,10 +24,10 @@ class _List_verbalState extends State<List_verbal1> {
                   color: Colors.red,
                   height: 100,
                   width: 100,
-                  child: Text('verbal${i}'),
+                  child: Text('verbal$i'),
                 ),
               ),
           ],
-        ));
+        ),);
   }
 }

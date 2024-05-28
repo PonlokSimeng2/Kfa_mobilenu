@@ -36,7 +36,7 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
 
   Future<void> _compressImage() async {
     if (_originalImage != null) {
-      String targetPath = '${_originalImage!.path}_compressed.jpg';
+      final String targetPath = '${_originalImage!.path}_compressed.jpg';
 
       try {
         File? compressedFile =
@@ -66,8 +66,8 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
     }
 
     List<File> files = [];
-    for (var asset in resultList) {
-      ByteData byteData = await asset.getByteData();
+    for (final asset in resultList) {
+      final ByteData byteData = await asset.getByteData();
       final tempDir = await getTemporaryDirectory();
       final file = File('${tempDir.path}/${asset.name}');
       await file.writeAsBytes(byteData.buffer.asUint8List());
@@ -132,13 +132,13 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color.fromARGB(255, 47, 22, 157)),
+                        color: Color.fromARGB(255, 47, 22, 157),),
                     child: Text(
                       'Mutiple Image',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.white),
+                          color: Colors.white,),
                     ),
                   ),
                 ),
@@ -156,13 +156,13 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color.fromARGB(255, 47, 22, 157)),
+                        color: Color.fromARGB(255, 47, 22, 157),),
                     child: Text(
                       'Post',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.white),
+                          color: Colors.white,),
                     ),
                   ),
                 ),
@@ -180,13 +180,13 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color.fromARGB(255, 47, 22, 157)),
+                        color: Color.fromARGB(255, 47, 22, 157),),
                     child: Text(
                       'Origener name',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.white),
+                          color: Colors.white,),
                     ),
                   ),
                 ),
@@ -199,7 +199,7 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
   }
 
   Future<File?> testCompressAndGetFile(File file, String targetPath) async {
-    var result = await FlutterImageCompress.compressAndGetFile(
+    final result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
       targetPath,
       quality: 88,
@@ -213,8 +213,8 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
     final picker = ImagePicker();
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      File image = File(pickedFile.path);
-      String fileName = await getFileName(image);
+      final File image = File(pickedFile.path);
+      final String fileName = await getFileName(image);
       print('Original File Name: $fileName');
       return image;
     }
@@ -222,18 +222,18 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
   }
 
   Future<String> getFileName(File file) async {
-    String fileName = basename(file.path);
+    final String fileName = basename(file.path);
     return fileName;
   }
 
   File? result;
   Future<void> _uploadImageSaleMultiple() async {
     for (int i = 0; i < _images.length; i++) {
-      File image = _images[i];
+      final File image = _images[i];
       // print('image$i =${_images[i].toString()}');
 
       final url = Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/mutiple_image_post');
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/mutiple_image_post',);
 
       final request = http.MultipartRequest('POST', url);
       request.fields['id_ptys'] = '2000';
@@ -241,23 +241,21 @@ class _ImageCompressionExampleState extends State<ImageCompressionExamsssple> {
       // request.fields['property_type_id'] = '1212';
 
       // Compress the image file
-      if (image != null) {
-        String targetPath = '${image.path}_compressed.jpg';
+      final String targetPath = '${image.path}_compressed.jpg';
 
-        try {
-          File? compressedFile =
-              await testCompressAndGetFile(image, targetPath);
+      try {
+        File? compressedFile =
+            await testCompressAndGetFile(image, targetPath);
 
-          setState(() {
-            _compressedImage = compressedFile;
-          });
-        } catch (e) {
-          print('Error compressing image: $e');
-        }
+        setState(() {
+          _compressedImage = compressedFile;
+        });
+      } catch (e) {
+        print('Error compressing image: $e');
       }
       // print('image$i =${image.toString()}');
       request.files.add(await http.MultipartFile.fromPath(
-          'images$i', _compressedImage!.path));
+          'images$i', _compressedImage!.path,),);
 
       final response = await request.send();
 

@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_typing_uninitialized_variables, body_might_complete_normally_nullable, sized_box_for_whitespace, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings, avoid_unnecessary_containers, prefer_adjacent_string_concatenation, avoid_print, unused_local_variable, must_be_immutable, unnecessary_brace_in_string_interps
 
-import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../screen/Contacts/ContactUs_sidebar.dart';
-import '../../screen/Home/Body.dart';
 
 class Detail_property_sale_all extends StatefulWidget {
     final String image;
@@ -75,11 +72,11 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                             (context, url, downloadProgress) =>
                                                 Center(
                                           child: CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                              value: downloadProgress.progress,),
                                         ),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
-                                      )),)
+                                      ),),),
                                       ),
                              
                           Padding(
@@ -101,11 +98,11 @@ class _Detail_propertyState extends State<Detail_property_sale_all> {
                                             (context, url, downloadProgress) =>
                                                 Center(
                                           child: CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                              value: downloadProgress.progress,),
                                         ),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
-                                      )),)
+                                      ),),),
                 ),
               ],
             ),

@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +16,7 @@ class Qr_Wing extends StatefulWidget {
       required this.phone,
       required this.option,
       required this.id,
-      required this.control_user});
+      required this.control_user,});
   final String price;
   final String accont;
   final String phone;
@@ -32,8 +29,8 @@ class Qr_Wing extends StatefulWidget {
 
 class _Qr_WingState extends State<Qr_Wing> {
   String generateCRC(var data) {
-    var bytes = utf8.encode(data);
-    var crc = base64.encode(sha256.convert(bytes).bytes);
+    final bytes = utf8.encode(data);
+    final crc = base64.encode(sha256.convert(bytes).bytes);
     return crc;
   }
 
@@ -45,7 +42,7 @@ class _Qr_WingState extends State<Qr_Wing> {
   var url_qr;
   void createInvoice() async {
     final url = Uri.parse(
-        'https://demo-eco-gateway.wingmarket.com/invoicing/api/invoice/ext/create');
+        'https://demo-eco-gateway.wingmarket.com/invoicing/api/invoice/ext/create',);
 
     // JSON data
     final jsonData = {
@@ -88,15 +85,11 @@ class _Qr_WingState extends State<Qr_Wing> {
     );
 
     if (response.statusCode == 200) {
-      print('Invoice created successfully. ${response}');
+      print('Invoice created successfully. $response');
       final responseBody = json.decode(response.body);
       setState(() {
         url_qr = responseBody['body']['qr_code_url'];
-        print('\n' +
-            'trace_id ' +
-            responseBody['trace_id '].toString() +
-            '\n' +
-            widget.id);
+        print('\ntrace_id ${responseBody['trace_id ']}\n${widget.id}',);
       });
     } else {
       // Failed to create invoice
@@ -106,9 +99,9 @@ class _Qr_WingState extends State<Qr_Wing> {
 
   bool success_payment = false;
   Future<void> Load(BuildContext context) async {
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_done?order_reference_no=${order_reference_no}'));
-    var jsonData = jsonDecode(rs.body);
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_done?order_reference_no=$order_reference_no',),);
+    final jsonData = jsonDecode(rs.body);
     setState(() {
       if (jsonData.toString() == order_reference_no.toString()) {
         success_payment = true;
@@ -116,14 +109,14 @@ class _Qr_WingState extends State<Qr_Wing> {
     });
 
     if (success_payment) {
-      var count_number = widget.option.split(' ');
+      final countNumber = widget.option.split(' ');
       final Data = {
         "id_user_control": widget.control_user.toString(),
-        "count_autoverbal": int.parse(count_number[0].toString()),
+        "count_autoverbal": int.parse(countNumber[0].toString()),
       };
       final response = await http.post(
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/updart_count_verbal'),
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/updart_count_verbal',),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -147,7 +140,7 @@ class _Qr_WingState extends State<Qr_Wing> {
   void initState() {
     order_reference_no =
         '${random.nextInt(999).toString()}k${random.nextInt(9999).toString()}f${random.nextInt(9999).toString()}';
-    String state =
+    final String state =
         r"$2a$05$m3RX2lLwe9IoFqvwTh53e.p.UcdyLYstudb.9Hqa4uz0iqRH8h6xi" +
             order_reference_no.toString() +
             "|USD|" +
@@ -158,7 +151,7 @@ class _Qr_WingState extends State<Qr_Wing> {
           TextEditingController(text: 'ID Paymemt : ' + order_reference_no);
       _Url_call_back =
           'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/call_back/${widget.control_user}/6560';
-      print("\n" + crc + "\n" + order_reference_no + "\n" + widget.price);
+      print("${"\n$crc\n" + order_reference_no}\n${widget.price}");
     });
     Future.delayed(const Duration(seconds: 2), () {
       createInvoice();
@@ -168,12 +161,12 @@ class _Qr_WingState extends State<Qr_Wing> {
   ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
-    var formatterDate = DateFormat('dd/MM/yy kk:mm');
-    var dateTime = DateFormat('yyyy-MM-ddThh:mm:ss');
+    final now = DateTime.now();
+    final formatterDate = DateFormat('dd/MM/yy kk:mm');
+    final dateTime = DateFormat('yyyy-MM-ddThh:mm:ss');
 
-    String actualDate = formatterDate.format(now);
-    String actualDate1 = dateTime.format(now);
+    final String actualDate = formatterDate.format(now);
+    final String actualDate1 = dateTime.format(now);
     Future.delayed(const Duration(seconds: 10), () async {
       await Load(context);
       setState(() {
@@ -192,13 +185,13 @@ class _Qr_WingState extends State<Qr_Wing> {
               icon: const Icon(
                 Icons.arrow_back_ios,
                 color: Color.fromRGBO(49, 27, 146, 1),
-              )),
+              ),),
           title: Text(
             "Scan for payments",
             style: TextStyle(
-                color: Color.fromRGBO(49, 27, 146, 1),
+                color: const Color.fromRGBO(49, 27, 146, 1),
                 fontSize: MediaQuery.textScaleFactorOf(context) * 18,
-                fontWeight: FontWeight.w900),
+                fontWeight: FontWeight.w900,),
           ),
           centerTitle: true,
           actions: [
@@ -225,9 +218,9 @@ class _Qr_WingState extends State<Qr_Wing> {
                     Shadow(
                         offset: Offset(3, -3),
                         blurRadius: 5,
-                        color: Colors.black54)
+                        color: Colors.black54,)
                   ],
-                ))
+                ),)
           ],
         ),
         body: SingleChildScrollView(
@@ -247,7 +240,7 @@ class _Qr_WingState extends State<Qr_Wing> {
               TextField(
                 controller: roll_id,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               if (url_qr != null)
                 Screenshot(
@@ -280,9 +273,9 @@ class _Qr_WingState extends State<Qr_Wing> {
                   'Scan with Bakong App Or Mobile Banking app that support KHQR',
                   style: TextStyle(
                       overflow: TextOverflow.visible,
-                      color: Color.fromRGBO(158, 158, 158, 1),
+                      color: const Color.fromRGBO(158, 158, 158, 1),
                       fontWeight: FontWeight.w500,
-                      fontSize: MediaQuery.textScaleFactorOf(context) * 10),
+                      fontSize: MediaQuery.textScaleFactorOf(context) * 10,),
                 ),
               ),
               if (success_payment)
@@ -290,9 +283,9 @@ class _Qr_WingState extends State<Qr_Wing> {
                   titleText: 'Payment Success',
                   size: 25,
                   activeBgColor: Colors.green,
-                  listItemTextColor: Color.fromRGBO(158, 158, 158, 1),
+                  listItemTextColor: const Color.fromRGBO(158, 158, 158, 1),
                   type: GFCheckboxType.square,
-                  activeIcon: Icon(
+                  activeIcon: const Icon(
                     Icons.check,
                     size: 15,
                     color: Colors.white,
@@ -314,18 +307,18 @@ class _Qr_WingState extends State<Qr_Wing> {
                       'Subtotal',
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                     // Text(' ${count.toString()}'),
                     Text(
                       " ${widget.price} USD",
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                   ],
                 ),
@@ -345,17 +338,17 @@ class _Qr_WingState extends State<Qr_Wing> {
                       'V-Point',
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                     Text(
                       " ${widget.option}",
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 11),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 11,),
                     ),
                   ],
                 ),
@@ -378,17 +371,17 @@ class _Qr_WingState extends State<Qr_Wing> {
                       'Total:',
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 12),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 12,),
                     ),
                     Text(
                       " ${widget.price} USD",
                       style: TextStyle(
                           overflow: TextOverflow.visible,
-                          color: Color.fromRGBO(158, 158, 158, 1),
+                          color: const Color.fromRGBO(158, 158, 158, 1),
                           fontWeight: FontWeight.w800,
-                          fontSize: MediaQuery.textScaleFactorOf(context) * 12),
+                          fontSize: MediaQuery.textScaleFactorOf(context) * 12,),
                     ),
                   ],
                 ),
@@ -396,7 +389,7 @@ class _Qr_WingState extends State<Qr_Wing> {
               const SizedBox(height: 90),
             ],
           ),
-        ));
+        ),);
   }
 }
 

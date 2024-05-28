@@ -34,10 +34,10 @@ class _CodeState extends State<Code> {
     setState(() {
       loading = true; //make loading true to show progressindicator
     });
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal?verbal_published=0'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal?verbal_published=0',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         loading = false;
@@ -76,7 +76,7 @@ class _CodeState extends State<Code> {
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
-                      color: kPrimaryColor),
+                      color: kPrimaryColor,),
                 ),
               ],
             ),

@@ -14,7 +14,7 @@ class CommentAndOption extends StatefulWidget {
   final FormFieldSetter<String> comment;
   final OnChangeCallback id;
   const CommentAndOption(
-      {Key? key, required this.value, required this.comment, required this.id})
+      {Key? key, required this.value, required this.comment, required this.id,})
       : super(key: key);
 
   @override
@@ -120,10 +120,10 @@ class _CommentAndOptionState extends State<CommentAndOption> {
   // ignore: non_constant_identifier_names
   void Load() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         _list = jsonData;

@@ -11,7 +11,7 @@ class PropertyDropdown extends StatefulWidget {
   final OnChangeCallback id;
   final String? pro;
   const PropertyDropdown(
-      {Key? key, required this.name, required this.id, this.pro})
+      {Key? key, required this.name, required this.id, this.pro,})
       : super(key: key);
 
   @override
@@ -120,10 +120,10 @@ class _PropertyDropdownState extends State<PropertyDropdown> {
 
   void Load() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         _list = jsonData['property'];

@@ -6,13 +6,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../Model/Rent_model.dart';
 
 class Detail_property_sale extends StatefulWidget {
   final String? property_type_id;
   final String? id_image;
   const Detail_property_sale(
-      {super.key, required this.property_type_id, required this.id_image});
+      {super.key, required this.property_type_id, required this.id_image,});
 
   @override
   State<Detail_property_sale> createState() => _Detail_propertyState();
@@ -74,7 +73,7 @@ class _Detail_propertyState extends State<Detail_property_sale> {
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) => Center(
                                   child: CircularProgressIndicator(
-                                      value: downloadProgress.progress),
+                                      value: downloadProgress.progress,),
                                 ),
                                 errorWidget: (context, url, error) =>
                                     Icon(Icons.error),
@@ -95,15 +94,15 @@ class _Detail_propertyState extends State<Detail_property_sale> {
                                           color:
                                               Color.fromARGB(255, 106, 7, 86),
                                           borderRadius:
-                                              BorderRadius.circular(5)),
+                                              BorderRadius.circular(5),),
                                       height: 50,
                                       width: 100,
                                       child: Text(
                                         "${(list2_Sale_id5![index]['urgent']) ?? "N/A"} ",
                                         style: TextStyle(
-                                            fontSize: 17, color: Colors.white),
+                                            fontSize: 17, color: Colors.white,),
                                       ),
-                                    ))
+                                    ),)
                                 : SizedBox(),
                             Positioned(
                               top: 200,
@@ -138,13 +137,13 @@ class _Detail_propertyState extends State<Detail_property_sale> {
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   width: 2,
-                                                  color: Colors.white),
+                                                  color: Colors.white,),
                                               image: DecorationImage(
                                                   image: NetworkImage(
                                                       list2_Sale22![index]
                                                               ['id_image']
-                                                          .toString()),
-                                                  fit: BoxFit.cover)),
+                                                          .toString(),),
+                                                  fit: BoxFit.cover,),),
                                         ),
                                       ),
                                     );
@@ -152,7 +151,7 @@ class _Detail_propertyState extends State<Detail_property_sale> {
                                 ),
                               ),
                             ),
-                          ]),
+                          ],),
                           // SizedBox(
                           //   height: 10,
                           // ),
@@ -165,7 +164,7 @@ class _Detail_propertyState extends State<Detail_property_sale> {
                             decoration: BoxDecoration(
                                 border: Border.all(width: 2),
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color.fromARGB(255, 248, 247, 247)),
+                                color: Color.fromARGB(255, 248, 247, 247),),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -440,7 +439,7 @@ class _Detail_propertyState extends State<Detail_property_sale> {
   Future<void> Property_Sale_image() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get_id/${widget.id_image}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get_id/${widget.id_image}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -455,7 +454,7 @@ class _Detail_propertyState extends State<Detail_property_sale> {
   Future<void> Property_Sale_value() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale/${widget.id_image}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale/${widget.id_image}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -470,7 +469,7 @@ class _Detail_propertyState extends State<Detail_property_sale> {
   Future<void> Urgent() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Urgent/${widget.id_image}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Urgent/${widget.id_image}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

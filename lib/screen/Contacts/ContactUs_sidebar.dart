@@ -118,7 +118,7 @@ class _ContactsSidebarState extends State<ContactsSidebar> {
                       Text(
                         "KFA Head Office",
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18, fontWeight: FontWeight.bold,),
                       ),
                       SizedBox(
                         height: 10,
@@ -170,7 +170,7 @@ class _ContactsSidebarState extends State<ContactsSidebar> {
                       Container(
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(
-                            top: 10, right: 40, left: 40, bottom: 10),
+                            top: 10, right: 40, left: 40, bottom: 10,),
                         child: ElevatedButton(
                           child: Row(
                             //crossAxisAlignment: CrossAxisAlignment.center,
@@ -204,7 +204,7 @@ class _ContactsSidebarState extends State<ContactsSidebar> {
                       Text(
                         "Hotlines:",
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold,),
                       ),
                       Hotline(
                         onPress: () => setState(() {
@@ -247,7 +247,7 @@ class _ContactsSidebarState extends State<ContactsSidebar> {
                       Text(
                         "Find out more about KFA:",
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold,),
                       ),
                       SizedBox(
                         height: 15,
@@ -261,20 +261,20 @@ class _ContactsSidebarState extends State<ContactsSidebar> {
                                 if (await canLaunch(url)) {
                                   await launch(url,
                                       forceSafariVC: true,
-                                      enableJavaScript: true);
+                                      enableJavaScript: true,);
                                 }
                               },
-                              img: 'assets/images/Facebook_Logo.png'),
+                              img: 'assets/images/Facebook_Logo.png',),
                           appIcons(
                               press: () async {
                                 const url = "https://twitter.com/KFA_Cambodia";
                                 if (await canLaunch(url)) {
                                   await launch(url,
                                       forceSafariVC: true,
-                                      enableJavaScript: true);
+                                      enableJavaScript: true,);
                                 }
                               },
-                              img: 'assets/images/twitter-logo.png'),
+                              img: 'assets/images/twitter-logo.png',),
                           appIcons(
                               press: () async {
                                 const url =
@@ -282,15 +282,15 @@ class _ContactsSidebarState extends State<ContactsSidebar> {
                                 if (await canLaunch(url)) {
                                   await launch(url,
                                       forceSafariVC: true,
-                                      enableJavaScript: true);
+                                      enableJavaScript: true,);
                                 }
                               },
                               img:
-                                  'assets/images/LinkedIn_icon_circle.svg.png'),
+                                  'assets/images/LinkedIn_icon_circle.svg.png',),
                           appIcons(
                               press: () {},
                               img:
-                                  'assets/images/YouTube_full-color_icon_(2017).svg.webp'),
+                                  'assets/images/YouTube_full-color_icon_(2017).svg.webp',),
                         ],
                       ),
                     ],
@@ -353,7 +353,7 @@ class Hotline extends StatelessWidget {
         style: OutlinedButton.styleFrom(
             minimumSize: Size.fromHeight(50),
             // minimumSize: Size.fromRadius(40),
-            side: BorderSide(color: Colors.black12, width: 0.5)),
+            side: BorderSide(color: Colors.black12, width: 0.5),),
         onPressed: onPress,
         child: Row(
           //crossAxisAlignment: CrossAxisAlignment.center,

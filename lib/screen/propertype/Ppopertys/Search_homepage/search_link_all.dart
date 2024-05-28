@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, must_be_immutable, non_constant_identifier_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, prefer_is_empty, unused_element, unused_field, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings, prefer_adjacent_string_concatenation
 
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -24,10 +23,10 @@ class Homepage_search extends StatefulWidget {
 class _Homepage_searchState extends State<Homepage_search> {
   List<dynamic> _searchResults = [];
   Future<void> _search_all() async {
-    var url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search?search=${widget.searchFromVerbalDate}');
+    final url = Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search?search=${widget.searchFromVerbalDate}',);
 
-    var response = await http.get(url);
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       setState(() {
@@ -79,8 +78,8 @@ class _Homepage_searchState extends State<Homepage_search> {
                             controller: _pageController,
                             itemCount: (_searchResults.length / 10).ceil(),
                             itemBuilder: (context, index) {
-                              int startIndex = index * 10;
-                              int endIndex =
+                              final int startIndex = index * 10;
+                              final int endIndex =
                                   (startIndex + 10) > _searchResults.length
                                       ? _searchResults.length
                                       : startIndex + 10;
@@ -97,7 +96,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                   // );
                                   return Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10, right: 10, top: 10),
+                                        left: 10, right: 10, top: 10,),
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *
@@ -107,7 +106,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                           borderRadius:
                                               BorderRadius.circular(7),
                                           color: Color.fromARGB(
-                                              255, 197, 195, 195)),
+                                              255, 197, 195, 195,),),
                                       child: Column(
                                         children: [
                                           Row(
@@ -117,7 +116,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                   InkWell(
                                                     onTap: () {
                                                       detail_property_id(
-                                                          index, items);
+                                                          index, items,);
                                                       setState(() {
                                                         verbal_ID = items[index]
                                                                 ['id_ptys']
@@ -130,15 +129,15 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                           const EdgeInsets.only(
                                                               left: 4,
                                                               bottom: 4,
-                                                              top: 4),
+                                                              top: 4,),
                                                       child: Container(
                                                         height: MediaQuery.of(
-                                                                    context)
+                                                                    context,)
                                                                 .size
                                                                 .height *
                                                             0.23,
                                                         width: MediaQuery.of(
-                                                                    context)
+                                                                    context,)
                                                                 .size
                                                                 .width *
                                                             0.4,
@@ -147,7 +146,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                 BoxShape.circle,
                                                             image: DecorationImage(
                                                                 image: NetworkImage(
-                                                                    '${items[index]['url']}'))),
+                                                                    '${items[index]['url']}',),),),
                                                         child:
                                                             CachedNetworkImage(
                                                           imageUrl: items[index]
@@ -156,14 +155,14 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                           fit: BoxFit.cover,
                                                           progressIndicatorBuilder:
                                                               (context, url,
-                                                                      downloadProgress) =>
+                                                                      downloadProgress,) =>
                                                                   Center(
                                                             child: CircularProgressIndicator(
                                                                 value: downloadProgress
-                                                                    .progress),
+                                                                    .progress,),
                                                           ),
                                                           errorWidget: (context,
-                                                                  url, error) =>
+                                                                  url, error,) =>
                                                               Icon(Icons.error),
                                                         ),
                                                       ),
@@ -185,11 +184,11 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                       255,
                                                                       109,
                                                                       160,
-                                                                      6),
+                                                                      6,),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5)),
+                                                                          5,),),
                                                           child: Text(
                                                             '${items[index]['type'].toString()}',
                                                             style: TextStyle(
@@ -199,8 +198,8 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                         255,
                                                                         250,
                                                                         246,
-                                                                        245),
-                                                                fontSize: 12),
+                                                                        245,),
+                                                                fontSize: 12,),
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -215,11 +214,11 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                       255,
                                                                       29,
                                                                       7,
-                                                                      174),
+                                                                      174,),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5)),
+                                                                          5,),),
                                                           height: 25,
                                                           width: 50,
                                                           child: Text(
@@ -227,7 +226,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                             style: TextStyle(
                                                                 fontSize: 12,
                                                                 color: Colors
-                                                                    .white),
+                                                                    .white,),
                                                           ),
                                                         ),
                                                       ],
@@ -252,22 +251,22 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                               255,
                                                               160,
                                                               159,
-                                                              168),
+                                                              168,),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(5)),
+                                                                  .circular(5),),
                                                       height: 25,
                                                       width: 50,
                                                       child: Text(
                                                         '${items[index]['Name_cummune'].toString()}',
                                                         style: TextStyle(
                                                             fontSize: MediaQuery.of(
-                                                                        context)
+                                                                        context,)
                                                                     .size
                                                                     .height *
                                                                 0.015,
                                                             color:
-                                                                Colors.white),
+                                                                Colors.white,),
                                                       ),
                                                     ),
                                                   ),
@@ -275,7 +274,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.only(
-                                                    left: 4, bottom: 4, top: 4),
+                                                    left: 4, bottom: 4, top: 4,),
                                                 child: Container(
                                                   height: MediaQuery.of(context)
                                                           .size
@@ -288,14 +287,14 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            7),
+                                                            7,),
                                                     color: Color.fromARGB(
-                                                        255, 239, 241, 238),
+                                                        255, 239, 241, 238,),
                                                   ),
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
-                                                            8.0),
+                                                            8.0,),
                                                     child: Column(
                                                       children: [
                                                         Row(
@@ -475,7 +474,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                         onLayout: (format) => _generatePdf(
                                                                             format,
                                                                             items,
-                                                                            index));
+                                                                            index,),);
                                                                   },
                                                                   icon: Icon(
                                                                     Icons.print,
@@ -485,8 +484,8 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                             255,
                                                                             19,
                                                                             14,
-                                                                            164),
-                                                                  )),
+                                                                            164,),
+                                                                  ),),
                                                             ),
                                                             Container(
                                                               height: 40,
@@ -496,7 +495,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                       () {
                                                                     detail_property_id(
                                                                         index,
-                                                                        items);
+                                                                        items,);
                                                                     setState(
                                                                         () {
                                                                       verbal_ID =
@@ -514,8 +513,8 @@ class _Homepage_searchState extends State<Homepage_search> {
                                                                             255,
                                                                             64,
                                                                             132,
-                                                                            9),
-                                                                  )),
+                                                                            9,),
+                                                                  ),),
                                                             ),
                                                           ],
                                                         ),
@@ -544,7 +543,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                 onTap: () {
                                   _pageController.previousPage(
                                       duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut);
+                                      curve: Curves.easeInOut,);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -553,13 +552,13 @@ class _Homepage_searchState extends State<Homepage_search> {
                                       MediaQuery.of(context).size.width * 0.2,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color.fromARGB(255, 152, 33, 25)),
+                                      color: Color.fromARGB(255, 152, 33, 25),),
                                   child: Text(
                                     'Back',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                 ),
                               ),
@@ -567,7 +566,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                                 onTap: () {
                                   _pageController.nextPage(
                                       duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut);
+                                      curve: Curves.easeInOut,);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -576,13 +575,13 @@ class _Homepage_searchState extends State<Homepage_search> {
                                       MediaQuery.of(context).size.width * 0.2,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: Color.fromARGB(255, 18, 36, 142)),
+                                      color: Color.fromARGB(255, 18, 36, 142),),
                                   child: Text(
                                     'Next',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                 ),
                               ),
@@ -596,8 +595,8 @@ class _Homepage_searchState extends State<Homepage_search> {
                     child: Text(
                     'No data',
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.03),
-                  )));
+                        fontSize: MediaQuery.of(context).size.height * 0.03,),
+                  ),),);
   }
 
   String? verbal_ID;
@@ -614,14 +613,14 @@ class _Homepage_searchState extends State<Homepage_search> {
   }
 
   Future<Uint8List> _generatePdf(
-      PdfPageFormat format, List items, int index) async {
+      PdfPageFormat format, List items, int index,) async {
     // Create a new PDF document
     final pdf = pw.Document(version: PdfVersion.pdf_1_4, compress: true);
     final font = await PdfGoogleFonts.nunitoExtraLight();
     final ByteData bytes =
         await rootBundle.load('assets/images/New_KFA_Logo.png');
     final Uint8List byteList = bytes.buffer.asUint8List();
-    Uint8List bytes1 =
+    final Uint8List bytes1 =
         (await NetworkAssetBundle(Uri.parse('${items[index]['url']}'))
                 .load('${items[index]['url']}'))
             .buffer
@@ -659,7 +658,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                       pw.Text('verbal ID = ${items[index]['id_ptys']}'),
                       pw.Text("Property Check",
                           style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.bold, fontSize: 20)),
+                              fontWeight: pw.FontWeight.bold, fontSize: 20,),),
                       pw.Container(
                         height: 50,
                         width: 79,
@@ -675,7 +674,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                     alignment: pw.Alignment.center,
                     height: 30,
                     width: double.infinity,
-                    child: pw.Text('${items[index]['Title'] ?? "N/A"}')),
+                    child: pw.Text('${items[index]['Title'] ?? "N/A"}'),),
                 pw.Text('${items[index]['address'] ?? "N/A"}'),
                 pw.SizedBox(height: 10),
                 //Big image
@@ -747,7 +746,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           child:
                               // name rest with api
                               pw.Text("Price",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 25,
                           //color: Colors.blue,
                         ),
@@ -760,7 +759,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['price'] ?? "N/A"} \$',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 25,
                           //color: Colors.blue,
                         ),
@@ -780,7 +779,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           child:
                               // name rest with api
                               pw.Text("land",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -793,7 +792,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['land'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -813,7 +812,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           child:
                               // name rest with api
                               pw.Text("sqm",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -829,7 +828,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                               '${items[index]['sqm'] ?? "N/A"} ' +
                                   'm' +
                                   '\u00B2',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -849,7 +848,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           child:
                               // name rest with api
                               pw.Text("bed",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -862,7 +861,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['bed'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -882,7 +881,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           child:
                               // name rest with api
                               pw.Text("bath",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -895,7 +894,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['bath'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -915,7 +914,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           child:
                               // name rest with api
                               pw.Text("type",
-                                  style: const pw.TextStyle(fontSize: 10)),
+                                  style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -928,7 +927,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           decoration: pw.BoxDecoration(border: pw.Border.all()),
                           // name rest with api
                           child: pw.Text('${items[index]['type'] ?? "N/A"}',
-                              style: const pw.TextStyle(fontSize: 10)),
+                              style: const pw.TextStyle(fontSize: 10),),
                           height: 20,
                           //color: Colors.blue,
                         ),
@@ -941,7 +940,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                     mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
                       pw.Text('DESCRIPTION'),
-                    ]),
+                    ],),
                 pw.Container(
                   padding: pw.EdgeInsets.all(8),
                   height: 110,
@@ -951,7 +950,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text('${items[index]['description'] ?? "N/A"}')
-                      ]),
+                      ],),
                 ),
                 pw.SizedBox(
                   height: 5,
@@ -961,8 +960,8 @@ class _Homepage_searchState extends State<Homepage_search> {
                     children: [
                       pw.Text('CONTACT AGENT',
                           style: pw.TextStyle(
-                              fontWeight: pw.FontWeight.bold, fontSize: 7)),
-                    ]),
+                              fontWeight: pw.FontWeight.bold, fontSize: 7,),),
+                    ],),
                 pw.SizedBox(height: 3),
                 pw.Column(children: [
                   pw.Row(children: [
@@ -975,7 +974,7 @@ class _Homepage_searchState extends State<Homepage_search> {
                           pw.Text('Email :'),
                           pw.SizedBox(height: 3),
                           pw.Text('Website :'),
-                        ]),
+                        ],),
                     pw.SizedBox(width: 10),
                     pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -987,22 +986,22 @@ class _Homepage_searchState extends State<Homepage_search> {
                           pw.Text('info@kfa.com.kh'),
                           pw.SizedBox(height: 3),
                           pw.Text('www.kfa.com.kh'),
-                        ]),
-                  ]),
-                ])
+                        ],),
+                  ],),
+                ],)
               ],
             ),
           )
         ];
       },
-    ));
+    ),);
     final Color_Test = Color.fromARGB(255, 131, 18, 10);
     // Get the bytes of the PDF document
     final pdfBytes = pdf.save();
 
     // Print the PDF document to the default printer
     await Printing.layoutPdf(
-        onLayout: (PdfPageFormat format) async => pdfBytes);
+        onLayout: (PdfPageFormat format) async => pdfBytes,);
     return pdf.save();
   }
 

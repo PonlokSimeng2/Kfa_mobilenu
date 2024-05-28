@@ -16,7 +16,7 @@ class PeopleController {
   }
 
   Future<List<PeopleModel>> selectPeople() async {
-    var response = await _repository.selectPeople('tbPeople') as List;
+    final response = await _repository.selectPeople('tbPeople') as List;
     List<PeopleModel> peopleList = [];
     response.map((value) {
       return peopleList.add(PeopleModel.fromJson(value));
@@ -82,7 +82,7 @@ class Repository {
   }
 
   insertPeople(table, PeopleModel data) async {
-    var _con = await database;
+    final _con = await database;
     return await _con!.rawInsert(
       'INSERT INTO tbPeople(name,password) VALUES(?,?)',
       [data.name, data.password],
@@ -90,17 +90,17 @@ class Repository {
   }
 
   selectPeople(table) async {
-    var _con = await database;
+    final _con = await database;
     return await _con!.query(table);
   }
 
   deletePeople(table, id) async {
-    var con = await database;
+    final con = await database;
     return await con!.delete(table, where: "id = ?", whereArgs: [id]);
   }
 
   updatePeople(table, data, id) async {
-    var con = await database;
+    final con = await database;
     return await con!.update(table, data, where: "id= ?", whereArgs: [id]);
   }
 }
@@ -108,10 +108,10 @@ class Repository {
 class ConnectionDb {
   // Create a Database
   setDatabase() async {
-    var directory = await getApplicationDocumentsDirectory();
-    var path = join(directory.path, 'kfa_project');
+    final directory = await getApplicationDocumentsDirectory();
+    final path = join(directory.path, 'kfa_project');
     // await deleteDatabase(path);
-    var database =
+    final database =
         await openDatabase(path, version: 1, onCreate: _onCreateDatabase);
 
     return database;
@@ -141,8 +141,8 @@ class _ShowPeoplePageState extends State<ShowPeoplePage> {
 
   List<PeopleModel> list = [];
   bool status = false;
-  var data = new PeopleModel(
-      name: 'virakoumst@gmail.com', password: 'Virak123', id: 0);
+  var data = PeopleModel(
+      name: 'virakoumst@gmail.com', password: 'Virak123', id: 0,);
   selectPeople() async {
     await PeopleController().insertPeople(data);
     list = await PeopleController().selectPeople();
@@ -171,7 +171,7 @@ class _ShowPeoplePageState extends State<ShowPeoplePage> {
         child: ListView.builder(
           itemCount: list.length,
           itemBuilder: (context, index) {
-            var data = list[index];
+            final data = list[index];
             return Card(
               child: ListTile(
                 onTap: () {

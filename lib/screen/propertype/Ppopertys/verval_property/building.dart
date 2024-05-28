@@ -26,8 +26,8 @@ class _MultiplyFormState extends State<Building> {
   }
 
   void _updateTotal() {
-    int a = int.tryParse(_controllerA.text) ?? 0;
-    int b = int.tryParse(_controllerB.text) ?? 0;
+    final int a = int.tryParse(_controllerA.text) ?? 0;
+    final int b = int.tryParse(_controllerB.text) ?? 0;
     setState(() {
       _total = a * b;
       widget.l(a.toString());
@@ -38,8 +38,8 @@ class _MultiplyFormState extends State<Building> {
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width * 0.2;
-    double w2 = MediaQuery.of(context).size.width * 0.2;
+    final double w = MediaQuery.of(context).size.width * 0.2;
+    final double w2 = MediaQuery.of(context).size.width * 0.2;
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30),
       child: Container(
@@ -119,14 +119,14 @@ class _MultiplyFormState extends State<Building> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: MediaQuery.of(context).size.height * 0.04,
-                    color: kImageColor),
+                    color: kImageColor,),
               ),
               Container(
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(width: 2, color: Colors.white),
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),),
                 width: w,
                 height: MediaQuery.of(context).size.height * 0.065,
                 child: (_total != 0) ? Text('$_total') : Text('Total'),

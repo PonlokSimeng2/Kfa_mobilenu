@@ -12,7 +12,7 @@ class Detail_property_rent extends StatefulWidget {
   final String? property_type_id;
   final String? id_image;
   const Detail_property_rent(
-      {super.key, required this.property_type_id, required this.id_image});
+      {super.key, required this.property_type_id, required this.id_image,});
 
   @override
   State<Detail_property_rent> createState() => _Detail_propertyState();
@@ -79,18 +79,18 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                         fit: BoxFit.cover,
                                                         progressIndicatorBuilder:
                                                             (context, url,
-                                                                    downloadProgress) =>
+                                                                    downloadProgress,) =>
                                                                 Center(
                                                           child: CircularProgressIndicator(
                                                               value:
                                                                   downloadProgress
-                                                                      .progress),
+                                                                      .progress,),
                                                         ),
                                                         errorWidget: (context,
-                                                                url, error) =>
+                                                                url, error,) =>
                                                             Icon(Icons.error),
                                                       )
-                                                    : SizedBox()
+                                                    : SizedBox(),
                                                 // child: Image.network(
                                                 //   '${list2_Sale4[index]['url'].toString()}',
                                                 //   // 'https://www.oneclickonedollar.com/laravel_kfa_2023/public/data_imgs_kfa/propery_sale/22.jpg',
@@ -115,7 +115,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                     return Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              right: 10),
+                                                              right: 10,),
                                                       child: InkWell(
                                                         onTap: () {
                                                           showDialog(
@@ -125,7 +125,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                                 child: Image
                                                                     .network(obj
                                                                         .url
-                                                                        .toString()),
+                                                                        .toString(),),
                                                               );
                                                             },
                                                           );
@@ -137,13 +137,13 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                               border: Border.all(
                                                                   width: 2,
                                                                   color: Colors
-                                                                      .white),
+                                                                      .white,),
                                                               image: DecorationImage(
                                                                   image: NetworkImage(obj
                                                                       .url
-                                                                      .toString()),
+                                                                      .toString(),),
                                                                   fit: BoxFit
-                                                                      .cover)),
+                                                                      .cover,),),
                                                         ),
                                                       ),
                                                     );
@@ -151,7 +151,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                 ),
                                               ),
                                             ),
-                                          ]),
+                                          ],),
                                           // SizedBox(
                                           //   height: 10,
                                           // ),
@@ -169,7 +169,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 color: Color.fromARGB(
-                                                    255, 248, 247, 247)),
+                                                    255, 248, 247, 247,),),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -345,9 +345,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                       height: 20,
                                                     ),
                                                     Text(
-                                                      '${list2_Sale3[index]['sqm'].toString()} ' +
-                                                          'm' +
-                                                          '\u00B2',
+                                                      '${list2_Sale3[index]['sqm'].toString()} ' 'm' '\u00B2',
                                                       style: TextStyle(
                                                         fontSize: 16,
                                                         fontWeight:
@@ -408,7 +406,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                           ),
                                           Container(
                                             color: Color.fromARGB(
-                                                255, 251, 251, 251),
+                                                255, 251, 251, 251,),
                                             height: 100,
                                             width: double.infinity,
                                             child: Padding(
@@ -421,7 +419,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                                   Row(
                                                     children: [
                                                       Icon(Icons
-                                                          .add_home_work_sharp),
+                                                          .add_home_work_sharp,),
                                                       SizedBox(
                                                         width: 10,
                                                       ),
@@ -457,7 +455,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
                                 ),
                               )
                             ],
-                          ))
+                          ),)
                     ],
                   );
                 },
@@ -494,21 +492,21 @@ class _Detail_propertyState extends State<Detail_property_rent> {
   void Property_rent_image_id() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_id/${widget.id_image}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_id/${widget.id_image}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
       list2_Sale3 = jsonData;
       setState(() {
         list2_Sale3;
-        print('${list2_Sale3}');
+        print('$list2_Sale3');
       });
     }
   }
 
   Future<List<model_rent>> Property_Rent_image() async {
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_rent_Image_id/${widget.id_image}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_rent_Image_id/${widget.id_image}',),);
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       return data.map((json) => model_rent.fromJson(json)).toList();
@@ -521,7 +519,7 @@ class _Detail_propertyState extends State<Detail_property_rent> {
   void Property_rent_image_all(property_type_id) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_rent_Image_id/${widget.id_image}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_rent_Image_id/${widget.id_image}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

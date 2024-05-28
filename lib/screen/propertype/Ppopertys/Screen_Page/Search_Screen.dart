@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:math';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +69,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services'),
+              'Location services are disabled. Please enable the services',),
         ),
       );
       return false;
@@ -80,14 +79,14 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
+            const SnackBar(content: Text('Location permissions are denied')),);
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
+              'Location permissions are permanently denied, we cannot request permissions.',),),);
       return false;
     }
     return true;
@@ -97,8 +96,8 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   double? log1;
 
   Future<void> _getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,);
 
     setState(() {
       mapController!.animateCamera(CameraUpdate.newCameraPosition(
@@ -106,7 +105,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
           target: LatLng(position.latitude, position.longitude),
           zoom: 16.0,
         ),
-      ));
+      ),);
       lat1 = position.latitude;
       log1 = position.longitude;
       latLng = LatLng(lat1!, log1!);
@@ -116,7 +115,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
 
   double? lat;
   double? log;
-  Set<Polygon> _Find_polygons = HashSet<Polygon>();
+  final Set<Polygon> _Find_polygons = HashSet<Polygon>();
   List<Color> FillColors = [
     Color.fromARGB(24, 252, 189, 0),
     Color.fromARGB(22, 155, 252, 0),
@@ -146,7 +145,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
     "Khan Preaek Pnov",
   ];
 
-  List _pg = [];
+  final List _pg = [];
   String? onTAP_MAP;
   double? lat_verbal;
   double? log_verbal;
@@ -155,7 +154,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   CameraPosition? cameraPosition;
 
   Future<void> _addMarker(LatLng latLng) async {
-    Marker newMarker = Marker(
+    final Marker newMarker = Marker(
       draggable: true,
       markerId: MarkerId(latLng.toString()),
       position: latLng,
@@ -208,13 +207,13 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
 
   var formatter = NumberFormat("##,###,###,##0.00", "en_US");
   Future<void> _addMarker_by_datavelbal(LatLng latLng, String price, String bed,
-      String Type, String bath, String vebal, List list_winget) async {
-    Marker newMarker = Marker(
+      String Type, String bath, String vebal, List list_winget,) async {
+    final Marker newMarker = Marker(
       draggable: true,
       markerId: MarkerId(latLng.toString()),
       position: latLng,
       icon: await BitmapDescriptor.fromAssetImage(
-          ImageConfiguration(size: Size(50, 50)), 'assets/images/pin.png'),
+          ImageConfiguration(size: Size(50, 50)), 'assets/images/pin.png',),
       infoWindow: InfoWindow(
           snippet: "${Type} More ...",
           onTap: () {
@@ -228,7 +227,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
               ),
             );
           },
-          title: 'Price:${price}\$ ~ bath:$bath ~ bed:$bed'),
+          title: 'Price:${price}\$ ~ bath:$bath ~ bed:$bed',),
     );
     setState(() {
       _marker.add(newMarker);
@@ -242,9 +241,9 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   Future<void> Get_data_verbal_sale() async {
     if (choose_2 == 'For Sale' && choose_2 != 'For Rent') {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_map/$lat_verbal/$log_verbal?start=$start&end=$end'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_map/$lat_verbal/$log_verbal?start=$start&end=$end',),);
       if (response.statusCode == 200) {
-        var jsonResponse = json.decode(response.body)['data'];
+        final jsonResponse = json.decode(response.body)['data'];
         setState(() {
           data_of_verbal = jsonResponse;
           data_of_verbal;
@@ -258,7 +257,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                 data_of_verbal[i]['hometype'].toString(),
                 data_of_verbal[i]['bath'].toString(),
                 data_of_verbal[i]['id_ptys'].toString(),
-                data_of_verbal);
+                data_of_verbal,);
           }
         });
       }
@@ -266,10 +265,10 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       print('For Rent');
 
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_map_rent/$lat_verbal/$log_verbal?start=$start&end=$end'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_map_rent/$lat_verbal/$log_verbal?start=$start&end=$end',),);
 
       if (response.statusCode == 200) {
-        var jsonResponse = json.decode(response.body)['data'];
+        final jsonResponse = json.decode(response.body)['data'];
         setState(() {
           data_of_verbal = jsonResponse;
           data_of_verbal;
@@ -282,7 +281,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                 data_of_verbal[i]['hometype'].toString(),
                 data_of_verbal[i]['bath'].toString(),
                 data_of_verbal[i]['id_ptys'].toString(),
-                data_of_verbal);
+                data_of_verbal,);
           }
         });
       }
@@ -305,7 +304,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   Set<Marker> markersList = {};
   late GoogleMapController googleMapController;
   int id = 1;
-  Set<Polyline> _polylines = Set<Polyline>();
+  final Set<Polyline> _polylines = Set<Polyline>();
   List<MapType> style_map = [
     MapType.hybrid,
     MapType.normal,
@@ -321,7 +320,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   ScrollController? controller = ScrollController();
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
+    final w = MediaQuery.of(context).size.width;
     if (w < 600) {
       wth = w * 0.8;
       wth2 = w * 0.5;
@@ -382,7 +381,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                   _addMarker(argument);
                 });
               },
-            )),
+            ),),
             Container(
               width: wth,
               margin: EdgeInsets.only(
@@ -391,7 +390,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
               ),
               padding: EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(30)),
+                  color: Colors.white, borderRadius: BorderRadius.circular(30),),
               child: Form(
                 key: check,
                 child: Row(
@@ -455,14 +454,14 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                         icon: const Icon(
                           Icons.search,
                           size: 30,
-                        )),
+                        ),),
                     IconButton(
                         onPressed: () {
                           setState(() {
                             _getCurrentLocation();
                           });
                         },
-                        icon: Icon(Icons.person_pin_circle_outlined))
+                        icon: Icon(Icons.person_pin_circle_outlined),)
                   ],
                 ),
               ),
@@ -485,7 +484,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                           num = 1; // use num for when user click on list search
                           name_of_place != name_place[index].toString();
                           poin_map_by_search(
-                              ln[index].toString(), lg[index].toString());
+                              ln[index].toString(), lg[index].toString(),);
                         },
                         child: Text(
                           name_place[index],
@@ -554,19 +553,19 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   int? index_map;
   Future<void> Find_by_piont(double la, double lo) async {
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${la},${lo}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${la},${lo}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
     if (response.statusCode == 200) {
       // Successful response
-      var jsonResponse = json.decode(response.body);
-      var location = jsonResponse['results'][0]['geometry']['location'];
-      var lati = location['lat'];
-      var longi = location['lng'];
+      final jsonResponse = json.decode(response.body);
+      final location = jsonResponse['results'][0]['geometry']['location'];
+      final lati = location['lat'];
+      final longi = location['lng'];
       lat_verbal = double.parse(lati.toString());
       log_verbal = double.parse(longi.toString());
       widget.get_lat(lati.toString());
       widget.get_log(longi.toString());
-      List ls = jsonResponse['results'];
+      final List ls = jsonResponse['results'];
       List ac;
       bool check_sk = false, check_kn = false;
       for (int j = 0; j < ls.length; j++) {
@@ -583,7 +582,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                 // Load_khan(district);
 
                 widget.get_district(jsonResponse['results'][j]
-                    ['address_components'][i]['short_name']);
+                    ['address_components'][i]['short_name'],);
               });
             }
             if (jsonResponse['results'][j]['address_components'][i]['types']
@@ -595,7 +594,7 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
                     ['short_name']);
                 // Load_sangkat(commune);
                 widget.get_commune(jsonResponse['results'][j]
-                    ['address_components'][i]['short_name']);
+                    ['address_components'][i]['short_name'],);
               });
             }
           }
@@ -609,19 +608,19 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
 
   List name_place = [];
   Future<void> Find_Lat_log(var place) async {
-    var check_charetor = place.split(',');
+    final check_charetor = place.split(',');
     if (check_charetor.length == 1) {
-      String url =
+      final String url =
           'https://maps.googleapis.com/maps/api/geocode/json?address=${check_charetor[0]}&region=kh&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI';
       final response = await http.get(Uri.parse(url));
       final jsonResponse = json.decode(response.body);
-      var location = jsonResponse['results'][0]['geometry']['location'];
-      var lati = location['lat'];
-      var longi = location['lng'];
+      final location = jsonResponse['results'][0]['geometry']['location'];
+      final lati = location['lat'];
+      final longi = location['lng'];
       // widget.lat(lati.toString());
       // widget.log(longi.toString());
       latLng = LatLng(lati, longi);
-      Marker newMarker = Marker(
+      final Marker newMarker = Marker(
         draggable: true,
         markerId: MarkerId(latLng.toString()),
         position: latLng,
@@ -641,8 +640,8 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       // print('------------------- $longitude');
 
       mapController?.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: latLng, zoom: 13)));
-      List ls = jsonResponse['results'];
+          CameraPosition(target: latLng, zoom: 13),),);
+      final List ls = jsonResponse['results'];
       List ac;
       for (int j = 0; j < ls.length; j++) {
         ac = jsonResponse['results'][j]['address_components'];
@@ -666,17 +665,17 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       }
     } else {
       final response = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${check_charetor[0]},${check_charetor[1]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${check_charetor[0]},${check_charetor[1]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
       // Successful response
-      var jsonResponse = json.decode(response.body);
-      var location = jsonResponse['results'][0]['geometry']['location'];
-      var lati = location['lat'];
-      var longi = location['lng'];
+      final jsonResponse = json.decode(response.body);
+      final location = jsonResponse['results'][0]['geometry']['location'];
+      final lati = location['lat'];
+      final longi = location['lng'];
       // widget.lat(lati.toString());
       // widget.log(longi.toString());
       latLng = LatLng(lati, longi);
-      Marker newMarker = Marker(
+      final Marker newMarker = Marker(
         draggable: true,
         markerId: MarkerId(latLng.toString()),
         position: latLng,
@@ -696,8 +695,8 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       // print('------------------- $longitude');
 
       mapController?.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: latLng, zoom: 13)));
-      List ls = jsonResponse['results'];
+          CameraPosition(target: latLng, zoom: 13),),);
+      final List ls = jsonResponse['results'];
       List ac;
       for (int j = 0; j < ls.length; j++) {
         ac = jsonResponse['results'][j]['address_components'];
@@ -730,17 +729,17 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   List ln = [];
   List lg = [];
   Future<void> get_name_search(var name) async {
-    String url =
+    final String url =
         'https://maps.googleapis.com/maps/api/place/textsearch/json?query=${name}&radius=1000&language=km&region=KH&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI&libraries=places';
     final response = await http.get(Uri.parse(url));
     final jsonResponse = json.decode(response.body);
-    List ls = jsonResponse['results'];
+    final List ls = jsonResponse['results'];
     List ac;
     for (int j = 0; j < ls.length; j++) {
       // ac = ls[j]['formatted_address'];
 
-      var name = ls[j]['name'].toString();
-      var data_lnlg = jsonResponse['results'][j]['geometry']['location'];
+      final name = ls[j]['name'].toString();
+      final data_lnlg = jsonResponse['results'][j]['geometry']['location'];
       if (h == 0 || h < 250) {
         h += 40;
       }
@@ -754,10 +753,10 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
 
   Future<void> poin_map_by_search(var ln, var lg) async {
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lg},${ln}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
-    var jsonResponse = json.decode(response.body);
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lg},${ln}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+    final jsonResponse = json.decode(response.body);
     latLng = LatLng(double.parse(lg), double.parse(ln));
-    Marker newMarker = Marker(
+    final Marker newMarker = Marker(
       draggable: true,
       markerId: MarkerId(latLng.toString()),
       position: latLng,
@@ -774,8 +773,8 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
       _marker.add(newMarker);
     });
     mapController?.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: latLng, zoom: 13)));
-    List ls = jsonResponse['results'];
+        CameraPosition(target: latLng, zoom: 13),),);
+    final List ls = jsonResponse['results'];
     List ac;
     for (int j = 0; j < ls.length; j++) {
       ac = jsonResponse['results'][j]['address_components'];
@@ -793,18 +792,18 @@ class _SearchPlacesScreenState extends State<Map_List_search> {
   }
 
   Future<dynamic> maker_of_verbal_in_map(
-      List data_latlog, List values_min, List values_max) async {
+      List data_latlog, List values_min, List values_max,) async {
     for (int i = 0; i < data_latlog.length; i++) {
-      Marker newMarker = Marker(
+      final Marker newMarker = Marker(
         draggable: true,
         markerId: MarkerId(i.toString()),
         icon: await BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(80, 80)), 'assets/images/pin.png'),
+            ImageConfiguration(size: Size(80, 80)), 'assets/images/pin.png',),
         position:
             LatLng(data_latlog[i]['latlong_log'], data_latlog[i]['latlong_la']),
         infoWindow: InfoWindow(
             title:
-                '${values_min[i].toString()}\$ ~ ${values_max[i].toString()}\$'),
+                '${values_min[i].toString()}\$ ~ ${values_max[i].toString()}\$',),
       );
       setState(() {
         _marker.add(newMarker);

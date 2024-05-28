@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:kfa_mobilenu/screen/Home/Body.dart';
 
 class MyAppPasscode extends StatelessWidget {
+  const MyAppPasscode({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: PasscodeScreentest(),
     );
   }
 }
 
 class PasscodeScreentest extends StatefulWidget {
+  const PasscodeScreentest({super.key});
+
   @override
   _PasscodeScreentestState createState() => _PasscodeScreentestState();
 }
@@ -40,18 +43,18 @@ class _PasscodeScreentestState extends State<PasscodeScreentest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Passcode Login'),
+        title: const Text('Passcode Login'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'Enter Passcode:',
               style: TextStyle(fontSize: 18.0),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50.0),
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
               child: TextField(
                 controller: passcodeController,
                 keyboardType: TextInputType.number,
@@ -63,12 +66,12 @@ class _PasscodeScreentestState extends State<PasscodeScreentest> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 validatePasscode(passcodeController.text);
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
           ],
         ),

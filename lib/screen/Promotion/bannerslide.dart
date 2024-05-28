@@ -57,12 +57,12 @@ class _BannerSlideState extends State<BannerSlide> {
                       });
                     },
                     // reverse: true,
-                  )
+                  ),
                   ),
       
               // buildIndicator(),
             ],
-          )),
+          ),),
     );
   }
   Widget buildImage(String imageList, int index) => BannersCard(

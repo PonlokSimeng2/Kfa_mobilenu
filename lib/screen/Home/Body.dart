@@ -48,11 +48,11 @@ final List<Widget> imageSliders = imgList
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 20.0),
+                    vertical: 10.0, horizontal: 20.0,),
               ),
             ),
           ],
-        )))
+        ),),)
     .toList();
 
 class Body extends StatefulWidget {
@@ -104,7 +104,7 @@ class _BodyState extends State<Body> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services'),
+              'Location services are disabled. Please enable the services',),
         ),
       );
       return false;
@@ -114,14 +114,14 @@ class _BodyState extends State<Body> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
+            const SnackBar(content: Text('Location permissions are denied')),);
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
+              'Location permissions are permanently denied, we cannot request permissions.',),),);
       return false;
     }
     _getCurrentPosition();
@@ -129,8 +129,8 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> _getCurrentPosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,);
 
     setState(() {
       lat = position.latitude;
@@ -142,7 +142,7 @@ class _BodyState extends State<Body> {
   Future<void> value_all_list_2() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_Sale_all_2'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_Sale_all_2',),);
       if (response.statusCode == 200) {
         final List<dynamic> jsonBody = jsonDecode(response.body);
         list_value_all_2SR = jsonBody;
@@ -160,11 +160,11 @@ class _BodyState extends State<Body> {
   var formatter = NumberFormat("##,###,###,##0.00", "en_US");
   Future<void> Find_by_piont(double la, double lo) async {
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${la},${lo}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      List ls = jsonResponse['results'];
+      final jsonResponse = json.decode(response.body);
+      final List ls = jsonResponse['results'];
       List ac;
       bool check_sk = false, check_kn = false;
       for (int j = 0; j < ls.length; j++) {
@@ -193,8 +193,8 @@ class _BodyState extends State<Body> {
         }
       }
       final response_rc = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/map/check_price?Khan_Name=${district.toString()}&Sangkat_Name=${commune.toString()}'));
-      var jsonResponse_rc = json.decode(response_rc.body);
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/map/check_price?Khan_Name=${district.toString()}&Sangkat_Name=${commune.toString()}',),);
+      final jsonResponse_rc = json.decode(response_rc.body);
       setState(() {
         maxSqm1 = jsonResponse_rc['residential'][0]['Min_Value'].toString();
         minSqm1 = jsonResponse_rc['residential'][0]['Max_Value'].toString();
@@ -216,8 +216,8 @@ class _BodyState extends State<Body> {
   double? C_avg;
   Future<void> change_price() async {
     final response_rc = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/map/check_price?Khan_Name=${district.toString()}&Sangkat_Name=${commune.toString()}'));
-    var jsonResponse_rc = json.decode(response_rc.body);
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/map/check_price?Khan_Name=${district.toString()}&Sangkat_Name=${commune.toString()}',),);
+    final jsonResponse_rc = json.decode(response_rc.body);
     setState(() {
       maxSqm1 = jsonResponse_rc['residential'][0]['Min_Value'].toString();
       minSqm1 = jsonResponse_rc['residential'][0]['Max_Value'].toString();
@@ -282,7 +282,7 @@ class _BodyState extends State<Body> {
       StreamController<bool>.broadcast();
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
+    final w = MediaQuery.of(context).size.width;
     if (w < 600) {
       wth = w * 0.6;
       wth2 = w * 0.3;
@@ -290,9 +290,9 @@ class _BodyState extends State<Body> {
       wth = w * 0.5;
       wth2 = w * 0.3;
     }
-    DateTime timeNow = DateTime.now();
+    final DateTime timeNow = DateTime.now();
 
-    String formattedDate = DateFormat('dd MM yyyy').format(timeNow);
+    final String formattedDate = DateFormat('dd MM yyyy').format(timeNow);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kwhite_new,
@@ -319,7 +319,7 @@ class _BodyState extends State<Body> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Color.fromARGB(54, 15, 179, 204),
-                  border: Border.all()),
+                  border: Border.all(),),
               height: 290,
               child: Column(children: [
                 CarouselSlider(
@@ -335,7 +335,7 @@ class _BodyState extends State<Body> {
                         setState(() {
                           _current = index;
                         });
-                      }),
+                      },),
                 ),
                 Container(
                   height: 40,
@@ -348,7 +348,7 @@ class _BodyState extends State<Body> {
                           width: 12.0,
                           height: 12.0,
                           margin: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
+                              vertical: 8.0, horizontal: 4.0,),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: (Theme.of(context).brightness ==
@@ -356,13 +356,13 @@ class _BodyState extends State<Body> {
                                       ? Colors.white
                                       : Colors.black)
                                   .withOpacity(
-                                      _current == entry.key ? 0.9 : 0.4)),
+                                      _current == entry.key ? 0.9 : 0.4,),),
                         ),
                       );
                     }).toList(),
                   ),
                 ),
-              ]),
+              ],),
             ),
           ),
           //  Newbanner(),
@@ -413,7 +413,7 @@ class _BodyState extends State<Body> {
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 2,
-                                  crossAxisSpacing: 2),
+                                  crossAxisSpacing: 2,),
                           itemBuilder: (context, index) {
                             return Stack(
                               children: [
@@ -443,7 +443,7 @@ class _BodyState extends State<Body> {
                                                                         Add_verbal_property(
                                                                           refresh_homeScreen:
                                                                               (value) {},
-                                                                        )));
+                                                                        ),),);
                                                       }
                                                       if (index == 1) {
                                                         Navigator.of(context).push(
@@ -453,7 +453,7 @@ class _BodyState extends State<Body> {
                                                                         Add_verbal_property(
                                                                           refresh_homeScreen:
                                                                               (value) {},
-                                                                        )));
+                                                                        ),),);
                                                       }
                                                       if (index == 2) {
                                                         Navigator.of(context).push(
@@ -463,7 +463,7 @@ class _BodyState extends State<Body> {
                                                                         Add_verbal_property(
                                                                           refresh_homeScreen:
                                                                               (value) {},
-                                                                        )));
+                                                                        ),),);
                                                       }
                                                       if (index == 3) {
                                                         Navigator.of(context).push(
@@ -473,7 +473,7 @@ class _BodyState extends State<Body> {
                                                                         Add_verbal_property(
                                                                           refresh_homeScreen:
                                                                               (value) {},
-                                                                        )));
+                                                                        ),),);
                                                       }
                                                       if (index == 4) {
                                                         Navigator.of(context).push(
@@ -483,7 +483,7 @@ class _BodyState extends State<Body> {
                                                                         Add_verbal_property(
                                                                           refresh_homeScreen:
                                                                               (value) {},
-                                                                        )));
+                                                                        ),),);
                                                       }
                                                       if (index == 5) {
                                                         Navigator.of(context).push(
@@ -493,7 +493,7 @@ class _BodyState extends State<Body> {
                                                                         Add_verbal_property(
                                                                           refresh_homeScreen:
                                                                               (value) {},
-                                                                        )));
+                                                                        ),),);
                                                       }
                                                     } else {
                                                       setState(() {
@@ -516,11 +516,11 @@ class _BodyState extends State<Body> {
                                                                   //     child: Text("Okay!"))
                                                                 ],
                                                                 title: Text(
-                                                                    "Error Password"),
+                                                                    "Error Password",),
                                                                 content: Text(
-                                                                    "Please try again later."),
+                                                                    "Please try again later.",),
                                                               );
-                                                            });
+                                                            },);
                                                       });
                                                     }
                                                   });
@@ -539,7 +539,7 @@ class _BodyState extends State<Body> {
                                                     (_verificationNotifier)
                                                         .stream,
                                               );
-                                            });
+                                            },);
                                       }
                                       if (c == true && number > 0) {
                                         number -= 1;
@@ -553,7 +553,7 @@ class _BodyState extends State<Body> {
                                                       Add_verbal_property(
                                                         refresh_homeScreen:
                                                             (value) {},
-                                                      )));
+                                                      ),),);
                                         }
                                         if (index == 1) {
                                           Navigator.of(context).push(
@@ -562,7 +562,7 @@ class _BodyState extends State<Body> {
                                                       Add_verbal_property(
                                                         refresh_homeScreen:
                                                             (value) {},
-                                                      )));
+                                                      ),),);
                                         }
                                         if (index == 2) {
                                           Navigator.of(context).push(
@@ -571,7 +571,7 @@ class _BodyState extends State<Body> {
                                                       Add_verbal_property(
                                                         refresh_homeScreen:
                                                             (value) {},
-                                                      )));
+                                                      ),),);
                                         }
                                         if (index == 3) {
                                           Navigator.of(context).push(
@@ -580,7 +580,7 @@ class _BodyState extends State<Body> {
                                                       Add_verbal_property(
                                                         refresh_homeScreen:
                                                             (value) {},
-                                                      )));
+                                                      ),),);
                                         }
                                         if (index == 4) {
                                           Navigator.of(context).push(
@@ -589,7 +589,7 @@ class _BodyState extends State<Body> {
                                                       Add_verbal_property(
                                                         refresh_homeScreen:
                                                             (value) {},
-                                                      )));
+                                                      ),),);
                                         }
                                         if (index == 5) {
                                           Navigator.of(context).push(
@@ -598,7 +598,7 @@ class _BodyState extends State<Body> {
                                                       Add_verbal_property(
                                                         refresh_homeScreen:
                                                             (value) {},
-                                                      )));
+                                                      ),),);
                                         }
                                       }
                                     }); // setState(() {
@@ -634,15 +634,15 @@ class _BodyState extends State<Body> {
                                               "N/A".toString(),
                                           fit: BoxFit.fill,
                                           progressIndicatorBuilder: (context,
-                                                  url, downloadProgress) =>
+                                                  url, downloadProgress,) =>
                                               Center(
                                             child: CircularProgressIndicator(
                                                 value:
-                                                    downloadProgress.progress),
+                                                    downloadProgress.progress,),
                                           ),
                                           errorWidget: (context, url, error) =>
                                               Icon(Icons.error),
-                                        )),
+                                        ),),
                                   ),
                                   // Container(
                                   // decoration: BoxDecoration(
@@ -663,8 +663,8 @@ class _BodyState extends State<Body> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12,
-                                          color: Colors.white),
-                                    )),
+                                          color: Colors.white,),
+                                    ),),
                                 Positioned(
                                     right: 2,
                                     bottom: 5,
@@ -673,8 +673,8 @@ class _BodyState extends State<Body> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12,
-                                          color: Colors.white),
-                                    ))
+                                          color: Colors.white,),
+                                    ),)
                               ],
                             );
                           },
@@ -698,10 +698,10 @@ class _BodyState extends State<Body> {
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=$id',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_sangkat = jsonData;
         id_Sangkat = int.parse(list_sangkat[0]['Sangkat_ID']);
@@ -728,10 +728,10 @@ class _BodyState extends State<Body> {
   int id_khan = 0;
   void Load_khan(String district) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=$district',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_Khan = jsonData;
         id_khan = int.parse(list_Khan[0]['Khan_ID']);

@@ -7,11 +7,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 import 'package:geolocator/geolocator.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:getwidget/components/animation/gf_animation.dart';
 import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/shape/gf_button_shape.dart';
 import 'package:getwidget/size/gf_size.dart';
 import 'package:getwidget/types/gf_animation_type.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +31,6 @@ import '../../../screen/Profile/components/Drop.dart';
 import '../../../screen/components/code.dart';
 import '../../../screen/components/comment.dart';
 import '../../../screen/components/map_all/map_in_add_verbal.dart';
-import '../../../screen/components/map_all/map_in_list_search copy.dart';
 import '../../../screen/components/property.dart';
 import '../../components/LandBuilding.dart';
 import '../../components/slideUp.dart';
@@ -107,14 +103,14 @@ class Menu_Add_verbal extends StatelessWidget {
                           ColorizeAnimatedText('Add Auto Verbal',
                               textStyle: colorizeTextStyle,
                               colors: colorizeColors,
-                              speed: const Duration(milliseconds: 70)),
+                              speed: const Duration(milliseconds: 70),),
                         ],
                         isRepeatingAnimation: true,
                         repeatForever: true,
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => Add(id: id)),
+                                builder: (context) => Add(id: id),),
                           );
                         },
                       ),
@@ -189,7 +185,7 @@ class Menu_Add_verbal extends StatelessWidget {
                         color: Colors.indigo[900],
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),
-                            topLeft: Radius.circular(10)),
+                            topLeft: Radius.circular(10),),
                         boxShadow: [
                           BoxShadow(blurRadius: 5, color: Colors.yellowAccent)
                         ],
@@ -303,7 +299,7 @@ class Menu_Add_verbal extends StatelessWidget {
                       Icons.chevron_left_outlined,
                       size: 35,
                       color: Colors.white,
-                    ))),
+                    ),),),
           ],
         ),
       ),
@@ -385,7 +381,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
     ).animate(CurvedAnimation(
       parent: controller,
       curve: Curves.easeIn,
-    ));
+    ),);
     lb;
 
     super.initState();
@@ -442,7 +438,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
               requestModelAuto.verbal_id = code.toString();
               requestModelAuto.verbal_khan = '${commune}.${district}';
               requestModelAuto.verbal = jsonList;
-              APIservice apIservice = APIservice();
+              final APIservice apIservice = APIservice();
               apIservice.saveAutoVerbal(requestModelAuto).then(
                 (value) async {
                   if (requestModelAuto.verbal.isEmpty) {
@@ -475,14 +471,14 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                 builder: (context) =>
                                     save_image_after_add_verbal(
                                       set_data_verbal: code.toString(),
-                                    )));
+                                    ),),);
                           },
                           btnCancelOnPress: () {
                             Navigator.pop(context);
                           },
                           onDismissCallback: (type) {
                             Navigator.pop(context);
-                          }).show();
+                          },).show();
                     } else {
                       AwesomeDialog(
                         context: context,
@@ -548,7 +544,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
               WavyAnimatedText('Auto Verbal',
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 20)),
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 20,),),
             ],
             pause: const Duration(milliseconds: 900),
             isRepeatingAnimation: true,
@@ -664,7 +660,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
               margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
               decoration: BoxDecoration(
                   color: Colors.lightBlueAccent[700],
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -775,7 +771,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 10,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,),
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -840,7 +836,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                       ':   ' +
                                           (formatter.format(lb[i]
                                                   .verbal_land_area
-                                                  .toInt()))
+                                                  .toInt(),))
                                               .toString() +
                                           'm' +
                                           '\u00B2',
@@ -866,7 +862,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                     Text(
                                       ':   ' +
                                           (formatter.format(
-                                                  lb[i].verbal_land_minvalue))
+                                                  lb[i].verbal_land_minvalue,))
                                               .toString() +
                                           '\$',
                                       style: Name(),
@@ -876,7 +872,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                       ':   ' +
                                           (formatter
                                                   .format(lb[i]
-                                                      .verbal_land_maxvalue)
+                                                      .verbal_land_maxvalue,)
                                                   .toString() +
                                               '\$'),
                                       style: Name(),
@@ -946,10 +942,10 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                               style: TextStyle(
                                   color: kPrimaryColor,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                  fontSize: 16,),
                             ),
                           ],
-                        )),
+                        ),),
                   ),
                 ),
               ),
@@ -1116,40 +1112,40 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   }
 
   Future<File> convertImageByteToFile(
-      Uint8List imageBytes, String fileName) async {
+      Uint8List imageBytes, String fileName,) async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
-    File file = File('$path/$fileName');
+    final File file = File('$path/$fileName');
     await file.writeAsBytes(imageBytes);
     return file;
   }
 
   Random random = new Random();
   Future<dynamic> uploadt_image_map() async {
-    var request = http.MultipartRequest(
+    final request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map'));
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',),);
     request.fields['cid'] = code.toString();
     if (lat1 == null) {
       final response1 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
       final byte = response1.bodyBytes;
-      Uint8List get_image_byte1 = Uint8List.fromList(byte);
+      final Uint8List get_image_byte1 = Uint8List.fromList(byte);
       request.files.add(await http.MultipartFile.fromBytes(
           'image', get_image_byte1,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png'));
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
     } else {
       final response2 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
       final byte = response2.bodyBytes;
-      Uint8List get_image_byte2 = Uint8List.fromList(byte);
+      final Uint8List get_image_byte2 = Uint8List.fromList(byte);
       request.files.add(await http.MultipartFile.fromBytes(
           'image', get_image_byte2,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png'));
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
     }
 
-    var res = await request.send();
+    final res = await request.send();
   }
 
 //===================== Upload Image to MySql Server
@@ -1173,7 +1169,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
             AndroidUiSettings(
                 lockAspectRatio: false,
                 backgroundColor: Colors.blue,
-                initAspectRatio: CropAspectRatioPreset.original)
+                initAspectRatio: CropAspectRatioPreset.original,)
           ],
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -1191,9 +1187,9 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
         // imagepath = pickedFile.path;
         File? imagefile = File(cropFile.path); //convert Path to File
         imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
+        final String base64string =
             base64.encode(imagebytes!); //convert bytes to base64 string
-        Uint8List decodedbytes = base64.decode(base64string);
+        final Uint8List decodedbytes = base64.decode(base64string);
         //decode base64 stirng to bytes
         setState(() {
           _file = imagefile as XFile;
@@ -1207,10 +1203,10 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   }
 
   Future<dynamic> uploadt_image(XFile _image) async {
-    var request = await http.MultipartRequest(
+    final request = await http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image"),
+          "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",),
     );
     Map<String, String> headers = {
       "content-type": "application/json",
@@ -1226,18 +1222,18 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
         _image.path,
       ),
     );
-    var response = await request.send();
-    var responseData = await response.stream.toBytes();
-    var result = String.fromCharCodes(responseData);
+    final response = await request.send();
+    final responseData = await response.stream.toBytes();
+    final result = String.fromCharCodes(responseData);
   }
 
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_Khan = jsonData;
         id_khan = int.parse(list_Khan[0]['Khan_ID'].toString());
@@ -1249,10 +1245,10 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_sangkat = jsonData;
         id_Sangkat = int.parse(list_sangkat[0]['Sangkat_ID'].toString());
@@ -1311,12 +1307,12 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
   }
 
   double? lat;
@@ -1333,7 +1329,7 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services'),
+              'Location services are disabled. Please enable the services',),
         ),
       );
       return false;
@@ -1343,22 +1339,22 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
+            const SnackBar(content: Text('Location permissions are denied')),);
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
+              'Location permissions are permanently denied, we cannot request permissions.',),),);
       return false;
     }
     return true;
   }
 
   Future<void> _getCurrentPosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,);
 
     setState(() {
       lat = position.latitude;
@@ -1367,13 +1363,13 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
       requestModelAuto.lng = log.toString();
     });
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
     if (response.statusCode == 200) {
       // Successful response
-      var jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(response.body);
 
-      List ls = jsonResponse['results'];
+      final List ls = jsonResponse['results'];
       List ac;
       bool check_sk = false, check_kn = false;
       for (int j = 0; j < ls.length; j++) {
@@ -1420,10 +1416,10 @@ class _List_AutoState extends State<List_Auto> {
   bool check_data1 = false, check_data2 = false;
   void get_by_user_autoverbal() async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_user=${widget.verbal_id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_user=${widget.verbal_id}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         list1 = jsonData;
@@ -1433,8 +1429,8 @@ class _List_AutoState extends State<List_Auto> {
   }
   late dynamic jan,feb,mar,apr,may,jun,jul, aug,sep,oct,nov,dec;
   void report_by_month() async{
-    var rp = await http.get(Uri.parse(
-      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/reportautoverbal?verbal_user=${widget.verbal_id}'));
+    final rp = await http.get(Uri.parse(
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/reportautoverbal?verbal_user=${widget.verbal_id}',),);
       if(rp.statusCode == 200){
         final jsonDatajan = jsonDecode(rp.body)['jan'];
         final jsonDatafeb = jsonDecode(rp.body)['feb'];
@@ -1503,7 +1499,7 @@ class _List_AutoState extends State<List_Auto> {
               onPressed: () {
                 Navigator.pop(context); Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back_ios)),
+              icon: Icon(Icons.arrow_back_ios),),
           centerTitle: true,
           title: Text(
             "Report",
@@ -1517,7 +1513,7 @@ class _List_AutoState extends State<List_Auto> {
             size: Size(
                 5,
                 (5 * 0.5833333333333334)
-                    .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                    .toDouble(),), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
             painter: RPSCustomPainter(),
             child: ListView(
               children: [
@@ -1604,7 +1600,7 @@ class _List_AutoState extends State<List_Auto> {
                                   // border: Border.all(
                                   //     width: 1,
                                   //     color: Color.fromRGBO(67, 160, 71, 1)),
-                                  borderRadius: BorderRadius.circular(5)),
+                                  borderRadius: BorderRadius.circular(5),),
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -1630,11 +1626,11 @@ class _List_AutoState extends State<List_Auto> {
                                                   shadows: [
                                                     BoxShadow(
                                                         color: Color.fromARGB(
-                                                            255, 16, 22, 192),
+                                                            255, 16, 22, 192,),
                                                         blurRadius: 3,
                                                         offset:
-                                                            Offset(-0.2, -1))
-                                                  ]),
+                                                            Offset(-0.2, -1),)
+                                                  ],),
                                             ),
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -1646,7 +1642,7 @@ class _List_AutoState extends State<List_Auto> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: MediaQuery.of(
-                                                                context)
+                                                                context,)
                                                             .textScaleFactor *
                                                         9,
                                                     overflow:
@@ -1654,11 +1650,11 @@ class _List_AutoState extends State<List_Auto> {
                                                     shadows: [
                                                       BoxShadow(
                                                           color: Color.fromARGB(
-                                                              255, 16, 22, 192),
+                                                              255, 16, 22, 192,),
                                                           blurRadius: 3,
                                                           offset:
-                                                              Offset(-0.2, -1))
-                                                    ]),
+                                                              Offset(-0.2, -1),)
+                                                    ],),
                                               ),
                                             ),
                                           ],
@@ -1678,11 +1674,11 @@ class _List_AutoState extends State<List_Auto> {
                                                   shadows: [
                                                     BoxShadow(
                                                         color: Color.fromARGB(
-                                                            255, 16, 22, 192),
+                                                            255, 16, 22, 192,),
                                                         blurRadius: 3,
                                                         offset:
-                                                            Offset(-0.2, -1))
-                                                  ]),
+                                                            Offset(-0.2, -1),)
+                                                  ],),
                                             ),
                                             Text(
                                               "${list1[i]['verbal_id']}",
@@ -1695,11 +1691,11 @@ class _List_AutoState extends State<List_Auto> {
                                                   shadows: [
                                                     BoxShadow(
                                                         color: Color.fromARGB(
-                                                            255, 16, 22, 192),
+                                                            255, 16, 22, 192,),
                                                         blurRadius: 3,
                                                         offset:
-                                                            Offset(-0.2, -1))
-                                                  ]),
+                                                            Offset(-0.2, -1),)
+                                                  ],),
                                             ),
                                           ],
                                         ),
@@ -1814,11 +1810,11 @@ class _List_AutoState extends State<List_Auto> {
                                                   shadows: [
                                                     BoxShadow(
                                                         color: Color.fromARGB(
-                                                            255, 16, 22, 192),
+                                                            255, 16, 22, 192,),
                                                         blurRadius: 3,
                                                         offset:
-                                                            Offset(-0.2, -1))
-                                                  ]),
+                                                            Offset(-0.2, -1),)
+                                                  ],),
                                             ),
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -1830,7 +1826,7 @@ class _List_AutoState extends State<List_Auto> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: MediaQuery.of(
-                                                                context)
+                                                                context,)
                                                             .textScaleFactor *
                                                         9,
                                                     overflow:
@@ -1838,11 +1834,11 @@ class _List_AutoState extends State<List_Auto> {
                                                     shadows: [
                                                       BoxShadow(
                                                           color: Color.fromARGB(
-                                                              255, 16, 22, 192),
+                                                              255, 16, 22, 192,),
                                                           blurRadius: 3,
                                                           offset:
-                                                              Offset(-0.2, -1))
-                                                    ]),
+                                                              Offset(-0.2, -1),)
+                                                    ],),
                                               ),
                                             ),
                                           ],
@@ -1877,7 +1873,7 @@ class _List_AutoState extends State<List_Auto> {
                                               children: [
                                                   GFButton(
                                               onPressed: () async {
-                                                var data = verbalModel(
+                                                final data = verbalModel(
                                                   verbalId:
                                                       '${list1[i]["verbal_id"] ?? ''}',
                                                   bank_branch_name:
@@ -1925,7 +1921,7 @@ class _List_AutoState extends State<List_Auto> {
                                                   Shadow(
                                                       color: Colors.black,
                                                       blurRadius: 5,
-                                                      offset: Offset(1, 0.5))
+                                                      offset: Offset(1, 0.5),)
                                                 ],
                                               ),
                                             ),
@@ -1939,7 +1935,7 @@ class _List_AutoState extends State<List_Auto> {
                                                                   set_data_verbal:
                                                                       list1[i][
                                                                           "verbal_id"],
-                                                                )));
+                                                                ),),);
                                                   },
                                                   text: "View Report",
                                                   color: Color.fromRGBO(53, 91, 229, 1),
@@ -1951,7 +1947,7 @@ class _List_AutoState extends State<List_Auto> {
                                                           color: Colors.black,
                                                           blurRadius: 5,
                                                           offset:
-                                                              Offset(1, 0.5))
+                                                              Offset(1, 0.5),)
                                                     ],
                                                     color: Colors.white,
                                                   ),
@@ -1968,7 +1964,7 @@ class _List_AutoState extends State<List_Auto> {
                             );
                           },
                           itemCount: list1.length,
-                        )),
+                        ),),
                   )
                 else
                   Container(
@@ -1992,7 +1988,7 @@ class _List_AutoState extends State<List_Auto> {
                                     // border: Border.all(
                                     //     width: 1,
                                     //     color: Color.fromRGBO(67, 160, 71, 1)),
-                                    borderRadius: BorderRadius.circular(5)),
+                                    borderRadius: BorderRadius.circular(5),),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -2012,10 +2008,10 @@ class _List_AutoState extends State<List_Auto> {
                                               shadows: [
                                                 BoxShadow(
                                                     color: Color.fromARGB(
-                                                        255, 16, 22, 192),
+                                                        255, 16, 22, 192,),
                                                     blurRadius: 3,
-                                                    offset: Offset(-0.2, -1))
-                                              ]),
+                                                    offset: Offset(-0.2, -1),)
+                                              ],),
                                         ),
                                         Text(
                                           " ${list[i].verbalId}",
@@ -2027,10 +2023,10 @@ class _List_AutoState extends State<List_Auto> {
                                               shadows: [
                                                 BoxShadow(
                                                     color: Color.fromARGB(
-                                                        255, 16, 22, 192),
+                                                        255, 16, 22, 192,),
                                                     blurRadius: 3,
-                                                    offset: Offset(-0.2, -1))
-                                              ]),
+                                                    offset: Offset(-0.2, -1),)
+                                              ],),
                                         ),
                                       ],
                                     ),
@@ -2048,10 +2044,10 @@ class _List_AutoState extends State<List_Auto> {
                                               shadows: [
                                                 BoxShadow(
                                                     color: Color.fromARGB(
-                                                        255, 16, 22, 192),
+                                                        255, 16, 22, 192,),
                                                     blurRadius: 3,
-                                                    offset: Offset(-0.2, -1))
-                                              ]),
+                                                    offset: Offset(-0.2, -1),)
+                                              ],),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
@@ -2069,10 +2065,10 @@ class _List_AutoState extends State<List_Auto> {
                                                 shadows: [
                                                   BoxShadow(
                                                       color: Color.fromARGB(
-                                                          255, 16, 22, 192),
+                                                          255, 16, 22, 192,),
                                                       blurRadius: 3,
-                                                      offset: Offset(-0.2, -1))
-                                                ]),
+                                                      offset: Offset(-0.2, -1),)
+                                                ],),
                                           ),
                                         ),
                                       ],
@@ -2091,10 +2087,10 @@ class _List_AutoState extends State<List_Auto> {
                                               shadows: [
                                                 BoxShadow(
                                                     color: Color.fromARGB(
-                                                        255, 16, 22, 192),
+                                                        255, 16, 22, 192,),
                                                     blurRadius: 3,
-                                                    offset: Offset(-0.2, -1))
-                                              ]),
+                                                    offset: Offset(-0.2, -1),)
+                                              ],),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
@@ -2112,10 +2108,10 @@ class _List_AutoState extends State<List_Auto> {
                                                 shadows: [
                                                   BoxShadow(
                                                       color: Color.fromARGB(
-                                                          255, 16, 22, 192),
+                                                          255, 16, 22, 192,),
                                                       blurRadius: 3,
-                                                      offset: Offset(-0.2, -1))
-                                                ]),
+                                                      offset: Offset(-0.2, -1),)
+                                                ],),
                                           ),
                                         ),
                                       ],
@@ -2134,10 +2130,10 @@ class _List_AutoState extends State<List_Auto> {
                                               shadows: [
                                                 BoxShadow(
                                                     color: Color.fromARGB(
-                                                        255, 16, 22, 192),
+                                                        255, 16, 22, 192,),
                                                     blurRadius: 3,
-                                                    offset: Offset(-0.2, -1))
-                                              ]),
+                                                    offset: Offset(-0.2, -1),)
+                                              ],),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
@@ -2155,10 +2151,10 @@ class _List_AutoState extends State<List_Auto> {
                                                 shadows: [
                                                   BoxShadow(
                                                       color: Color.fromARGB(
-                                                          255, 16, 22, 192),
+                                                          255, 16, 22, 192,),
                                                       blurRadius: 3,
-                                                      offset: Offset(-0.2, -1))
-                                                ]),
+                                                      offset: Offset(-0.2, -1),)
+                                                ],),
                                           ),
                                         ),
                                       ],
@@ -2177,10 +2173,10 @@ class _List_AutoState extends State<List_Auto> {
                                               shadows: [
                                                 BoxShadow(
                                                     color: Color.fromARGB(
-                                                        255, 16, 22, 192),
+                                                        255, 16, 22, 192,),
                                                     blurRadius: 3,
-                                                    offset: Offset(-0.2, -1))
-                                              ]),
+                                                    offset: Offset(-0.2, -1),)
+                                              ],),
                                         ),
                                         SizedBox(
                                           width: MediaQuery.of(context)
@@ -2198,10 +2194,10 @@ class _List_AutoState extends State<List_Auto> {
                                                 shadows: [
                                                   BoxShadow(
                                                       color: Color.fromARGB(
-                                                          255, 16, 22, 192),
+                                                          255, 16, 22, 192,),
                                                       blurRadius: 3,
-                                                      offset: Offset(-0.2, -1))
-                                                ]),
+                                                      offset: Offset(-0.2, -1),)
+                                                ],),
                                           ),
                                         ),
                                       ],
@@ -2251,7 +2247,7 @@ class _List_AutoState extends State<List_Auto> {
                                       Shadow(
                                           color: Colors.black,
                                           blurRadius: 5,
-                                          offset: Offset(1, 0.5))
+                                          offset: Offset(1, 0.5),)
                                     ],
                                   ),
                                 ),
@@ -2274,7 +2270,7 @@ class _List_AutoState extends State<List_Auto> {
 class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint0 = Paint()
+    final Paint paint0 = Paint()
       ..color = const Color.fromARGB(255, 33, 150, 243)
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
@@ -2282,28 +2278,28 @@ class RPSCustomPainter extends CustomPainter {
         Offset(size.width * 0.50, 0),
         Offset(size.width * 0.50, size.height * 1.00),
         [Color(0xff5bf03d), Color(0xff11376e)],
-        [0.00, 1.00]);
+        [0.00, 1.00],);
 
-    Path path0 = Path();
+    final Path path0 = Path();
     path0.moveTo(0, 0);
     path0.lineTo(size.width * 0.5000000, size.height * 0.9985714);
     path0.lineTo(size.width, 0);
     path0.quadraticBezierTo(size.width, size.height * 0.1564286, size.width,
-        size.height * 0.2085714);
+        size.height * 0.2085714,);
     path0.cubicTo(
         size.width * 0.8331250,
         size.height * 0.5014286,
         size.width * 0.5835417,
         size.height * 0.4285714,
         size.width * 0.4991667,
-        size.height * 0.7857143);
+        size.height * 0.7857143,);
     path0.cubicTo(
         size.width * 0.4160417,
         size.height * 0.4267857,
         size.width * 0.1647917,
         size.height * 0.4975000,
         0,
-        size.height * 0.2128571);
+        size.height * 0.2128571,);
     path0.quadraticBezierTo(0, size.height * 0.1596429, 0, 0);
     path0.close();
 
@@ -2391,7 +2387,7 @@ class _Add_with_propertyState extends State<Add_with_property>
     ).animate(CurvedAnimation(
       parent: controller,
       curve: Curves.easeIn,
-    ));
+    ),);
     lb;
 
     super.initState();
@@ -2445,7 +2441,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                 requestModelAuto.verbal_id = code.toString();
                 requestModelAuto.verbal_khan = '${commune}.${district}';
                 requestModelAuto.verbal = jsonList;
-                APIservice apIservice = APIservice();
+                final APIservice apIservice = APIservice();
                 apIservice.saveAutoVerbal(requestModelAuto).then(
                   (value) async {
                     if (requestModelAuto.verbal.isEmpty) {
@@ -2481,14 +2477,14 @@ class _Add_with_propertyState extends State<Add_with_property>
                                   builder: (context) =>
                                       save_image_after_add_verbal(
                                         set_data_verbal: code.toString(),
-                                      )));
+                                      ),),);
                             },
                             btnCancelOnPress: () {
                               Navigator.pop(context);
                             },
                             onDismissCallback: (type) {
                               Navigator.pop(context);
-                            }).show();
+                            },).show();
                       } else {
                         AwesomeDialog(
                           context: context,
@@ -2561,7 +2557,7 @@ class _Add_with_propertyState extends State<Add_with_property>
         ],
         title: Text('property check',
             style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255), fontSize: 18)),
+                color: Color.fromARGB(255, 255, 255, 255), fontSize: 18,),),
         toolbarHeight: 80,
       ),
       backgroundColor: Color.fromARGB(235, 7, 9, 145),
@@ -2673,7 +2669,7 @@ class _Add_with_propertyState extends State<Add_with_property>
               margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
               decoration: BoxDecoration(
                   color: Colors.lightBlueAccent[700],
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -2784,7 +2780,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 10,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,),
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -2849,7 +2845,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                                       ':   ' +
                                           (formatter.format(lb[i]
                                                   .verbal_land_area
-                                                  .toInt()))
+                                                  .toInt(),))
                                               .toString() +
                                           'm' +
                                           '\u00B2',
@@ -2859,7 +2855,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           formatter.format(
-                                              lb[i].verbal_land_minsqm) +
+                                              lb[i].verbal_land_minsqm,) +
                                           '\$',
                                       style: Name(),
                                     ),
@@ -2867,7 +2863,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           formatter.format(
-                                              lb[i].verbal_land_maxsqm) +
+                                              lb[i].verbal_land_maxsqm,) +
                                           '\$',
                                       style: Name(),
                                     ),
@@ -2875,7 +2871,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           (formatter.format(
-                                                  lb[i].verbal_land_minvalue))
+                                                  lb[i].verbal_land_minvalue,))
                                               .toString() +
                                           '\$',
                                       style: Name(),
@@ -2885,7 +2881,7 @@ class _Add_with_propertyState extends State<Add_with_property>
                                       ':   ' +
                                           (formatter
                                                   .format(lb[i]
-                                                      .verbal_land_maxvalue)
+                                                      .verbal_land_maxvalue,)
                                                   .toString() +
                                               '\$'),
                                       style: Name(),
@@ -2955,10 +2951,10 @@ class _Add_with_propertyState extends State<Add_with_property>
                               style: TextStyle(
                                   color: kPrimaryColor,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                  fontSize: 16,),
                             ),
                           ],
-                        )),
+                        ),),
                   ),
                 ),
               ),
@@ -3131,40 +3127,40 @@ class _Add_with_propertyState extends State<Add_with_property>
   }
 
   Future<File> convertImageByteToFile(
-      Uint8List imageBytes, String fileName) async {
+      Uint8List imageBytes, String fileName,) async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
-    File file = File('$path/$fileName');
+    final File file = File('$path/$fileName');
     await file.writeAsBytes(imageBytes);
     return file;
   }
 
   Random random = new Random();
   Future<dynamic> uploadt_image_map() async {
-    var request = http.MultipartRequest(
+    final request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map'));
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',),);
     request.fields['cid'] = code.toString();
     if (lat1 == null) {
       final response1 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
       final byte = response1.bodyBytes;
-      Uint8List get_image_byte1 = Uint8List.fromList(byte);
+      final Uint8List get_image_byte1 = Uint8List.fromList(byte);
       request.files.add(await http.MultipartFile.fromBytes(
           'image', get_image_byte1,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png'));
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
     } else {
       final response2 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
       final byte = response2.bodyBytes;
-      Uint8List get_image_byte2 = Uint8List.fromList(byte);
+      final Uint8List get_image_byte2 = Uint8List.fromList(byte);
       request.files.add(await http.MultipartFile.fromBytes(
           'image', get_image_byte2,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png'));
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
     }
 
-    var res = await request.send();
+    final res = await request.send();
   }
 
 //===================== Upload Image to MySql Server
@@ -3188,7 +3184,7 @@ class _Add_with_propertyState extends State<Add_with_property>
             AndroidUiSettings(
                 lockAspectRatio: false,
                 backgroundColor: Colors.blue,
-                initAspectRatio: CropAspectRatioPreset.original)
+                initAspectRatio: CropAspectRatioPreset.original,)
           ],
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -3206,9 +3202,9 @@ class _Add_with_propertyState extends State<Add_with_property>
         // imagepath = pickedFile.path;
         File? imagefile = File(cropFile.path); //convert Path to File
         imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
+        final String base64string =
             base64.encode(imagebytes!); //convert bytes to base64 string
-        Uint8List decodedbytes = base64.decode(base64string);
+        final Uint8List decodedbytes = base64.decode(base64string);
         //decode base64 stirng to bytes
         setState(() {
           _file = imagefile as XFile;
@@ -3222,10 +3218,10 @@ class _Add_with_propertyState extends State<Add_with_property>
   }
 
   Future<dynamic> uploadt_image() async {
-    var request = await http.MultipartRequest(
+    final request = await http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image"),
+          "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",),
     );
     Map<String, String> headers = {
       "content-type": "application/json",
@@ -3236,20 +3232,20 @@ class _Add_with_propertyState extends State<Add_with_property>
     // request.files.add(picture);
     request.fields['cid'] = code.toString();
     request.files.add(await http.MultipartFile.fromBytes('image', imagebytes!,
-        filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png'));
-    var response = await request.send();
-    var responseData = await response.stream.toBytes();
-    var result = String.fromCharCodes(responseData);
+        filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
+    final response = await request.send();
+    final responseData = await response.stream.toBytes();
+    final result = String.fromCharCodes(responseData);
     print(result);
   }
 
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_Khan = jsonData;
         id_khan = int.parse(list_Khan[0]['Khan_ID'].toString());
@@ -3261,10 +3257,10 @@ class _Add_with_propertyState extends State<Add_with_property>
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_sangkat = jsonData;
         id_Sangkat = int.parse(list_sangkat[0]['Sangkat_ID'].toString());
@@ -3324,12 +3320,12 @@ class _Add_with_propertyState extends State<Add_with_property>
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
   }
 
   double? lat;
@@ -3346,7 +3342,7 @@ class _Add_with_propertyState extends State<Add_with_property>
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services'),
+              'Location services are disabled. Please enable the services',),
         ),
       );
       return false;
@@ -3356,22 +3352,22 @@ class _Add_with_propertyState extends State<Add_with_property>
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
+            const SnackBar(content: Text('Location permissions are denied')),);
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
+              'Location permissions are permanently denied, we cannot request permissions.',),),);
       return false;
     }
     return true;
   }
 
   Future<void> _getCurrentPosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,);
 
     setState(() {
       lat = position.latitude;
@@ -3380,13 +3376,13 @@ class _Add_with_propertyState extends State<Add_with_property>
       requestModelAuto.lng = log.toString();
     });
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
     if (response.statusCode == 200) {
       // Successful response
-      var jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(response.body);
 
-      List ls = jsonResponse['results'];
+      final List ls = jsonResponse['results'];
       List ac;
       bool check_sk = false, check_kn = false;
       for (int j = 0; j < ls.length; j++) {

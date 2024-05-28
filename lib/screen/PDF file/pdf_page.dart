@@ -36,7 +36,7 @@ class _PdfPageState extends State<PdfPage> {
               },
             )
           ],
-        )),
+        ),),
       ),
     );
   }

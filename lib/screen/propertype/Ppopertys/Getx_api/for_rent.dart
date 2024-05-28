@@ -21,7 +21,7 @@ class controller_for_Rent extends GetxController {
   Future<void> value_all_list_Rent() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_k'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_k',),);
       if (response.statusCode == 200) {
         final List<dynamic> jsonBody = jsonDecode(response.body);
         list_value_all.value = jsonBody;
@@ -36,7 +36,7 @@ class controller_for_Rent extends GetxController {
   Future<void> value_all_list_property_id(property_id) async {
     try {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_i/${property_id}'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_i/${property_id}',),);
       if (response.statusCode == 200) {
         final List<dynamic> jsonBody = jsonDecode(response.body);
         list_value_pid.value = jsonBody;
@@ -51,7 +51,7 @@ class controller_for_Rent extends GetxController {
   Future<void> value_all_list_all(hometype) async {
     try {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_h/$hometype'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_h/$hometype',),);
       if (response.statusCode == 200) {
         final List<dynamic> jsonBody = jsonDecode(response.body);
         list_value_urgent.value = jsonBody;
@@ -66,7 +66,7 @@ class controller_for_Rent extends GetxController {
   Future<void> verbal_Hometype() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_homeytpe'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_homeytpe',),);
       if (response.statusCode == 200) {
         final List<dynamic> jsonBody = jsonDecode(response.body)['data'];
         list_hometype.value = jsonBody;
@@ -86,7 +86,7 @@ class controller_for_Rent extends GetxController {
   Future<void> value_all_list_Rent_a() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_k'));
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_all_k',),);
       if (response.statusCode == 200) {
         final List<dynamic> jsonBody = jsonDecode(response.body);
         list_value_all1.value = jsonBody;

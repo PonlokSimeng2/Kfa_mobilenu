@@ -78,7 +78,7 @@ class _ImageOpenState extends State<ImageOpen> {
                           child: Text(
                             'Choose Image',
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500),
+                                fontSize: 14, fontWeight: FontWeight.w500,),
                           ),
                         ),
                       ],
@@ -91,7 +91,7 @@ class _ImageOpenState extends State<ImageOpen> {
                       child: GestureDetector(
                         child: nameFile != ''
                             ? Text(nameFile,
-                                style: TextStyle(color: kImageColor))
+                                style: TextStyle(color: kImageColor),)
                             : Text(
                                 nameFile,
                                 style: TextStyle(color: kImageColor),

@@ -32,7 +32,7 @@ class _Screen_addState extends State<Screen_add> {
             child: Container(
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 8, 17, 99),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10),),
               height: MediaQuery.of(context).size.height * 0.3,
               width: MediaQuery.of(context).size.width,
               // color: Colors.red,
@@ -61,7 +61,7 @@ class _Screen_addState extends State<Screen_add> {
                       builder: (context) {
                         return Add(id: '22');
                       },
-                    ));
+                    ),);
                   };
                 },
                 child: Container(
@@ -70,11 +70,11 @@ class _Screen_addState extends State<Screen_add> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
                       color: Color.fromARGB(255, 105, 60, 9),
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),),
                   child: Text(
                     'Add verbal',
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white, fontWeight: FontWeight.bold,),
                   ),
                 ),
               ),
@@ -84,7 +84,7 @@ class _Screen_addState extends State<Screen_add> {
                     builder: (context) {
                       return List_verbal1();
                     },
-                  ));
+                  ),);
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -92,11 +92,11 @@ class _Screen_addState extends State<Screen_add> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(
                       color: Color.fromARGB(255, 35, 114, 7),
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),),
                   child: Text(
                     'List verbal',
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white, fontWeight: FontWeight.bold,),
                   ),
                 ),
               ),

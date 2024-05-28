@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -13,11 +15,11 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchFromController = TextEditingController();
   List<dynamic> _searchResults = [];
   Future<void> _performSearch() async {
-    String searchFromVerbalDate = _searchFromController.text;
-    var url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search?search=$searchFromVerbalDate');
+    final String searchFromVerbalDate = _searchFromController.text;
+    final url = Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/link_all_search?search=$searchFromVerbalDate',);
 
-    var response = await http.get(url);
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       setState(() {
@@ -45,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onPressed: _performSearch,
             child: Text('Search'),
           ),
-          (_searchResults.length != 0)
+          (_searchResults.isNotEmpty)
               ? Expanded(
                   child: ListView.builder(
                     itemCount: _searchResults.length,
@@ -67,5 +69,5 @@ class _SearchScreenState extends State<SearchScreen> {
 void main() {
   runApp(MaterialApp(
     home: SearchScreen(),
-  ));
+  ),);
 }

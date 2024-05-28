@@ -67,7 +67,7 @@ final kBottomBorderRadius = BorderRadius.only(
 );
 
 final kInputTextStyle = GoogleFonts.poppins(
-    color: kTextBlackColor, fontSize: 11.sp, fontWeight: FontWeight.w500);
+    color: kTextBlackColor, fontSize: 11.sp, fontWeight: FontWeight.w500,);
 
 //validation for mobile
 const String mobilePattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';

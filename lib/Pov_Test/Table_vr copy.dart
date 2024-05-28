@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
   @override
   _MyWidgetState createState() => _MyWidgetState();
 }
@@ -19,7 +21,7 @@ class _MyWidgetState extends State<MyWidget> {
 
   Future<void> _fetchData() async {
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_homeytpe'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_homeytpe',),);
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body)['data'];

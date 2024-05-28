@@ -67,7 +67,7 @@ class _Profile_picState extends State<Profile_pic> {
               toolbarColor: Colors.blue,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
+              lockAspectRatio: false,),
           IOSUiSettings(
             title: 'Cropper',
           ),
@@ -242,7 +242,7 @@ class EditPicture extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black),
+                    color: Colors.black,),
               )
             ],
           ),

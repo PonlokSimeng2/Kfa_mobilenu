@@ -71,7 +71,7 @@ class _Detail_propertyState extends State<Detail_property> {
                                           builder: (context) {
                                             return Container(
                                               child: Image.network(
-                                                  '${list2_Sale4[index]['url'].toString()}'),
+                                                  '${list2_Sale4[index]['url'].toString()}',),
                                             );
                                           },
                                         );
@@ -81,11 +81,11 @@ class _Detail_propertyState extends State<Detail_property> {
                                         width: 80,
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                                width: 2, color: Colors.white),
+                                                width: 2, color: Colors.white,),
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                    '${list2_Sale4[index]['url'].toString()}'),
-                                                fit: BoxFit.cover)),
+                                                    '${list2_Sale4[index]['url'].toString()}',),
+                                                fit: BoxFit.cover,),),
                                       ),
                                     ),
                                   );
@@ -93,7 +93,7 @@ class _Detail_propertyState extends State<Detail_property> {
                               ),
                             ),
                           ),
-                        ]),
+                        ],),
                         // SizedBox(
                         //   height: 10,
                         // ),
@@ -174,9 +174,7 @@ class _Detail_propertyState extends State<Detail_property> {
                                   height: 6,
                                 ),
                                 Text(
-                                  '${list2_Sale2[index]['sqm'].toString()} ' +
-                                      'm' +
-                                      '\u00B2',
+                                  '${list2_Sale2[index]['sqm'].toString()} ' 'm' '\u00B2',
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 SizedBox(
@@ -227,7 +225,7 @@ class _Detail_propertyState extends State<Detail_property> {
   void Property_Sale_image() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_id/${widget.id}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale_id/${widget.id}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -243,7 +241,7 @@ class _Detail_propertyState extends State<Detail_property> {
   void Property_Sale_image_id() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get_id/${widget.id}'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get_id/${widget.id}',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);
@@ -260,7 +258,7 @@ class _Detail_propertyState extends State<Detail_property> {
   void Property_Sale_image_all(property_type_id) async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get/$property_type_id'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get/$property_type_id',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

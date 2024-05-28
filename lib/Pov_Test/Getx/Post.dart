@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 class MyImagePicker extends StatefulWidget {
+  const MyImagePicker({super.key});
+
   @override
   _MyImagePickerState createState() => _MyImagePickerState();
 }
@@ -16,10 +18,10 @@ class _MyImagePickerState extends State<MyImagePicker> {
         maxImages: 5,
         enableCamera: true,
         selectedAssets: images,
-        cupertinoOptions: CupertinoOptions(
+        cupertinoOptions: const CupertinoOptions(
           takePhotoIcon: "chat",
         ),
-        materialOptions: MaterialOptions(
+        materialOptions: const MaterialOptions(
           actionBarColor: "#abcdef",
           actionBarTitle: "Seleziona",
           allViewTitle: "Tutte le foto",
@@ -27,7 +29,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-    } on Exception catch (e) {
+    } on Exception {
       // handle error
     }
 
@@ -42,7 +44,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Image Picker"),
+        title: const Text("Image Picker"),
       ),
       body: Column(
         children: <Widget>[
@@ -50,8 +52,8 @@ class _MyImagePickerState extends State<MyImagePicker> {
             child: buildGridView(),
           ),
           ElevatedButton(
-            child: Text("Select Images"),
             onPressed: loadAssets,
+            child: const Text("Select Images"),
           ),
         ],
       ),

@@ -10,7 +10,7 @@ class MyHomePageReport extends StatefulWidget {
  required this.datavaluemay, required this.datavaluejun, 
  required this.datavaluejul,required this.datavalueaug,
  required this.datavaluesep,required this.datavalueoct,
- required this.datavaluenov,required this.datavaluedec}) : super(key: key);
+ required this.datavaluenov,required this.datavaluedec,}) : super(key: key);
 final double? datavalue;
 final double? datavaluejan;
 final double? datavaluefeb;
@@ -65,10 +65,10 @@ class MyHomePageReportState extends State<MyHomePageReport> {
                   yValueMapper: (_SalesData sales, _) => sales.sales,
                   name: 'Verbal',
                   // Enable data label
-                  dataLabelSettings: const DataLabelSettings(isVisible: true)
+                  dataLabelSettings: const DataLabelSettings(isVisible: true),
                   )
-            ]
-            ));
+            ],
+            ),);
   }
 }
 

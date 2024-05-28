@@ -46,7 +46,7 @@ class _Show_allState extends State<List_Sale> {
                   Text(
                     '(${widget.listget!.length})',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 188, 25, 225), fontSize: 16),
+                        color: Color.fromARGB(255, 188, 25, 225), fontSize: 16,),
                   ),
                   SizedBox(
                     width: 10,
@@ -54,7 +54,7 @@ class _Show_allState extends State<List_Sale> {
                   Text(
                     'Listings for sale',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 69, 55, 55), fontSize: 16),
+                        color: Color.fromARGB(255, 69, 55, 55), fontSize: 16,),
                   ),
                 ],
               ),
@@ -104,11 +104,11 @@ class _Show_allState extends State<List_Sale> {
                                       (context, url, downloadProgress) =>
                                           Center(
                                     child: CircularProgressIndicator(
-                                        value: downloadProgress.progress),
+                                        value: downloadProgress.progress,),
                                   ),
                                   errorWidget: (context, url, error) =>
                                       Icon(Icons.error),
-                                )
+                                ),
                                 // child: Image.network(
                                 //   '${obj.url.toString()}',
                                 //   fit: BoxFit.cover,
@@ -132,16 +132,16 @@ class _Show_allState extends State<List_Sale> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Color.fromARGB(
-                                                    255, 251, 250, 250),
-                                                fontSize: 10),
+                                                    255, 251, 250, 250,),
+                                                fontSize: 10,),
                                           ),
                                           Text(
                                             '\$',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Color.fromARGB(
-                                                    255, 119, 234, 5),
-                                                fontSize: 10),
+                                                    255, 119, 234, 5,),
+                                                fontSize: 10,),
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -151,8 +151,8 @@ class _Show_allState extends State<List_Sale> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Color.fromARGB(
-                                                    255, 250, 249, 249),
-                                                fontSize: 10),
+                                                    255, 250, 249, 249,),
+                                                fontSize: 10,),
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -172,7 +172,7 @@ class _Show_allState extends State<List_Sale> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
-                                                fontSize: 10),
+                                                fontSize: 10,),
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -182,7 +182,7 @@ class _Show_allState extends State<List_Sale> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
-                                                fontSize: 10),
+                                                fontSize: 10,),
                                           ),
                                         ],
                                       ),
@@ -200,13 +200,13 @@ class _Show_allState extends State<List_Sale> {
                                 width: 60,
                                 decoration: BoxDecoration(
                                     color: Color.fromARGB(255, 109, 160, 6),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(10),),
                                 child: Text(
                                   'For Sale',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 250, 246, 245),
-                                      fontSize: 12),
+                                      fontSize: 12,),
                                 ),
                               ),
                             ),
@@ -217,7 +217,7 @@ class _Show_allState extends State<List_Sale> {
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         color: Color.fromARGB(255, 8, 48, 170),
-                                        borderRadius: BorderRadius.circular(5)),
+                                        borderRadius: BorderRadius.circular(5),),
                                     height: 25,
                                     width: 80,
                                     child: widget.listget![index]
@@ -227,9 +227,9 @@ class _Show_allState extends State<List_Sale> {
                                             '${widget.listget![index]['Name_cummune'] ?? "N/A"}',
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.white),
+                                                color: Colors.white,),
                                           )
-                                        : Text('N/A'))),
+                                        : Text('N/A'),),),
                             (widget.listget != null)
                                 ? Positioned(
                                     top: 105,
@@ -239,15 +239,15 @@ class _Show_allState extends State<List_Sale> {
                                           color:
                                               Color.fromARGB(255, 106, 7, 86),
                                           borderRadius:
-                                              BorderRadius.circular(5)),
+                                              BorderRadius.circular(5),),
                                       height: 25,
                                       width: 50,
                                       child: Text(
                                         '${widget.listget![index]['urgent'].toString()}',
                                         style: TextStyle(
-                                            fontSize: 12, color: Colors.white),
+                                            fontSize: 12, color: Colors.white,),
                                       ),
-                                    ))
+                                    ),)
                                 : SizedBox()
                           ],
                         ),

@@ -31,35 +31,32 @@ class _HomeScreenState extends State<Feed_back_11> {
           children: [
             TextFormField(
               controller: recipientController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Recipient",
               ),
             ),
             TextFormField(
               controller: subjectController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Subjecdddddt",
               ),
             ),
             TextFormField(
               controller: bodyController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Body",
               ),
             ),
             GestureDetector(
               onTap: () async {
-                String recipient = recipientController.text;
-                String subject = subjectController.text;
-                String body = bodyController.text;
+                final String recipient = recipientController.text;
+                final String subject = subjectController.text;
+                final String body = bodyController.text;
 
                 final Uri email = Uri(
                   scheme: 'mailto',
                   path: recipient,
-                  query: 'subject=' +
-                      Uri.encodeComponent(subject) +
-                      '&body=' +
-                      Uri.encodeComponent(body),
+                  query: 'subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(body)}',
                 );
 
                 if (await canLaunchUrl(email)) {
@@ -72,7 +69,7 @@ class _HomeScreenState extends State<Feed_back_11> {
                 height: 50,
                 width: 120,
                 color: Colors.orange,
-                child: Center(
+                child: const Center(
                   child: Text("Send"),
                 ),
               ),

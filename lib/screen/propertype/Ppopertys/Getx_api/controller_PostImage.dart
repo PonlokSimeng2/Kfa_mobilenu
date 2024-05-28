@@ -12,7 +12,7 @@ class HomeController extends GetxController {
 
   Future<void> uploadImageToServer(verbalid) async {
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_post_id_last/202347267');
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_post_id_last/202347267',);
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_image'] = '202347267';

@@ -75,9 +75,10 @@ class _LoginState extends State<Login> {
                   size: 50,
                   shadows: const [
                     Shadow(
-                        color: Colors.black,
-                        blurRadius: 5,
-                        offset: Offset(1, 0.5))
+                      color: Colors.black,
+                      blurRadius: 5,
+                      offset: Offset(1, 0.5),
+                    )
                   ],
                 ),
                 title: Text('You\'re offline'),
@@ -89,7 +90,7 @@ class _LoginState extends State<Login> {
                   GFButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => data_verbal_saved()));
+                          builder: (context) => data_verbal_saved(),),);
                     },
                     color: GFColors.SUCCESS,
                     text: 'Go to watch',
@@ -164,7 +165,7 @@ class _LoginState extends State<Login> {
       });
     } else {
       setState(() {
-        int i = list.length - 1;
+        final int i = list.length - 1;
         status = true;
         Email = TextEditingController(text: list[i].name);
         Password = TextEditingController(text: list[i].password);
@@ -353,7 +354,7 @@ class _LoginState extends State<Login> {
                         // player.play(AssetSource('nor.mp3'));
                         isApiCallProcess = true;
                       });
-                      APIservice apIservice = APIservice();
+                      final APIservice apIservice = APIservice();
                       apIservice.login(requestModel).then((value) {
                         Load(value.token);
                         setState(() {
@@ -361,7 +362,7 @@ class _LoginState extends State<Login> {
                         });
                         if (value.message == "Login Successfully!") {
                           PeopleController().deletePeople(0);
-                          var people = PeopleModel(
+                          final people = PeopleModel(
                             id: 0,
                             name: requestModel.email,
                             password: requestModel.password,
@@ -393,7 +394,7 @@ class _LoginState extends State<Login> {
                                       tel: tel,
                                       id: id.toString(),
                                     ),
-                                  ));
+                                  ),);
                             },
                           ).show();
                         } else {
@@ -431,7 +432,7 @@ class _LoginState extends State<Login> {
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Register()));
+                        MaterialPageRoute(builder: (context) => Register()),);
                   },
                 style: TextStyle(
                   fontSize: 16.0,
@@ -439,7 +440,7 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ])),
+            ],),),
           ],
         ),
       ),
@@ -448,9 +449,9 @@ class _LoginState extends State<Login> {
 
   void Load(String token) async {
     setState(() {});
-    var rs = await http.get(
+    final rs = await http.get(
       Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user'),
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user',),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -458,7 +459,7 @@ class _LoginState extends State<Login> {
       },
     );
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         id = jsonData["id"];
         username = jsonData['username'];
@@ -500,7 +501,7 @@ class _LoginState extends State<Login> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                    color: Color.fromRGBO(0, 126, 250, 1), width: 2.0),
+                    color: Color.fromRGBO(0, 126, 250, 1), width: 2.0,),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(
@@ -619,7 +620,7 @@ class _LoginState extends State<Login> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                    color: Color.fromRGBO(0, 126, 250, 1), width: 2.0),
+                    color: Color.fromRGBO(0, 126, 250, 1), width: 2.0,),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(

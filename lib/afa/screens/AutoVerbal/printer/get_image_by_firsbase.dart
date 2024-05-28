@@ -42,12 +42,12 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
   bool isApiCallProcess = false;
   void Load1() async {
     setState(() {});
-    var code = widget.com_id.toString();
+    final code = widget.com_id.toString();
     print("Load 1  = " + code);
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list?verbal_id=$code'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list?verbal_id=$code',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         list = jsonData;
@@ -58,12 +58,12 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
   }
 
   void Load2() async {
-    var code = widget.com_id;
+    final code = widget.com_id;
     print("Load 2  = " + code!);
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbals/list?verbal_id=$code'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbals/list?verbal_id=$code',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         list = jsonData;
@@ -80,10 +80,10 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
     setState(() {
       id = list[0]["verbal_user"];
     });
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/${id}',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         get_user = jsonData;
@@ -144,7 +144,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
               icon: Icon(
                 Icons.print_outlined,
                 size: 30,
-              ))
+              ),)
         ],
       ),
       body: SingleChildScrollView(
@@ -190,7 +190,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
     return Column(
       // ignore: prefer_const_literals_to_create_immutables, duplicate_ignore
       children: [
-        list.length > 0
+        list.isNotEmpty
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Form(
@@ -211,7 +211,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             style: TextStyle(
                                 fontSize: 19,
                                 fontWeight: FontWeight.bold,
-                                color: kPrimaryColor),
+                                color: kPrimaryColor,),
                           ),
                         ],
                       ),
@@ -359,7 +359,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             margin: EdgeInsets.only(left: 20, right: 20),
                             decoration: BoxDecoration(
                                 color: Colors.blue,
-                                borderRadius: BorderRadius.circular(20)),
+                                borderRadius: BorderRadius.circular(20),),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               // ignore: prefer_const_literals_to_create_immutables
@@ -374,10 +374,10 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,),
                                 ),
                               ],
-                            )),
+                            ),),
                       ),
 
                       SizedBox(
@@ -405,11 +405,11 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
     final ByteData bytes_image =
         await rootBundle.load('assets/images/message-banner3.jpg');
     final Uint8List byteList_image = bytes_image.buffer.asUint8List();
-    Uint8List bytes1 = (await NetworkAssetBundle(Uri.parse(widget.image_map!))
+    final Uint8List bytes1 = (await NetworkAssetBundle(Uri.parse(widget.image_map!))
             .load(widget.image_map!))
         .buffer
         .asUint8List();
-    Uint8List bytes2 =
+    final Uint8List bytes2 =
         (await NetworkAssetBundle(Uri.parse(widget.image!)).load(widget.image!))
             .buffer
             .asUint8List();
@@ -432,18 +432,18 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                           byteList,
                           // bytes1,
                         ),
-                        fit: pw.BoxFit.fill),
+                        fit: pw.BoxFit.fill,),
                   ),
                   pw.Text("VERBAL CHECK",
                       style: pw.TextStyle(
-                          fontWeight: pw.FontWeight.bold, fontSize: 26)),
+                          fontWeight: pw.FontWeight.bold, fontSize: 26,),),
                   pw.Container(
                     height: 50,
                     width: 79,
                     child: pw.BarcodeWidget(
                         barcode: pw.Barcode.qrCode(),
                         data:
-                            "https://www.latlong.net/c/?lat=${list[0]['latlong_log']}&long=${list[0]['latlong_la']}"),
+                            "https://www.latlong.net/c/?lat=${list[0]['latlong_log']}&long=${list[0]['latlong_la']}",),
                   ),
                 ],
               ),
@@ -467,7 +467,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                 "DATE: ${list[0]['verbal_created_date']}",
                                 style: pw.TextStyle(
                                     fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold)),
+                                    fontWeight: pw.FontWeight.bold,),),
                             height: 25,
                             //color: Colors.white,
                           ),
@@ -483,7 +483,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                 "CODE: ${list[0]['verbal_id'].toString()}",
                                 style: pw.TextStyle(
                                     fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold)),
+                                    fontWeight: pw.FontWeight.bold,),),
                             height: 25,
                             //color: Colors.yellow,
                           ),
@@ -503,7 +503,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "Requested Date :${list[0]['verbal_created_date'].toString()} ",
-                                style: pw.TextStyle(fontSize: 12)),
+                                style: pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -517,7 +517,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                     decoration: pw.BoxDecoration(border: pw.Border.all()),
                     child: pw.Text(
                         "Referring to your request letter for verbal check by ${list[0]['bank_name']}, we estimated the value of property as below.",
-                        overflow: pw.TextOverflow.clip),
+                        overflow: pw.TextOverflow.clip,),
                     height: 30,
                     //color: Colors.blue,
                   ),
@@ -532,7 +532,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Property Information: ",
-                                style: pw.TextStyle(fontSize: 12)),
+                                style: pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -545,7 +545,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("${list[0]['property_type_name']}",
-                                style: pw.TextStyle(fontSize: 12)),
+                                style: pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -564,7 +564,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Address : ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -577,7 +577,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("${list[0]['verbal_address']}",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -596,7 +596,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Owner Name ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -611,7 +611,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             child:
                                 // name rest with api
                                 pw.Text("${list[0]['verbal_owner']}",
-                                    style: const pw.TextStyle(fontSize: 12)),
+                                    style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -626,7 +626,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             // name rest with api
                             child: pw.Text(
                                 "Contact No : ${list[0]['verbal_contact'].toString()} ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -645,7 +645,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Bank Officer ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 30,
                             //color: Colors.blue,
                           ),
@@ -658,7 +658,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("${list[0]['bank_name']}",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 30,
                             //color: Colors.blue,
                           ),
@@ -672,7 +672,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "Contact No : ${list[0]['bankcontact'].toString()}",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 30,
                             //color: Colors.blue,
                           ),
@@ -691,7 +691,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Latitude ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -704,7 +704,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("${list[0]['latlong_log']}",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -717,7 +717,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                             decoration:
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text("Longtitude ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -731,7 +731,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                 pw.BoxDecoration(border: pw.Border.all()),
                             child: pw.Text(
                                 "${list[0]['latlong_la'].toString()} ",
-                                style: const pw.TextStyle(fontSize: 12)),
+                                style: const pw.TextStyle(fontSize: 12),),
                             height: 25,
                             //color: Colors.blue,
                           ),
@@ -742,7 +742,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                   pw.SizedBox(height: 5),
                   pw.Text("ESTIMATED VALUE OF THE VERBAL CHECK PROPERTY",
                       textAlign: pw.TextAlign.center,
-                      style: const pw.TextStyle(fontSize: 12)),
+                      style: const pw.TextStyle(fontSize: 12),),
                   pw.Container(
                     height: 120,
                     child: pw.Row(
@@ -754,7 +754,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               pw.MemoryImage(
                                 bytes1,
                               ),
-                              fit: pw.BoxFit.fitWidth),
+                              fit: pw.BoxFit.fitWidth,),
                         ),
                         // pw.SizedBox(width: 0.1),
                         pw.Container(
@@ -763,7 +763,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               pw.MemoryImage(
                                 bytes2,
                               ),
-                              fit: pw.BoxFit.fitWidth),
+                              fit: pw.BoxFit.fitWidth,),
                         ),
                       ],
                     ),
@@ -783,7 +783,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("DESCRIPTION: ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -798,7 +798,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("AREA/sqm: ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -813,7 +813,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("MIN/sqm: ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -828,7 +828,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("MAX/sqm: ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -843,7 +843,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("MIN-VALUE: ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -858,14 +858,14 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("MAX-VALUE: ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
-                      if (land.length >= 1)
+                      if (land.isNotEmpty)
                         pw.ListView.builder(
                           itemCount: land.length,
                           itemBuilder: (Context, index) {
@@ -877,13 +877,13 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        border: pw.Border.all()),
+                                        border: pw.Border.all(),),
                                     child: pw.Text(
                                         land[index]["verbal_land_type"] ??
                                             "N/A",
                                         style: pw.TextStyle(
                                             fontSize: 10,
-                                            fontWeight: pw.FontWeight.bold)),
+                                            fontWeight: pw.FontWeight.bold,),),
                                     height: 25,
                                     //color: Colors.blue,
                                   ),
@@ -894,13 +894,13 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        border: pw.Border.all()),
+                                        border: pw.Border.all(),),
                                     child: pw.Text(
                                         land[index]["verbal_land_area"] ??
                                             "N/A",
                                         style: pw.TextStyle(
                                             fontSize: 11,
-                                            fontWeight: pw.FontWeight.bold)),
+                                            fontWeight: pw.FontWeight.bold,),),
                                     height: 25,
                                     //color: Colors.blue,
                                   ),
@@ -911,13 +911,13 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        border: pw.Border.all()),
+                                        border: pw.Border.all(),),
                                     child: pw.Text(
                                         land[index]["verbal_land_minsqm"] ??
                                             "N/A",
                                         style: pw.TextStyle(
                                             fontSize: 11,
-                                            fontWeight: pw.FontWeight.bold)),
+                                            fontWeight: pw.FontWeight.bold,),),
                                     height: 25,
                                     //color: Colors.blue,
                                   ),
@@ -928,13 +928,13 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        border: pw.Border.all()),
+                                        border: pw.Border.all(),),
                                     child: pw.Text(
                                         land[index]["verbal_land_maxsqm"] ??
                                             "N/A",
                                         style: pw.TextStyle(
                                             fontSize: 11,
-                                            fontWeight: pw.FontWeight.bold)),
+                                            fontWeight: pw.FontWeight.bold,),),
                                     height: 25,
                                     //color: Colors.blue,
                                   ),
@@ -945,13 +945,13 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        border: pw.Border.all()),
+                                        border: pw.Border.all(),),
                                     child: pw.Text(
                                         land[index]["verbal_land_minvalue"] ??
                                             "N/A",
                                         style: pw.TextStyle(
                                             fontSize: 11,
-                                            fontWeight: pw.FontWeight.bold)),
+                                            fontWeight: pw.FontWeight.bold,),),
                                     height: 25,
                                     //color: Colors.blue,
                                   ),
@@ -962,18 +962,18 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                     padding: pw.EdgeInsets.all(2),
                                     alignment: pw.Alignment.centerLeft,
                                     decoration: pw.BoxDecoration(
-                                        border: pw.Border.all()),
+                                        border: pw.Border.all(),),
                                     child: pw.Text(
                                         land[index]["verbal_land_maxvalue"] ??
                                             "N/A",
                                         style: pw.TextStyle(
                                             fontSize: 11,
-                                            fontWeight: pw.FontWeight.bold)),
+                                            fontWeight: pw.FontWeight.bold,),),
                                     height: 25,
                                     //color: Colors.blue,
                                   ),
                                 ),
-                              ]),
+                              ],),
                             );
                           },
                         ),
@@ -990,7 +990,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("Property Value(Estimate) ",
                                   style: pw.TextStyle(
                                     fontSize: 11,
-                                  )),
+                                  ),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1003,7 +1003,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(total_MIN.toString(),
-                                  style: pw.TextStyle(fontSize: 11)),
+                                  style: pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1016,12 +1016,12 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(total_MAX.toString(),
-                                  style: pw.TextStyle(fontSize: 11)),
+                                  style: pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       pw.Container(
                         child: pw.Row(children: [
@@ -1036,7 +1036,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("Force Sale Value ${fsv}% ",
                                   style: const pw.TextStyle(
                                     fontSize: 11,
-                                  )),
+                                  ),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1049,7 +1049,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(fsvN.toString(),
-                                  style: pw.TextStyle(fontSize: 11)),
+                                  style: pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1062,12 +1062,12 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text(fsvM.toString(),
-                                  style: const pw.TextStyle(fontSize: 11)),
+                                  style: const pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       pw.Container(
                         child: pw.Row(children: [
@@ -1081,7 +1081,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("Force Sale Value: ",
                                   style: const pw.TextStyle(
                                     fontSize: 11,
-                                  )),
+                                  ),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1094,7 +1094,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text("$fn",
-                                  style: const pw.TextStyle(fontSize: 11)),
+                                  style: const pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1107,7 +1107,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text("${fx}",
-                                  style: const pw.TextStyle(fontSize: 11)),
+                                  style: const pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1123,7 +1123,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       pw.Container(
                         child: pw.Row(children: [
@@ -1138,12 +1138,12 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                                   "COMMENT: ${list[0]['verbal_comment']}",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
                       pw.Container(
                         child: pw.Row(children: [
@@ -1157,7 +1157,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               child: pw.Text("Valuation:  ",
                                   style: pw.TextStyle(
                                       fontSize: 11,
-                                      fontWeight: pw.FontWeight.bold)),
+                                      fontWeight: pw.FontWeight.bold,),),
                               height: 25,
                               //color: Colors.blue,
                             ),
@@ -1170,55 +1170,55 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                               decoration:
                                   pw.BoxDecoration(border: pw.Border.all()),
                               child: pw.Text("",
-                                  style: pw.TextStyle(fontSize: 11)),
+                                  style: pw.TextStyle(fontSize: 11),),
                               height: 25,
                               //color: Colors.blue,
                             ),
                           ),
-                        ]),
+                        ],),
                       ),
-                    ]),
+                    ],),
                   ),
                 ],
               ),
             ),
             pw.SizedBox(height: 5),
             pw.Text(
-                '*Note : The land building size based on the bank officer provided, in case the land and building size are wrong provided when we have the actual size inspect, we are not response on this case.'),
+                '*Note : The land building size based on the bank officer provided, in case the land and building size are wrong provided when we have the actual size inspect, we are not response on this case.',),
             pw.Text('Verbal Check Replied By:${name_user}',
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                 ),
-                textAlign: pw.TextAlign.right),
+                textAlign: pw.TextAlign.right,),
             pw.Text('${tel}',
                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
-                textAlign: pw.TextAlign.right),
+                textAlign: pw.TextAlign.right,),
             pw.Row(mainAxisAlignment: pw.MainAxisAlignment.center, children: [
               pw.Text('KHMER FOUNDATION APPRAISALS Co.,Ltd',
                   style: pw.TextStyle(
                       color: PdfColors.blue,
                       fontWeight: pw.FontWeight.bold,
-                      fontSize: 12)),
-            ]),
+                      fontSize: 12,),),
+            ],),
             pw.Row(
               children: [
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text('Hotline: 077 997 888',
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
                     pw.Row(children: [
                       pw.Text('H/P : (+855)23 988 855/(+855)23 999 761',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                    ]),
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
+                    ],),
                     pw.Row(children: [
                       pw.Text('Email : info@kfa.com.kh',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                    ]),
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
+                    ],),
                     pw.Row(children: [
                       pw.Text('Website: www.kfa.com.kh',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                    ]),
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
+                    ],),
                   ],
                 ),
                 pw.SizedBox(width: 10),
@@ -1226,11 +1226,11 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text('Villa #36A, Street No4, (Borey Peng Hout The Star',
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
                     pw.Text('Natural 371) Sangkat Chak Angrae Leu,',
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
                     pw.Text('Khan Mean Chey, Phnom Penh City, Cambodia,',
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold),),
                   ],
                 ),
               ],
@@ -1238,7 +1238,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
           ],
         )
       ];
-    }));
+    },),);
 
     return pdf.save();
   }
@@ -1247,10 +1247,10 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
     setState(() {
       if (widget.property_check == '1') {
         Land1(
-            list[0]['verbal_id'].toString(), list[0]['verbal_con'].toString());
+            list[0]['verbal_id'].toString(), list[0]['verbal_con'].toString(),);
       } else {
         Land2(
-            list[0]['verbal_id'].toString(), list[0]['verbal_con'].toString());
+            list[0]['verbal_id'].toString(), list[0]['verbal_con'].toString(),);
       }
       Future.delayed(const Duration(seconds: 2), () {
         Printing.layoutPdf(onLayout: (format) => _generatePdf(format, fsv));
@@ -1261,8 +1261,8 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
   void Land1(String i, String fsv) async {
     double x = 0, n = 0;
     var jsonData;
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=$i'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=$i',),);
     if (rs.statusCode == 200) {
       jsonData = jsonDecode(rs.body);
       land = jsonData;
@@ -1279,7 +1279,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
         fsvM = (total_MAX! * double.parse(fsv)) / 100;
         fsvN = (total_MIN! * double.parse(fsv)) / 100;
 
-        if (land.length < 1) {
+        if (land.isEmpty) {
           total_MIN = 0;
           total_MAX = 0;
         } else {
@@ -1295,8 +1295,8 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
   void Land2(String i, String fsv) async {
     double x = 0, n = 0;
     var jsonData;
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbals/list_land?verbal_landid=$i'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbals/list_land?verbal_landid=$i',),);
     if (rs.statusCode == 200) {
       jsonData = jsonDecode(rs.body);
       land = jsonData;
@@ -1311,7 +1311,7 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
         fsvM = (total_MAX! * double.parse(fsv)) / 100;
         fsvN = (total_MIN! * double.parse(fsv)) / 100;
 
-        if (land.length < 1) {
+        if (land.isEmpty) {
           total_MIN = 0;
           total_MAX = 0;
         } else {
@@ -1330,12 +1330,12 @@ class _Get_Image_By_FirbaseState extends State<Get_Image_By_Firbase> {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 15, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 15, fontWeight: FontWeight.bold,);
   }
 }
 

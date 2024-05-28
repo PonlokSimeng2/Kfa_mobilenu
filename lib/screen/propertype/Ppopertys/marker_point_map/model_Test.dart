@@ -9,13 +9,13 @@ class Model_Test_Pov {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+        products!.add(Products.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.products != null) {
       data['products'] = this.products!.map((v) => v.toJson()).toList();
     }
@@ -39,7 +39,7 @@ class Products {
       this.description,
       this.createdAt,
       this.updatedAt,
-      this.sex});
+      this.sex,});
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,7 +52,7 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['name'] = this.name;
     data['image'] = this.image;

@@ -96,7 +96,7 @@ class _Screen_sliderState extends State<Screen_slider> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: Colors.white,
-            border: Border.all()
+            border: Border.all(),
           ),
           height: 85,
           width: double.infinity,
@@ -126,12 +126,12 @@ class _Screen_sliderState extends State<Screen_slider> {
                       });
                     },
                     // reverse: true,
-                  )
+                  ),
                   ),
     
               // buildIndicator(),
             ],
-          )),
+          ),),
     );
   }
 
@@ -184,7 +184,7 @@ class PartnersCard extends StatelessWidget {
             BoxShadow(
                 color: Color.fromARGB(213, 204, 200, 200),
                 blurRadius: 2,
-                offset: Offset(0, 5))
+                offset: Offset(0, 5),)
           ],
           border: Border.all(
             // color: Color.fromARGB(255, 56, 52, 247),

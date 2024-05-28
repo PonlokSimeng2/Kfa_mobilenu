@@ -55,7 +55,7 @@ class Edit extends StatefulWidget {
       this.image_map,
       this.image_photo,
       this.cell_land,
-      this.land_list});
+      this.land_list,});
   final int verbal_id;
   final String property_type_id;
   final String bank_id;
@@ -123,10 +123,10 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=$district',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_Khan = jsonData;
         id_khan = int.parse(list_Khan[0]['Khan_ID'].toString());
@@ -138,10 +138,10 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=$id',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_sangkat = jsonData;
         id_Sangkat = int.parse(list_sangkat[0]['Sangkat_ID'].toString());
@@ -151,13 +151,13 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
 
   Future<void> Find_by_piont(double la, double lo) async {
     final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${la},${lo}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'));
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
 
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      var location = jsonResponse['results'][0]['geometry']['location'];
+      final jsonResponse = json.decode(response.body);
+      final location = jsonResponse['results'][0]['geometry']['location'];
 
-      List ls = jsonResponse['results'];
+      final List ls = jsonResponse['results'];
       List ac;
       for (int j = 0; j < ls.length; j++) {
         ac = jsonResponse['results'][j]['address_components'];
@@ -207,8 +207,8 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   void initState() {
     Find_by_piont(double.parse(widget.lng), double.parse(widget.lat));
     controller = AnimationController(
-        duration: const Duration(milliseconds: 645), vsync: this);
-    animation = new CurvedAnimation(parent: controller, curve: Curves.linear);
+        duration: const Duration(milliseconds: 645), vsync: this,);
+    animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     controller.repeat();
     offsetAnimation = Tween<Offset>(
       begin: Offset(0, 0),
@@ -216,7 +216,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
     ).animate(CurvedAnimation(
       parent: controller,
       curve: Curves.easeIn,
-    ));
+    ),);
     image_photo = widget.image_photo;
     image_map = widget.image_map;
     lb = widget.cell_land!;
@@ -262,7 +262,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                 if (_file != null) {
                   uploadt_image(_file!);
                 }
-                APIservice apIservice = APIservice();
+                final APIservice apIservice = APIservice();
                 apIservice
                     .saveAutoVerbal_Update(requestModelAuto, widget.verbal_id)
                     .then(
@@ -293,7 +293,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                             onDismissCallback: (type) {
                               Get.back();
                               Get.back();
-                            }).show();
+                            },).show();
                       } else {
                         AwesomeDialog(
                           context: context,
@@ -572,7 +572,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                       child: Image.network(
                         image_map!,
                         fit: BoxFit.fill,
-                      ))
+                      ),)
                   : SizedBox(),
               TextButton(
                 onPressed: () {
@@ -609,15 +609,15 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                               SizedBox(width: 10),
                               Text((map == true)
                                   ? 'Location Changed'
-                                  : 'Change Location'),
+                                  : 'Change Location',),
                             ],
-                          )),
+                          ),),
                     ),
                   ),
                 ),
               ),
               if (_file == null)
-                Container(
+                SizedBox(
                   height: 200,
                   width: 400,
                   child: Image.network(image_photo),
@@ -625,7 +625,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
               Column(
                 children: [
                   if (_file != null)
-                    Container(
+                    SizedBox(
                       height: 200,
                       width: 400,
                       // child: Image.file(File(_file!.path)),
@@ -667,9 +667,9 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                                     SizedBox(width: 10),
                                     Text((imagepath == "")
                                         ? 'Choose Photo'
-                                        : 'choosed Photo'),
+                                        : 'choosed Photo',),
                                   ],
-                                )),
+                                ),),
                           ),
                         ),
                       ),
@@ -741,7 +741,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                   land_list: widget.land_list,
                   ID_khan: id_khan.toString(),
                   opt: opt,
-                  address: '${commune} / ${district}',
+                  address: '$commune / $district',
                   list: (value) {
                     setState(() {
                       requestModelAuto.verbal = value;
@@ -797,7 +797,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                 requestModelAuto.lng = value;
               },
               get_province: (value) {},
-            )));
+            ),),);
     // final result = await Navigator.of(context).push(MaterialPageRoute(
     //     builder: (context) => HomePage(
     //           c_id: code.toString(),
@@ -931,16 +931,16 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
           AndroidUiSettings(
               lockAspectRatio: false,
               backgroundColor: Colors.blue,
-              initAspectRatio: CropAspectRatioPreset.original)
-        ]);
+              initAspectRatio: CropAspectRatioPreset.original,)
+        ],);
         _file = XFile(cropFile!.path);
         // imagebytes = _file.path;
         // imagepath = pickedFile.path;
         File? imagefile = File(cropFile.path); //convert Path to File
         imagebytes = await imagefile.readAsBytes(); //convert to bytes
-        String base64string =
+        final String base64string =
             base64.encode(imagebytes!); //convert bytes to base64 string
-        Uint8List decodedbytes = base64.decode(base64string);
+        final Uint8List decodedbytes = base64.decode(base64string);
         //decode base64 stirng to bytes
         setState(() {
           _file = imagefile as XFile;
@@ -953,11 +953,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
     }
   }
 
-  Future<dynamic> uploadt_image(XFile _image) async {
-    var request = await http.MultipartRequest(
+  Future<dynamic> uploadt_image(XFile image) async {
+    final request = http.MultipartRequest(
         "POST",
         Uri.parse(
-            "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image"));
+            "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",),);
     Map<String, String> headers = {
       "content-type": "application/json",
       "Connection": "keep-alive",
@@ -969,12 +969,12 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
     request.files.add(
       await http.MultipartFile.fromPath(
         "image",
-        _image.path,
+        image.path,
       ),
     );
-    var response = await request.send();
-    var responseData = await response.stream.toBytes();
-    var result = String.fromCharCodes(responseData);
+    final response = await request.send();
+    final responseData = await response.stream.toBytes();
+    final result = String.fromCharCodes(responseData);
     print(result);
   }
 
@@ -990,13 +990,13 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
           insetPadding:
               EdgeInsets.only(top: 30, left: 10, right: 1, bottom: 20),
           content: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 1,
               child: LandBuilding(
                 ID_khan: id_khan.toString(),
                 // asking_price: asking_price,
                 opt: opt,
-                address: '${commune} / ${district}',
+                address: '$commune / $district',
                 list: (value) {
                   setState(() {
                     // print(value);
@@ -1028,10 +1028,10 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   late List<dynamic> _list2;
   void Load2(id) async {
     setState(() {});
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options?opt_id=${id}'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options?opt_id=$id',),);
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
 
       setState(() {
         _list2 = jsonData;
@@ -1047,11 +1047,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
   }
 }

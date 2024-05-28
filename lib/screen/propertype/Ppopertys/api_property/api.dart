@@ -8,10 +8,10 @@ import '../Model/Autho_verbal.dart';
 
 class APi_property {
   Future<AutoVerbal_property> saveAuto_property_Sale(
-      AutoVerbal_property_a requestModel) async {
+      AutoVerbal_property_a requestModel,) async {
     final response = await http.post(
       Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale'),
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_sale',),
       headers: {
         "Accept": "application/json;charset=UTF-8",
         "Content-Type": "application/json"
@@ -31,10 +31,10 @@ class APi_property {
   }
 
   Future<AutoVerbal_property> saveAuto_property_Rent(
-      AutoVerbal_property_a requestModel) async {
+      AutoVerbal_property_a requestModel,) async {
     final response = await http.post(
       Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_Post'),
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property_rent_Post',),
       headers: {
         "Accept": "application/json;charset=UTF-8",
         "Content-Type": "application/json"

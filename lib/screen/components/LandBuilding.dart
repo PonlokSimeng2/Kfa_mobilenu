@@ -88,7 +88,7 @@ class _LandBuildingState extends State<LandBuilding> {
         "verbal_land_maxvalue": totalMax.toStringAsFixed(2),
       });
       lb.add(L_B(autoverbalType, des, dep, widget.address,
-          int.parse(widget.landId), area, minSqm, maxSqm, totalMin, totalMax));
+          int.parse(widget.landId), area, minSqm, maxSqm, totalMin, totalMax,),);
 
       minSqm = 0;
       maxSqm = 0;
@@ -239,7 +239,7 @@ class _LandBuildingState extends State<LandBuilding> {
                                       setState(() {
                                         Minimum = double.parse(newValue!);
                                       });
-                                    }),
+                                    },),
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 10),
@@ -269,7 +269,7 @@ class _LandBuildingState extends State<LandBuilding> {
                               Container(
                                 height: 57,
                                 margin: EdgeInsets.only(
-                                    left: 30, top: 10, right: 30),
+                                    left: 30, top: 10, right: 30,),
                                 child: DropdownButtonFormField<String>(
                                   value: _selectedValue,
                                   isExpanded: true,
@@ -307,7 +307,7 @@ class _LandBuildingState extends State<LandBuilding> {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          color: kPrimaryColor, width: 2.0),
+                                          color: kPrimaryColor, width: 2.0,),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     enabledBorder: OutlineInputBorder(
@@ -454,7 +454,7 @@ class _LandBuildingState extends State<LandBuilding> {
                       height: 10,
                     ),
                     // (widget.check_property==1)?
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: 350,
                       child: ListView.builder(
@@ -504,7 +504,7 @@ class _LandBuildingState extends State<LandBuilding> {
                                                   setState(() {
                                                     deleteItemToList(index);
                                                     print(list);
-                                                    if (list.length == 0) {
+                                                    if (list.isEmpty) {
                                                       Navigator.pop(context);
                                                     }
                                                   });
@@ -518,7 +518,7 @@ class _LandBuildingState extends State<LandBuilding> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
+                                        left: 10, right: 10,),
                                     child: Text.rich(
                                       TextSpan(
                                         children: <InlineSpan>[
@@ -527,10 +527,10 @@ class _LandBuildingState extends State<LandBuilding> {
                                             Icons.location_on_sharp,
                                             color: kPrimaryColor,
                                             size: 14,
-                                          )),
+                                          ),),
                                           TextSpan(
                                               text:
-                                                  "${list[index]["address"]} "),
+                                                  "${list[index]["address"]} ",),
                                         ],
                                       ),
                                       textAlign: TextAlign.left,
@@ -610,48 +610,32 @@ class _LandBuildingState extends State<LandBuilding> {
                                           ),
                                           SizedBox(height: 2),
                                           Text(
-                                            ':   ' +
-                                                (list[index]["verbal_land_area"]
-                                                        .toInt())
-                                                    .toString() +
-                                                'm' +
-                                                '\u00B2',
+                                            ':   ${list[index]["verbal_land_area"]
+                                                        .toInt()}m\u00B2',
                                             style: Name(),
                                           ),
                                           SizedBox(height: 2),
                                           Text(
-                                            ':   ' +
-                                                (list[index]
-                                                        ["verbal_land_minsqm"])
-                                                    .toString() +
-                                                '\$',
+                                            ':   ${list[index]
+                                                        ["verbal_land_minsqm"]}\$',
                                             style: Name(),
                                           ),
                                           SizedBox(height: 2),
                                           Text(
-                                            ':   ' +
-                                                (list[index]
-                                                        ["verbal_land_maxsqm"])
-                                                    .toString() +
-                                                '\$',
+                                            ':   ${list[index]
+                                                        ["verbal_land_maxsqm"]}\$',
                                             style: Name(),
                                           ),
                                           SizedBox(height: 2),
                                           Text(
-                                            ':   ' +
-                                                (list[index][
-                                                        "verbal_land_minvalue"])
-                                                    .toString() +
-                                                '\$',
+                                            ':   ${list[index][
+                                                        "verbal_land_minvalue"]}\$',
                                             style: Name(),
                                           ),
                                           SizedBox(height: 2),
                                           Text(
-                                            ':   ' +
-                                                (list[index][
-                                                            "verbal_land_maxvalue"]
-                                                        .toString() +
-                                                    '\$'),
+                                            ':   ${list[index][
+                                                            "verbal_land_maxvalue"]}\$',
                                             style: Name(),
                                           ),
                                         ],
@@ -678,21 +662,21 @@ class _LandBuildingState extends State<LandBuilding> {
   }
 
   void calLs(double area) {
-    var khan_id = widget.ID_khan;
-    var sangkat_id = widget.ID_sangkat;
+    final khanId = widget.ID_khan;
+    final sangkatId = widget.ID_sangkat;
     setState(() async {
       if (_selectedValue == 'Commercial') {
-        var rs = await http.get(Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/commercial?Khan_ID=${khan_id}&Sangkat_ID=${sangkat_id}'));
-        var jsonData = jsonDecode(rs.body);
+        final rs = await http.get(Uri.parse(
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/commercial?Khan_ID=$khanId&Sangkat_ID=$sangkatId',),);
+        final jsonData = jsonDecode(rs.body);
         setState(() {
           maxSqm = double.parse(jsonData[0]['Max_Value']);
           minSqm = double.parse(jsonData[0]['Min_Value']);
         });
       } else if (_selectedValue == 'Residencial') {
-        var rs = await http.get(Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/residential?Khan_ID=${khan_id}&Sangkat_ID=${sangkat_id}'));
-        var jsonData = jsonDecode(rs.body);
+        final rs = await http.get(Uri.parse(
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/residential?Khan_ID=$khanId&Sangkat_ID=$sangkatId',),);
+        final jsonData = jsonDecode(rs.body);
         setState(() {
           maxSqm = double.parse(jsonData[0]['Max_Value']);
           minSqm = double.parse(jsonData[0]['Min_Value']);
@@ -726,10 +710,10 @@ class _LandBuildingState extends State<LandBuilding> {
     setState(() {
       isApiCallProcess = true;
     });
-    var rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/type?autoverbal_id=$autoverbalTypeValue'));
+    final rs = await http.get(Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/type?autoverbal_id=$autoverbalTypeValue',),);
     //  if (rs.statusCode == 200) {
-    var jsonData = jsonDecode(rs.body);
+    final jsonData = jsonDecode(rs.body);
     setState(() {
       isApiCallProcess = false;
       // _list = jsonData['property'];
@@ -753,11 +737,11 @@ class _LandBuildingState extends State<LandBuilding> {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold);
+        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
   }
 }

@@ -99,9 +99,9 @@ class _ResultState extends State<Result> {
     setState(() {
       _loading = true;
     });
-    var rs = await http.get(Uri.parse('https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property'));
+    final rs = await http.get(Uri.parse('https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/property'));
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         _list = jsonData['property'];
         _loading = false;

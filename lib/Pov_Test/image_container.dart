@@ -12,7 +12,7 @@ class image_test extends StatefulWidget {
 }
 
 class _image_testState extends State<image_test> {
-  List _data = [];
+  final List _data = [];
 
   @override
   void initState() {
@@ -36,8 +36,8 @@ class _image_testState extends State<image_test> {
               onPressed: () {
                 _loadData();
               },
-              child: Text('Go')),
-          Container(
+              child: const Text('Go'),),
+          SizedBox(
             height: 300,
             width: double.infinity,
             child: ListView.builder(
@@ -71,7 +71,7 @@ class _image_testState extends State<image_test> {
   Future<void> Property_Sale_image_1() async {
     var jsonData;
     final response = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get_id/20234698'));
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/Image_ptys_get_id/20234698',),);
 
     if (response.statusCode == 200) {
       jsonData = jsonDecode(response.body);

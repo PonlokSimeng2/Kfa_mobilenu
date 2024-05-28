@@ -85,7 +85,7 @@ class _Home_TypeState extends State<Price> {
               Container(
                   decoration: BoxDecoration(
                       color: Color.fromARGB(255, 17, 99, 165),
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),),
                   height: 40,
                   width: 120,
                   child: TextButton(
@@ -93,7 +93,7 @@ class _Home_TypeState extends State<Price> {
                       child: Text(
                         'Done',
                         style: TextStyle(color: Colors.white),
-                      )))
+                      ),),)
             ],
           ),
         ),

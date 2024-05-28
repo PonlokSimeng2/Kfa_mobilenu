@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({Key? key}) : super(key: key);
@@ -62,7 +59,7 @@ class _SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: const Text("Test"),
       ),
       body: Stack(
         children: [
@@ -78,11 +75,11 @@ class _SecondPageState extends State<SecondPage> {
                   buildInput(labelText: 'Product name', controller: nameText),
                   divider(),
                   buildInput(
-                  labelText: 'The amount of goods', controller: amountText),
+                  labelText: 'The amount of goods', controller: amountText,),
                   divider(),
                   buildInput(
                   labelText: 'Order ID(Custom random generation)',
-                  controller: orderIdText),
+                  controller: orderIdText,),
                   divider(),
                   buildInput(labelText: 'USD', controller: usdText),
                   divider(),
@@ -114,14 +111,14 @@ class _SecondPageState extends State<SecondPage> {
                       onPressed: () {
                         // createOrder();
                       },
-                      child: const Text('Create Order to APP')),
+                      child: const Text('Create Order to APP'),),
                   TextButton(
                       onPressed: () {
                         createOrderQR();
                       },
-                      child: const Text('Create Order show KHQR'))
+                      child: const Text('Create Order show KHQR'),)
                 ],
-              )
+              ),
               ),
           Positioned(
               left: 0,
@@ -132,7 +129,7 @@ class _SecondPageState extends State<SecondPage> {
                   visible: loading == true,
                   child: const Center(
                     child: CupertinoActivityIndicator(),
-                  )))
+                  ),),)
         ],
       ),
     );
@@ -148,11 +145,11 @@ class _SecondPageState extends State<SecondPage> {
       // false = user must tap button, true = tap outside dialog
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('title'),
+          title: const Text('title'),
           content: Text(error),
           actions: <Widget>[
             TextButton(
-              child: Text('Done'),
+              child: const Text('Done'),
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Dismiss alert dialog
               },
@@ -176,16 +173,16 @@ class _SecondPageState extends State<SecondPage> {
     }
     loading = true;
     setState(() {});
-    var merchantId = idText.text;
-    var merchantKey = keyText.text;
-    var goods = nameText.text;
-    var amount = amountText.text;
-    var ccy = usdText.text;
-    var v = versionText.text;
-    var notifyUrl = notifyText.text;
-    var returnUrl = returnText.text;
-    var language = langText.text;
-    var orderId = SignUtil.RandomString(10);
+    final merchantId = idText.text;
+    final merchantKey = keyText.text;
+    final goods = nameText.text;
+    final amount = amountText.text;
+    final ccy = usdText.text;
+    final v = versionText.text;
+    final notifyUrl = notifyText.text;
+    final returnUrl = returnText.text;
+    final language = langText.text;
+    final orderId = SignUtil.RandomString(10);
     orderIdText.text = orderId;
     Map<String, String> map = {
       'currency': ccy,
@@ -198,18 +195,18 @@ class _SecondPageState extends State<SecondPage> {
       'notifyUrl': notifyUrl,
       'version': v,
     };
-    var sign = SignUtil.getSign(map, merchantKey);
+    final sign = SignUtil.getSign(map, merchantKey);
     map['sign'] = sign;
     // print(jsonEncode(map));
     signText.text = sign;
 
     try {
-      var response = await Dio().post(qrUrl, data: map);
+      final response = await Dio().post(qrUrl, data: map);
       if (response.statusCode == 200) {
-        var data = response.data;
-        var d1 = jsonEncode(data['data']);
+        final data = response.data;
+        final d1 = jsonEncode(data['data']);
         setState(() {
-          var d2 = json.decode(d1);
+          final d2 = json.decode(d1);
           print(data);
         });
         // ignore: use_build_context_synchronously
@@ -319,11 +316,11 @@ class _SecondPageState extends State<SecondPage> {
 
 class SignUtil {
   static StringBuffer getKeys(Map<String, String> inMap, List<String> keys) {
-    StringBuffer sbf = StringBuffer();
+    final StringBuffer sbf = StringBuffer();
     for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
+      final key = keys[i];
       if (key != 'sign' && key.isNotEmpty) {
-        var value = inMap[key];
+        final value = inMap[key];
         if (value == '' || value == null) {
           continue;
         }
@@ -341,24 +338,24 @@ class SignUtil {
 
   static String generateMD5(String data) {
     print(data);
-    Uint8List content = const Utf8Encoder().convert(data);
-    Digest digest = md5.convert(content);
+    final Uint8List content = const Utf8Encoder().convert(data);
+    final Digest digest = md5.convert(content);
     return digest.toString();
   }
 
   static String getSign(Map<String, String> inMap, String secretKey) {
-    var keys = <String>[];
+    final keys = <String>[];
     keys.addAll(inMap.keys);
     keys.sort();
-    var sbf = getKeys(inMap, keys);
+    final sbf = getKeys(inMap, keys);
     sbf.write(secretKey);
     print(sbf.toString());
     return generateMD5(sbf.toString()).toUpperCase();
   }
 
   static String RandomString(int strlen) {
-    var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    Random rnd = new Random(new DateTime.now().millisecondsSinceEpoch);
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    final Random rnd = Random(DateTime.now().millisecondsSinceEpoch);
     String result = "";
     for (var i = 0; i < strlen; i++) {
       result += chars[rnd.nextInt(chars.length)];
@@ -380,17 +377,17 @@ class buildInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 57,
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
         child: TextFormField(
           controller: controller,
           decoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,
             labelText: labelText,
-            contentPadding: EdgeInsets.symmetric(vertical: 8),
-            labelStyle: TextStyle(color: Colors.grey),
+            contentPadding: const EdgeInsets.symmetric(vertical: 8),
+            labelStyle: const TextStyle(color: Colors.grey),
             border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey, width: 2.0),
               borderRadius: BorderRadius.circular(10.0),

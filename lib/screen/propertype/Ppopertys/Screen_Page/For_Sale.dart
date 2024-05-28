@@ -185,12 +185,12 @@ class SearchPropertyState extends State<For_Sale> {
                               get_min2: (value) {},
                               get_province: (value) {},
                               get_max2: (value) {},
-                            ));
+                            ),);
                           },
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color.fromARGB(255, 71, 13, 158)),
+                                color: Color.fromARGB(255, 71, 13, 158),),
                             height: 40,
                             width: double.infinity,
                             child: Padding(
@@ -202,7 +202,7 @@ class SearchPropertyState extends State<For_Sale> {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
-                                        fontSize: 15),
+                                        fontSize: 15,),
                                   ),
                                   Icon(
                                     Icons.map_outlined,
@@ -223,7 +223,7 @@ class SearchPropertyState extends State<For_Sale> {
                             Text(
                               'List For Sale (${list_get!.length})',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
+                                  fontWeight: FontWeight.bold, fontSize: 14,),
                             ),
                             TextButton(
                                 onPressed: () {
@@ -243,9 +243,9 @@ class SearchPropertyState extends State<For_Sale> {
                                           controller_verbal.list_hometype,
                                       list_get: list_get,
                                     );
-                                  }));
+                                  },),);
                                 },
-                                child: Text('Show all')),
+                                child: Text('Show all'),),
                           ],
                         ),
                       ),
@@ -288,15 +288,15 @@ class SearchPropertyState extends State<For_Sale> {
                                               .toString(),
                                           fit: BoxFit.cover,
                                           progressIndicatorBuilder: (context,
-                                                  url, downloadProgress) =>
+                                                  url, downloadProgress,) =>
                                               Center(
                                             child: CircularProgressIndicator(
                                                 value:
-                                                    downloadProgress.progress),
+                                                    downloadProgress.progress,),
                                           ),
                                           errorWidget: (context, url, error) =>
                                               Icon(Icons.error),
-                                        )
+                                        ),
 
                                         // child: Image.network(
                                         //   '${obj.url.toString()}',
@@ -317,7 +317,7 @@ class SearchPropertyState extends State<For_Sale> {
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 10),
+                                                  left: 10,),
                                               child: Row(
                                                 children: [
                                                   Text(
@@ -326,8 +326,8 @@ class SearchPropertyState extends State<For_Sale> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Color.fromARGB(
-                                                            255, 251, 250, 250),
-                                                        fontSize: 10),
+                                                            255, 251, 250, 250,),
+                                                        fontSize: 10,),
                                                   ),
                                                   Text(
                                                     '\$',
@@ -335,8 +335,8 @@ class SearchPropertyState extends State<For_Sale> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Color.fromARGB(
-                                                            255, 119, 234, 5),
-                                                        fontSize: 10),
+                                                            255, 119, 234, 5,),
+                                                        fontSize: 10,),
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -347,8 +347,8 @@ class SearchPropertyState extends State<For_Sale> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Color.fromARGB(
-                                                            255, 250, 249, 249),
-                                                        fontSize: 10),
+                                                            255, 250, 249, 249,),
+                                                        fontSize: 10,),
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -361,7 +361,7 @@ class SearchPropertyState extends State<For_Sale> {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 10),
+                                                  left: 10,),
                                               child: Row(
                                                 children: [
                                                   Text(
@@ -370,7 +370,7 @@ class SearchPropertyState extends State<For_Sale> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Colors.white,
-                                                        fontSize: 10),
+                                                        fontSize: 10,),
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -381,7 +381,7 @@ class SearchPropertyState extends State<For_Sale> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: Colors.white,
-                                                        fontSize: 10),
+                                                        fontSize: 10,),
                                                   ),
                                                 ],
                                               ),
@@ -399,16 +399,16 @@ class SearchPropertyState extends State<For_Sale> {
                                         width: 60,
                                         decoration: BoxDecoration(
                                             color: Color.fromARGB(
-                                                255, 109, 160, 6),
+                                                255, 109, 160, 6,),
                                             borderRadius:
-                                                BorderRadius.circular(10)),
+                                                BorderRadius.circular(10),),
                                         child: Text(
                                           'For Sale',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Color.fromARGB(
-                                                  255, 250, 246, 245),
-                                              fontSize: 12),
+                                                  255, 250, 246, 245,),
+                                              fontSize: 12,),
                                         ),
                                       ),
                                     ),
@@ -419,18 +419,18 @@ class SearchPropertyState extends State<For_Sale> {
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                   color: Color.fromARGB(
-                                                      255, 106, 7, 86),
+                                                      255, 106, 7, 86,),
                                                   borderRadius:
-                                                      BorderRadius.circular(5)),
+                                                      BorderRadius.circular(5),),
                                               height: 25,
                                               width: 50,
                                               child: Text(
                                                 '${list_get![index]['urgent'].toString()}',
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    color: Colors.white),
+                                                    color: Colors.white,),
                                               ),
-                                            ))
+                                            ),)
                                         : SizedBox()
                                   ],
                                 ),
@@ -490,7 +490,7 @@ class SearchPropertyState extends State<For_Sale> {
                               //     child: Text('Go')),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 10, left: 10, top: 10),
+                                    right: 10, left: 10, top: 10,),
                                 child: Container(
                                   height:
                                       MediaQuery.of(context).size.height * 0.3,
@@ -526,13 +526,13 @@ class SearchPropertyState extends State<For_Sale> {
                                       get_min2: (value) {},
                                       get_province: (value) {},
                                       get_max2: (value) {},
-                                    ));
+                                    ),);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color:
-                                            Color.fromARGB(255, 71, 13, 158)),
+                                            Color.fromARGB(255, 71, 13, 158),),
                                     height: 40,
                                     width: double.infinity,
                                     child: Padding(
@@ -544,7 +544,7 @@ class SearchPropertyState extends State<For_Sale> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
-                                                fontSize: 15),
+                                                fontSize: 15,),
                                           ),
                                           Icon(
                                             Icons.map_outlined,
@@ -568,7 +568,7 @@ class SearchPropertyState extends State<For_Sale> {
                                       'List For Sale (${controller_list.list_value_all.length})',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14),
+                                          fontSize: 14,),
                                     ),
                                     TextButton(
                                         onPressed: () {
@@ -590,9 +590,9 @@ class SearchPropertyState extends State<For_Sale> {
                                               list_get: controller_list
                                                   .list_value_all,
                                             );
-                                          }));
+                                          },),);
                                         },
-                                        child: Text('Show all')),
+                                        child: Text('Show all'),),
                                   ],
                                 ),
                               ),
@@ -625,7 +625,7 @@ class SearchPropertyState extends State<For_Sale> {
                                             // print(verbal_ID);
                                           });
                                           detail_property_sale(index,
-                                              controller_list.list_value_all);
+                                              controller_list.list_value_all,);
                                         },
                                         child: Stack(
                                           children: [
@@ -646,18 +646,18 @@ class SearchPropertyState extends State<For_Sale> {
                                                   fit: BoxFit.cover,
                                                   progressIndicatorBuilder:
                                                       (context, url,
-                                                              downloadProgress) =>
+                                                              downloadProgress,) =>
                                                           Center(
                                                     child:
                                                         CircularProgressIndicator(
                                                             value:
                                                                 downloadProgress
-                                                                    .progress),
+                                                                    .progress,),
                                                   ),
                                                   errorWidget:
                                                       (context, url, error) =>
                                                           Icon(Icons.error),
-                                                )
+                                                ),
 
                                                 // child: Image.network(
                                                 //   '${obj.url.toString()}',
@@ -668,7 +668,7 @@ class SearchPropertyState extends State<For_Sale> {
                                               top: 132,
                                               child: Container(
                                                 color: Color.fromARGB(
-                                                    255, 8, 103, 13),
+                                                    255, 8, 103, 13,),
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
@@ -682,7 +682,7 @@ class SearchPropertyState extends State<For_Sale> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                              left: 10,),
                                                       child: Row(
                                                         children: [
                                                           Text(
@@ -696,8 +696,8 @@ class SearchPropertyState extends State<For_Sale> {
                                                                         255,
                                                                         251,
                                                                         250,
-                                                                        250),
-                                                                fontSize: 10),
+                                                                        250,),
+                                                                fontSize: 10,),
                                                           ),
                                                           Text(
                                                             '\$',
@@ -710,8 +710,8 @@ class SearchPropertyState extends State<For_Sale> {
                                                                         255,
                                                                         119,
                                                                         234,
-                                                                        5),
-                                                                fontSize: 10),
+                                                                        5,),
+                                                                fontSize: 10,),
                                                           ),
                                                           SizedBox(
                                                             width: 5,
@@ -727,8 +727,8 @@ class SearchPropertyState extends State<For_Sale> {
                                                                         255,
                                                                         250,
                                                                         249,
-                                                                        249),
-                                                                fontSize: 10),
+                                                                        249,),
+                                                                fontSize: 10,),
                                                           ),
                                                           SizedBox(
                                                             width: 5,
@@ -742,7 +742,7 @@ class SearchPropertyState extends State<For_Sale> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                              left: 10,),
                                                       child: Row(
                                                         children: [
                                                           Text(
@@ -753,7 +753,7 @@ class SearchPropertyState extends State<For_Sale> {
                                                                         .bold,
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 10),
+                                                                fontSize: 10,),
                                                           ),
                                                           SizedBox(
                                                             width: 5,
@@ -766,7 +766,7 @@ class SearchPropertyState extends State<For_Sale> {
                                                                         .bold,
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 10),
+                                                                fontSize: 10,),
                                                           ),
                                                         ],
                                                       ),
@@ -784,18 +784,18 @@ class SearchPropertyState extends State<For_Sale> {
                                                 width: 60,
                                                 decoration: BoxDecoration(
                                                     color: Color.fromARGB(
-                                                        255, 109, 160, 6),
+                                                        255, 109, 160, 6,),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            10)),
+                                                            10,),),
                                                 child: Text(
                                                   'For Sale',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Color.fromARGB(
-                                                          255, 250, 246, 245),
-                                                      fontSize: 12),
+                                                          255, 250, 246, 245,),
+                                                      fontSize: 12,),
                                                 ),
                                               ),
                                             ),
@@ -808,10 +808,10 @@ class SearchPropertyState extends State<For_Sale> {
                                                           Alignment.center,
                                                       decoration: BoxDecoration(
                                                           color: Color.fromARGB(
-                                                              255, 106, 7, 86),
+                                                              255, 106, 7, 86,),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(5)),
+                                                                  .circular(5),),
                                                       height: 25,
                                                       width: 50,
                                                       child: Text(
@@ -819,9 +819,9 @@ class SearchPropertyState extends State<For_Sale> {
                                                         style: TextStyle(
                                                             fontSize: 12,
                                                             color:
-                                                                Colors.white),
+                                                                Colors.white,),
                                                       ),
-                                                    ))
+                                                    ),)
                                                 : SizedBox()
                                           ],
                                         ),
@@ -844,13 +844,13 @@ class SearchPropertyState extends State<For_Sale> {
                         height: MediaQuery.of(context).size.height * 0.07,
                         decoration: BoxDecoration(
                             color: Color.fromARGB(255, 45, 20, 173),
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),),
                         child: Text(
                           'No Data',
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                              color: Colors.white,),
                         ),
                       ),
                     ),
