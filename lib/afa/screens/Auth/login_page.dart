@@ -18,6 +18,7 @@ import '../../../screen/Customs/responsive.dart';
 import '../../../screen/Home/Home.dart';
 import '../../components/contants.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   LoginPage({required this.lat, required this.log, Key? key, required thi})
       : super(key: key);
@@ -26,7 +27,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
     return Login();
   }
 }
@@ -40,7 +40,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _connectionStatus = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   bool chec_internet = false;
@@ -127,11 +126,9 @@ class _LoginState extends State<Login> {
       case ConnectivityResult.wifi:
       case ConnectivityResult.mobile:
       case ConnectivityResult.none:
-        setState(() => _connectionStatus = result.toString());
         break;
       default:
         setState(() {
-          _connectionStatus = 'Failed to get connectivity.';
           final snackBar = SnackBar(
             backgroundColor: Colors.black12,
             content: const Text('Offline'),
@@ -414,7 +411,6 @@ class _LoginState extends State<Login> {
                           print(value.message);
                         }
                       });
-                      // ignore: avoid_print
                       print(requestModel.toJson());
                     }
                   }

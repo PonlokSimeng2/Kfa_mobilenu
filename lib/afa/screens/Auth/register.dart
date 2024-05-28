@@ -22,7 +22,7 @@ import '../../../screen/Customs/formVLD.dart';
 import '../../../screen/Customs/responsive.dart';
 import '../../components/contants.dart';
 import '../../customs/formTwin.dart';
-import 'login.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);

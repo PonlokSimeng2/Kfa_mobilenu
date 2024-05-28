@@ -2,39 +2,29 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:passcode_screen/passcode_screen.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import '../../Property copy/Detail_Screen/Detail_all_list_sale.dart';
 import '../../afa/components/contants.dart';
 import '../../models/autoVerbal.dart';
-import '../propertype/Ppopertys/3_Choose/List_Property/List_Sale.dart';
-import '../propertype/Ppopertys/Getx_api/controller_hometype.dart';
 import '../propertype/Ppopertys/Getx_api/for_rent.dart';
-import '../propertype/Ppopertys/Getx_api/hometype.dart';
-import '../propertype/Ppopertys/Home_Screen_property.dart';
 import '../propertype/Ppopertys/verval_property/Verbal_add.dart';
 import 'Customs/titleBar.dart';
+
 final imgList = [
-'assets/images/banners/BannerKFA.jpg',
+  'assets/images/banners/BannerKFA.jpg',
 //'assets/images/banners/Service.jpg',
-'assets/images/banners/Awards2020s.jpg',
+  'assets/images/banners/Awards2020s.jpg',
 ];
 final controller_rent = controller_for_Rent();
 int _current = 0;
 
-  final CarouselController _controller = CarouselController();
+final CarouselController _controller = CarouselController();
 List list_value_all_2SR = [];
 final List<Widget> imageSliders = imgList
     .map((item) => ClipRRect(
@@ -64,43 +54,39 @@ final List<Widget> imageSliders = imgList
           ],
         )))
     .toList();
+
 class Body extends StatefulWidget {
-  // final String user;
-  // final String first_name;
-  // final String last_name;
-  // final String email;
-  // final String gender;
-  // final String from;
-  // final String tel;
-  // final String id;
-  // final double? lat;
-  // final double? log;
-  // final String? c_id;
-  // final String? district;
-  // final String? commune;
-  // final String? province;
-  // final String? log;
-  // final String? lat;
+  final String user;
+  final String first_name;
+  final String last_name;
+  final String email;
+  final String gender;
+  final String from;
+  final String tel;
+  final String id;
+  final double? lat;
+  final double? log;
+  final String? c_id;
+  final String? district;
+  final String? commune;
+  final String? province;
 
   const Body({
     Key? key,
-    // required this.c_id,
-    // required this.commune,
-    // required this.district,
-    // required this.province,
-    // required this.log,
-    // required this.lat,
-
-    // required this.lat,
-    // required this.log,
-    // required this.user,
-    // required this.first_name,
-    // required this.last_name,
-    // required this.email,
-    // required this.gender,
-    // required this.from,
-    // required this.tel,
-    // required this.id,
+    this.c_id,
+    this.commune,
+    this.district,
+    this.province,
+    required this.log,
+    required this.lat,
+    required this.user,
+    required this.first_name,
+    required this.last_name,
+    required this.email,
+    required this.gender,
+    required this.from,
+    required this.tel,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -109,8 +95,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late AutoVerbalRequestModel requestModelAuto;
-  String? _currentAddress;
-  Position? _currentPosition;
   Uint8List? get_bytes;
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
@@ -154,12 +138,13 @@ class _BodyState extends State<Body> {
       Find_by_piont(lat, log);
     });
   }
+
   Future<void> value_all_list_2() async {
     try {
       final response = await http.get(Uri.parse(
           'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_all_Sale_all_2'));
       if (response.statusCode == 200) {
-        final List<dynamic> jsonBody = jsonDecode(response.body);    
+        final List<dynamic> jsonBody = jsonDecode(response.body);
         list_value_all_2SR = jsonBody;
         // print(list_value_all_2SR.toString());
       } else {
@@ -169,6 +154,7 @@ class _BodyState extends State<Body> {
       print('Error value_all_list $e');
     }
   }
+
   var maxSqm1, minSqm1;
   var maxSqm2, minSqm2;
   var formatter = NumberFormat("##,###,###,##0.00", "en_US");
@@ -249,7 +235,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     _handleLocationPermission();
-     value_all_list_2();
+    value_all_list_2();
     super.initState();
     requestModelAuto = AutoVerbalRequestModel(
       property_type_id: "",
@@ -292,7 +278,7 @@ class _BodyState extends State<Body> {
   static bool c = false;
   static int number = 0;
   static var password;
-   final StreamController<bool> _verificationNotifier =
+  final StreamController<bool> _verificationNotifier =
       StreamController<bool>.broadcast();
   @override
   Widget build(BuildContext context) {
@@ -318,68 +304,70 @@ class _BodyState extends State<Body> {
           },
           icon: Icon(Icons.menu),
         ),
-        title: TitleBar(),    
+        title: TitleBar(),
       ),
       backgroundColor: kwhite_new,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 5,),
+          SizedBox(
+            height: 5,
+          ),
           Expanded(
             flex: 2,
             child: Container(
               decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Color.fromARGB(54, 15, 179, 204),
-                    border: Border.all()
-                  ),
-                  height: 290,
-                  child: 
-                  Column(
-                    children: [
-                    CarouselSlider(
-                              items: imageSliders,
-                              carouselController: _controller,
-                              options: CarouselOptions(
-                                  autoPlay: true,
-                                  viewportFraction: 1,
-                                  enlargeFactor: 0.3,
-                                  enlargeCenterPage: true,
-                                  aspectRatio: 1.8,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                    _current = index;
-                                    });
-                                  }),
-                    ),
-                    Container(
-                      height: 40,
-                      child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: imgList.asMap().entries.map((entry) {
-                                  return GestureDetector(
-                                    onTap: () => _controller.animateToPage(entry.key),
-                                    child: Container(
-                                      width: 12.0,
-                                      height: 12.0,
-                                      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: (Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.black)
-                            .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                                    ),
-                                  );
-                                }).toList(),
-                      ),
-                    ),
-                  ]),
+                  borderRadius: BorderRadius.circular(5),
+                  color: Color.fromARGB(54, 15, 179, 204),
+                  border: Border.all()),
+              height: 290,
+              child: Column(children: [
+                CarouselSlider(
+                  items: imageSliders,
+                  carouselController: _controller,
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      viewportFraction: 1,
+                      enlargeFactor: 0.3,
+                      enlargeCenterPage: true,
+                      aspectRatio: 1.8,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      }),
                 ),
+                Container(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: imgList.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        onTap: () => _controller.animateToPage(entry.key),
+                        child: Container(
+                          width: 12.0,
+                          height: 12.0,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 4.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black)
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4)),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ]),
+            ),
           ),
-        //  Newbanner(),
-        //  SizedBox(height: 200,),
-        //   BannerSlide(),
+          //  Newbanner(),
+          //  SizedBox(height: 200,),
+          //   BannerSlide(),
           // Title_promotion2(
           //   title_promo: 'Our Partners',
           //   title_promo1: 'Show all',
@@ -388,7 +376,7 @@ class _BodyState extends State<Body> {
           //   color: Colors.black,
           //   thickness: 0.5,
           // ),
-         // Screen_slider(),
+          // Screen_slider(),
           // SizedBox(
           //   height: 15,
           // ),
@@ -400,241 +388,304 @@ class _BodyState extends State<Body> {
           //   color: Colors.blueAccent,
           //   thickness: 0.5,
           // ),
-         // Membership_real(),
+          // Membership_real(),
           // SizedBox(
           //   height: 15,
           // ),
           //Title_promo(),
-         // Promotion(),
-        // Divider(thickness: 5,color: Colors.white,),
-      Expanded(
-        flex: 3,
-        child: Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: ListView(
-            children: [
-             Wrap(
-              children: [
-                for (int i = 0; i < 9; i++)
-               Container(
-                color: Color.fromARGB(54, 15, 179, 204),
-                height: 325,
-                child: GridView.builder(
-                itemCount: list_value_all_2SR.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 2,
-                crossAxisSpacing: 2
-                ),
-                itemBuilder: (context, index) {
-                  return  Stack(
+          // Promotion(),
+          // Divider(thickness: 5,color: Colors.white,),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: ListView(
+                children: [
+                  Wrap(
                     children: [
-                      InkWell(
-                      onTap: () {
-                        setState(() {
-                         if (c == false && number == 0) {
-                           number = 0;
-                              showDialog(
-                              context: context,
-                              builder: (context) {
-                                return PasscodeScreen(
-                                  passwordDigits: 4,
-                                  title: Text("data"),
-                                  isValidCallback: () {},
-                                  passwordEnteredCallback: (Val) {
+                      // for (int i = 0; i < 9; i++)
+                      Container(
+                        color: Color.fromARGB(54, 15, 179, 204),
+                        height: 400,
+                        child: GridView.builder(
+                          itemCount: list_value_all_2SR.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 2,
+                                  crossAxisSpacing: 2),
+                          itemBuilder: (context, index) {
+                            return Stack(
+                              children: [
+                                InkWell(
+                                  onTap: () {
                                     setState(() {
-                                      password = int.parse(Val);
-                                      if (password == 1234) {
-                                        c = true;
-                                        number = 4;
-
-                                        if (i == 0) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                       Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                                        }
-                                        if (i == 1) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                                        }
-                                        if (i == 2) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                       Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                                        }
-                                        if (i == 3) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                                        }
-                                        if (i == 4) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>  Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                                        }
-                                        if (i == 5) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                                        }
-                                      } else {
-                                        setState(() {
-                                          number = 0;
-                                          c = false;
-                                          Navigator.of(context).pop();
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  actions: [
-                                                    // FlatButton(
-                                                    //     textColor: Colors.white,
-                                                    //     color: Colors.red,
-                                                    //     onPressed: () {
-                                                    //       Navigator.pop(
-                                                    //           context);
-                                                    //     },
-                                                    //     child: Text("Okay!"))
-                                                  ],
-                                                  title: Text("Error Password"),
-                                                  content: Text(
-                                                      "Please try again later."),
-                                                );
-                                              });
-                                        });
+                                      if (c == false && number == 0) {
+                                        number = 0;
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return PasscodeScreen(
+                                                passwordDigits: 4,
+                                                title: Text("data"),
+                                                isValidCallback: () {},
+                                                passwordEnteredCallback: (Val) {
+                                                  setState(() {
+                                                    password = int.parse(Val);
+                                                    if (password == 1234) {
+                                                      c = true;
+                                                      number = 4;
+                                                      if (index == 0) {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Add_verbal_property(
+                                                                          refresh_homeScreen:
+                                                                              (value) {},
+                                                                        )));
+                                                      }
+                                                      if (index == 1) {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Add_verbal_property(
+                                                                          refresh_homeScreen:
+                                                                              (value) {},
+                                                                        )));
+                                                      }
+                                                      if (index == 2) {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Add_verbal_property(
+                                                                          refresh_homeScreen:
+                                                                              (value) {},
+                                                                        )));
+                                                      }
+                                                      if (index == 3) {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Add_verbal_property(
+                                                                          refresh_homeScreen:
+                                                                              (value) {},
+                                                                        )));
+                                                      }
+                                                      if (index == 4) {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Add_verbal_property(
+                                                                          refresh_homeScreen:
+                                                                              (value) {},
+                                                                        )));
+                                                      }
+                                                      if (index == 5) {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        Add_verbal_property(
+                                                                          refresh_homeScreen:
+                                                                              (value) {},
+                                                                        )));
+                                                      }
+                                                    } else {
+                                                      setState(() {
+                                                        number = 0;
+                                                        c = false;
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return AlertDialog(
+                                                                actions: [
+                                                                  // FlatButton(
+                                                                  //     textColor: Colors.white,
+                                                                  //     color: Colors.red,
+                                                                  //     onPressed: () {
+                                                                  //       Navigator.pop(
+                                                                  //           context);
+                                                                  //     },
+                                                                  //     child: Text("Okay!"))
+                                                                ],
+                                                                title: Text(
+                                                                    "Error Password"),
+                                                                content: Text(
+                                                                    "Please try again later."),
+                                                              );
+                                                            });
+                                                      });
+                                                    }
+                                                  });
+                                                },
+                                                cancelButton: Text('Cancel'),
+                                                cancelCallback: () {
+                                                  setState(() {
+                                                    number = 0;
+                                                    c = false;
+                                                    password = null;
+                                                    Navigator.of(context).pop();
+                                                  });
+                                                },
+                                                deleteButton: Text('Delete'),
+                                                shouldTriggerVerification:
+                                                    (_verificationNotifier)
+                                                        .stream,
+                                              );
+                                            });
                                       }
-                                    });
+                                      if (c == true && number > 0) {
+                                        number -= 1;
+                                        if (number == 0) {
+                                          c = false;
+                                        }
+                                        if (index == 0) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Add_verbal_property(
+                                                        refresh_homeScreen:
+                                                            (value) {},
+                                                      )));
+                                        }
+                                        if (index == 1) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Add_verbal_property(
+                                                        refresh_homeScreen:
+                                                            (value) {},
+                                                      )));
+                                        }
+                                        if (index == 2) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Add_verbal_property(
+                                                        refresh_homeScreen:
+                                                            (value) {},
+                                                      )));
+                                        }
+                                        if (index == 3) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Add_verbal_property(
+                                                        refresh_homeScreen:
+                                                            (value) {},
+                                                      )));
+                                        }
+                                        if (index == 4) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Add_verbal_property(
+                                                        refresh_homeScreen:
+                                                            (value) {},
+                                                      )));
+                                        }
+                                        if (index == 5) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Add_verbal_property(
+                                                        refresh_homeScreen:
+                                                            (value) {},
+                                                      )));
+                                        }
+                                      }
+                                    }); // setState(() {
+                                    // //verbal_ID = controller_rent.list_value_pid[index]['id_ptys'].toString();
+                                    //   Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //   builder: (context) => Detail_property_sale_all(
+                                    //   price: list_value_all_2SR[index]['price'].toString(),
+                                    //   type: list_value_all_2SR[index]['type']?? "N/A".toString(),
+                                    //   image: list_value_all_2SR[index]['url'],
+                                    //   ),
+                                    //   ),
+                                    //  );
+                                    //   });// print(verbal_ID);
                                   },
-                                  cancelButton: Text('Cancel'),
-                                  cancelCallback: () {
-                                    setState(() {
-                                      number = 0;
-                                      c = false;
-                                      password = null;
-                                      Navigator.of(context).pop();
-                                    });
-                                  },
-                                  deleteButton: Text('Delete'),
-                                  shouldTriggerVerification:
-                                      (_verificationNotifier).stream,
-                                );
-                              }
-                              );
-                         }
-                          if (c == true && number > 0) {
-                          number -= 1;
-                          if (number == 0) {
-                            c = false;
-                          }
-                          if (i == 0) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                          }
-                          if (i == 1) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                          }
-                          if (i == 2) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                          }
-                          if (i == 3) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                          }
-                          if (i == 4) {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) =>Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                          }
-                          if (i == 5) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Add_verbal_property(refresh_homeScreen: (value) {  },)));
-                          }
-                        }
-                        });                      // setState(() {
-                      // //verbal_ID = controller_rent.list_value_pid[index]['id_ptys'].toString();              
-                      //   Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //   builder: (context) => Detail_property_sale_all(   
-                      //   price: list_value_all_2SR[index]['price'].toString(),         
-                      //   type: list_value_all_2SR[index]['type']?? "N/A".toString(),
-                      //   image: list_value_all_2SR[index]['url'],
-                      //   ),
-                      //   ),
-                      //  );
-                      //   });// print(verbal_ID);     
-                       },
 
-                        child:  Container(
-                                      height:
-                                          MediaQuery.of(context).size.height * 0.5,
-                                      width:
-                                          MediaQuery.of(context).size.width * 0.5,
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10.0),
-                                            topRight: Radius.circular(10.0),
-                                            bottomLeft: Radius.circular(10.0),
-                                            bottomRight: Radius.circular(10.0),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.5,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10.0),
+                                          topRight: Radius.circular(10.0),
+                                          bottomLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                        child: CachedNetworkImage(
+                                          imageUrl: list_value_all_2SR[index]
+                                                  ['url'] ??
+                                              "N/A".toString(),
+                                          fit: BoxFit.fill,
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
+                                              Center(
+                                            child: CircularProgressIndicator(
+                                                value:
+                                                    downloadProgress.progress),
                                           ),
-                                          child: CachedNetworkImage(
-                                            imageUrl:list_value_all_2SR[index]['url']?? "N/A".toString(),
-                                            fit: BoxFit.fill,
-                                            progressIndicatorBuilder:
-                                                (context, url, downloadProgress) =>
-                                                    Center(
-                                              child: CircularProgressIndicator(
-                                                  value: downloadProgress.progress),
-                                            ),
-                                            errorWidget: (context, url, error) =>
-                                                Icon(Icons.error),
-                                          )),
-                                    ),
-                        // Container(
-                        // decoration: BoxDecoration(
-                        // borderRadius:
-                        //                 BorderRadius.all(Radius.circular(10)),
-                        //                 image: DecorationImage(
-                        //                 image: NetworkImage(list_value_all_2SR[index]['url']?? "N/A".toString()),
-                        //                 fit: BoxFit.fill,
-                        //                 ),
-                        //                 ),
-                        //                 ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        )),
+                                  ),
+                                  // Container(
+                                  // decoration: BoxDecoration(
+                                  // borderRadius:
+                                  //                 BorderRadius.all(Radius.circular(10)),
+                                  //                 image: DecorationImage(
+                                  //                 image: NetworkImage(list_value_all_2SR[index]['url']?? "N/A".toString()),
+                                  //                 fit: BoxFit.fill,
+                                  //                 ),
+                                  //                 ),
+                                  //                 ),
+                                ),
+                                Positioned(
+                                    left: 2,
+                                    bottom: 5,
+                                    child: Text(
+                                      'Price: ${list_value_all_2SR[index]['price'] ?? "N/A".toString()} \$',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          color: Colors.white),
+                                    )),
+                                Positioned(
+                                    right: 2,
+                                    bottom: 5,
+                                    child: Text(
+                                      '${list_value_all_2SR[index]['type'] ?? "N/A".toString()}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          color: Colors.white),
+                                    ))
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                    Positioned(
-                      left:2,
-                      bottom: 5,
-                      child: Text('Price: ${list_value_all_2SR[index]['price']?? "N/A".toString()} \$',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12,color: Colors.white),)
-                      ),
-                       Positioned(
-                      right: 2,
-                      bottom: 5,
-                      child: Text('${list_value_all_2SR[index]['type']?? "N/A".toString()}',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12,color: Colors.white),)
-                      )
-                    ],        
-                  );
-                },
-                         ),
-                         ),
-              ],
-               
-             ),
-            ],
-           
-          ),
-        ),
-      )
-
-        
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -657,6 +708,7 @@ class _BodyState extends State<Body> {
       });
     }
   }
+
   // String? verbal_ID;
   // Future<void> detail_property_sale(index, widget_list) async {
   //   Navigator.push(

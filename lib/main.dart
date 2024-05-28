@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:kfa_mobilenu/afa/screens/Auth/login_page.dart';
 import 'package:kfa_mobilenu/screen/Home/Home.dart';
 import 'graph.dart';
 import 'graph_report.dart';
@@ -15,18 +16,18 @@ import 'graph_report.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
   print("Handling a background message: ${message.messageId}");
 }
 
 void main() async {
-  if (Platform.isIOS) {
-    WidgetsFlutterBinding.ensureInitialized();
-    // await Firebase.initializeApp(
-    //     // options: DefaultFirebaseOptions.currentPlatform,
-    //     );
-  }
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // if (Platform.isIOS) {
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   // await Firebase.initializeApp(
+  //   //     // options: DefaultFirebaseOptions.currentPlatform,
+  //   //     );
+  // }
+  //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
@@ -36,11 +37,14 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(debugShowCheckedModeBanner: false, home: HomePage1()
-        //home:Body (email: '', first_name: '', from: '', gender: '', id: '', last_name: '', lat: null, log: null, tel: '', user: '',),
-        //home: HomePage(child: Container(),)
-        //home: Body(email: '', first_name: '', from: '', gender: '', id: '', last_name: '', lat: null, log: null, tel: '', user: '',),
-        );
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Login(),
+      // home: HomePage1()
+      //home:Body (email: '', first_name: '', from: '', gender: '', id: '', last_name: '', lat: null, log: null, tel: '', user: '',),
+      //home: HomePage(child: Container(),)
+      //home: Body(email: '', first_name: '', from: '', gender: '', id: '', last_name: '', lat: null, log: null, tel: '', user: '',),
+    );
   }
 }
 
