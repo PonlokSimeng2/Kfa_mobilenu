@@ -142,7 +142,10 @@ class _ShowPeoplePageState extends State<ShowPeoplePage> {
   List<PeopleModel> list = [];
   bool status = false;
   var data = PeopleModel(
-      name: 'virakoumst@gmail.com', password: 'Virak123', id: 0,);
+    name: 'virakoumst@gmail.com',
+    password: 'Virak123',
+    id: 0,
+  );
   selectPeople() async {
     await PeopleController().insertPeople(data);
     list = await PeopleController().selectPeople();

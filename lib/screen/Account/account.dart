@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:getwidget/getwidget.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:audioplayers/audioplayers.dart';
@@ -14,6 +15,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobilenu/helper/build_context_helper.dart';
+import 'package:kfa_mobilenu/models/user_model.dart';
+import 'package:kfa_mobilenu/providers/auth_provider.dart';
+import 'package:kfa_mobilenu/providers/cache_provider.dart';
+import 'package:kfa_mobilenu/widgets/auth_wrapper_widget.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,32 +33,16 @@ import '../Profile/components/FieldBox.dart';
 import '../Profile/components/TwinBox.dart';
 import '../Profile/components/singleBox.dart';
 
-class Account extends StatefulWidget {
-  final String username;
-  final String first_name;
-  final String last_name;
-  final String email;
-  final String gender;
-  final String from;
-  final String tel;
-  final String id;
+class Account extends ConsumerStatefulWidget {
   const Account({
     Key? key,
-    required this.username,
-    required this.first_name,
-    required this.last_name,
-    required this.email,
-    required this.gender,
-    required this.from,
-    required this.tel,
-    required this.id,
   }) : super(key: key);
 
   @override
-  State<Account> createState() => _AccountState();
+  ConsumerState<Account> createState() => _AccountState();
 }
 
-class _AccountState extends State<Account> {
+class _AccountState extends ConsumerState<Account> {
 //update data from api
   String url =
       "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/users";
@@ -71,12 +61,19 @@ class _AccountState extends State<Account> {
   Random random = Random();
   Future<void> uploadImage() async {
     final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',),);
+      'POST',
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',
+      ),
+    );
     request.fields['id_user'] = set_id_user ?? '';
-    request.files.add(http.MultipartFile.fromBytes('image', imagebytes!,
-        filename: 'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',),);
+    request.files.add(
+      http.MultipartFile.fromBytes(
+        'image',
+        imagebytes!,
+        filename: 'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',
+      ),
+    );
 
     final res = await request.send();
   }
@@ -99,9 +96,10 @@ class _AccountState extends State<Account> {
           sourcePath: pickedFile.path,
           uiSettings: [
             AndroidUiSettings(
-                lockAspectRatio: false,
-                backgroundColor: Colors.blue,
-                initAspectRatio: CropAspectRatioPreset.original,)
+              lockAspectRatio: false,
+              backgroundColor: Colors.blue,
+              initAspectRatio: CropAspectRatioPreset.original,
+            )
           ],
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -137,8 +135,11 @@ class _AccountState extends State<Account> {
   List list_User_by_id = [];
   var set_id_user;
   void get_control_user_image(String id) async {
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/$id',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/$id',
+      ),
+    );
     if (rs.statusCode == 200) {
       setState(() {
         final jsonData = jsonDecode(rs.body);
@@ -154,8 +155,11 @@ class _AccountState extends State<Account> {
 
   void get_image(String id) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user_profile/$id',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user_profile/$id',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -164,10 +168,10 @@ class _AccountState extends State<Account> {
     }
   }
 
-//function LogOut
   Future logOut() async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = ref.read(sharePrefProvider);
     prefs.clear();
+    await ref.read(authProvider.notifier).logout();
     Fluttertoast.showToast(
       msg: 'Log Out',
       toastLength: Toast.LENGTH_SHORT,
@@ -175,82 +179,52 @@ class _AccountState extends State<Account> {
       textColor: Colors.blue,
       fontSize: 20,
     );
-    // Get.off(() => Login());
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Login()),);
+
+    context.pushReplace((context) => Login(openAsPage: true));
   }
 
   static List<PeopleModel> list = [];
   RegisterRequestModel_update? requestModel;
   TextEditingController? Password;
-  Future<void> selectPeople() async {
-    list = await PeopleController().selectPeople();
-    if (list.isEmpty) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },);
-    } else {
-      setState(() {
-        Password = TextEditingController(text: list[0].password);
-        requestModel = RegisterRequestModel_update(
-          email: list[0].name,
-          password: list[0].password,
-          first_name: widget.first_name,
-          gender: widget.gender,
-          known_from: widget.from,
-          last_name: widget.last_name,
-          tel_num: widget.tel,
-        );
-      });
-    }
-  }
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 4), () {
-      selectPeople();
-    });
-
-    get_control_user_image(widget.id);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    //controller to update dataInfo
-    final controller = TextEditingController(text: widget.username);
-    //Get.lazyPut(() => ImageController());
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 245, 250, 246),
-      appBar: AppBar(
-        backgroundColor: kwhite_new,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
+    final user = ref.watch(authProvider.select((value) => value?.user));
+
+    final controller = TextEditingController(text: user?.username);
+    return AuthWrapperWidget(
+      child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 245, 250, 246),
+        appBar: AppBar(
+          backgroundColor: kwhite_new,
+          elevation: 0,
+          centerTitle: true,
+          leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
               Navigator.pop(context);
             },
             icon: Icon(
               Icons.chevron_left,
               size: 35,
-            ),),
-        title: Text(
-          'Account',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+            ),
           ),
+          title: Text(
+            'Account',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          toolbarHeight: 70,
         ),
-        toolbarHeight: 70,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
+        body: SingleChildScrollView(
+          child: Container(
             constraints: BoxConstraints(
               maxWidth: double.infinity,
               maxHeight: 750,
@@ -304,9 +278,9 @@ class _AccountState extends State<Account> {
                                       width: 50,
                                       alignment: Alignment.bottomCenter,
                                       decoration: BoxDecoration(
-                                          color: Color.fromARGB(95, 67, 67, 67),
-                                          borderRadius:
-                                              BorderRadius.circular(5),),
+                                        color: Color.fromARGB(95, 67, 67, 67),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
                                       child: Icon(
                                         (url != null) ? Icons.edit : Icons.crop,
                                         color: Colors.white,
@@ -327,11 +301,12 @@ class _AccountState extends State<Account> {
                                 children: [
                                   Text(
                                     // controller: controller,
-                                    'Name : ${widget.username}',
+                                    'Name : ${user?.username}',
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,),
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -356,8 +331,8 @@ class _AccountState extends State<Account> {
                         TwinBox(
                           labelText1: 'Firstname',
                           labelText2: 'Lastname',
-                          fname: widget.first_name,
-                          lname: widget.last_name,
+                          fname: user?.first_name ?? "",
+                          lname: user?.last_name ?? "",
                           get_fname: (value) {
                             setState(() {
                               requestModel!.first_name = value;
@@ -433,14 +408,14 @@ class _AccountState extends State<Account> {
                           height: 2,
                         ),
                         SingleBox(
-                          phone: widget.tel,
+                          phone: user?.tel ?? "",
                         ),
                         SizedBox(
                           height: 2,
                         ),
                         Field_box(
                           name: 'email',
-                          email: widget.email,
+                          email: user?.email ?? "",
                           get_email: (value) {
                             setState(() {
                               requestModel!.email = value;
@@ -505,7 +480,9 @@ class _AccountState extends State<Account> {
                               }
                               final APIservice apIservice = APIservice();
                               await apIservice.update_user(
-                                  requestModel!, int.parse(widget.id),);
+                                requestModel!,
+                                user?.id ?? 0,
+                              );
                               logOut();
                             },
                           ),
@@ -528,7 +505,9 @@ class _AccountState extends State<Account> {
                 //   ],
                 // ),
               ],
-            ),),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -564,9 +543,10 @@ class EditPicture extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               )
             ],
           ),

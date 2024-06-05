@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:kfa_mobilenu/widgets/auth_wrapper_widget.dart';
 import '../../../screen/components/ToFromDate.dart';
 import '../../../screen/components/map_all/detail_verbal_by_id.dart';
 import '../../../screen/components/map_all/map_in_list_search copy.dart';
@@ -28,171 +29,189 @@ class _Menu_of_AutovervalState extends State<Menu_of_Autoverval>
   @override
   Widget build(BuildContext context) {
     final wth = MediaQuery.of(context).size.width * 0.9;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kwhite_new,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context); Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.chevron_left_outlined,
-            size: 40,
-            color: Colors.white,
+    return AuthWrapperWidget(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kwhite_new,
+          elevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.chevron_left_outlined,
+              size: 40,
+              color: Colors.white,
+            ),
           ),
-        ),
-        title: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: "Verbal",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: kwhite,
+          title: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "Verbal",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: kwhite,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+          toolbarHeight: 80,
         ),
-        toolbarHeight: 80,
-      ),
-      backgroundColor: kwhite_new,
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 70),
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(20),),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Map_List_search(
-                            get_commune: (value) {},
-                            get_district: (value) {},
-                            get_lat: (value) {},
-                            get_log: (value) {},
-                            get_max1: (value) {},
-                            get_max2: (value) {},
-                            get_min1: (value) {},
-                            get_min2: (value) {},
-                            get_province: (value) {},
-                          ),),);
-                },
-                child: Container(
-                  height: 200,
-                  width: wth / 2,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
+        backgroundColor: kwhite_new,
+        body: SafeArea(
+          child: Container(
+            margin: EdgeInsets.only(left: 20, right: 20, bottom: 70),
+            alignment: Alignment.topCenter,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Map_List_search(
+                          get_commune: (value) {},
+                          get_district: (value) {},
+                          get_lat: (value) {},
+                          get_log: (value) {},
+                          get_max1: (value) {},
+                          get_max2: (value) {},
+                          get_min1: (value) {},
+                          get_min2: (value) {},
+                          get_province: (value) {},
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 200,
+                    width: wth / 2,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
                           blurRadius: 5,
                           color: Colors.black54,
-                          blurStyle: BlurStyle.outer,)
-                    ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment(0.8, 1),
-                      colors: <Color>[
-                        Color.fromARGB(255, 37, 42, 172),
-                        Color.fromARGB(255, 72, 72, 202),
-                        Color.fromARGB(255, 71, 69, 195),
-                        Color.fromARGB(255, 111, 96, 243),
-                        Color.fromARGB(255, 107, 107, 255),
+                          blurStyle: BlurStyle.outer,
+                        )
                       ],
-                      tileMode: TileMode.mirror,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment(0.8, 1),
+                        colors: <Color>[
+                          Color.fromARGB(255, 37, 42, 172),
+                          Color.fromARGB(255, 72, 72, 202),
+                          Color.fromARGB(255, 71, 69, 195),
+                          Color.fromARGB(255, 111, 96, 243),
+                          Color.fromARGB(255, 107, 107, 255),
+                        ],
+                        tileMode: TileMode.mirror,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'Search Map',
-                    style: TextStyle(
+                    child: Text(
+                      'Search Map',
+                      style: TextStyle(
                         fontSize: 24,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Image.asset(
-                'assets/images/New_KFA_Logo_pdf.png',
-                height: 125,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => list_verbal(
-                            verbal_id: widget.id,
-                          ),),);
-                },
-                child: Container(
-                  height: 200,
-                  width: wth / 2,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment(0.8, 1),
-                      colors: <Color>[
-                        Color.fromARGB(255, 20, 148, 203),
-                        Color.fromARGB(255, 12, 80, 158),
-                        Color.fromARGB(255, 46, 57, 206),
-                        Color.fromARGB(255, 59, 71, 205),
-                        Color.fromARGB(255, 20, 6, 168),
-                      ],
-                      tileMode: TileMode.mirror,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
+                Image.asset(
+                  'assets/images/New_KFA_Logo_pdf.png',
+                  height: 125,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => list_verbal(
+                          verbal_id: widget.id,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 200,
+                    width: wth / 2,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment(0.8, 1),
+                        colors: <Color>[
+                          Color.fromARGB(255, 20, 148, 203),
+                          Color.fromARGB(255, 12, 80, 158),
+                          Color.fromARGB(255, 46, 57, 206),
+                          Color.fromARGB(255, 59, 71, 205),
+                          Color.fromARGB(255, 20, 6, 168),
+                        ],
+                        tileMode: TileMode.mirror,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
                           blurRadius: 5,
                           color: Colors.black54,
-                          blurStyle: BlurStyle.outer,)
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      DefaultTextStyle(
-                        style: const TextStyle(
+                          blurStyle: BlurStyle.outer,
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        DefaultTextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             shadows: [
                               Shadow(blurRadius: 2, color: Colors.blue)
-                            ],),
-                        child: AnimatedTextKit(
-                          repeatForever: true,
-                          pause: const Duration(milliseconds: 300),
-                          animatedTexts: [
-                            RotateAnimatedText('List\t\t'),
-                          ],
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => list_verbal(
-                                      verbal_id: widget.id,
-                                    ),),);
-                          },
+                            ],
+                          ),
+                          child: AnimatedTextKit(
+                            repeatForever: true,
+                            pause: const Duration(milliseconds: 300),
+                            animatedTexts: [
+                              RotateAnimatedText('List\t\t'),
+                            ],
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => list_verbal(
+                                    verbal_id: widget.id,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      const Text(
-                        'Verbal',
-                        style: TextStyle(
+                        const Text(
+                          'Verbal',
+                          style: TextStyle(
                             fontSize: 22,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,),
-                      ),
-                      SizedBox(width: 10),
-                    ],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -240,7 +259,8 @@ class _Menu_list_verbalState extends State<list_verbal> {
   bool? check_data;
   Future<void> _fetchData() async {
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal/id_verbal',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal/id_verbal',
+    );
     final response = await http.get(url);
     final jsonData = json.decode(response.body);
     final List d1 = [];
@@ -297,16 +317,16 @@ class _Menu_list_verbalState extends State<list_verbal> {
                     height: MediaQuery.of(context).size.height * 0.28,
                     margin: EdgeInsets.only(left: 20, right: 20, top: 30),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(blurRadius: 5, color: Colors.black45)
-                        ],
-                        // image: DecorationImage(
-                        //     opacity: 1.0,
-                        //     image: AssetImage('assets/images/New_KFA_Logo_pdf.png'),
-                        //     fit: BoxFit.cover),
-                        ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(blurRadius: 5, color: Colors.black45)
+                      ],
+                      // image: DecorationImage(
+                      //     opacity: 1.0,
+                      //     image: AssetImage('assets/images/New_KFA_Logo_pdf.png'),
+                      //     fit: BoxFit.cover),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -343,10 +363,10 @@ class _Menu_list_verbalState extends State<list_verbal> {
                             color: Color.fromARGB(255, 7, 9, 145),
                             shape: GFButtonShape.standard,
                             textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize:
-                                    MediaQuery.of(context).textScaleFactor *
-                                        16,),
+                              color: Colors.white,
+                              fontSize:
+                                  MediaQuery.of(context).textScaleFactor * 16,
+                            ),
                             fullWidthButton: true,
                           ),
                         ),
@@ -397,20 +417,23 @@ class _Menu_list_verbalState extends State<list_verbal> {
                   arrowHeadColor: Colors.blueAccent[300],
                   columns: [
                     DataColumn(
-                        label: Text(
-                      'Verbal ID',
-                      style: TextStyle(color: Colors.green),
-                    ),),
+                      label: Text(
+                        'Verbal ID',
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text(
-                      'Address',
-                      style: TextStyle(color: Colors.green),
-                    ),),
+                      label: Text(
+                        'Address',
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ),
                     DataColumn(
-                        label: Text(
-                      'Bank',
-                      style: TextStyle(color: Colors.green),
-                    ),),
+                      label: Text(
+                        'Bank',
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ),
                   ],
                   dataRowHeight: 50,
                   rowsPerPage: on_row,
@@ -455,75 +478,76 @@ class _DataSource extends DataTableSource {
 
     final item = data[index];
     return DataRow(
-        selected: true,
-        color: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.selected)) {
-              return index % 2 == 0 ? Colors.grey[300] : Colors.white;
-            }
-            return index % 2 == 0
-                ? Color.fromARGB(255, 255, 162, 162)
-                : Colors.white;
+      selected: true,
+      color: MaterialStateProperty.resolveWith<Color?>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return index % 2 == 0 ? Colors.grey[300] : Colors.white;
+          }
+          return index % 2 == 0
+              ? Color.fromARGB(255, 255, 162, 162)
+              : Colors.white;
+        },
+      ),
+      cells: [
+        DataCell(
+          placeholder: true,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                item['verbal_id'].toString(),
+                style: TextStyle(fontSize: 10),
+              ),
+              Text(
+                item['property_type_name'].toString(),
+                style: TextStyle(fontSize: 10),
+              )
+            ],
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => detail_verbal_by_id(
+                  id_verbal: item['verbal_id'].toString(),
+                ),
+              ),
+            );
           },
         ),
-        cells: [
-          DataCell(
-            placeholder: true,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  item['verbal_id'].toString(),
-                  style: TextStyle(fontSize: 10),
-                ),
-                Text(
-                  item['property_type_name'].toString(),
-                  style: TextStyle(fontSize: 10),
-                )
-              ],
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => detail_verbal_by_id(
-                    id_verbal: item['verbal_id'].toString(),
-                  ),
-                ),
-              );
-            },
+        DataCell(
+          Text(
+            "${item['district_name'].toString()} ${(item['verbal_address'] != '') ? "(${item['verbal_address']})" : ''}",
+            style: TextStyle(fontSize: 10),
           ),
-          DataCell(
-            Text(
-              "${item['district_name'].toString()} ${(item['verbal_address'] != '') ? "(${item['verbal_address']})" : ''}",
-              style: TextStyle(fontSize: 10),
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => detail_verbal_by_id(
-                    id_verbal: item['verbal_id'].toString(),
-                  ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => detail_verbal_by_id(
+                  id_verbal: item['verbal_id'].toString(),
                 ),
-              );
-            },
+              ),
+            );
+          },
+        ),
+        DataCell(
+          Text(
+            item['bank_name'].toString(),
+            style: TextStyle(fontSize: 10),
+            overflow: TextOverflow.ellipsis,
           ),
-          DataCell(
-            Text(
-              item['bank_name'].toString(),
-              style: TextStyle(fontSize: 10),
-              overflow: TextOverflow.ellipsis,
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => detail_verbal_by_id(
-                    id_verbal: item['verbal_id'].toString(),
-                  ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => detail_verbal_by_id(
+                  id_verbal: item['verbal_id'].toString(),
                 ),
-              );
-            },
-          ),
-        ],);
+              ),
+            );
+          },
+        ),
+      ],
+    );
   }
 
   @override

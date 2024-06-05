@@ -12,6 +12,7 @@ import '../../Customs/responsive.dart';
 import '../../propertype/Ppopertys/Home_Screen_property.dart';
 import 'MenuCard_dektop.dart';
 import 'Model-responsive.dart';
+
 class Menu extends StatefulWidget {
   final String user;
   final String first_name;
@@ -21,17 +22,17 @@ class Menu extends StatefulWidget {
   final String from;
   final String tel;
   final id;
-  const Menu(
-      {Key? key,
-      required this.user,
-      required this.first_name,
-      required this.last_name,
-      required this.email,
-      required this.gender,
-      required this.from,
-      required this.tel,
-      required this.id,})
-      : super(key: key);
+  const Menu({
+    Key? key,
+    required this.user,
+    required this.first_name,
+    required this.last_name,
+    required this.email,
+    required this.gender,
+    required this.from,
+    required this.tel,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<Menu> createState() => _MenuState();
@@ -137,18 +138,14 @@ class _McardState extends State<Mcard> {
             svgPic: 'assets/icons/profile2.svg',
             title: 'Profile',
             press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Account(
-                  username: widget.username,
-                  email: widget.email,
-                  first_name: widget.first_name,
-                  last_name: widget.last_name,
-                  gender: widget.gender,
-                  from: widget.from,
-                  tel: widget.tel,
-                  id: widget.id,
-                );
-              },),);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Account();
+                  },
+                ),
+              );
             },
           ),
           Card(

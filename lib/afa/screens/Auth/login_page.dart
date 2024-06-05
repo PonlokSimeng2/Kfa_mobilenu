@@ -1,22 +1,24 @@
-// ignore_for_file: unused_import, non_constant_identifier_names, prefer_const_constructors, avoid_print, prefer_is_empty
-
 import 'dart:async';
-import 'dart:convert';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/services.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:http/http.dart' as http;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobilenu/afa/screens/Auth/register.dart';
-import '../../../Memory_local/Local_data.dart';
+import 'package:kfa_mobilenu/helper/build_context_helper.dart';
+import 'package:kfa_mobilenu/providers/auth_provider.dart';
+import 'package:kfa_mobilenu/providers/cache_provider.dart';
 import '../../../Memory_local/show_data_saved_offline.dart';
-import '../../../api/api_service.dart';
-import '../../../models/login_model.dart';
 import '../../../screen/Customs/responsive.dart';
 import '../../../screen/Home/Home.dart';
 import '../../components/contants.dart';
+
+const _cacheEmailKey = "cached-email-key";
+const _cachePasswordKey = "cached-password-key";
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
@@ -27,18 +29,20 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Login();
+    return const Login();
   }
 }
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Login extends ConsumerStatefulWidget {
+  const Login({Key? key, this.openAsPage = false}) : super(key: key);
+
+  final bool openAsPage;
 
   @override
-  State<Login> createState() => _LoginState();
+  ConsumerState<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends ConsumerState<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
@@ -63,17 +67,17 @@ class _LoginState extends State<Login> {
         setState(() {
           chec_internet = false;
           final snackBar = SnackBar(
-            backgroundColor: Color.fromARGB(255, 245, 245, 245),
-            padding: EdgeInsets.all(0),
+            backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+            padding: const EdgeInsets.all(0),
             content: GFCard(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               boxFit: BoxFit.cover,
-              title: GFListTile(
+              title: const GFListTile(
                 avatar: Icon(
                   Icons.download_for_offline_outlined,
                   color: Colors.blue,
                   size: 50,
-                  shadows: const [
+                  shadows: [
                     Shadow(
                       color: Colors.black,
                       blurRadius: 5,
@@ -84,13 +88,16 @@ class _LoginState extends State<Login> {
                 title: Text('You\'re offline'),
                 subTitle: Text('Watch saved data in your Library'),
               ),
-              content: Text("All data had save!"),
+              content: const Text("All data had save!"),
               buttonBar: GFButtonBar(
                 children: <Widget>[
                   GFButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => data_verbal_saved(),),);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const data_verbal_saved(),
+                        ),
+                      );
                     },
                     color: GFColors.SUCCESS,
                     text: 'Go to watch',
@@ -130,9 +137,9 @@ class _LoginState extends State<Login> {
         break;
       default:
         setState(() {
-          final snackBar = SnackBar(
+          final snackBar = const SnackBar(
             backgroundColor: Colors.black12,
-            content: const Text('Offline'),
+            content: Text('Offline'),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -142,47 +149,22 @@ class _LoginState extends State<Login> {
   }
 
   bool _isObscure = true;
-  late LoginRequestModel requestModel;
-  bool isApiCallProcess = false;
-  late int id = 0;
-  late String username = "";
-  late String first_name = "";
-  late String last_name = "";
-  late String email = "";
-  late String gender = "";
-  late String from = "";
-  late String tel = "";
-  static List<PeopleModel> list = [];
-  static bool status = false;
-  PeopleModel? peopleModel;
-  late TextEditingController Email;
-  late TextEditingController Password;
-  selectPeople() async {
-    list = await PeopleController().selectPeople();
-    if (list.isEmpty) {
-      setState(() {
-        status = false;
-      });
-    } else {
-      setState(() {
-        final int i = list.length - 1;
-        status = true;
-        Email = TextEditingController(text: list[i].name);
-        Password = TextEditingController(text: list[i].password);
-      });
-    }
-  }
+  bool status = false;
+  late TextEditingController emailCtr;
+  late TextEditingController passwordCtr;
 
   @override
   void initState() {
-    selectPeople();
-    status;
-    list;
     super.initState();
-    requestModel = LoginRequestModel(email: "", password: "");
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+
+    final cache = ref.read(sharePrefProvider);
+    final cachedEmail = cache.getString(_cacheEmailKey);
+    final cachedPassword = cache.getString(_cachePasswordKey);
+    emailCtr = TextEditingController(text: cachedEmail);
+    passwordCtr = TextEditingController(text: cachedPassword);
   }
 
   @override
@@ -193,7 +175,6 @@ class _LoginState extends State<Login> {
         elevation: 0,
         centerTitle: true,
         title: Image.asset(
-          // 'assets/images/KFA-Logo.png',
           'assets/images/KFA-Logo.png',
           height: 120,
           width: 150,
@@ -203,7 +184,7 @@ class _LoginState extends State<Login> {
       backgroundColor: kwhite_new,
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(30.0),
@@ -267,7 +248,7 @@ class _LoginState extends State<Login> {
       backgroundColor: kwhite_new,
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(30.0),
@@ -332,198 +313,153 @@ class _LoginState extends State<Login> {
             const SizedBox(
               height: 10.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
-            ((status == false) ? input(context) : Output(context)),
-
-            SizedBox(
+            ((status == false) ? input(context) : output(context)),
+            const SizedBox(
               height: 10.0,
             ),
-            // ignore: deprecated_member_use
             SizedBox(
               width: 150,
               child: AnimatedButton(
                 text: 'Login',
                 color: kwhite_new,
-                pressEvent: () {
+                pressEvent: () async {
                   if (chec_internet) {
-                    if (validateAndSave()) {
-                      setState(() {
-                        // final player = AudioPlayer();
-                        // player.play(AssetSource('nor.mp3'));
-                        isApiCallProcess = true;
-                      });
-                      final APIservice apIservice = APIservice();
-                      apIservice.login(requestModel).then((value) {
-                        Load(value.token);
-                        setState(() {
-                          isApiCallProcess = false;
-                        });
-                        if (value.message == "Login Successfully!") {
-                          PeopleController().deletePeople(0);
-                          final people = PeopleModel(
-                            id: 0,
-                            name: requestModel.email,
-                            password: requestModel.password,
-                          );
-                          PeopleController().insertPeople(people);
-                          AwesomeDialog(
-                            btnOkOnPress: () {},
-                            context: context,
-                            animType: AnimType.leftSlide,
-                            headerAnimationLoop: false,
-                            dialogType: DialogType.success,
-                            showCloseIcon: false,
-                            title: value.message,
-                            autoHide: Duration(seconds: 3),
-                            onDismissCallback: (type) {
-                              // debugPrint('Dialog Dissmiss from callback $type');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomePage1(
-                                      log: 0,
-                                      lat: 0,
-                                      user: username,
-                                      email: email,
-                                      first_name: first_name,
-                                      last_name: last_name,
-                                      gender: gender,
-                                      from: from,
-                                      tel: tel,
-                                      id: id.toString(),
-                                    ),
-                                  ),);
-                            },
-                          ).show();
-                        } else {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            title: 'Error',
-                            desc: value.message,
-                            btnOkOnPress: () {},
-                            btnOkIcon: Icons.cancel,
-                            btnOkColor: Colors.red,
-                          ).show();
-                          print(value.message);
-                        }
-                      });
-                      print(requestModel.toJson());
+                    _formKey.currentState?.save();
+                    if (!_formKey.currentState!.validate()) return;
+
+                    final close = BotToast.showLoading();
+                    final provider = ref.read(authProvider.notifier);
+                    final errorOrNull = await provider.login(
+                      email: emailCtr.text.trim(),
+                      password: passwordCtr.text.trim(),
+                    );
+                    close();
+
+                    if (errorOrNull == null && context.mounted) {
+                      // cache success login
+                      final cache = ref.read(sharePrefProvider);
+                      cache.setString(
+                        _cacheEmailKey,
+                        emailCtr.text.trim(),
+                      );
+                      cache.setString(
+                        _cachePasswordKey,
+                        passwordCtr.text.trim(),
+                      );
+
+                      if (widget.openAsPage) {
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.leftSlide,
+                          headerAnimationLoop: false,
+                          dialogType: DialogType.success,
+                          dismissOnTouchOutside: true,
+                          showCloseIcon: false,
+                          title: "Login Successfully!",
+                          autoHide: const Duration(seconds: 3),
+                          onDismissCallback: (type) {
+                            context.pushReplace((context) => HomePage1());
+                          },
+                        ).show();
+                      } else {
+                        BotToast.showText(text: "Login Successfully!");
+                      }
+                    } else {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        headerAnimationLoop: false,
+                        title: 'Error',
+                        desc: errorOrNull,
+                        btnOkIcon: Icons.cancel,
+                        btnOkColor: Colors.red,
+                      ).show();
                     }
                   }
-                  initConnectivity();
                 },
               ),
             ),
             const SizedBox(
               height: 20.0,
             ),
-            Text.rich(TextSpan(children: [
+            Text.rich(
               TextSpan(
-                text: "Don't have any account? ",
-                style: TextStyle(fontSize: 16.0, color: kTextLightColor),
+                children: [
+                  const TextSpan(
+                    text: "Don't have any account? ",
+                    style: TextStyle(fontSize: 16.0, color: kTextLightColor),
+                  ),
+                  TextSpan(
+                    text: 'Register',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Register(),
+                          ),
+                        );
+                      },
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: kImageColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              TextSpan(
-                text: 'Register',
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Register()),);
-                  },
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: kImageColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],),),
+            ),
           ],
         ),
       ),
     );
   }
 
-  void Load(String token) async {
-    setState(() {});
-    final rs = await http.get(
-      Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user',),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (rs.statusCode == 200) {
-      final jsonData = jsonDecode(rs.body);
-      setState(() {
-        id = jsonData["id"];
-        username = jsonData['username'];
-        first_name = jsonData['first_name'];
-        last_name = jsonData['last_name'];
-        email = jsonData['email'];
-        gender = jsonData['gender'];
-        from = jsonData['known_from'];
-        tel = jsonData['tel_num'];
-      });
-      print(id.toString());
-    }
-  }
-
-  bool validateAndSave() {
-    final form = _formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
-  }
-
   Widget input(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
-            // controller: Email,
-            onSaved: (input) => requestModel.email = input!,
+            controller: emailCtr,
             decoration: InputDecoration(
-              fillColor: Color.fromARGB(255, 255, 255, 255),
+              fillColor: const Color.fromARGB(255, 255, 255, 255),
               filled: true,
               labelText: 'Email',
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.email,
                 color: kImageColor,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                    color: Color.fromRGBO(0, 126, 250, 1), width: 2.0,),
+                  color: Color.fromRGBO(0, 126, 250, 1),
+                  width: 2.0,
+                ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: Color.fromRGBO(0, 126, 250, 1),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: Color.fromARGB(255, 249, 0, 0),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              focusedErrorBorder: OutlineInputBorder(
+              focusedErrorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
                   color: Color.fromARGB(255, 249, 0, 0),
                 ),
-                //  borderRadius: BorderRadius.circular(10.0),
               ),
             ),
             validator: (input) {
@@ -534,22 +470,19 @@ class _LoginState extends State<Login> {
             },
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Padding(
-          //   height: 55,
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
-            // controller: password,
-            // initialValue: "list[0].password",
-            onSaved: (input) => requestModel.password = input!,
+            controller: passwordCtr,
             obscureText: _isObscure,
             decoration: InputDecoration(
               fillColor: kwhite,
               filled: true,
               labelText: 'Enter password',
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.key,
                 color: kImageColor,
               ),
@@ -569,21 +502,21 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: kerror,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 2,
                   color: kerror,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: kPrimaryColor,
                 ),
@@ -602,42 +535,43 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget Output(BuildContext context) {
+  Widget output(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
-            controller: Email,
-            onSaved: (input) => requestModel.email = input!,
+            controller: emailCtr,
             decoration: InputDecoration(
-              fillColor: Color.fromARGB(255, 255, 255, 255),
+              fillColor: const Color.fromARGB(255, 255, 255, 255),
               filled: true,
               labelText: 'Email',
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.email,
                 color: kImageColor,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                    color: Color.fromRGBO(0, 126, 250, 1), width: 2.0,),
+                  color: Color.fromRGBO(0, 126, 250, 1),
+                  width: 2.0,
+                ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: Color.fromRGBO(0, 126, 250, 1),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: Color.fromARGB(255, 249, 0, 0),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              focusedErrorBorder: OutlineInputBorder(
+              focusedErrorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
                   color: Color.fromARGB(255, 249, 0, 0),
@@ -653,22 +587,19 @@ class _LoginState extends State<Login> {
             },
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Padding(
-          //   height: 55,
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: TextFormField(
-            controller: Password,
-            // initialValue: "list[0].password",
-            onSaved: (input) => requestModel.password = input!,
+            controller: passwordCtr,
             obscureText: _isObscure,
             decoration: InputDecoration(
               fillColor: kwhite,
               filled: true,
               labelText: 'Enter password',
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.key,
                 color: kImageColor,
               ),
@@ -688,21 +619,21 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: kerror,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 2,
                   color: kerror,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 1,
                   color: kPrimaryColor,
                 ),

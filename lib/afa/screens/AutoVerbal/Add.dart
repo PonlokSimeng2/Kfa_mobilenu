@@ -8,8 +8,6 @@ import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 import 'package:geolocator/geolocator.dart';
 import 'package:getwidget/components/animation/gf_animation.dart';
-import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/size/gf_size.dart';
 import 'package:getwidget/types/gf_animation_type.dart';
 import 'package:http/http.dart' as http;
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -18,11 +16,10 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:kfa_mobilenu/afa/screens/AutoVerbal/printer/save_image_for_Autoverbal.dart';
+import 'package:kfa_mobilenu/widgets/auth_wrapper_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../../contants.dart';
-import '../../../Memory_local/save_data_verbal_local.dart';
 import '../../../api/api_service.dart';
-import '../../../graph.dart';
 import '../../../models/autoVerbal.dart';
 import '../../../models/model_bl_new.dart';
 import '../../../screen/Customs/form.dart';
@@ -34,7 +31,6 @@ import '../../../screen/components/map_all/map_in_add_verbal.dart';
 import '../../../screen/components/property.dart';
 import '../../components/LandBuilding.dart';
 import '../../components/slideUp.dart';
-import 'Detail.dart';
 
 class Menu_Add_verbal extends StatelessWidget {
   const Menu_Add_verbal({super.key, required this.id});
@@ -100,100 +96,8 @@ class Menu_Add_verbal extends StatelessWidget {
                       ),
                       child: AnimatedTextKit(
                         animatedTexts: [
-                          ColorizeAnimatedText('Add Auto Verbal',
-                              textStyle: colorizeTextStyle,
-                              colors: colorizeColors,
-                              speed: const Duration(milliseconds: 70),),
-                        ],
-                        isRepeatingAnimation: true,
-                        repeatForever: true,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => Add(id: id),),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  // InkWell(
-                  //   onTap: () {
-                  //     Navigator.of(context).push(
-                  //       MaterialPageRoute(
-                  //         builder: (context) => Add_with_property(
-                  //           id: id,
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  //   child: Container(
-                  //     height: 50,
-                  //     margin: EdgeInsets.only(left: 50),
-                  //     width: double.infinity,
-                  //     alignment: Alignment.center,
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.indigo[900],
-                  //       borderRadius: BorderRadius.only(
-                  //           bottomLeft: Radius.circular(10),
-                  //           topLeft: Radius.circular(10)),
-                  //       boxShadow: [
-                  //         BoxShadow(blurRadius: 5, color: Colors.yellowAccent)
-                  //       ],
-                  //     ),
-                  //     child: AnimatedTextKit(
-                  //       animatedTexts: [
-                  //         ColorizeAnimatedText(
-                  //           'Cross check price ',
-                  //           textStyle: colorizeTextStyle,
-                  //           colors: colorizeColors,
-                  //           speed: const Duration(milliseconds: 70),
-                  //         ),
-                  //       ],
-                  //       isRepeatingAnimation: true,
-                  //       repeatForever: true,
-                  //       onTap: () {
-                  //         Navigator.of(context).push(
-                  //           MaterialPageRoute(
-                  //             builder: (context) => Add_with_property(
-                  //               id: id,
-                  //             ),
-                  //           ),
-                  //         );
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => List_Auto(
-                            verbal_id: id,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      height: 50,
-                      margin: EdgeInsets.only(left: 50),
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.indigo[900],
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            topLeft: Radius.circular(10),),
-                        boxShadow: [
-                          BoxShadow(blurRadius: 5, color: Colors.yellowAccent)
-                        ],
-                      ),
-                      child: AnimatedTextKit(
-                        animatedTexts: [
                           ColorizeAnimatedText(
-                            'List Auto Verbal',
+                            'Add Auto Verbal',
                             textStyle: colorizeTextStyle,
                             colors: colorizeColors,
                             speed: const Duration(milliseconds: 70),
@@ -204,9 +108,7 @@ class Menu_Add_verbal extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => List_Auto(
-                                verbal_id: id,
-                              ),
+                              builder: (context) => Add(id: id),
                             ),
                           );
                         },
@@ -216,63 +118,6 @@ class Menu_Add_verbal extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
-                  // InkWell(
-                  //   onTap: () {
-                  //     Navigator.of(context).push(MaterialPageRoute(
-                  //         builder: (context) => Map_List_search(
-                  //               get_commune: (value) {},
-                  //               get_district: (value) {},
-                  //               get_lat: (value) {},
-                  //               get_log: (value) {},
-                  //               get_max1: (value) {},
-                  //               get_max2: (value) {},
-                  //               get_min1: (value) {},
-                  //               get_min2: (value) {},
-                  //               get_province: (value) {},
-                  //             )));
-                  //   },
-                  //   child: Container(
-                  //     height: 50,
-                  //     margin: EdgeInsets.only(left: 50),
-                  //     width: double.infinity,
-                  //     alignment: Alignment.center,
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.indigo[900],
-                  //         borderRadius: BorderRadius.only(
-                  //           bottomLeft: Radius.circular(90),
-                  //         ),
-                  //         boxShadow: [
-                  //           BoxShadow(blurRadius: 5, color: Colors.yellowAccent)
-                  //         ]),
-                  //     child: AnimatedTextKit(
-                  //       animatedTexts: [
-                  //         ColorizeAnimatedText(
-                  //           'Search Map',
-                  //           textStyle: colorizeTextStyle,
-                  //           colors: colorizeColors,
-                  //           speed: Duration(milliseconds: 70),
-                  //         )
-                  //       ],
-                  //       //child: Text("Search Map")
-                  //       isRepeatingAnimation: true,
-                  //       repeatForever: true,
-                  //       onTap: () {
-                  //         Navigator.of(context).push(MaterialPageRoute(
-                  //             builder: (context) => Map_List_search(
-                  //                   get_commune: (value) {},
-                  //                   get_district: (value) {},
-                  //                   get_lat: (value) {},
-                  //                   get_log: (value) {},
-                  //                   get_max1: (value) {},
-                  //                   get_max2: (value) {},
-                  //                   get_min1: (value) {},
-                  //                   get_min2: (value) {},
-                  //                   get_province: (value) {},
-                  //                 )));
-                  //       },
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -289,17 +134,19 @@ class Menu_Add_verbal extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 1,
-                left: 1,
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.chevron_left_outlined,
-                      size: 35,
-                      color: Colors.white,
-                    ),),),
+              top: 1,
+              left: 1,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.chevron_left_outlined,
+                  size: 35,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -378,10 +225,12 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
     offsetAnimation = Tween<Offset>(
       begin: Offset(0, 0),
       end: const Offset(0, -0.3),
-    ).animate(CurvedAnimation(
-      parent: controller,
-      curve: Curves.easeIn,
-    ),);
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeIn,
+      ),
+    );
     lb;
 
     super.initState();
@@ -415,47 +264,48 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(235, 7, 9, 145),
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios),
-        ),
-        actions: <Widget>[
-          InkWell(
-            onTap: () {
-              if (_file != null) {
-                uploadt_image(_file!);
-              }
-              uploadt_image_map();
-              List<Map<String, dynamic>> jsonList =
-                  lb.map((item) => item.toJson()).toList();
-              requestModelAuto.user = widget.id;
-              requestModelAuto.verbal_id = code.toString();
-              requestModelAuto.verbal_khan = '${commune}.${district}';
-              requestModelAuto.verbal = jsonList;
-              final APIservice apIservice = APIservice();
-              apIservice.saveAutoVerbal(requestModelAuto).then(
-                (value) async {
-                  if (requestModelAuto.verbal.isEmpty) {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      headerAnimationLoop: false,
-                      title: 'Error',
-                      desc: "Please add Land/Building at least 1!",
-                      btnOkOnPress: () {},
-                      btnOkIcon: Icons.cancel,
-                      btnOkColor: Colors.red,
-                    ).show();
-                  } else {
-                    if (value.message == "Save Successfully") {
+    return AuthWrapperWidget(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(235, 7, 9, 145),
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          actions: <Widget>[
+            InkWell(
+              onTap: () {
+                if (_file != null) {
+                  uploadt_image(_file!);
+                }
+                uploadt_image_map();
+                List<Map<String, dynamic>> jsonList =
+                    lb.map((item) => item.toJson()).toList();
+                requestModelAuto.user = widget.id;
+                requestModelAuto.verbal_id = code.toString();
+                requestModelAuto.verbal_khan = '${commune}.${district}';
+                requestModelAuto.verbal = jsonList;
+                final APIservice apIservice = APIservice();
+                apIservice.saveAutoVerbal(requestModelAuto).then(
+                  (value) async {
+                    if (requestModelAuto.verbal.isEmpty) {
                       AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        headerAnimationLoop: false,
+                        title: 'Error',
+                        desc: "Please add Land/Building at least 1!",
+                        btnOkOnPress: () {},
+                        btnOkIcon: Icons.cancel,
+                        btnOkColor: Colors.red,
+                      ).show();
+                    } else {
+                      if (value.message == "Save Successfully") {
+                        AwesomeDialog(
                           context: context,
                           animType: AnimType.leftSlide,
                           headerAnimationLoop: false,
@@ -467,105 +317,114 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                             child: Text("Do you want to save photo"),
                           ),
                           btnOkOnPress: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (context) =>
                                     save_image_after_add_verbal(
-                                      set_data_verbal: code.toString(),
-                                    ),),);
+                                  set_data_verbal: code.toString(),
+                                ),
+                              ),
+                            );
                           },
                           btnCancelOnPress: () {
                             Navigator.pop(context);
                           },
                           onDismissCallback: (type) {
                             Navigator.pop(context);
-                          },).show();
-                    } else {
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
-                        headerAnimationLoop: false,
-                        title: 'Error',
-                        desc: value.message,
-                        btnOkOnPress: () {},
-                        btnOkIcon: Icons.cancel,
-                        btnOkColor: Colors.red,
-                      ).show();
+                          },
+                        ).show();
+                      } else {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          animType: AnimType.rightSlide,
+                          headerAnimationLoop: false,
+                          title: 'Error',
+                          desc: value.message,
+                          btnOkOnPress: () {},
+                          btnOkIcon: Icons.cancel,
+                          btnOkColor: Colors.red,
+                        ).show();
+                      }
                     }
-                  }
-                },
-              );
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: 5, top: 15, bottom: 15, right: 4),
-              decoration: BoxDecoration(
-                color: Colors.lightGreen[700],
-                boxShadow: [BoxShadow(color: Colors.green, blurRadius: 5)],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(80),
-                  bottomLeft: Radius.circular(80),
+                  },
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 5, top: 15, bottom: 15, right: 4),
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen[700],
+                  boxShadow: [BoxShadow(color: Colors.green, blurRadius: 5)],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(80),
+                    bottomLeft: Radius.circular(80),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text("Submit"),
+                    Icon(Icons.save_alt_outlined),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      width: 10,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: Colors.red[700],
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          bottomLeft: Radius.circular(5),
+                        ),
+                      ),
+                      alignment: Alignment.topRight,
+                    )
+                  ],
                 ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text("Submit"),
-                  Icon(Icons.save_alt_outlined),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    width: 10,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.red[700],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        bottomLeft: Radius.circular(5),
-                      ),
-                    ),
-                    alignment: Alignment.topRight,
-                  )
-                ],
-              ),
             ),
-          ),
-        ],
-        title: DefaultTextStyle(
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 22.0,
-            fontWeight: FontWeight.bold,
-          ),
-          child: AnimatedTextKit(
-            animatedTexts: [
-              WavyAnimatedText('Auto Verbal',
+          ],
+          title: DefaultTextStyle(
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  'Auto Verbal',
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 20,),),
-            ],
-            pause: const Duration(milliseconds: 900),
-            isRepeatingAnimation: true,
-            repeatForever: true,
-            onTap: () {},
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+              pause: const Duration(milliseconds: 900),
+              isRepeatingAnimation: true,
+              repeatForever: true,
+              onTap: () {},
+            ),
           ),
+          toolbarHeight: 80,
         ),
-        toolbarHeight: 80,
-      ),
-      backgroundColor: Color.fromARGB(235, 7, 9, 145),
-      body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+        backgroundColor: Color.fromARGB(235, 7, 9, 145),
+        body: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-          child: addVerbal(context),
+          child: SingleChildScrollView(
+            child: addVerbal(context),
+          ),
         ),
       ),
     );
@@ -659,8 +518,9 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
               height: 37,
               margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
               decoration: BoxDecoration(
-                  color: Colors.lightBlueAccent[700],
-                  borderRadius: BorderRadius.circular(10),),
+                color: Colors.lightBlueAccent[700],
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -769,9 +629,10 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                             Text(
                               '${lb[i].address} ',
                               style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,),
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -834,10 +695,9 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                     SizedBox(height: 2),
                                     Text(
                                       ':   ' +
-                                          (formatter.format(lb[i]
-                                                  .verbal_land_area
-                                                  .toInt(),))
-                                              .toString() +
+                                          (formatter.format(
+                                            lb[i].verbal_land_area.toInt(),
+                                          )).toString() +
                                           'm' +
                                           '\u00B2',
                                       style: Name(),
@@ -862,8 +722,8 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                     Text(
                                       ':   ' +
                                           (formatter.format(
-                                                  lb[i].verbal_land_minvalue,))
-                                              .toString() +
+                                            lb[i].verbal_land_minvalue,
+                                          )).toString() +
                                           '\$',
                                       style: Name(),
                                     ),
@@ -871,8 +731,9 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                                     Text(
                                       ':   ' +
                                           (formatter
-                                                  .format(lb[i]
-                                                      .verbal_land_maxvalue,)
+                                                  .format(
+                                                    lb[i].verbal_land_maxvalue,
+                                                  )
                                                   .toString() +
                                               '\$'),
                                       style: Name(),
@@ -926,26 +787,28 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
                     ),
                     // padding: EdgeInsets.only(left: 30, right: 30),
                     child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 10),
-                            Icon(
-                              Icons.map_sharp,
-                              color: kImageColor,
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.map_sharp,
+                            color: kImageColor,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            (imagepath == "")
+                                ? 'Choose Photo'
+                                : 'choosed Photo',
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              (imagepath == "")
-                                  ? 'Choose Photo'
-                                  : 'choosed Photo',
-                              style: TextStyle(
-                                  color: kPrimaryColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,),
-                            ),
-                          ],
-                        ),),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1112,7 +975,9 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   }
 
   Future<File> convertImageByteToFile(
-      Uint8List imageBytes, String fileName,) async {
+    Uint8List imageBytes,
+    String fileName,
+  ) async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
     final File file = File('$path/$fileName');
@@ -1123,26 +988,42 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   Random random = new Random();
   Future<dynamic> uploadt_image_map() async {
     final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',),);
+      'POST',
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',
+      ),
+    );
     request.fields['cid'] = code.toString();
     if (lat1 == null) {
-      final response1 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+      final response1 = await http.get(
+        Uri.parse(
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+        ),
+      );
       final byte = response1.bodyBytes;
       final Uint8List get_image_byte1 = Uint8List.fromList(byte);
-      request.files.add(await http.MultipartFile.fromBytes(
-          'image', get_image_byte1,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
+      request.files.add(
+        await http.MultipartFile.fromBytes(
+          'image',
+          get_image_byte1,
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',
+        ),
+      );
     } else {
-      final response2 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+      final response2 = await http.get(
+        Uri.parse(
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+        ),
+      );
       final byte = response2.bodyBytes;
       final Uint8List get_image_byte2 = Uint8List.fromList(byte);
-      request.files.add(await http.MultipartFile.fromBytes(
-          'image', get_image_byte2,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
+      request.files.add(
+        await http.MultipartFile.fromBytes(
+          'image',
+          get_image_byte2,
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',
+        ),
+      );
     }
 
     final res = await request.send();
@@ -1167,9 +1048,10 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
           sourcePath: pickedFile.path,
           uiSettings: [
             AndroidUiSettings(
-                lockAspectRatio: false,
-                backgroundColor: Colors.blue,
-                initAspectRatio: CropAspectRatioPreset.original,)
+              lockAspectRatio: false,
+              backgroundColor: Colors.blue,
+              initAspectRatio: CropAspectRatioPreset.original,
+            )
           ],
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -1206,7 +1088,8 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
     final request = await http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",),
+        "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",
+      ),
     );
     Map<String, String> headers = {
       "content-type": "application/json",
@@ -1230,8 +1113,11 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -1245,8 +1131,11 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -1307,12 +1196,18 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
+      color: kImageColor,
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
+      color: kImageColor,
+      fontSize: 11,
+      fontWeight: FontWeight.bold,
+    );
   }
 
   double? lat;
@@ -1329,7 +1224,8 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services',),
+            'Location services are disabled. Please enable the services',
+          ),
         ),
       );
       return false;
@@ -1339,14 +1235,19 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')),);
+          const SnackBar(content: Text('Location permissions are denied')),
+        );
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.',),),);
+            'Location permissions are permanently denied, we cannot request permissions.',
+          ),
+        ),
+      );
       return false;
     }
     return true;
@@ -1354,7 +1255,8 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
 
   Future<void> _getCurrentPosition() async {
     final Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,);
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
     setState(() {
       lat = position.latitude;
@@ -1362,8 +1264,11 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
       requestModelAuto.lat = lat.toString();
       requestModelAuto.lng = log.toString();
     });
-    final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+    final response = await http.get(
+      Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+      ),
+    );
 
     if (response.statusCode == 200) {
       // Successful response
@@ -1404,868 +1309,967 @@ class _AddState extends State<Add> with SingleTickerProviderStateMixin {
 }
 
 // ===========================          List_Auto       =====================
-class List_Auto extends StatefulWidget {
-  const List_Auto({super.key, required this.verbal_id});
-  final String verbal_id;
-  @override
-  State<List_Auto> createState() => _List_AutoState();
-}
+// class List_Auto extends StatefulWidget {
+//   const List_Auto({super.key, required this.verbal_id});
+//   final String verbal_id;
+//   @override
+//   State<List_Auto> createState() => _List_AutoState();
+// }
 
-class _List_AutoState extends State<List_Auto> {
-  List list1 = [];
-  bool check_data1 = false, check_data2 = false;
-  void get_by_user_autoverbal() async {
-    setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_user=${widget.verbal_id}',),);
-    if (rs.statusCode == 200) {
-      final jsonData = jsonDecode(rs.body);
+// class _List_AutoState extends State<List_Auto> {
+//   List list1 = [];
+//   bool check_data1 = false, check_data2 = false;
+//   void get_by_user_autoverbal() async {
+//     setState(() {});
+//     final rs = await http.get(
+//       Uri.parse(
+//         'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_user=${widget.verbal_id}',
+//       ),
+//     );
+//     if (rs.statusCode == 200) {
+//       final jsonData = jsonDecode(rs.body);
 
-      setState(() {
-        list1 = jsonData;
-        check_data1 = true;
-      });
-    }
-  }
-  late dynamic jan,feb,mar,apr,may,jun,jul, aug,sep,oct,nov,dec;
-  void report_by_month() async{
-    final rp = await http.get(Uri.parse(
-      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/reportautoverbal?verbal_user=${widget.verbal_id}',),);
-      if(rp.statusCode == 200){
-        final jsonDatajan = jsonDecode(rp.body)['jan'];
-        final jsonDatafeb = jsonDecode(rp.body)['feb'];
-         final jsonDatamar = jsonDecode(rp.body)['mar'];
-          final jsonDataapr = jsonDecode(rp.body)['apr'];
-           final jsonDatamay = jsonDecode(rp.body)['may'];
-            final jsonDatajun = jsonDecode(rp.body)['jun'];
-             final jsonDatajul = jsonDecode(rp.body)['jul'];
-        final jsonDataaug = jsonDecode(rp.body)['aug'];
-         final jsonDatasep = jsonDecode(rp.body)['sep'];
-          final jsonDataoct = jsonDecode(rp.body)['oct'];
-           final jsonDatanov = jsonDecode(rp.body)['nov'];
-            final jsonDatadec = jsonDecode(rp.body)['dec'];
-         jan = jsonDatajan;
-         feb = jsonDatafeb;
-         mar = jsonDatamar;
-         apr = jsonDataapr;
-         may = jsonDatamay;
-         jun = jsonDatajun;
-         jul = jsonDatajul;
-         aug = jsonDataaug;
-         sep = jsonDatasep;
-         oct = jsonDataoct;
-         nov = jsonDatanov;
-         dec = jsonDatadec;
-           setState(() {
-            jan;
-            feb;
-            mar;
-            apr;
-            may;
-            jun;
-            jul;
-            aug;
-            sep;
-            oct;
-            nov;
-            dec;
-            print(aug.toString()+"\nkoko");
-            // check_data1 = true;
-          });
-      }
-  }
-  bool b1 = true, b2 = false;
-  List<verbalModel> list = [];
-  selectVERBAL() async {
-    list = await PeopleController().selectverbal();
-  }
+//       setState(() {
+//         list1 = jsonData;
+//         check_data1 = true;
+//       });
+//     }
+//   }
 
-  @override
-  void initState() {
-    report_by_month();
-    get_by_user_autoverbal();
-    selectVERBAL();
-    super.initState();
-  }
+//   late dynamic jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec;
+//   void report_by_month() async {
+//     final rp = await http.get(
+//       Uri.parse(
+//         'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/reportautoverbal?verbal_user=${widget.verbal_id}',
+//       ),
+//     );
+//     if (rp.statusCode == 200) {
+//       final jsonDatajan = jsonDecode(rp.body)['jan'];
+//       final jsonDatafeb = jsonDecode(rp.body)['feb'];
+//       final jsonDatamar = jsonDecode(rp.body)['mar'];
+//       final jsonDataapr = jsonDecode(rp.body)['apr'];
+//       final jsonDatamay = jsonDecode(rp.body)['may'];
+//       final jsonDatajun = jsonDecode(rp.body)['jun'];
+//       final jsonDatajul = jsonDecode(rp.body)['jul'];
+//       final jsonDataaug = jsonDecode(rp.body)['aug'];
+//       final jsonDatasep = jsonDecode(rp.body)['sep'];
+//       final jsonDataoct = jsonDecode(rp.body)['oct'];
+//       final jsonDatanov = jsonDecode(rp.body)['nov'];
+//       final jsonDatadec = jsonDecode(rp.body)['dec'];
+//       jan = jsonDatajan;
+//       feb = jsonDatafeb;
+//       mar = jsonDatamar;
+//       apr = jsonDataapr;
+//       may = jsonDatamay;
+//       jun = jsonDatajun;
+//       jul = jsonDatajul;
+//       aug = jsonDataaug;
+//       sep = jsonDatasep;
+//       oct = jsonDataoct;
+//       nov = jsonDatanov;
+//       dec = jsonDatadec;
+//       setState(() {
+//         jan;
+//         feb;
+//         mar;
+//         apr;
+//         may;
+//         jun;
+//         jul;
+//         aug;
+//         sep;
+//         oct;
+//         nov;
+//         dec;
+//         print(aug.toString() + "\nkoko");
+//         // check_data1 = true;
+//       });
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width * 0.9;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.indigo[900],
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context); Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios),),
-          centerTitle: true,
-          title: Text(
-            "Report",
-            style: TextStyle(fontSize: 22),
-          ),
-        ),
-        backgroundColor: Color.fromARGB(255, 64, 120, 216),
-        body: Container(
-          height: MediaQuery.of(context).size.height * 1,
-          child: CustomPaint(
-            size: Size(
-                5,
-                (5 * 0.5833333333333334)
-                    .toDouble(),), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-            painter: RPSCustomPainter(),
-            child: ListView(
-              children: [
-                // Container(
-                //   margin:
-                //       EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-                //   padding: EdgeInsets.all(0),
-                //   decoration: BoxDecoration(
-                //       color: Colors.blue[50],
-                //       borderRadius: BorderRadius.circular(20)),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //     children: [
-                //       GFButton(
-                //         onPressed: () {
-                //           setState(() {
-                //             b1 = true;
-                //             b2 = false;
-                //           });
-                //         },
-                //         color:
-                //             (b1) ? Color.fromRGBO(13, 71, 161, 1) : Colors.blue,
-                //         text: "Your Verbal",
-                //         elevation: (b1) ? 10 : 0,
-                //         shape: GFButtonShape.pills,
-                //       ),
-                //       GFButton(
-                //         onPressed: () {
-                //           setState(() {
-                //             selectVERBAL();
-                //             list;
-                //             b1 = false;
-                //             b2 = true;
-                //             selectVERBAL();
-                //             list;
-                //           });
-                //         },
-                //         color:
-                //             (b2) ? Color.fromRGBO(13, 71, 161, 1) : Colors.blue,
-                //         text: "\t\t\t\t\t\tSaved\t\t\t\t\t\t",
-                //         elevation: (b2) ? 10 : 0,
-                //         shape: GFButtonShape.pills,
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                  if(list1.length>1)
-                Container(
-                  height: 300,
-                  child: MyHomePageReport(
-                  datavaluejan: double.parse(jan.toString()),
-                  datavaluefeb: double.parse(feb.toString()), 
-                  datavaluemar: double.parse(mar.toString()), 
-                  datavalueapr: double.parse(apr.toString()), 
-                  datavaluemay: double.parse(may.toString()), 
-                  datavaluejun: double.parse(jun.toString()),  
-                  datavaluejul: double.parse(jul.toString()),  
-                  datavalueaug: double.parse(aug.toString()), 
-                  datavaluesep: double.parse(sep.toString()), 
-                  datavalueoct: double.parse(oct.toString()),  
-                  datavaluenov: double.parse(nov.toString()), 
-                 datavaluedec: double.parse(dec.toString()), 
-                  datavalue: null, 
-                  ),
-                ),
-                if (b1)
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    child: Visibility(
-                        visible: check_data1,
-                        replacement: const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        ),
-                        child: ListView.builder(
-                          itemBuilder: (context, i) {
-                            return Container(
-                              height: 220,
-                              margin: EdgeInsets.all(10),
-                              padding: EdgeInsets.only(left: 10),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(217, 255, 255, 255),
-                                  // border: Border.all(
-                                  //     width: 1,
-                                  //     color: Color.fromRGBO(67, 160, 71, 1)),
-                                  borderRadius: BorderRadius.circular(5),),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 100,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Date :\t\t\t:\t\t',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .textScaleFactor *
-                                                          10,
-                                                  shadows: [
-                                                    BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 16, 22, 192,),
-                                                        blurRadius: 3,
-                                                        offset:
-                                                            Offset(-0.2, -1),)
-                                                  ],),
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              child: Text(
-                                                "${list1[i]['verbal_date']}",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: MediaQuery.of(
-                                                                context,)
-                                                            .textScaleFactor *
-                                                        9,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    shadows: [
-                                                      BoxShadow(
-                                                          color: Color.fromARGB(
-                                                              255, 16, 22, 192,),
-                                                          blurRadius: 3,
-                                                          offset:
-                                                              Offset(-0.2, -1),)
-                                                    ],),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Verbal ID\t\t:\t\t',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .textScaleFactor *
-                                                          10,
-                                                  shadows: [
-                                                    BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 16, 22, 192,),
-                                                        blurRadius: 3,
-                                                        offset:
-                                                            Offset(-0.2, -1),)
-                                                  ],),
-                                            ),
-                                            Text(
-                                              "${list1[i]['verbal_id']}",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .textScaleFactor *
-                                                          9,
-                                                  shadows: [
-                                                    BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 16, 22, 192,),
-                                                        blurRadius: 3,
-                                                        offset:
-                                                            Offset(-0.2, -1),)
-                                                  ],),
-                                            ),
-                                          ],
-                                        ),
-                                        // Row(
-                                        //   mainAxisAlignment:
-                                        //       MainAxisAlignment.start,
-                                        //   children: [
-                                        //     Text(
-                                        //       'Bank\t\t\t:\t\t',
-                                        //       style: TextStyle(
-                                        //           color: Colors.black,
-                                        //           fontSize:
-                                        //               MediaQuery.of(context)
-                                        //                       .textScaleFactor *
-                                        //                   10,
-                                        //           shadows: [
-                                        //             BoxShadow(
-                                        //                 color: Color.fromARGB(
-                                        //                     255, 16, 22, 192),
-                                        //                 blurRadius: 3,
-                                        //                 offset:
-                                        //                     Offset(-0.2, -1))
-                                        //           ]),
-                                        //     ),
-                                        //     SizedBox(
-                                        //       width: MediaQuery.of(context)
-                                        //               .size
-                                        //               .width *
-                                        //           0.7,
-                                        //       child: Text(
-                                        //         "${list1[i]['bank_name']}",
-                                        //         style: TextStyle(
-                                        //             color: Colors.black,
-                                        //             fontSize: MediaQuery.of(
-                                        //                         context)
-                                        //                     .textScaleFactor *
-                                        //                 9,
-                                        //             overflow:
-                                        //                 TextOverflow.ellipsis,
-                                        //             shadows: [
-                                        //               BoxShadow(
-                                        //                   color: Color.fromARGB(
-                                        //                       255, 16, 22, 192),
-                                        //                   blurRadius: 3,
-                                        //                   offset:
-                                        //                       Offset(-0.2, -1))
-                                        //             ]),
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                        // Row(
-                                        //   mainAxisAlignment:
-                                        //       MainAxisAlignment.start,
-                                        //   children: [
-                                        //     Text(
-                                        //       'Bank Branch\t\t\t:\t\t',
-                                        //       style: TextStyle(
-                                        //           color: Colors.black,
-                                        //           fontSize:
-                                        //               MediaQuery.of(context)
-                                        //                       .textScaleFactor *
-                                        //                   10,
-                                        //           shadows: [
-                                        //             BoxShadow(
-                                        //                 color: Color.fromARGB(
-                                        //                     255, 16, 22, 192),
-                                        //                 blurRadius: 3,
-                                        //                 offset:
-                                        //                     Offset(-0.2, -1))
-                                        //           ]),
-                                        //     ),
-                                        //     SizedBox(
-                                        //       width: MediaQuery.of(context)
-                                        //               .size
-                                        //               .width *
-                                        //           0.5,
-                                        //       child: Text(
-                                        //         "${list1[i]['bank_branch_name'] ?? ""}",
-                                        //         style: TextStyle(
-                                        //             color: Colors.black,
-                                        //             fontSize: MediaQuery.of(
-                                        //                         context)
-                                        //                     .textScaleFactor *
-                                        //                 9,
-                                        //             overflow:
-                                        //                 TextOverflow.ellipsis,
-                                        //             shadows: [
-                                        //               BoxShadow(
-                                        //                   color: Color.fromARGB(
-                                        //                       255, 16, 22, 192),
-                                        //                   blurRadius: 3,
-                                        //                   offset:
-                                        //                       Offset(-0.2, -1))
-                                        //             ]),
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Property Type\t\t\t:\t\t',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .textScaleFactor *
-                                                          10,
-                                                  shadows: [
-                                                    BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 16, 22, 192,),
-                                                        blurRadius: 3,
-                                                        offset:
-                                                            Offset(-0.2, -1),)
-                                                  ],),
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              child: Text(
-                                                "${list1[i]['property_type_name']}",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: MediaQuery.of(
-                                                                context,)
-                                                            .textScaleFactor *
-                                                        9,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    shadows: [
-                                                      BoxShadow(
-                                                          color: Color.fromARGB(
-                                                              255, 16, 22, 192,),
-                                                          blurRadius: 3,
-                                                          offset:
-                                                              Offset(-0.2, -1),)
-                                                    ],),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                       
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 100,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          height: 90,
-                                          width: 90,
-                                          child: FadeInImage.assetNetwork(
-                                            fit: BoxFit.cover,
-                                            placeholderFit: BoxFit.contain,
-                                            placeholder: 'assets/earth.gif',
-                                            image:
-                                                "https://maps.googleapis.com/maps/api/staticmap?center=${list1[i]["latlong_log"]},${list1[i]["latlong_la"]}&zoom=20&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${list1[i]["latlong_log"]},${list1[i]["latlong_la"]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI",
-                                          ),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [                                    
-                                            Row(
-                                              children: [
-                                                  GFButton(
-                                              onPressed: () async {
-                                                final data = verbalModel(
-                                                  verbalId:
-                                                      '${list1[i]["verbal_id"] ?? ''}',
-                                                  bank_branch_name:
-                                                      '${list1[i]["bank_branch_name"] ?? ''}',
-                                                  bank_name:
-                                                      '${list1[i]["bank_name"] ?? ''}',
-                                                  property_type_name:
-                                                      '${list1[i]["property_type_name"] ?? ''}',
-                                                  tel_num:
-                                                      '${list1[i]["tel_num"] ?? ''}',
-                                                  username:
-                                                      '${list1[i]["username"] ?? ''}',
-                                                  verbal_address:
-                                                      '${list1[i]["verbal_address"] ?? ''}',
-                                                  verbal_contact:
-                                                      '${list1[i]["verbal_contact"] ?? ''}',
-                                                  verbal_date:
-                                                      '${list1[i]["verbal_date"] ?? ''}',
-                                                  verbal_owner:
-                                                      '${list1[i]["verbal_owner"] ?? ''}',
-                                                );
+//   bool b1 = true, b2 = false;
+//   List<verbalModel> list = [];
+//   selectVERBAL() async {
+//     list = await PeopleController().selectverbal();
+//   }
 
-                                                await PeopleController()
-                                                    .insertverbal(data);
+//   @override
+//   void initState() {
+//     report_by_month();
+//     get_by_user_autoverbal();
+//     selectVERBAL();
+//     super.initState();
+//   }
 
-                                                final snackBar = SnackBar(
-                                                  content:
-                                                      const Text('Data Saved!'),
-                                                  action: SnackBarAction(
-                                                    label: 'Undo',
-                                                    onPressed: () {},
-                                                  ),
-                                                );
+//   @override
+//   Widget build(BuildContext context) {
+//     final w = MediaQuery.of(context).size.width * 0.9;
+//     return AuthWrapperWidget(
+//       child: Scaffold(
+//         appBar: AppBar(
+//           backgroundColor: Colors.indigo[900],
+//           leading: IconButton(
+//             onPressed: () {
+//               Navigator.pop(context);
+//             },
+//             icon: Icon(Icons.arrow_back_ios),
+//           ),
+//           centerTitle: true,
+//           title: Text(
+//             "Report",
+//             style: TextStyle(fontSize: 22),
+//           ),
+//         ),
+//         backgroundColor: Color.fromARGB(255, 64, 120, 216),
+//         body: Container(
+//           height: MediaQuery.of(context).size.height * 1,
+//           child: CustomPaint(
+//             size: Size(
+//               5,
+//               (5 * 0.5833333333333334).toDouble(),
+//             ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+//             painter: RPSCustomPainter(),
+//             child: ListView(
+//               children: [
+//                 // Container(
+//                 //   margin:
+//                 //       EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+//                 //   padding: EdgeInsets.all(0),
+//                 //   decoration: BoxDecoration(
+//                 //       color: Colors.blue[50],
+//                 //       borderRadius: BorderRadius.circular(20)),
+//                 //   child: Row(
+//                 //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                 //     children: [
+//                 //       GFButton(
+//                 //         onPressed: () {
+//                 //           setState(() {
+//                 //             b1 = true;
+//                 //             b2 = false;
+//                 //           });
+//                 //         },
+//                 //         color:
+//                 //             (b1) ? Color.fromRGBO(13, 71, 161, 1) : Colors.blue,
+//                 //         text: "Your Verbal",
+//                 //         elevation: (b1) ? 10 : 0,
+//                 //         shape: GFButtonShape.pills,
+//                 //       ),
+//                 //       GFButton(
+//                 //         onPressed: () {
+//                 //           setState(() {
+//                 //             selectVERBAL();
+//                 //             list;
+//                 //             b1 = false;
+//                 //             b2 = true;
+//                 //             selectVERBAL();
+//                 //             list;
+//                 //           });
+//                 //         },
+//                 //         color:
+//                 //             (b2) ? Color.fromRGBO(13, 71, 161, 1) : Colors.blue,
+//                 //         text: "\t\t\t\t\t\tSaved\t\t\t\t\t\t",
+//                 //         elevation: (b2) ? 10 : 0,
+//                 //         shape: GFButtonShape.pills,
+//                 //       ),
+//                 //     ],
+//                 //   ),
+//                 // ),
+//                 if (list1.length > 1)
+//                   Container(
+//                     height: 300,
+//                     child: MyHomePageReport(
+//                       datavaluejan: double.parse(jan.toString()),
+//                       datavaluefeb: double.parse(feb.toString()),
+//                       datavaluemar: double.parse(mar.toString()),
+//                       datavalueapr: double.parse(apr.toString()),
+//                       datavaluemay: double.parse(may.toString()),
+//                       datavaluejun: double.parse(jun.toString()),
+//                       datavaluejul: double.parse(jul.toString()),
+//                       datavalueaug: double.parse(aug.toString()),
+//                       datavaluesep: double.parse(sep.toString()),
+//                       datavalueoct: double.parse(oct.toString()),
+//                       datavaluenov: double.parse(nov.toString()),
+//                       datavaluedec: double.parse(dec.toString()),
+//                       datavalue: null,
+//                     ),
+//                   ),
+//                 if (b1)
+//                   Container(
+//                     height: MediaQuery.of(context).size.height * 0.8,
+//                     child: Visibility(
+//                       visible: check_data1,
+//                       replacement: const Center(
+//                         child: CircularProgressIndicator(
+//                           color: Colors.white,
+//                         ),
+//                       ),
+//                       child: ListView.builder(
+//                         itemBuilder: (context, i) {
+//                           return Container(
+//                             height: 220,
+//                             margin: EdgeInsets.all(10),
+//                             padding: EdgeInsets.only(left: 10),
+//                             decoration: BoxDecoration(
+//                               color: Color.fromARGB(217, 255, 255, 255),
+//                               // border: Border.all(
+//                               //     width: 1,
+//                               //     color: Color.fromRGBO(67, 160, 71, 1)),
+//                               borderRadius: BorderRadius.circular(5),
+//                             ),
+//                             child: Column(
+//                               children: [
+//                                 SizedBox(
+//                                   height: 100,
+//                                   child: Column(
+//                                     mainAxisAlignment:
+//                                         MainAxisAlignment.spaceEvenly,
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.start,
+//                                         children: [
+//                                           Text(
+//                                             'Date :\t\t\t:\t\t',
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   10,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                           SizedBox(
+//                                             width: MediaQuery.of(context)
+//                                                     .size
+//                                                     .width *
+//                                                 0.5,
+//                                             child: Text(
+//                                               "${list1[i]['verbal_date']}",
+//                                               style: TextStyle(
+//                                                 color: Colors.black,
+//                                                 fontSize: MediaQuery.of(
+//                                                       context,
+//                                                     ).textScaleFactor *
+//                                                     9,
+//                                                 overflow: TextOverflow.ellipsis,
+//                                                 shadows: [
+//                                                   BoxShadow(
+//                                                     color: Color.fromARGB(
+//                                                       255,
+//                                                       16,
+//                                                       22,
+//                                                       192,
+//                                                     ),
+//                                                     blurRadius: 3,
+//                                                     offset: Offset(-0.2, -1),
+//                                                   )
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                       Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.start,
+//                                         children: [
+//                                           Text(
+//                                             'Verbal ID\t\t:\t\t',
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   10,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                           Text(
+//                                             "${list1[i]['verbal_id']}",
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   9,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                       // Row(
+//                                       //   mainAxisAlignment:
+//                                       //       MainAxisAlignment.start,
+//                                       //   children: [
+//                                       //     Text(
+//                                       //       'Bank\t\t\t:\t\t',
+//                                       //       style: TextStyle(
+//                                       //           color: Colors.black,
+//                                       //           fontSize:
+//                                       //               MediaQuery.of(context)
+//                                       //                       .textScaleFactor *
+//                                       //                   10,
+//                                       //           shadows: [
+//                                       //             BoxShadow(
+//                                       //                 color: Color.fromARGB(
+//                                       //                     255, 16, 22, 192),
+//                                       //                 blurRadius: 3,
+//                                       //                 offset:
+//                                       //                     Offset(-0.2, -1))
+//                                       //           ]),
+//                                       //     ),
+//                                       //     SizedBox(
+//                                       //       width: MediaQuery.of(context)
+//                                       //               .size
+//                                       //               .width *
+//                                       //           0.7,
+//                                       //       child: Text(
+//                                       //         "${list1[i]['bank_name']}",
+//                                       //         style: TextStyle(
+//                                       //             color: Colors.black,
+//                                       //             fontSize: MediaQuery.of(
+//                                       //                         context)
+//                                       //                     .textScaleFactor *
+//                                       //                 9,
+//                                       //             overflow:
+//                                       //                 TextOverflow.ellipsis,
+//                                       //             shadows: [
+//                                       //               BoxShadow(
+//                                       //                   color: Color.fromARGB(
+//                                       //                       255, 16, 22, 192),
+//                                       //                   blurRadius: 3,
+//                                       //                   offset:
+//                                       //                       Offset(-0.2, -1))
+//                                       //             ]),
+//                                       //       ),
+//                                       //     ),
+//                                       //   ],
+//                                       // ),
+//                                       // Row(
+//                                       //   mainAxisAlignment:
+//                                       //       MainAxisAlignment.start,
+//                                       //   children: [
+//                                       //     Text(
+//                                       //       'Bank Branch\t\t\t:\t\t',
+//                                       //       style: TextStyle(
+//                                       //           color: Colors.black,
+//                                       //           fontSize:
+//                                       //               MediaQuery.of(context)
+//                                       //                       .textScaleFactor *
+//                                       //                   10,
+//                                       //           shadows: [
+//                                       //             BoxShadow(
+//                                       //                 color: Color.fromARGB(
+//                                       //                     255, 16, 22, 192),
+//                                       //                 blurRadius: 3,
+//                                       //                 offset:
+//                                       //                     Offset(-0.2, -1))
+//                                       //           ]),
+//                                       //     ),
+//                                       //     SizedBox(
+//                                       //       width: MediaQuery.of(context)
+//                                       //               .size
+//                                       //               .width *
+//                                       //           0.5,
+//                                       //       child: Text(
+//                                       //         "${list1[i]['bank_branch_name'] ?? ""}",
+//                                       //         style: TextStyle(
+//                                       //             color: Colors.black,
+//                                       //             fontSize: MediaQuery.of(
+//                                       //                         context)
+//                                       //                     .textScaleFactor *
+//                                       //                 9,
+//                                       //             overflow:
+//                                       //                 TextOverflow.ellipsis,
+//                                       //             shadows: [
+//                                       //               BoxShadow(
+//                                       //                   color: Color.fromARGB(
+//                                       //                       255, 16, 22, 192),
+//                                       //                   blurRadius: 3,
+//                                       //                   offset:
+//                                       //                       Offset(-0.2, -1))
+//                                       //             ]),
+//                                       //       ),
+//                                       //     ),
+//                                       //   ],
+//                                       // ),
+//                                       Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.start,
+//                                         children: [
+//                                           Text(
+//                                             'Property Type\t\t\t:\t\t',
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   10,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                           SizedBox(
+//                                             width: MediaQuery.of(context)
+//                                                     .size
+//                                                     .width *
+//                                                 0.5,
+//                                             child: Text(
+//                                               "${list1[i]['property_type_name']}",
+//                                               style: TextStyle(
+//                                                 color: Colors.black,
+//                                                 fontSize: MediaQuery.of(
+//                                                       context,
+//                                                     ).textScaleFactor *
+//                                                     9,
+//                                                 overflow: TextOverflow.ellipsis,
+//                                                 shadows: [
+//                                                   BoxShadow(
+//                                                     color: Color.fromARGB(
+//                                                       255,
+//                                                       16,
+//                                                       22,
+//                                                       192,
+//                                                     ),
+//                                                     blurRadius: 3,
+//                                                     offset: Offset(-0.2, -1),
+//                                                   )
+//                                                 ],
+//                                               ),
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                                 SizedBox(
+//                                   height: 100,
+//                                   child: Row(
+//                                     crossAxisAlignment: CrossAxisAlignment.end,
+//                                     children: [
+//                                       SizedBox(
+//                                         height: 90,
+//                                         width: 90,
+//                                         child: FadeInImage.assetNetwork(
+//                                           fit: BoxFit.cover,
+//                                           placeholderFit: BoxFit.contain,
+//                                           placeholder: 'assets/earth.gif',
+//                                           image:
+//                                               "https://maps.googleapis.com/maps/api/staticmap?center=${list1[i]["latlong_log"]},${list1[i]["latlong_la"]}&zoom=20&size=1080x920&maptype=hybrid&markers=color:red%7C%7C${list1[i]["latlong_log"]},${list1[i]["latlong_la"]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI",
+//                                         ),
+//                                       ),
+//                                       SizedBox(width: 5),
+//                                       Column(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.end,
+//                                         children: [
+//                                           Row(
+//                                             children: [
+//                                               GFButton(
+//                                                 onPressed: () async {
+//                                                   final data = verbalModel(
+//                                                     verbalId:
+//                                                         '${list1[i]["verbal_id"] ?? ''}',
+//                                                     bank_branch_name:
+//                                                         '${list1[i]["bank_branch_name"] ?? ''}',
+//                                                     bank_name:
+//                                                         '${list1[i]["bank_name"] ?? ''}',
+//                                                     property_type_name:
+//                                                         '${list1[i]["property_type_name"] ?? ''}',
+//                                                     tel_num:
+//                                                         '${list1[i]["tel_num"] ?? ''}',
+//                                                     username:
+//                                                         '${list1[i]["username"] ?? ''}',
+//                                                     verbal_address:
+//                                                         '${list1[i]["verbal_address"] ?? ''}',
+//                                                     verbal_contact:
+//                                                         '${list1[i]["verbal_contact"] ?? ''}',
+//                                                     verbal_date:
+//                                                         '${list1[i]["verbal_date"] ?? ''}',
+//                                                     verbal_owner:
+//                                                         '${list1[i]["verbal_owner"] ?? ''}',
+//                                                   );
 
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(snackBar);
-                                              },
-                                              text: "\tSave\t",
-                                              size: GFSize.MEDIUM,
-                                              icon: Icon(
-                                                Icons.note_alt_outlined,
-                                                color: Colors.white,
-                                                size: 20,
-                                                shadows: [
-                                                  Shadow(
-                                                      color: Colors.black,
-                                                      blurRadius: 5,
-                                                      offset: Offset(1, 0.5),)
-                                                ],
-                                              ),
-                                            ),
-                                                SizedBox(width: 4),
-                                                GFButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                detail_verbal(
-                                                                  set_data_verbal:
-                                                                      list1[i][
-                                                                          "verbal_id"],
-                                                                ),),);
-                                                  },
-                                                  text: "View Report",
-                                                  color: Color.fromRGBO(53, 91, 229, 1),
-                                                  icon: Icon(
-                                                    Icons.visibility,
-                                                    size: 20,
-                                                    shadows: [
-                                                      Shadow(
-                                                          color: Colors.black,
-                                                          blurRadius: 5,
-                                                          offset:
-                                                              Offset(1, 0.5),)
-                                                    ],
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          itemCount: list1.length,
-                        ),),
-                  )
-                else
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    child: Visibility(
-                      visible: true,
-                      replacement: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      child: ListView.builder(
-                        itemCount: list.length,
-                        itemBuilder: (context, i) {
-                          return Stack(
-                            children: [
-                              Container(
-                                height: 140,
-                                margin: EdgeInsets.all(10),
-                                padding: EdgeInsets.only(left: 10),
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(217, 255, 255, 255),
-                                    // border: Border.all(
-                                    //     width: 1,
-                                    //     color: Color.fromRGBO(67, 160, 71, 1)),
-                                    borderRadius: BorderRadius.circular(5),),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Verbal ID\t\t:\t\t',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .textScaleFactor *
-                                                  10,
-                                              shadows: [
-                                                BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 16, 22, 192,),
-                                                    blurRadius: 3,
-                                                    offset: Offset(-0.2, -1),)
-                                              ],),
-                                        ),
-                                        Text(
-                                          " ${list[i].verbalId}",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .textScaleFactor *
-                                                  9,
-                                              shadows: [
-                                                BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 16, 22, 192,),
-                                                    blurRadius: 3,
-                                                    offset: Offset(-0.2, -1),)
-                                              ],),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Bank\t\t\t:\t\t',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .textScaleFactor *
-                                                  10,
-                                              shadows: [
-                                                BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 16, 22, 192,),
-                                                    blurRadius: 3,
-                                                    offset: Offset(-0.2, -1),)
-                                              ],),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.7,
-                                          child: Text(
-                                            " ${list[i].bank_name}",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: MediaQuery.of(context)
-                                                        .textScaleFactor *
-                                                    9,
-                                                overflow: TextOverflow.ellipsis,
-                                                shadows: [
-                                                  BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 16, 22, 192,),
-                                                      blurRadius: 3,
-                                                      offset: Offset(-0.2, -1),)
-                                                ],),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Bank Branch\t\t\t:\t\t',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .textScaleFactor *
-                                                  10,
-                                              shadows: [
-                                                BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 16, 22, 192,),
-                                                    blurRadius: 3,
-                                                    offset: Offset(-0.2, -1),)
-                                              ],),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.5,
-                                          child: Text(
-                                            " ${list[i].bank_branch_name}",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: MediaQuery.of(context)
-                                                        .textScaleFactor *
-                                                    9,
-                                                overflow: TextOverflow.ellipsis,
-                                                shadows: [
-                                                  BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 16, 22, 192,),
-                                                      blurRadius: 3,
-                                                      offset: Offset(-0.2, -1),)
-                                                ],),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Property Type\t\t\t:\t\t',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .textScaleFactor *
-                                                  10,
-                                              shadows: [
-                                                BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 16, 22, 192,),
-                                                    blurRadius: 3,
-                                                    offset: Offset(-0.2, -1),)
-                                              ],),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.5,
-                                          child: Text(
-                                            " ${list[i].property_type_name}",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: MediaQuery.of(context)
-                                                        .textScaleFactor *
-                                                    9,
-                                                overflow: TextOverflow.ellipsis,
-                                                shadows: [
-                                                  BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 16, 22, 192,),
-                                                      blurRadius: 3,
-                                                      offset: Offset(-0.2, -1),)
-                                                ],),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Date :\t\t\t:\t\t',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: MediaQuery.of(context)
-                                                      .textScaleFactor *
-                                                  10,
-                                              shadows: [
-                                                BoxShadow(
-                                                    color: Color.fromARGB(
-                                                        255, 16, 22, 192,),
-                                                    blurRadius: 3,
-                                                    offset: Offset(-0.2, -1),)
-                                              ],),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.5,
-                                          child: Text(
-                                            " ${list[i].verbal_date}",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: MediaQuery.of(context)
-                                                        .textScaleFactor *
-                                                    9,
-                                                overflow: TextOverflow.ellipsis,
-                                                shadows: [
-                                                  BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 16, 22, 192,),
-                                                      blurRadius: 3,
-                                                      offset: Offset(-0.2, -1),)
-                                                ],),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                right: 1,
-                                top: -1,
-                                child: GFButton(
-                                  onPressed: () async {
-                                    setState(() {
-                                      list;
-                                      selectVERBAL();
-                                      list;
-                                    });
+//                                                   await PeopleController()
+//                                                       .insertverbal(data);
 
-                                    await PeopleController()
-                                        .deleteverbal(list[i].verbalId);
+//                                                   final snackBar = SnackBar(
+//                                                     content: const Text(
+//                                                         'Data Saved!'),
+//                                                     action: SnackBarAction(
+//                                                       label: 'Undo',
+//                                                       onPressed: () {},
+//                                                     ),
+//                                                   );
 
-                                    final snackBar = SnackBar(
-                                      content: const Text('Deleted !'),
-                                      action: SnackBarAction(
-                                        label: 'Replese',
-                                        onPressed: () {
-                                          setState(() {
-                                            list;
-                                            selectVERBAL();
-                                            list;
-                                          });
-                                        },
-                                      ),
-                                    );
+//                                                   ScaffoldMessenger.of(context)
+//                                                       .showSnackBar(snackBar);
+//                                                 },
+//                                                 text: "\tSave\t",
+//                                                 size: GFSize.MEDIUM,
+//                                                 icon: Icon(
+//                                                   Icons.note_alt_outlined,
+//                                                   color: Colors.white,
+//                                                   size: 20,
+//                                                   shadows: [
+//                                                     Shadow(
+//                                                       color: Colors.black,
+//                                                       blurRadius: 5,
+//                                                       offset: Offset(1, 0.5),
+//                                                     )
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                               SizedBox(width: 4),
+//                                               GFButton(
+//                                                 onPressed: () {
+//                                                   Navigator.of(context).push(
+//                                                     MaterialPageRoute(
+//                                                       builder: (context) =>
+//                                                           detail_verbal(
+//                                                         set_data_verbal:
+//                                                             list1[i]
+//                                                                 ["verbal_id"],
+//                                                       ),
+//                                                     ),
+//                                                   );
+//                                                 },
+//                                                 text: "View Report",
+//                                                 color: Color.fromRGBO(
+//                                                     53, 91, 229, 1),
+//                                                 icon: Icon(
+//                                                   Icons.visibility,
+//                                                   size: 20,
+//                                                   shadows: [
+//                                                     Shadow(
+//                                                       color: Colors.black,
+//                                                       blurRadius: 5,
+//                                                       offset: Offset(1, 0.5),
+//                                                     )
+//                                                   ],
+//                                                   color: Colors.white,
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           );
+//                         },
+//                         itemCount: list1.length,
+//                       ),
+//                     ),
+//                   )
+//                 else
+//                   Container(
+//                     height: MediaQuery.of(context).size.height * 0.8,
+//                     child: Visibility(
+//                       visible: true,
+//                       replacement: const Center(
+//                         child: CircularProgressIndicator(),
+//                       ),
+//                       child: ListView.builder(
+//                         itemCount: list.length,
+//                         itemBuilder: (context, i) {
+//                           return Stack(
+//                             children: [
+//                               Container(
+//                                 height: 140,
+//                                 margin: EdgeInsets.all(10),
+//                                 padding: EdgeInsets.only(left: 10),
+//                                 decoration: BoxDecoration(
+//                                   color: Color.fromARGB(217, 255, 255, 255),
+//                                   // border: Border.all(
+//                                   //     width: 1,
+//                                   //     color: Color.fromRGBO(67, 160, 71, 1)),
+//                                   borderRadius: BorderRadius.circular(5),
+//                                 ),
+//                                 child: Column(
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceAround,
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                       children: [
+//                                         Text(
+//                                           'Verbal ID\t\t:\t\t',
+//                                           style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontSize: MediaQuery.of(context)
+//                                                     .textScaleFactor *
+//                                                 10,
+//                                             shadows: [
+//                                               BoxShadow(
+//                                                 color: Color.fromARGB(
+//                                                   255,
+//                                                   16,
+//                                                   22,
+//                                                   192,
+//                                                 ),
+//                                                 blurRadius: 3,
+//                                                 offset: Offset(-0.2, -1),
+//                                               )
+//                                             ],
+//                                           ),
+//                                         ),
+//                                         Text(
+//                                           " ${list[i].verbalId}",
+//                                           style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontSize: MediaQuery.of(context)
+//                                                     .textScaleFactor *
+//                                                 9,
+//                                             shadows: [
+//                                               BoxShadow(
+//                                                 color: Color.fromARGB(
+//                                                   255,
+//                                                   16,
+//                                                   22,
+//                                                   192,
+//                                                 ),
+//                                                 blurRadius: 3,
+//                                                 offset: Offset(-0.2, -1),
+//                                               )
+//                                             ],
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                       children: [
+//                                         Text(
+//                                           'Bank\t\t\t:\t\t',
+//                                           style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontSize: MediaQuery.of(context)
+//                                                     .textScaleFactor *
+//                                                 10,
+//                                             shadows: [
+//                                               BoxShadow(
+//                                                 color: Color.fromARGB(
+//                                                   255,
+//                                                   16,
+//                                                   22,
+//                                                   192,
+//                                                 ),
+//                                                 blurRadius: 3,
+//                                                 offset: Offset(-0.2, -1),
+//                                               )
+//                                             ],
+//                                           ),
+//                                         ),
+//                                         SizedBox(
+//                                           width: MediaQuery.of(context)
+//                                                   .size
+//                                                   .width *
+//                                               0.7,
+//                                           child: Text(
+//                                             " ${list[i].bank_name}",
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   9,
+//                                               overflow: TextOverflow.ellipsis,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                       children: [
+//                                         Text(
+//                                           'Bank Branch\t\t\t:\t\t',
+//                                           style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontSize: MediaQuery.of(context)
+//                                                     .textScaleFactor *
+//                                                 10,
+//                                             shadows: [
+//                                               BoxShadow(
+//                                                 color: Color.fromARGB(
+//                                                   255,
+//                                                   16,
+//                                                   22,
+//                                                   192,
+//                                                 ),
+//                                                 blurRadius: 3,
+//                                                 offset: Offset(-0.2, -1),
+//                                               )
+//                                             ],
+//                                           ),
+//                                         ),
+//                                         SizedBox(
+//                                           width: MediaQuery.of(context)
+//                                                   .size
+//                                                   .width *
+//                                               0.5,
+//                                           child: Text(
+//                                             " ${list[i].bank_branch_name}",
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   9,
+//                                               overflow: TextOverflow.ellipsis,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                       children: [
+//                                         Text(
+//                                           'Property Type\t\t\t:\t\t',
+//                                           style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontSize: MediaQuery.of(context)
+//                                                     .textScaleFactor *
+//                                                 10,
+//                                             shadows: [
+//                                               BoxShadow(
+//                                                 color: Color.fromARGB(
+//                                                   255,
+//                                                   16,
+//                                                   22,
+//                                                   192,
+//                                                 ),
+//                                                 blurRadius: 3,
+//                                                 offset: Offset(-0.2, -1),
+//                                               )
+//                                             ],
+//                                           ),
+//                                         ),
+//                                         SizedBox(
+//                                           width: MediaQuery.of(context)
+//                                                   .size
+//                                                   .width *
+//                                               0.5,
+//                                           child: Text(
+//                                             " ${list[i].property_type_name}",
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   9,
+//                                               overflow: TextOverflow.ellipsis,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                       children: [
+//                                         Text(
+//                                           'Date :\t\t\t:\t\t',
+//                                           style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontSize: MediaQuery.of(context)
+//                                                     .textScaleFactor *
+//                                                 10,
+//                                             shadows: [
+//                                               BoxShadow(
+//                                                 color: Color.fromARGB(
+//                                                   255,
+//                                                   16,
+//                                                   22,
+//                                                   192,
+//                                                 ),
+//                                                 blurRadius: 3,
+//                                                 offset: Offset(-0.2, -1),
+//                                               )
+//                                             ],
+//                                           ),
+//                                         ),
+//                                         SizedBox(
+//                                           width: MediaQuery.of(context)
+//                                                   .size
+//                                                   .width *
+//                                               0.5,
+//                                           child: Text(
+//                                             " ${list[i].verbal_date}",
+//                                             style: TextStyle(
+//                                               color: Colors.black,
+//                                               fontSize: MediaQuery.of(context)
+//                                                       .textScaleFactor *
+//                                                   9,
+//                                               overflow: TextOverflow.ellipsis,
+//                                               shadows: [
+//                                                 BoxShadow(
+//                                                   color: Color.fromARGB(
+//                                                     255,
+//                                                     16,
+//                                                     22,
+//                                                     192,
+//                                                   ),
+//                                                   blurRadius: 3,
+//                                                   offset: Offset(-0.2, -1),
+//                                                 )
+//                                               ],
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               Positioned(
+//                                 right: 1,
+//                                 top: -1,
+//                                 child: GFButton(
+//                                   onPressed: () async {
+//                                     setState(() {
+//                                       list;
+//                                       selectVERBAL();
+//                                       list;
+//                                     });
 
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  },
-                                  text: "\tDelete\t",
-                                  size: GFSize.MEDIUM,
-                                  color: Colors.red,
-                                  icon: Icon(
-                                    Icons.delete_outline,
-                                    color: Colors.white,
-                                    size: 20,
-                                    shadows: [
-                                      Shadow(
-                                          color: Colors.black,
-                                          blurRadius: 5,
-                                          offset: Offset(1, 0.5),)
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//                                     await PeopleController()
+//                                         .deleteverbal(list[i].verbalId);
+
+//                                     final snackBar = SnackBar(
+//                                       content: const Text('Deleted !'),
+//                                       action: SnackBarAction(
+//                                         label: 'Replese',
+//                                         onPressed: () {
+//                                           setState(() {
+//                                             list;
+//                                             selectVERBAL();
+//                                             list;
+//                                           });
+//                                         },
+//                                       ),
+//                                     );
+
+//                                     ScaffoldMessenger.of(context)
+//                                         .showSnackBar(snackBar);
+//                                   },
+//                                   text: "\tDelete\t",
+//                                   size: GFSize.MEDIUM,
+//                                   color: Colors.red,
+//                                   icon: Icon(
+//                                     Icons.delete_outline,
+//                                     color: Colors.white,
+//                                     size: 20,
+//                                     shadows: [
+//                                       Shadow(
+//                                         color: Colors.black,
+//                                         blurRadius: 5,
+//                                         offset: Offset(1, 0.5),
+//                                       )
+//                                     ],
+//                                   ),
+//                                 ),
+//                               )
+//                             ],
+//                           );
+//                         },
+//                       ),
+//                     ),
+//                   ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class RPSCustomPainter extends CustomPainter {
   @override
@@ -2275,31 +2279,38 @@ class RPSCustomPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
     paint0.shader = ui.Gradient.linear(
-        Offset(size.width * 0.50, 0),
-        Offset(size.width * 0.50, size.height * 1.00),
-        [Color(0xff5bf03d), Color(0xff11376e)],
-        [0.00, 1.00],);
+      Offset(size.width * 0.50, 0),
+      Offset(size.width * 0.50, size.height * 1.00),
+      [Color(0xff5bf03d), Color(0xff11376e)],
+      [0.00, 1.00],
+    );
 
     final Path path0 = Path();
     path0.moveTo(0, 0);
     path0.lineTo(size.width * 0.5000000, size.height * 0.9985714);
     path0.lineTo(size.width, 0);
-    path0.quadraticBezierTo(size.width, size.height * 0.1564286, size.width,
-        size.height * 0.2085714,);
+    path0.quadraticBezierTo(
+      size.width,
+      size.height * 0.1564286,
+      size.width,
+      size.height * 0.2085714,
+    );
     path0.cubicTo(
-        size.width * 0.8331250,
-        size.height * 0.5014286,
-        size.width * 0.5835417,
-        size.height * 0.4285714,
-        size.width * 0.4991667,
-        size.height * 0.7857143,);
+      size.width * 0.8331250,
+      size.height * 0.5014286,
+      size.width * 0.5835417,
+      size.height * 0.4285714,
+      size.width * 0.4991667,
+      size.height * 0.7857143,
+    );
     path0.cubicTo(
-        size.width * 0.4160417,
-        size.height * 0.4267857,
-        size.width * 0.1647917,
-        size.height * 0.4975000,
-        0,
-        size.height * 0.2128571,);
+      size.width * 0.4160417,
+      size.height * 0.4267857,
+      size.width * 0.1647917,
+      size.height * 0.4975000,
+      0,
+      size.height * 0.2128571,
+    );
     path0.quadraticBezierTo(0, size.height * 0.1596429, 0, 0);
     path0.close();
 
@@ -2384,10 +2395,12 @@ class _Add_with_propertyState extends State<Add_with_property>
     offsetAnimation = Tween<Offset>(
       begin: Offset(0, 0),
       end: const Offset(0, -0.3),
-    ).animate(CurvedAnimation(
-      parent: controller,
-      curve: Curves.easeIn,
-    ),);
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeIn,
+      ),
+    );
     lb;
 
     super.initState();
@@ -2421,47 +2434,48 @@ class _Add_with_propertyState extends State<Add_with_property>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(235, 7, 9, 145),
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context); Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios),
-        ),
-        actions: <Widget>[
-          InkWell(
-            onTap: () async {
-              if (asking_price != null) {
-                List<Map<String, dynamic>> jsonList =
-                    lb.map((item) => item.toJson()).toList();
-                requestModelAuto.user = widget.id;
-                requestModelAuto.verbal_id = code.toString();
-                requestModelAuto.verbal_khan = '${commune}.${district}';
-                requestModelAuto.verbal = jsonList;
-                final APIservice apIservice = APIservice();
-                apIservice.saveAutoVerbal(requestModelAuto).then(
-                  (value) async {
-                    if (requestModelAuto.verbal.isEmpty) {
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.error,
-                        animType: AnimType.rightSlide,
-                        headerAnimationLoop: false,
-                        title: 'Error',
-                        desc: "Please add Land/Building at least 1!",
-                        btnOkOnPress: () {},
-                        btnOkIcon: Icons.cancel,
-                        btnOkColor: Colors.red,
-                      ).show();
-                    } else {
-                      if (value.message == "Save Successfully") {
-                        if (_file != null) {
-                          await uploadt_image();
-                        }
+    return AuthWrapperWidget(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(235, 7, 9, 145),
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          actions: <Widget>[
+            InkWell(
+              onTap: () async {
+                if (asking_price != null) {
+                  List<Map<String, dynamic>> jsonList =
+                      lb.map((item) => item.toJson()).toList();
+                  requestModelAuto.user = widget.id;
+                  requestModelAuto.verbal_id = code.toString();
+                  requestModelAuto.verbal_khan = '${commune}.${district}';
+                  requestModelAuto.verbal = jsonList;
+                  final APIservice apIservice = APIservice();
+                  apIservice.saveAutoVerbal(requestModelAuto).then(
+                    (value) async {
+                      if (requestModelAuto.verbal.isEmpty) {
                         AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          animType: AnimType.rightSlide,
+                          headerAnimationLoop: false,
+                          title: 'Error',
+                          desc: "Please add Land/Building at least 1!",
+                          btnOkOnPress: () {},
+                          btnOkIcon: Icons.cancel,
+                          btnOkColor: Colors.red,
+                        ).show();
+                      } else {
+                        if (value.message == "Save Successfully") {
+                          if (_file != null) {
+                            await uploadt_image();
+                          }
+                          AwesomeDialog(
                             context: context,
                             animType: AnimType.leftSlide,
                             headerAnimationLoop: false,
@@ -2473,105 +2487,114 @@ class _Add_with_propertyState extends State<Add_with_property>
                               child: Text("Do you want to save photo"),
                             ),
                             btnOkOnPress: () {
-                              Navigator.of(context).push(MaterialPageRoute(
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
                                   builder: (context) =>
                                       save_image_after_add_verbal(
-                                        set_data_verbal: code.toString(),
-                                      ),),);
+                                    set_data_verbal: code.toString(),
+                                  ),
+                                ),
+                              );
                             },
                             btnCancelOnPress: () {
                               Navigator.pop(context);
                             },
                             onDismissCallback: (type) {
                               Navigator.pop(context);
-                            },).show();
-                      } else {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.rightSlide,
-                          headerAnimationLoop: false,
-                          title: 'Error',
-                          desc: value.message,
-                          btnOkOnPress: () {},
-                          btnOkIcon: Icons.cancel,
-                          btnOkColor: Colors.red,
-                        ).show();
+                            },
+                          ).show();
+                        } else {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            headerAnimationLoop: false,
+                            title: 'Error',
+                            desc: value.message,
+                            btnOkOnPress: () {},
+                            btnOkIcon: Icons.cancel,
+                            btnOkColor: Colors.red,
+                          ).show();
+                        }
                       }
-                    }
-                  },
-                );
-              } else {
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.error,
-                  animType: AnimType.rightSlide,
-                  headerAnimationLoop: false,
-                  title: 'Error',
-                  desc: "Please select your Location",
-                  btnOkOnPress: () {},
-                  btnOkIcon: Icons.cancel,
-                  btnOkColor: Colors.red,
-                ).show();
-              }
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: 5, top: 15, bottom: 15, right: 4),
-              decoration: BoxDecoration(
-                color: Colors.lightGreen[700],
-                boxShadow: [BoxShadow(color: Colors.green, blurRadius: 5)],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(80),
-                  bottomLeft: Radius.circular(80),
+                    },
+                  );
+                } else {
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.error,
+                    animType: AnimType.rightSlide,
+                    headerAnimationLoop: false,
+                    title: 'Error',
+                    desc: "Please select your Location",
+                    btnOkOnPress: () {},
+                    btnOkIcon: Icons.cancel,
+                    btnOkColor: Colors.red,
+                  ).show();
+                }
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 5, top: 15, bottom: 15, right: 4),
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen[700],
+                  boxShadow: [BoxShadow(color: Colors.green, blurRadius: 5)],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(80),
+                    bottomLeft: Radius.circular(80),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Submit",
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Icon(Icons.save_alt_outlined, size: 15),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      width: 10,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 235, 32, 32),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          bottomLeft: Radius.circular(5),
+                        ),
+                      ),
+                      alignment: Alignment.topRight,
+                    )
+                  ],
                 ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Submit",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                  Icon(Icons.save_alt_outlined, size: 15),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    width: 10,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 235, 32, 32),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        bottomLeft: Radius.circular(5),
-                      ),
-                    ),
-                    alignment: Alignment.topRight,
-                  )
-                ],
-              ),
+            ),
+          ],
+          title: Text(
+            'property check',
+            style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontSize: 18,
             ),
           ),
-        ],
-        title: Text('property check',
-            style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255), fontSize: 18,),),
-        toolbarHeight: 80,
-      ),
-      backgroundColor: Color.fromARGB(235, 7, 9, 145),
-      body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+          toolbarHeight: 80,
         ),
-        child: SingleChildScrollView(
-          child: addVerbal(context),
+        backgroundColor: Color.fromARGB(235, 7, 9, 145),
+        body: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: addVerbal(context),
+          ),
         ),
       ),
     );
@@ -2668,8 +2691,9 @@ class _Add_with_propertyState extends State<Add_with_property>
               height: 37,
               margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
               decoration: BoxDecoration(
-                  color: Colors.lightBlueAccent[700],
-                  borderRadius: BorderRadius.circular(10),),
+                color: Colors.lightBlueAccent[700],
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -2778,9 +2802,10 @@ class _Add_with_propertyState extends State<Add_with_property>
                             Text(
                               '${lb[i].address} ',
                               style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,),
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -2843,10 +2868,9 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     SizedBox(height: 2),
                                     Text(
                                       ':   ' +
-                                          (formatter.format(lb[i]
-                                                  .verbal_land_area
-                                                  .toInt(),))
-                                              .toString() +
+                                          (formatter.format(
+                                            lb[i].verbal_land_area.toInt(),
+                                          )).toString() +
                                           'm' +
                                           '\u00B2',
                                       style: Name(),
@@ -2855,7 +2879,8 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           formatter.format(
-                                              lb[i].verbal_land_minsqm,) +
+                                            lb[i].verbal_land_minsqm,
+                                          ) +
                                           '\$',
                                       style: Name(),
                                     ),
@@ -2863,7 +2888,8 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           formatter.format(
-                                              lb[i].verbal_land_maxsqm,) +
+                                            lb[i].verbal_land_maxsqm,
+                                          ) +
                                           '\$',
                                       style: Name(),
                                     ),
@@ -2871,8 +2897,8 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           (formatter.format(
-                                                  lb[i].verbal_land_minvalue,))
-                                              .toString() +
+                                            lb[i].verbal_land_minvalue,
+                                          )).toString() +
                                           '\$',
                                       style: Name(),
                                     ),
@@ -2880,8 +2906,9 @@ class _Add_with_propertyState extends State<Add_with_property>
                                     Text(
                                       ':   ' +
                                           (formatter
-                                                  .format(lb[i]
-                                                      .verbal_land_maxvalue,)
+                                                  .format(
+                                                    lb[i].verbal_land_maxvalue,
+                                                  )
                                                   .toString() +
                                               '\$'),
                                       style: Name(),
@@ -2935,26 +2962,28 @@ class _Add_with_propertyState extends State<Add_with_property>
                     ),
                     // padding: EdgeInsets.only(left: 30, right: 30),
                     child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 10),
-                            Icon(
-                              Icons.map_sharp,
-                              color: kImageColor,
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.map_sharp,
+                            color: kImageColor,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            (imagepath == "")
+                                ? 'Choose Photo'
+                                : 'choosed Photo',
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              (imagepath == "")
-                                  ? 'Choose Photo'
-                                  : 'choosed Photo',
-                              style: TextStyle(
-                                  color: kPrimaryColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,),
-                            ),
-                          ],
-                        ),),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -3127,7 +3156,9 @@ class _Add_with_propertyState extends State<Add_with_property>
   }
 
   Future<File> convertImageByteToFile(
-      Uint8List imageBytes, String fileName,) async {
+    Uint8List imageBytes,
+    String fileName,
+  ) async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
     final File file = File('$path/$fileName');
@@ -3138,26 +3169,42 @@ class _Add_with_propertyState extends State<Add_with_property>
   Random random = new Random();
   Future<dynamic> uploadt_image_map() async {
     final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',),);
+      'POST',
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',
+      ),
+    );
     request.fields['cid'] = code.toString();
     if (lat1 == null) {
-      final response1 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+      final response1 = await http.get(
+        Uri.parse(
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat},${log}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+        ),
+      );
       final byte = response1.bodyBytes;
       final Uint8List get_image_byte1 = Uint8List.fromList(byte);
-      request.files.add(await http.MultipartFile.fromBytes(
-          'image', get_image_byte1,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
+      request.files.add(
+        await http.MultipartFile.fromBytes(
+          'image',
+          get_image_byte1,
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',
+        ),
+      );
     } else {
-      final response2 = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+      final response2 = await http.get(
+        Uri.parse(
+          'https://maps.googleapis.com/maps/api/staticmap?center=${lat1},${log2}&zoom=20&size=720x720&maptype=hybrid&markers=color:red%7C%7C${lat1},${log2}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+        ),
+      );
       final byte = response2.bodyBytes;
       final Uint8List get_image_byte2 = Uint8List.fromList(byte);
-      request.files.add(await http.MultipartFile.fromBytes(
-          'image', get_image_byte2,
-          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
+      request.files.add(
+        await http.MultipartFile.fromBytes(
+          'image',
+          get_image_byte2,
+          filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',
+        ),
+      );
     }
 
     final res = await request.send();
@@ -3182,9 +3229,10 @@ class _Add_with_propertyState extends State<Add_with_property>
           sourcePath: pickedFile.path,
           uiSettings: [
             AndroidUiSettings(
-                lockAspectRatio: false,
-                backgroundColor: Colors.blue,
-                initAspectRatio: CropAspectRatioPreset.original,)
+              lockAspectRatio: false,
+              backgroundColor: Colors.blue,
+              initAspectRatio: CropAspectRatioPreset.original,
+            )
           ],
           aspectRatioPresets: [
             CropAspectRatioPreset.original,
@@ -3221,7 +3269,8 @@ class _Add_with_propertyState extends State<Add_with_property>
     final request = await http.MultipartRequest(
       "POST",
       Uri.parse(
-          "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",),
+        "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",
+      ),
     );
     Map<String, String> headers = {
       "content-type": "application/json",
@@ -3231,8 +3280,13 @@ class _Add_with_propertyState extends State<Add_with_property>
     request.headers.addAll(headers);
     // request.files.add(picture);
     request.fields['cid'] = code.toString();
-    request.files.add(await http.MultipartFile.fromBytes('image', imagebytes!,
-        filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',),);
+    request.files.add(
+      await http.MultipartFile.fromBytes(
+        'image',
+        imagebytes!,
+        filename: 'k${random.nextInt(999)}f${random.nextInt(99)}a.png',
+      ),
+    );
     final response = await request.send();
     final responseData = await response.stream.toBytes();
     final result = String.fromCharCodes(responseData);
@@ -3242,8 +3296,11 @@ class _Add_with_propertyState extends State<Add_with_property>
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -3257,8 +3314,11 @@ class _Add_with_propertyState extends State<Add_with_property>
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -3320,12 +3380,18 @@ class _Add_with_propertyState extends State<Add_with_property>
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
+      color: kImageColor,
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
+      color: kImageColor,
+      fontSize: 11,
+      fontWeight: FontWeight.bold,
+    );
   }
 
   double? lat;
@@ -3342,7 +3408,8 @@ class _Add_with_propertyState extends State<Add_with_property>
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services',),
+            'Location services are disabled. Please enable the services',
+          ),
         ),
       );
       return false;
@@ -3352,14 +3419,19 @@ class _Add_with_propertyState extends State<Add_with_property>
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')),);
+          const SnackBar(content: Text('Location permissions are denied')),
+        );
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.',),),);
+            'Location permissions are permanently denied, we cannot request permissions.',
+          ),
+        ),
+      );
       return false;
     }
     return true;
@@ -3367,7 +3439,8 @@ class _Add_with_propertyState extends State<Add_with_property>
 
   Future<void> _getCurrentPosition() async {
     final Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,);
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
     setState(() {
       lat = position.latitude;
@@ -3375,8 +3448,11 @@ class _Add_with_propertyState extends State<Add_with_property>
       requestModelAuto.lat = lat.toString();
       requestModelAuto.lng = log.toString();
     });
-    final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+    final response = await http.get(
+      Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+      ),
+    );
 
     if (response.statusCode == 200) {
       // Successful response
@@ -3415,4 +3491,3 @@ class _Add_with_propertyState extends State<Add_with_property>
     }
   }
 }
-

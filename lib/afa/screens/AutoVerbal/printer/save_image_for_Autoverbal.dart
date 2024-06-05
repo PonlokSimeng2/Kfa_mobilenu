@@ -25,8 +25,11 @@ class _save_image_after_add_verbalState
   List list = [];
   ScreenshotController screenshotController = ScreenshotController();
   void get_all_autoverbal_by_id() async {
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_id=${widget.set_data_verbal.toString()}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_new?verbal_id=${widget.set_data_verbal.toString()}',
+      ),
+    );
 
     if (rs.statusCode == 200) {
       setState(() {
@@ -41,8 +44,11 @@ class _save_image_after_add_verbalState
 
   var image_i, get_image = [];
   Future<void> getimage() async {
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_image/${widget.set_data_verbal.toString()}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_image/${widget.set_data_verbal.toString()}',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -62,8 +68,11 @@ class _save_image_after_add_verbalState
   double? fsvM, fsvN, fx, fn;
   Future<void> Land_building() async {
     double x = 0, n = 0;
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=${widget.set_data_verbal.toString()}',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/autoverbal/list_land?verbal_landid=${widget.set_data_verbal.toString()}',
+      ),
+    );
     if (rs.statusCode == 200) {
       land = jsonDecode(rs.body);
       for (int i = 0; i < land.length; i++) {
@@ -119,14 +128,16 @@ class _save_image_after_add_verbalState
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          HomePage1(id: list[0]['id'].toString()),),);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_sharp),),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage1(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_sharp),
+        ),
         title: const Text("Get Photo like this"),
       ),
       body: (list.isNotEmpty && land.isNotEmpty)
@@ -136,10 +147,12 @@ class _save_image_after_add_verbalState
                 padding: const EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height * 1,
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/Letter En-Kh.png'),),),
+                  color: Colors.white,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/Letter En-Kh.png'),
+                  ),
+                ),
                 child: ListView(
                   children: [
                     Container(
@@ -149,15 +162,19 @@ class _save_image_after_add_verbalState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                              width: 75,
-                              height: 50,
-                              child: Image.asset(
-                                  'assets/images/New_KFA_Logo_pdf.png',),),
-                          const Text("VERBAL CHECK",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),),
+                            width: 75,
+                            height: 50,
+                            child: Image.asset(
+                              'assets/images/New_KFA_Logo_pdf.png',
+                            ),
+                          ),
+                          const Text(
+                            "VERBAL CHECK",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
                           Row(
                             children: [
                               Column(
@@ -236,43 +253,51 @@ class _save_image_after_add_verbalState
                         ],
                       ),
                     ),
-                    Column(children: [
-                      Row(children: [
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            alignment: Alignment.centerLeft,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 0.4)),
-                            height: 18,
-                            //color: Colors.red,
-                            child: Text(
-                                "DATE: ${list[0]['verbal_created_date'].toString()}",
-                                style: const TextStyle(
-                                    fontSize: 7, fontWeight: FontWeight.bold,),),
-                            //color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            alignment: Alignment.centerLeft,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 0.4)),
-                            height: 18,
-                            child:
-                                Text("CODE: ${list[0]['verbal_id'].toString()}",
-                                    style: const TextStyle(
-                                      fontSize: 7,
-                                      fontWeight: FontWeight.bold,
-                                    ),),
-                            //color: Colors.yellow,
-                          ),
-                        ),
-                      ],)
-                    ],),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                //color: Colors.red,
+                                child: Text(
+                                  "DATE: ${list[0]['verbal_created_date'].toString()}",
+                                  style: const TextStyle(
+                                    fontSize: 7,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                //color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
+                                  "CODE: ${list[0]['verbal_id'].toString()}",
+                                  style: const TextStyle(
+                                    fontSize: 7,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                //color: Colors.yellow,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                     SizedBox(
                       child: Row(
                         children: [
@@ -285,10 +310,11 @@ class _save_image_after_add_verbalState
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 18,
                               child: Text(
-                                  "Requested Date :${list[0]['verbal_created_date'].toString()} ",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                                "Requested Date :${list[0]['verbal_created_date'].toString()} ",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -301,9 +327,10 @@ class _save_image_after_add_verbalState
                       decoration: BoxDecoration(border: Border.all(width: 0.4)),
                       height: 17,
                       child: Text(
-                          "Referring to your request letter for verbal check by ${list[0]['bank_name'].toString()}, we estimated the value of property as below.",
-                          overflow: TextOverflow.clip,
-                          style: const TextStyle(fontSize: 6),),
+                        "Referring to your request letter for verbal check by ${list[0]['bank_name'].toString()}, we estimated the value of property as below.",
+                        overflow: TextOverflow.clip,
+                        style: const TextStyle(fontSize: 6),
+                      ),
                       //color: Colors.blue,
                     ),
                     SizedBox(
@@ -317,10 +344,12 @@ class _save_image_after_add_verbalState
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 18,
-                              child: const Text("Property Information: ",
-                                  style: TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                              child: const Text(
+                                "Property Information: ",
+                                style: TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -333,10 +362,11 @@ class _save_image_after_add_verbalState
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 18,
                               child: Text(
-                                  " ${list[0]['property_type_name'] ?? ''}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                                " ${list[0]['property_type_name'] ?? ''}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -354,10 +384,12 @@ class _save_image_after_add_verbalState
                               height: 18,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
-                              child: const Text("Address : ",
-                                  style: TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                              child: const Text(
+                                "Address : ",
+                                style: TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                             ),
                           ),
                           Expanded(
@@ -369,10 +401,11 @@ class _save_image_after_add_verbalState
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               child: Text(
-                                  " ${list[0]['verbal_address'] ?? ""}.${list[0]['verbal_khan'] ?? ""}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                                " ${list[0]['verbal_address'] ?? ""}.${list[0]['verbal_khan'] ?? ""}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -389,10 +422,12 @@ class _save_image_after_add_verbalState
                               height: 18,
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
-                              child: const Text("Owner Name ",
-                                  style: TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                              child: const Text(
+                                "Owner Name ",
+                                style: TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                             ),
                           ),
                           Expanded(
@@ -403,10 +438,12 @@ class _save_image_after_add_verbalState
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 18,
-                              child: Text(" ${list[0]['verbal_owner'] ?? ""}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                              child: Text(
+                                " ${list[0]['verbal_owner'] ?? ""}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
 
                               //color: Colors.blue,
                             ),
@@ -421,10 +458,11 @@ class _save_image_after_add_verbalState
                               height: 18,
                               // name rest with api
                               child: Text(
-                                  "Contact No : ${list[0]['verbal_contact'] ?? ""}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                                "Contact No : ${list[0]['verbal_contact'] ?? ""}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -442,25 +480,12 @@ class _save_image_after_add_verbalState
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 30,
-                              child: const Text("Bank Officer ",
-                                  style: TextStyle(
-                                    fontSize: 7,
-                                  ),),
-                              //color: Colors.blue,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              alignment: Alignment.centerLeft,
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 0.4)),
-                              height: 30,
-                              child: Text(" ${list[0]['bank_name'] ?? ""}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                              child: const Text(
+                                "Bank Officer ",
+                                style: TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -473,10 +498,28 @@ class _save_image_after_add_verbalState
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 30,
                               child: Text(
-                                  "Contact No : ${list[0]['bankcontact'] ?? ""}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                                " ${list[0]['bank_name'] ?? ""}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
+                              //color: Colors.blue,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              alignment: Alignment.centerLeft,
+                              decoration:
+                                  BoxDecoration(border: Border.all(width: 0.4)),
+                              height: 30,
+                              child: Text(
+                                "Contact No : ${list[0]['bankcontact'] ?? ""}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -495,10 +538,11 @@ class _save_image_after_add_verbalState
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               child: Text(
-                                  "Latitude: ${list[0]['latlong_log'].toString()}",
-                                  style: const TextStyle(
-                                    fontSize: 7,
-                                  ),),
+                                "Latitude: ${list[0]['latlong_log'].toString()}",
+                                style: const TextStyle(
+                                  fontSize: 7,
+                                ),
+                              ),
                             ),
                           ),
                           Expanded(
@@ -510,19 +554,22 @@ class _save_image_after_add_verbalState
                               decoration:
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               child: Text(
-                                  "Longtitude: ${list[0]['latlong_la'].toString()}",
-                                  style: const TextStyle(fontSize: 7),),
+                                "Longtitude: ${list[0]['latlong_la'].toString()}",
+                                style: const TextStyle(fontSize: 7),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 6),
-                    const Text("ESTIMATED VALUE OF THE VERBAL CHECK PROPERTY",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 7,
-                        ),),
+                    const Text(
+                      "ESTIMATED VALUE OF THE VERBAL CHECK PROPERTY",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 7,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     if (image_i != null)
                       SizedBox(
@@ -562,8 +609,9 @@ class _save_image_after_add_verbalState
                         ),
                       ),
                     const SizedBox(height: 5),
-                    Row(children: [
-                      Expanded(
+                    Row(
+                      children: [
+                        Expanded(
                           flex: 3,
                           child: Container(
                             padding: const EdgeInsets.all(2),
@@ -571,178 +619,297 @@ class _save_image_after_add_verbalState
                             decoration:
                                 BoxDecoration(border: Border.all(width: 0.4)),
                             height: 18,
-                            child: const Text("DESCRIPTION ",
-                                style: TextStyle(
-                                  fontSize: 7,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                          ),),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.center,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: const Text("AREA/sqm ",
+                            child: const Text(
+                              "DESCRIPTION ",
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              ),),
-                          //color: Colors.blue,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.center,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: const Text("MIN/sqm ",
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.center,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: const Text(
+                              "AREA/sqm ",
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              ),),
-                          //color: Colors.blue,
+                              ),
+                            ),
+                            //color: Colors.blue,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.center,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: const Text("MAX/sqm ",
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.center,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: const Text(
+                              "MIN/sqm ",
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              ),),
-                          //color: Colors.blue,
+                              ),
+                            ),
+                            //color: Colors.blue,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.center,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: const Text("MIN-VALUE ",
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.center,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: const Text(
+                              "MAX/sqm ",
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              ),),
-                          //color: Colors.blue,
+                              ),
+                            ),
+                            //color: Colors.blue,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.center, height: 18,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          child: const Text("MAX-VALUE ",
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.center,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: const Text(
+                              "MIN-VALUE ",
                               style: TextStyle(
                                 fontSize: 7,
                                 fontWeight: FontWeight.bold,
-                              ),),
+                              ),
+                            ),
+                            //color: Colors.blue,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.center, height: 18,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            child: const Text(
+                              "MAX-VALUE ",
+                              style: TextStyle(
+                                fontSize: 7,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
 
-                          //color: Colors.blue,
+                            //color: Colors.blue,
+                          ),
                         ),
-                      ),
-                    ],),
+                      ],
+                    ),
 
                     for (int index = land.length - 1; index >= 0; index--)
                       SizedBox(
                         height: 18,
-                        child: Row(children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              alignment: Alignment.centerLeft,
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 0.4)),
-                              height: 18,
-                              child: Text(land[index]["verbal_land_type"] ?? "",
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
+                                  land[index]["verbal_land_type"] ?? "",
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  ),),
-                              //color: Colors.blue,
+                                  ),
+                                ),
+                                //color: Colors.blue,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              alignment: Alignment.centerLeft,
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 0.4)),
-                              height: 18,
-                              child: Text(
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
                                   '${formatter.format(double.parse(land[index]["verbal_land_area"].toString()))}/sqm',
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  ),),
-                              //color: Colors.blue,
+                                  ),
+                                ),
+                                //color: Colors.blue,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              alignment: Alignment.centerLeft,
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 0.4)),
-                              height: 18,
-                              child: Text(
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
                                   'USD ${formatter.format(double.parse(land[index]["verbal_land_minsqm"].toString()))}',
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  ),),
-                              //color: Colors.blue,
+                                  ),
+                                ),
+                                //color: Colors.blue,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              alignment: Alignment.centerLeft,
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 0.4)),
-                              height: 18,
-                              child: Text(
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
                                   'USD ${formatter.format(double.parse(land[index]["verbal_land_maxsqm"].toString()))}',
                                   style: const TextStyle(
-                                      fontSize: 5,
-                                      fontWeight: FontWeight.bold,),),
-                              //color: Colors.blue,
+                                    fontSize: 5,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                //color: Colors.blue,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              alignment: Alignment.centerLeft,
-                              decoration:
-                                  BoxDecoration(border: Border.all(width: 0.4)),
-                              height: 18,
-                              child: Text(
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
                                   'USD ${formatter.format(double.parse(land[index]["verbal_land_minvalue"].toString()))}',
                                   style: const TextStyle(
                                     fontSize: 5,
                                     fontWeight: FontWeight.bold,
-                                  ),),
+                                  ),
+                                ),
+                                //color: Colors.blue,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.4)),
+                                height: 18,
+                                child: Text(
+                                  'USD ${formatter.format(double.parse(land[index]["verbal_land_maxvalue"].toString()))}',
+                                  style: const TextStyle(
+                                    fontSize: 5,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 9,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.centerRight,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: const Text(
+                              "Property Value(Estimate) ",
+                              style: TextStyle(
+                                fontSize: 6,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.centerLeft,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: Text(
+                              'USD ${formatter.format(double.parse(total_MIN.toString()))}',
+                              style: const TextStyle(
+                                fontSize: 6,
+                              ),
+                            ),
+                            //color: Colors.blue,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.centerLeft,
+                            decoration:
+                                BoxDecoration(border: Border.all(width: 0.4)),
+                            height: 18,
+                            child: Text(
+                              'USD ${formatter.format(double.parse(total_MAX.toString()))}',
+                              style: const TextStyle(
+                                fontSize: 6,
+                              ),
+                            ),
+                            //color: Colors.blue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 9,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              alignment: Alignment.centerLeft,
+                              decoration:
+                                  BoxDecoration(border: Border.all(width: 0.4)),
+                              height: 18,
+                              // ទាយយក forceSale from  ForceSaleAndValuation
+                              child: Text(
+                                "Force Sale Value ${list[0]['verbal_con'].toString()}% ",
+                                style: const TextStyle(
+                                  fontSize: 6,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               //color: Colors.blue,
                             ),
                           ),
@@ -755,117 +922,33 @@ class _save_image_after_add_verbalState
                                   BoxDecoration(border: Border.all(width: 0.4)),
                               height: 18,
                               child: Text(
-                                  'USD ${formatter.format(double.parse(land[index]["verbal_land_maxvalue"].toString()))}',
-                                  style: const TextStyle(
-                                    fontSize: 5,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                            ),
-                          ),
-                        ],),
-                      ),
-                    Row(children: [
-                      Expanded(
-                        flex: 9,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.centerRight,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: const Text("Property Value(Estimate) ",
-                              style: TextStyle(
-                                fontSize: 6,
-                                fontWeight: FontWeight.bold,
-                              ),),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.centerLeft,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: Text(
-                              'USD ${formatter.format(double.parse(total_MIN.toString()))}',
-                              style: const TextStyle(
-                                fontSize: 6,
-                              ),),
-                          //color: Colors.blue,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          alignment: Alignment.centerLeft,
-                          decoration:
-                              BoxDecoration(border: Border.all(width: 0.4)),
-                          height: 18,
-                          child: Text(
-                              'USD ${formatter.format(double.parse(total_MAX.toString()))}',
-                              style: const TextStyle(
-                                fontSize: 6,
-                              ),),
-                          //color: Colors.blue,
-                        ),
-                      ),
-                    ],),
-                    Container(
-                      child: Row(children: [
-                        Expanded(
-                          flex: 9,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            alignment: Alignment.centerLeft,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 0.4)),
-                            height: 18,
-                            // ទាយយក forceSale from  ForceSaleAndValuation
-                            child: Text(
-                                "Force Sale Value ${list[0]['verbal_con'].toString()}% ",
-                                style: const TextStyle(
-                                  fontSize: 6,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                            //color: Colors.blue,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            alignment: Alignment.centerLeft,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 0.4)),
-                            height: 18,
-                            child: Text(
                                 "USD ${formatter.format(fsvN ?? double.parse('0.00'))}",
                                 style: const TextStyle(
                                   fontSize: 6,
-                                ),),
-                            //color: Colors.blue,
+                                ),
+                              ),
+                              //color: Colors.blue,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            alignment: Alignment.centerLeft,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 0.4)),
-                            height: 18,
-                            child: Text(
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              alignment: Alignment.centerLeft,
+                              decoration:
+                                  BoxDecoration(border: Border.all(width: 0.4)),
+                              height: 18,
+                              child: Text(
                                 'USD ${formatter.format(fsvM ?? double.parse('0.00'))}',
                                 style: const TextStyle(
                                   fontSize: 6,
-                                ),),
-                            //color: Colors.blue,
+                                ),
+                              ),
+                              //color: Colors.blue,
+                            ),
                           ),
-                        ),
-                      ],),
+                        ],
+                      ),
                     ),
                     //  ដកចេញសិន
                     // Container(
@@ -923,44 +1006,50 @@ class _save_image_after_add_verbalState
                     //   ]),
                     // ),
                     Container(
-                      child: Row(children: [
-                        Expanded(
-                          flex: 6,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            alignment: Alignment.centerLeft,
-                            decoration:
-                                BoxDecoration(border: Border.all(width: 0.4)),
-                            height: 18,
-                            child: Text(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              alignment: Alignment.centerLeft,
+                              decoration:
+                                  BoxDecoration(border: Border.all(width: 0.4)),
+                              height: 18,
+                              child: Text(
                                 "COMMENT: ${list[0]['verbal_comment'] ?? ''}",
                                 style: const TextStyle(
                                   fontSize: 6,
                                   fontWeight: FontWeight.bold,
-                                ),),
-                            //color: Colors.blue,
+                                ),
+                              ),
+                              //color: Colors.blue,
+                            ),
                           ),
-                        ),
-                      ],),
+                        ],
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(2),
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(border: Border.all(width: 0.4)),
                       height: 18,
-                      child: const Text("Valuation fee : ",
-                          style: TextStyle(
-                            fontSize: 6,
-                            fontWeight: FontWeight.bold,
-                          ),),
+                      child: const Text(
+                        "Valuation fee : ",
+                        style: TextStyle(
+                          fontSize: 6,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       //color: Colors.blue,
                     ),
                     const SizedBox(height: 6),
                     const Text(
-                        '*Note: It is only first price which you took from this verbal check data. The accurate value of property when we have the actual site property inspection.We are not responsible for this case when you provided the wrong land and building size or any fraud.',
-                        style: TextStyle(
-                          fontSize: 5,
-                        ),),
+                      '*Note: It is only first price which you took from this verbal check data. The accurate value of property when we have the actual site property inspection.We are not responsible for this case when you provided the wrong land and building size or any fraud.',
+                      style: TextStyle(
+                        fontSize: 5,
+                      ),
+                    ),
                     const SizedBox(height: 30),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -973,33 +1062,39 @@ class _save_image_after_add_verbalState
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                    'Verbal Check Replied By:${list[0]['username'].toString()} ',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 6,
-                                    ),
-                                    textAlign: TextAlign.right,),
+                                  'Verbal Check Replied By:${list[0]['username'].toString()} ',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 6,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
                                 const SizedBox(height: 4),
-                                Text(' ${list[0]['tel_num'].toString()}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 6,
-                                    ),
-                                    textAlign: TextAlign.center,),
+                                Text(
+                                  ' ${list[0]['tel_num'].toString()}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 6,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ],
                             ),
                           ],
                         ),
                         const Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('KHMER FOUNDATION APPRAISALS Co.,Ltd',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 6,
-                                  ),),
-                            ],),
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'KHMER FOUNDATION APPRAISALS Co.,Ltd',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 6,
+                              ),
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 6),
                         const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1009,33 +1104,46 @@ class _save_image_after_add_verbalState
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Hotline: 099 283 388',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 6,
-                                      ),),
-                                  Row(children: [
-                                    Text(
+                                  Text(
+                                    'Hotline: 099 283 388',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 6,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
                                         'H/P : (+855)23 988 855/(+855)23 999 761',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 6,
-                                        ),),
-                                  ],),
-                                  Row(children: [
-                                    Text('Email : info@kfa.com.kh',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Email : info@kfa.com.kh',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 6,
-                                        ),),
-                                  ],),
-                                  Row(children: [
-                                    Text('Website: www.kfa.com.kh',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Website: www.kfa.com.kh',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 6,
-                                        ),),
-                                  ],),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
@@ -1046,22 +1154,26 @@ class _save_image_after_add_verbalState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      'Villa #36A, Street No4, (Borey Peng Hout The Star',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 6,
-                                      ),),
-                                  Text('Natural 371) Sangkat Chak Angrae Leu,',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 6,
-                                      ),),
+                                    'Villa #36A, Street No4, (Borey Peng Hout The Star',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 6,
+                                    ),
+                                  ),
                                   Text(
-                                      'Khan Mean Chey, Phnom Penh City, Cambodia,',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 6,
-                                      ),),
+                                    'Natural 371) Sangkat Chak Angrae Leu,',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 6,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Khan Mean Chey, Phnom Penh City, Cambodia,',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 6,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -1084,10 +1196,11 @@ class _save_image_after_add_verbalState
             await _saved(capturedImage, context);
             // ignore: use_build_context_synchronously
             Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HomePage1(id: list[0]['id'].toString()),),);
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage1(),
+              ),
+            );
           }).catchError((onError) {
             print(onError);
           });

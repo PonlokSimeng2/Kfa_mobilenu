@@ -12,6 +12,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:kfa_mobilenu/widgets/auth_wrapper_widget.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -75,14 +76,18 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
   String? district;
   Future<void> _getCurrentPosition() async {
     final Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,);
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
     setState(() {
       lat = position.latitude;
       log = position.longitude;
     });
-    final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+    final response = await http.get(
+      Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${log}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+      ),
+    );
 
     if (response.statusCode == 200) {
       // Successful response
@@ -137,22 +142,24 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
       child: Text(
         text,
         style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.height * 0.02,),
+          fontWeight: FontWeight.bold,
+          fontSize: MediaQuery.of(context).size.height * 0.02,
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AuthWrapperWidget(
+      child: Scaffold(
         appBar: AppBar(
-           leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);Navigator.pop(context);
-          },
-        ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           title: Text('$type'),
           backgroundColor: Color.fromARGB(255, 20, 20, 163),
           centerTitle: true,
@@ -194,12 +201,15 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                 alignment: Alignment.center,
                 width: 80,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 30, 98, 4),
-                    borderRadius: BorderRadius.circular(15),),
+                  color: Color.fromARGB(255, 30, 98, 4),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Text(
                   'Save',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white,),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             )
@@ -218,8 +228,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                 center: Text(
                   "Please waiting...!",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: MediaQuery.of(context).size.height * 0.025,),
+                    fontWeight: FontWeight.bold,
+                    fontSize: MediaQuery.of(context).size.height * 0.025,
+                  ),
                 ),
               )
             : Padding(
@@ -245,17 +256,19 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               child: Text(
                                 'Code : ${controller_verbal.id_last.toString()}',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                             Container(
                               height: MediaQuery.of(context).size.height * 0.06,
                               width: MediaQuery.of(context).size.width * 0.37,
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 6, 25, 121),
-                                  borderRadius: BorderRadius.circular(10),),
+                                color: Color.fromARGB(255, 6, 25, 121),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -280,10 +293,10 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                   Text(
                                     '$urgent',
                                     style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,),
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -297,11 +310,16 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              right: 30, left: 30, top: 10, bottom: 10,),
+                            right: 30,
+                            left: 30,
+                            top: 10,
+                            bottom: 10,
+                          ),
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(width: 1),),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(width: 1),
+                            ),
                             height: MediaQuery.of(context).size.height * 0.2,
                             width: double.infinity,
                             child: ClipRRect(
@@ -320,61 +338,68 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                       width: double.infinity,
                                       fit: BoxFit.cover,
                                     )
-                                  : Stack(children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            'https://as1.ftcdn.net/v2/jpg/01/80/31/10/1000_F_180311099_Vlj8ufdHvec4onKSDLxxdrNiP6yX4PnP.jpg',
-                                        fit: BoxFit.cover,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.19,
-                                        width: double.infinity,
-                                        progressIndicatorBuilder:
-                                            (context, url, downloadProgress) =>
-                                                Center(
-                                          child: CircularProgressIndicator(
-                                              value: downloadProgress.progress,),
+                                  : Stack(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl:
+                                              'https://as1.ftcdn.net/v2/jpg/01/80/31/10/1000_F_180311099_Vlj8ufdHvec4onKSDLxxdrNiP6yX4PnP.jpg',
+                                          fit: BoxFit.cover,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.19,
+                                          width: double.infinity,
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
+                                              Center(
+                                            child: CircularProgressIndicator(
+                                              value: downloadProgress.progress,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
-                                      ),
-                                      Positioned(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.09,
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                        child: GFShimmer(
-                                          child: Text(
-                                            'Select Image',
-                                            style: TextStyle(
+                                        Positioned(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.09,
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.05,
+                                          child: GFShimmer(
+                                            child: Text(
+                                              'Select Image',
+                                              style: TextStyle(
                                                 fontSize: 30,
-                                                fontWeight: FontWeight.w700,),
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            showGradient: true,
+                                            gradient: LinearGradient(
+                                              begin: Alignment.bottomRight,
+                                              end: Alignment.centerLeft,
+                                              stops: const <double>[
+                                                0.2,
+                                                0.7,
+                                                0.8,
+                                                0.9,
+                                                1
+                                              ],
+                                              colors: [
+                                                Color.fromARGB(255, 5, 10, 159)
+                                                    .withOpacity(0.1),
+                                                Color.fromARGB(255, 5, 9, 114),
+                                                Color.fromARGB(255, 4, 8, 103),
+                                                Color.fromARGB(255, 5, 8, 93),
+                                                Color.fromARGB(255, 4, 6, 82),
+                                              ],
+                                            ),
                                           ),
-                                          showGradient: true,
-                                          gradient: LinearGradient(
-                                            begin: Alignment.bottomRight,
-                                            end: Alignment.centerLeft,
-                                            stops: const <double>[
-                                              0.2,
-                                              0.7,
-                                              0.8,
-                                              0.9,
-                                              1
-                                            ],
-                                            colors: [
-                                              Color.fromARGB(255, 5, 10, 159)
-                                                  .withOpacity(0.1),
-                                              Color.fromARGB(255, 5, 9, 114),
-                                              Color.fromARGB(255, 4, 8, 103),
-                                              Color.fromARGB(255, 5, 8, 93),
-                                              Color.fromARGB(255, 4, 6, 82),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],),
+                                        )
+                                      ],
+                                    ),
                             ),
                           ),
                         ),
@@ -384,31 +409,33 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(Map_verbal_address_Sale(
-                            get_province: (value) {
-                              setState(() {
-                                songkat = value.toString();
-                              });
-                            },
-                            get_district: (value) {
-                              setState(() {
-                                provice_map = value.toString();
-                              });
-                            },
-                            get_commune: (value) {
-                              setState(() {
-                                khan = value.toString();
-                              });
-                            },
-                            get_log: (value) {
-                              setState(() {
-                                log = double.parse(value);
-                              });
-                            },
-                            get_lat: (value) {
-                              lat = double.parse(value);
-                            },
-                          ),);
+                          Get.to(
+                            Map_verbal_address_Sale(
+                              get_province: (value) {
+                                setState(() {
+                                  songkat = value.toString();
+                                });
+                              },
+                              get_district: (value) {
+                                setState(() {
+                                  provice_map = value.toString();
+                                });
+                              },
+                              get_commune: (value) {
+                                setState(() {
+                                  khan = value.toString();
+                                });
+                              },
+                              get_log: (value) {
+                                setState(() {
+                                  log = double.parse(value);
+                                });
+                              },
+                              get_lat: (value) {
+                                lat = double.parse(value);
+                              },
+                            ),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 30, left: 30),
@@ -449,11 +476,12 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                     child: Text(
                                       value['hometype'],
                                       style: TextStyle(
-                                          fontSize:
-                                              MediaQuery.textScaleFactorOf(
-                                                      context,) *
-                                                  13,
-                                          height: 0.1,),
+                                        fontSize: MediaQuery.textScaleFactorOf(
+                                              context,
+                                            ) *
+                                            13,
+                                        height: 0.1,
+                                      ),
                                     ),
                                   ),
                                 )
@@ -476,7 +504,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: kPrimaryColor, width: 2.0,),
+                                  color: kPrimaryColor,
+                                  width: 2.0,
+                                ),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -510,11 +540,12 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                     child: Text(
                                       value['Name_cummune'],
                                       style: TextStyle(
-                                          fontSize:
-                                              MediaQuery.textScaleFactorOf(
-                                                      context,) *
-                                                  13,
-                                          height: 0.1,),
+                                        fontSize: MediaQuery.textScaleFactorOf(
+                                              context,
+                                            ) *
+                                            13,
+                                        height: 0.1,
+                                      ),
                                     ),
                                   ),
                                 )
@@ -537,7 +568,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: kPrimaryColor, width: 2.0,),
+                                  color: kPrimaryColor,
+                                  width: 2.0,
+                                ),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -553,180 +586,184 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Row(children: [
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  price = double.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                hintText: 'Price*',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                onChanged: (value) {
+                                  setState(() {
+                                    price = double.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.feed_outlined,
+                                    color: kImageColor,
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
+                                  hintText: 'Price*',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  requestAutoVerbal_property.sqm =
-                                      double.parse(value).toStringAsFixed(5);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
-                                ),
-                                hintText: 'Sqm*',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                             ),
-                          ),
-                        ],),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    requestAutoVerbal_property.sqm =
+                                        double.parse(value).toStringAsFixed(5);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.feed_outlined,
+                                    color: kImageColor,
+                                  ),
+                                  hintText: 'Sqm*',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Row(children: [
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  bed = int.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.bed_outlined,
-                                  color: kImageColor,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                hintText: 'bed',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                onChanged: (value) {
+                                  setState(() {
+                                    bed = int.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.bed_outlined,
+                                    color: kImageColor,
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
+                                  hintText: 'bed',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  bath = int.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
-                                ),
-                                hintText: 'bath',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                             ),
-                          ),
-                        ],),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    bath = int.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.feed_outlined,
+                                    color: kImageColor,
+                                  ),
+                                  hintText: 'bath',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       _size_10,
                       _text('Size Land*'),
@@ -769,267 +806,273 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                       _size_10,
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Row(children: [
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  floor = int.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.bed_outlined,
-                                  color: kImageColor,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                hintText: 'floor',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                onChanged: (value) {
+                                  setState(() {
+                                    floor = int.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.bed_outlined,
+                                    color: kImageColor,
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
+                                  hintText: 'floor',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  Parking = int.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
-                                ),
-                                hintText: 'parking',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                             ),
-                          ),
-                        ],),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    Parking = int.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.feed_outlined,
+                                    color: kImageColor,
+                                  ),
+                                  hintText: 'parking',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Row(children: [
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  total_area = double.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.bed_outlined,
-                                  color: kImageColor,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                hintText: 'Total Area',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                onChanged: (value) {
+                                  setState(() {
+                                    total_area = double.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.bed_outlined,
+                                    color: kImageColor,
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
+                                  hintText: 'Total Area',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  price_sqm = double.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
-                                ),
-                                hintText: 'Price(sqm)*',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                             ),
-                          ),
-                        ],),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    price_sqm = double.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.feed_outlined,
+                                    color: kImageColor,
+                                  ),
+                                  hintText: 'Price(sqm)*',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(right: 30, left: 30, top: 10),
-                        child: Row(children: [
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  Livingroom = int.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.bed_outlined,
-                                  color: kImageColor,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                hintText: 'LivingRoom',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                onChanged: (value) {
+                                  setState(() {
+                                    Livingroom = int.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.bed_outlined,
+                                    color: kImageColor,
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
+                                  hintText: 'LivingRoom',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  aircon = int.parse(value);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                prefixIcon: Icon(
-                                  Icons.feed_outlined,
-                                  color: kImageColor,
-                                ),
-                                hintText: 'Aricon',
-                                fillColor: kwhite,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: kPrimaryColor,
-                                    width: 2.0,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: kPrimaryColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                             ),
-                          ),
-                        ],),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.015,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    aircon = int.parse(value);
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  prefixIcon: Icon(
+                                    Icons.feed_outlined,
+                                    color: kImageColor,
+                                  ),
+                                  hintText: 'Aricon',
+                                  fillColor: kwhite,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: kPrimaryColor,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: kPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding:
@@ -1110,11 +1153,13 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                                           value,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.textScaleFactorOf(
-                                                          context,) *
-                                                      13,
-                                              height: 1,),
+                                            fontSize:
+                                                MediaQuery.textScaleFactorOf(
+                                                      context,
+                                                    ) *
+                                                    13,
+                                            height: 1,
+                                          ),
                                         ),
                                       ),
                                     )
@@ -1252,7 +1297,9 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
                     ],
                   ),
                 ),
-              ),);
+              ),
+      ),
+    );
   }
 
   Future<void> ID() async {
@@ -1262,7 +1309,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/post_id_sale_last',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/post_id_sale_last',
+    );
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1295,7 +1343,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     }
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',
+    );
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_image'] = controller_verbal.id_last.toString();
@@ -1315,28 +1364,33 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
         print('Error compressing image: $e');
       }
     }
-    request.files.add(await http.MultipartFile.fromPath(
-        'image_name_sale', _compressedImage_only!.path,),);
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'image_name_sale',
+        _compressedImage_only!.path,
+      ),
+    );
 
     final response = await request.send();
 
     if (response.statusCode == 200) {
       print('Image uploaded!');
       AwesomeDialog(
-          context: context,
-          animType: AnimType.leftSlide,
-          headerAnimationLoop: false,
-          dialogType: DialogType.success,
-          showCloseIcon: false,
-          title: 'Succesfully',
-          autoHide: Duration(seconds: 3),
-          onDismissCallback: (type) {
-            setState(() {
-              get_re;
-              widget.refresh_homeScreen!(get_re);
-            });
-            Navigator.pop(context);
-          },).show();
+        context: context,
+        animType: AnimType.leftSlide,
+        headerAnimationLoop: false,
+        dialogType: DialogType.success,
+        showCloseIcon: false,
+        title: 'Succesfully',
+        autoHide: Duration(seconds: 3),
+        onDismissCallback: (type) {
+          setState(() {
+            get_re;
+            widget.refresh_homeScreen!(get_re);
+          });
+          Navigator.pop(context);
+        },
+      ).show();
     } else {
       print('Error uploading image: ${response.reasonPhrase}');
     }
@@ -1348,7 +1402,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     }
 
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',
+    );
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_image'] = controller_verbal.id_last.toString();
@@ -1368,28 +1423,33 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
         print('Error compressing image: $e');
       }
     }
-    request.files.add(await http.MultipartFile.fromPath(
-        'image_name_rent', _compressedImage_only!.path,),);
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'image_name_rent',
+        _compressedImage_only!.path,
+      ),
+    );
 
     final response = await request.send();
 
     if (response.statusCode == 200) {
       print('Image uploaded!');
       AwesomeDialog(
-          context: context,
-          animType: AnimType.leftSlide,
-          headerAnimationLoop: false,
-          dialogType: DialogType.success,
-          showCloseIcon: false,
-          title: 'Succesfully',
-          autoHide: Duration(seconds: 3),
-          onDismissCallback: (type) {
-            setState(() {
-              get_re;
-              widget.refresh_homeScreen!(get_re);
-            });
-            Navigator.pop(context);
-          },).show();
+        context: context,
+        animType: AnimType.leftSlide,
+        headerAnimationLoop: false,
+        dialogType: DialogType.success,
+        showCloseIcon: false,
+        title: 'Succesfully',
+        autoHide: Duration(seconds: 3),
+        onDismissCallback: (type) {
+          setState(() {
+            get_re;
+            widget.refresh_homeScreen!(get_re);
+          });
+          Navigator.pop(context);
+        },
+      ).show();
     } else {
       print('Error uploading image: ${response.reasonPhrase}');
     }
@@ -1434,7 +1494,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',
+    );
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1508,7 +1569,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',
+    );
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1556,7 +1618,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     };
 
     final url = await Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/$_url',
+    );
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -1572,7 +1635,8 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
 
   Future<void> _uploadImag_Multiple(_url) async {
     final url = Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/',);
+      'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/',
+    );
 
     final request = http.MultipartRequest('POST', url);
     request.fields['id_ptys'] = controller_verbal.id_last.toString();
@@ -1597,9 +1661,11 @@ class _Add_verbal_saleState extends State<Add_verbal_property> {
     }
 
     request.files.add(
-        await http.MultipartFile.fromPath('image', _compressedImage!.path),);
+      await http.MultipartFile.fromPath('image', _compressedImage!.path),
+    );
     request.files.add(
-        await http.MultipartFile.fromPath('images', _compressedImages!.path),);
+      await http.MultipartFile.fromPath('images', _compressedImages!.path),
+    );
 
     final response = await request.send();
 

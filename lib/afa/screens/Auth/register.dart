@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
     'Male',
     'Other',
   ];
-  XFile? _file, _after_cut_file;
+  XFile? _file;
   Uint8List? imagebytes;
   final ImagePicker imgpicker = ImagePicker();
   String imagepath = "";
@@ -65,22 +65,26 @@ class _RegisterState extends State<Register> {
       //you can use ImageCourse.camera for Camera capture
       if (pickedFile != null) {
         imagepath = pickedFile.path;
-        CroppedFile? cropFile = await ImageCropper()
-            .cropImage(sourcePath: pickedFile.path, aspectRatioPresets: [
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio16x9,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio5x3,
-          CropAspectRatioPreset.ratio5x4,
-          CropAspectRatioPreset.ratio7x5,
-          CropAspectRatioPreset.square,
-        ], uiSettings: [
-          AndroidUiSettings(
+        CroppedFile? cropFile = await ImageCropper().cropImage(
+          sourcePath: pickedFile.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio16x9,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio5x3,
+            CropAspectRatioPreset.ratio5x4,
+            CropAspectRatioPreset.ratio7x5,
+            CropAspectRatioPreset.square,
+          ],
+          uiSettings: [
+            AndroidUiSettings(
               lockAspectRatio: false,
               backgroundColor: Colors.black,
-              initAspectRatio: CropAspectRatioPreset.original,)
-        ],);
+              initAspectRatio: CropAspectRatioPreset.original,
+            )
+          ],
+        );
         _file = XFile(cropFile!.path);
         imagepath = pickedFile.path;
         // _file = imagefile;
@@ -89,10 +93,9 @@ class _RegisterState extends State<Register> {
         //output /data/user/0/com.example.testapp/cache/image_picker7973898508152261600.jpg
         File? imagefile = File(imagepath); //convert Path to File
         // saveAutoVerbal(imagefile);
-        get_bytes = await imagefile.readAsBytes(); //convert to bytes
-        final String base64string =
-            base64.encode(get_bytes!); //convert bytes to base64 string
-        final Uint8List decodedbytes = base64.decode(base64string);
+        get_bytes = await imagefile
+            .readAsBytes(); //convert to bytes //convert bytes to base64 string
+
         //decode base64 stirng to bytes
         setState(() async {
           _file = imagefile as XFile;
@@ -107,22 +110,26 @@ class _RegisterState extends State<Register> {
 
   Future cut_again(XFile pickedFile) async {
     imagepath = pickedFile.path;
-    CroppedFile? cropFile = await ImageCropper()
-        .cropImage(sourcePath: pickedFile.path, aspectRatioPresets: [
-      CropAspectRatioPreset.original,
-      CropAspectRatioPreset.ratio16x9,
-      CropAspectRatioPreset.ratio3x2,
-      CropAspectRatioPreset.ratio4x3,
-      CropAspectRatioPreset.ratio5x3,
-      CropAspectRatioPreset.ratio5x4,
-      CropAspectRatioPreset.ratio7x5,
-      CropAspectRatioPreset.square,
-    ], uiSettings: [
-      AndroidUiSettings(
+    CroppedFile? cropFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio16x9,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio5x3,
+        CropAspectRatioPreset.ratio5x4,
+        CropAspectRatioPreset.ratio7x5,
+        CropAspectRatioPreset.square,
+      ],
+      uiSettings: [
+        AndroidUiSettings(
           lockAspectRatio: false,
           backgroundColor: Colors.black,
-          initAspectRatio: CropAspectRatioPreset.original,)
-    ],);
+          initAspectRatio: CropAspectRatioPreset.original,
+        )
+      ],
+    );
 
     _file = XFile(cropFile!.path);
     imagepath = pickedFile.path;
@@ -133,9 +140,6 @@ class _RegisterState extends State<Register> {
     File? imagefile = File(imagepath); //convert Path to File
     // saveAutoVerbal(imagefile);
     get_bytes = await imagefile.readAsBytes(); //convert to bytes
-    final String base64string =
-        base64.encode(get_bytes!); //convert bytes to base64 string
-    final Uint8List decodedbytes = base64.decode(base64string);
     //decode base64 stirng to bytes
     setState(() {
       _file = imagefile as XFile;
@@ -150,8 +154,11 @@ class _RegisterState extends State<Register> {
   Uint8List? _byesData;
   void get_user_last_id() async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_last_user',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_last_user',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
 
@@ -165,21 +172,29 @@ class _RegisterState extends State<Register> {
 
   Future<void> uploadImage() async {
     final request = http.MultipartRequest(
-        'POST',
-        Uri.parse(
-            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',),);
+      'POST',
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',
+      ),
+    );
     request.fields['id_user'] = set_id_user ?? '';
     if (get_bytes != null) {
-      request.files.add(http.MultipartFile.fromBytes('image', get_bytes!,
-          filename:
-              'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',),);
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'image',
+          get_bytes!,
+          filename: 'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',
+        ),
+      );
     } else {
-      request.files.add(http.MultipartFile.fromBytes('image', _byesData!,
-          filename:
-              'User ID :$set_id_user Photo ${random.nextInt(999)}.jpg',),);
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'image',
+          _byesData!,
+          filename: 'User ID :$set_id_user Photo ${random.nextInt(999)}.jpg',
+        ),
+      );
     }
-
-    final res = await request.send();
   }
 
   bool _isObscure = true;
@@ -334,51 +349,54 @@ class _RegisterState extends State<Register> {
                   });
                 },
                 child: Center(
-                    child: (_file == null)
-                        ? Stack(
-                            alignment: AlignmentDirectional.bottomCenter,
-                            // ignore: prefer_const_literals_to_create_immutables
-                            children: [
-                              GFAvatar(
-                                size: 100,
-                                backgroundImage:
-                                    AssetImage('assets/images/user-avatar.png'),
+                  child: (_file == null)
+                      ? Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            GFAvatar(
+                              size: 100,
+                              backgroundImage:
+                                  AssetImage('assets/images/user-avatar.png'),
+                            ),
+                            Container(
+                              height: 20,
+                              width: 30,
+                              alignment: Alignment.bottomCenter,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(96, 102, 102, 102),
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                              Container(
-                                height: 20,
-                                width: 30,
-                                alignment: Alignment.bottomCenter,
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(96, 102, 102, 102),
-                                    borderRadius: BorderRadius.circular(5),),
-                                child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          )
-                        : Stack(
-                            alignment: AlignmentDirectional.bottomCenter,
-                            children: [
-                              GFAvatar(
-                                  size: 100,
-                                  backgroundImage:
-                                      FileImage(File(_file!.path)),),
-                              Container(
-                                height: 20,
-                                width: 30,
-                                alignment: Alignment.bottomCenter,
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(96, 102, 102, 102),
-                                    borderRadius: BorderRadius.circular(5),),
-                                child: Icon(
-                                  Icons.crop,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ),),
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        )
+                      : Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          children: [
+                            GFAvatar(
+                              size: 100,
+                              backgroundImage: FileImage(File(_file!.path)),
+                            ),
+                            Container(
+                              height: 20,
+                              width: 30,
+                              alignment: Alignment.bottomCenter,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(96, 102, 102, 102),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Icon(
+                                Icons.crop,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                ),
               ),
               SizedBox(
                 height: 30.0,
@@ -392,7 +410,9 @@ class _RegisterState extends State<Register> {
                       readOnly: true,
                       initialValue: 'Identity $set_id_user',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.grey,),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                      ),
                       decoration: InputDecoration(
                         fillColor: kwhite,
                         filled: true,
@@ -402,7 +422,9 @@ class _RegisterState extends State<Register> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: kPrimaryColor, width: 2.0,),
+                            color: kPrimaryColor,
+                            width: 2.0,
+                          ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -420,26 +442,27 @@ class _RegisterState extends State<Register> {
                 height: 10.0,
               ),
               FormTwin(
-                  Label1: 'First Name',
-                  Label2: 'Last Name',
-                  onSaved1: (input) {
-                    setState(() {
-                      requestModel.first_name = input!;
-                    });
-                  },
-                  onSaved2: (input) {
-                    setState(() {
-                      requestModel.last_name = input!;
-                    });
-                  },
-                  icon1: Icon(
-                    Icons.person,
-                    color: kImageColor,
-                  ),
-                  icon2: Icon(
-                    Icons.person,
-                    color: kImageColor,
-                  ),),
+                Label1: 'First Name',
+                Label2: 'Last Name',
+                onSaved1: (input) {
+                  setState(() {
+                    requestModel.first_name = input!;
+                  });
+                },
+                onSaved2: (input) {
+                  setState(() {
+                    requestModel.last_name = input!;
+                  });
+                },
+                icon1: Icon(
+                  Icons.person,
+                  color: kImageColor,
+                ),
+                icon2: Icon(
+                  Icons.person,
+                  color: kImageColor,
+                ),
+              ),
               SizedBox(
                 height: 10,
               ),
@@ -848,10 +871,12 @@ class _RegisterState extends State<Register> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      LoginPage(lat: 0, log: 0, thi: 0),),);
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  LoginPage(lat: 0, log: 0, thi: 0),
+                            ),
+                          );
                         },
                       style: TextStyle(
                         fontSize: 16.0,
