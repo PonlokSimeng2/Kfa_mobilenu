@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import '../../../afa/components/contants.dart';
 
 typedef OnChangeCallback = void Function(dynamic value);
 
@@ -21,12 +22,14 @@ class Map_verbal_add extends StatefulWidget {
     required this.get_commune,
     required this.get_log,
     required this.get_lat,
+    this.show_landmarket_price,
   });
   final OnChangeCallback get_province;
   final OnChangeCallback get_district;
   final OnChangeCallback get_commune;
   final OnChangeCallback get_log;
   final OnChangeCallback get_lat;
+  final bool? show_landmarket_price;
   @override
   State<Map_verbal_add> createState() => _SearchPlacesScreenState();
 }
@@ -55,7 +58,8 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-              'Location services are disabled. Please enable the services',),
+            'Location services are disabled. Please enable the services',
+          ),
         ),
       );
       return false;
@@ -65,14 +69,19 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')),);
+          const SnackBar(content: Text('Location permissions are denied')),
+        );
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
           content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.',),),);
+            'Location permissions are permanently denied, we cannot request permissions.',
+          ),
+        ),
+      );
       return false;
     }
     return true;
@@ -82,16 +91,19 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
   double? log1;
 
   Future<void> _getCurrentLocation() async {
-    final Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,);
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
 
     setState(() {
-      mapController!.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(position.latitude, position.longitude),
-          zoom: 16.0,
+      mapController!.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(position.latitude, position.longitude),
+            zoom: 16.0,
+          ),
         ),
-      ),);
+      );
       lat1 = position.latitude;
       log1 = position.longitude;
       latLng = LatLng(lat1!, log1!);
@@ -104,7 +116,7 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
   @override
   void initState() {
     _handleLocationPermission();
-    _getCurrentLocation();
+    // _getCurrentLocation();
     super.initState();
   }
 
@@ -113,7 +125,7 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
   CameraPosition? cameraPosition;
 
   Future<void> _addMarker(LatLng latLng) async {
-    final Marker newMarker = Marker(
+    Marker newMarker = Marker(
       draggable: true,
       markerId: MarkerId(latLng.toString()),
       position: latLng,
@@ -121,109 +133,6 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
         latLng = value;
         Find_by_piont(value.latitude, value.longitude);
       },
-      // onTap: () async {
-      // await Check_price_Area_residential();
-      // setState(() {
-      //   AwesomeDialog(
-      //     btnOkOnPress: () {},
-      //     context: context,
-      //     animType: AnimType.leftSlide,
-      //     headerAnimationLoop: false,
-      //     dialogType: DialogType.infoReverse,
-      //     showCloseIcon: false,
-      //     title: "Check price by KFA",
-      //     customHeader: Image.asset(
-      //       'assets/images/new_logo.png',
-      //       filterQuality: FilterQuality.high,
-      //       fit: BoxFit.contain,
-      //     ),
-      //     body: Column(
-      //       children: [
-      //         const Text(
-      //           "Price for commercial",
-      //           style: TextStyle(fontWeight: FontWeight.bold),
-      //         ),
-      //         Container(
-      //           decoration: BoxDecoration(
-      //             color: const Color.fromARGB(255, 220, 221, 223),
-      //             boxShadow: const [
-      //               BoxShadow(blurRadius: 1, color: Colors.grey)
-      //             ],
-      //             border: Border.all(
-      //               width: 0.2,
-      //             ),
-      //             borderRadius: BorderRadius.circular(5),
-      //           ),
-      //           child: Row(
-      //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //             children: [
-      //               Row(
-      //                 children: [
-      //                   const Text("Max = ",
-      //                       style: TextStyle(fontWeight: FontWeight.bold)),
-      //                   Text("${maxSqm1}0\$",
-      //                       style: const TextStyle(color: Colors.red))
-      //                 ],
-      //               ),
-      //               Row(
-      //                 children: [
-      //                   const Text("Min = ",
-      //                       style: TextStyle(fontWeight: FontWeight.bold)),
-      //                   Text("${minSqm1}0\$",
-      //                       style: const TextStyle(color: Colors.red))
-      //                 ],
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //         const Text(
-      //           "Price for residential",
-      //           style: TextStyle(fontWeight: FontWeight.bold),
-      //         ),
-      //         Container(
-      //           decoration: BoxDecoration(
-      //             color: const Color.fromARGB(255, 220, 221, 223),
-      //             border: Border.all(
-      //               width: 0.2,
-      //             ),
-      //             boxShadow: const [
-      //               BoxShadow(blurRadius: 1, color: Colors.grey)
-      //             ],
-      //             borderRadius: BorderRadius.circular(5),
-      //           ),
-      //           child: Row(
-      //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //             children: [
-      //               Row(
-      //                 children: [
-      //                   const Text("Max = ",
-      //                       style: TextStyle(fontWeight: FontWeight.bold)),
-      //                   Text("${maxSqm2}0\$",
-      //                       style: const TextStyle(color: Colors.red))
-      //                 ],
-      //               ),
-      //               Row(
-      //                 children: [
-      //                   const Text("Min = ",
-      //                       style: TextStyle(fontWeight: FontWeight.bold)),
-      //                   Text("${minSqm2}0\$",
-      //                       style: const TextStyle(color: Colors.red))
-      //                 ],
-      //               )
-      //             ],
-      //           ),
-      //         ),
-      //         Text(
-      //           ' $commune /  $district',
-      //           style: const TextStyle(
-      //               fontStyle: FontStyle.italic, fontSize: 10),
-      //           overflow: TextOverflow.ellipsis,
-      //         ),
-      //       ],
-      //     ),
-      //   ).show();
-      // });
-      // },
     );
 
     setState(() {
@@ -323,7 +232,7 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
   double? wth2;
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
+    var w = MediaQuery.of(context).size.width;
     if (w < 600) {
       wth = w * 0.8;
       wth2 = w * 0.5;
@@ -333,46 +242,50 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue[600],
+        backgroundColor: kwhite_new,
         centerTitle: true,
         title: const Text("Property Location"),
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.system_update_tv_rounded),),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.system_update_tv_rounded),
+        ),
       ),
       body: Stack(
         children: [
           SizedBox(
-              height: 800,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(target: latLng, zoom: 12),
+            height: 800,
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(target: latLng, zoom: 12),
 
-                // markers: Set.from(_marker),
-                zoomGesturesEnabled: true,
-                zoomControlsEnabled: false,
-                markers: _marker.map((e) => e).toSet(),
+              // markers: Set.from(_marker),
+              zoomGesturesEnabled: true,
+              zoomControlsEnabled: false,
+              markers: _marker.map((e) => e).toSet(),
 
-                onMapCreated: (GoogleMapController controller) {
-                  mapController = controller;
-                },
-                onCameraMove: (CameraPosition cameraPositiona) {
-                  cameraPosition = cameraPositiona; //when map is dragging
-                },
-                mapType: style_map[index],
-                onTap: (argument) {
-                  widget.get_lat(argument.latitude.toString());
-                  widget.get_log(argument.longitude.toString());
-                  _addMarker(argument);
-                },
-              ),),
+              onMapCreated: (GoogleMapController controller) {
+                mapController = controller;
+              },
+              onCameraMove: (CameraPosition cameraPositiona) {
+                cameraPosition = cameraPositiona; //when map is dragging
+              },
+              mapType: style_map[index],
+              onTap: (argument) {
+                widget.get_lat(argument.latitude.toString());
+                widget.get_log(argument.longitude.toString());
+                _addMarker(argument);
+              },
+            ),
+          ),
           Container(
             width: wth,
             margin: const EdgeInsets.only(right: 70, top: 10),
             padding: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(30),),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
             child: Form(
               key: check,
               child: Row(
@@ -420,103 +333,112 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
                     ),
                   ),
                   IconButton(
-                      // splashRadius: 30,
-                      hoverColor: Colors.black,
-                      onPressed: () {
-                        setState(() {
-                          name_place.clear();
-                          lg.clear();
-                          ln.clear();
+                    // splashRadius: 30,
+                    hoverColor: Colors.black,
+                    onPressed: () {
+                      setState(() {
+                        name_place.clear();
+                        lg.clear();
+                        ln.clear();
 
-                          h = 0;
-                          num = 0;
-                          Find_Lat_log(input);
-                        });
-                      },
-                      icon: const Icon(
-                        Icons.search,
-                        size: 30,
-                      ),),
+                        h = 0;
+                        num = 0;
+                        Find_Lat_log(input);
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.search,
+                      size: 30,
+                    ),
+                  ),
                   IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _getCurrentLocation();
-                        });
-                      },
-                      icon: const Icon(Icons.person_pin_circle_outlined),)
+                    onPressed: () {
+                      setState(() {
+                        _getCurrentLocation();
+                      });
+                    },
+                    icon: const Icon(Icons.person_pin_circle_outlined),
+                  )
                 ],
               ),
             ),
           ),
           if (name_place.isNotEmpty)
             Container(
-                height: h,
-                color: Colors.white,
-                margin: const EdgeInsets.only(left: 10, right: 55, top: 60),
-                child: ListView.builder(
-                    itemCount: name_place.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: InkWell(
-                          onTap: () {
-                            Tcon;
-                            print(name_place[index]);
-                            h = 0;
-                            Tcon;
-                            num =
-                                1; // use num for when user click on list search
-                            name_of_place != name_place[index].toString();
-                            poin_map_by_search(
-                                ln[index].toString(), lg[index].toString(),);
-                          },
-                          child: Text(
-                            name_place[index],
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      );
-                    },),),
+              height: h,
+              color: Colors.white,
+              margin: const EdgeInsets.only(left: 10, right: 55, top: 60),
+              child: ListView.builder(
+                itemCount: name_place.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: InkWell(
+                      onTap: () {
+                        Tcon;
+                        // print(name_place[index]);
+                        h = 0;
+                        Tcon;
+                        num = 1; // use num for when user click on list search
+                        name_of_place != name_place[index].toString();
+                        poin_map_by_search(
+                          ln[index].toString(),
+                          lg[index].toString(),
+                        );
+                      },
+                      child: Text(
+                        name_place[index],
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           Positioned(
-              right: 10,
-              top: 15,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 21,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.mp_sharp,
-                    color: Color.fromRGBO(0, 184, 212, 1),
-                    size: 25,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      if (index < 1) {
-                        index = index + 1;
-                      } else {
-                        index = 0;
-                      }
-                    });
-                  },
+            right: 10,
+            top: 15,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 21,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.mp_sharp,
+                  color: kwhite_new,
+                  size: 25,
                 ),
-              ),),
+                onPressed: () {
+                  setState(() {
+                    if (index < 1) {
+                      index = index + 1;
+                    } else {
+                      index = 0;
+                    }
+                  });
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
   Future<void> Find_by_piont(double la, double lo) async {
-    final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+    final response = await http.get(
+      Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+      ),
+    );
 
     if (response.statusCode == 200) {
       // Successful response
-      final jsonResponse = json.decode(response.body);
-      final location = jsonResponse['results'][0]['geometry']['location'];
-      final lati = location['lat'];
-      final longi = location['lng'];
+      var jsonResponse = json.decode(response.body);
+      var location = jsonResponse['results'][0]['geometry']['location'];
+      var lati = location['lat'];
+      var longi = location['lng'];
       widget.get_lat(lati.toString());
       widget.get_log(longi.toString());
-      final List ls = jsonResponse['results'];
+      List ls = jsonResponse['results'];
       List ac;
       bool checkSk = false, checkKn = false;
       for (int j = 0; j < ls.length; j++) {
@@ -532,8 +454,10 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
                     ['short_name']);
                 // Load_khan(district);
 
-                widget.get_district(jsonResponse['results'][j]
-                    ['address_components'][i]['short_name'],);
+                widget.get_district(
+                  jsonResponse['results'][j]['address_components'][i]
+                      ['short_name'],
+                );
               });
             }
             if (jsonResponse['results'][j]['address_components'][i]['types']
@@ -544,209 +468,219 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
                 commune = (jsonResponse['results'][j]['address_components'][i]
                     ['short_name']);
                 // Load_sangkat(commune);
-                widget.get_commune(jsonResponse['results'][j]
-                    ['address_components'][i]['short_name'],);
+                widget.get_commune(
+                  jsonResponse['results'][j]['address_components'][i]
+                      ['short_name'],
+                );
               });
             }
           }
         }
       }
-      final responseRc = await http.get(Uri.parse(
-          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/map/check_price?Khan_Name=${district.toString()}&Sangkat_Name=${commune.toString()}',),);
-      final jsonresponseRc = json.decode(responseRc.body);
+      final responseRc = await http.get(
+        Uri.parse(
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/map/check_price?Khan_Name=${district.toString()}&Sangkat_Name=${commune.toString()}',
+        ),
+      );
+      var jsonresponseRc = json.decode(responseRc.body);
       setState(() {
         maxSqm1 = jsonresponseRc['residential'][0]['Max_Value'].toString();
         minSqm1 = jsonresponseRc['residential'][0]['Min_Value'].toString();
         maxSqm2 = jsonresponseRc['commercial'][0]['Max_Value'].toString();
         minSqm2 = jsonresponseRc['commercial'][0]['Min_Value'].toString();
-        final dynamic rAvg = (double.parse(maxSqm1.toString()) +
+        dynamic rAvg = (double.parse(maxSqm1.toString()) +
                 double.parse(minSqm1.toString())) /
             2;
-        final dynamic cAvg = (double.parse(maxSqm2.toString()) +
+        dynamic cAvg = (double.parse(maxSqm2.toString()) +
                 double.parse(minSqm2.toString())) /
             2;
-        AwesomeDialog(
-          btnOkOnPress: () {},
-          context: context,
-          animType: AnimType.leftSlide,
-          headerAnimationLoop: false,
-          dialogType: DialogType.infoReverse,
-          showCloseIcon: false,
-          title: "Check price by KFA",
-          customHeader: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/images/New_KFA_Logo.png',
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.fitWidth,
+        if (widget.show_landmarket_price == null) {
+          AwesomeDialog(
+            btnOkOnPress: () {},
+            context: context,
+            animType: AnimType.leftSlide,
+            headerAnimationLoop: false,
+            dialogType: DialogType.infoReverse,
+            showCloseIcon: false,
+            title: "Check price by KFA",
+            customHeader: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                'assets/images/New_KFA_Logo.png',
+                filterQuality: FilterQuality.high,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Residential",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 220, 221, 223),
-                  boxShadow: const [
-                    BoxShadow(blurRadius: 1, color: Colors.grey)
-                  ],
-                  border: Border.all(
-                    width: 0.2,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Residential",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 220, 221, 223),
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 1, color: Colors.grey)
+                    ],
+                    border: Border.all(width: 0.2),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Avg = ",
-                            style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text("${formatter.format(rAvg)}\$",
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Avg = ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "${formatter.format(rAvg)}\$",
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 242, 11, 134),),)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            const Text("Min = ",
-                                style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("${formatter.format(double.parse(minSqm1))}\$",
+                              color: Color.fromARGB(255, 242, 11, 134),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                "Min = ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "${formatter.format(double.parse(minSqm1))}\$",
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 242, 11, 134),),)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("Max = ",
-                                style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("${formatter.format(double.parse(maxSqm1))}\$",
+                                  color: Color.fromARGB(255, 242, 11, 134),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Max = ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "${formatter.format(double.parse(maxSqm1))}\$",
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 242, 11, 134),),)
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const Text(
-                "Commercial",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 220, 221, 223),
-                  border: Border.all(
-                    width: 0.2,
+                                  color: Color.fromARGB(255, 242, 11, 134),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  boxShadow: const [
-                    BoxShadow(blurRadius: 1, color: Colors.grey)
-                  ],
-                  borderRadius: BorderRadius.circular(5),
                 ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Avg = ",
-                            style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text("${formatter.format(cAvg)}\$",
+                const Text(
+                  "Commercial",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 220, 221, 223),
+                    border: Border.all(
+                      width: 0.2,
+                    ),
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 1, color: Colors.grey)
+                    ],
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Avg = ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "${formatter.format(cAvg)}\$",
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 242, 11, 134),),)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            const Text("Min = ",
-                                style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("${formatter.format(double.parse(minSqm2))}\$",
+                              color: Color.fromARGB(255, 242, 11, 134),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                "Min = ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "${formatter.format(double.parse(minSqm2))}\$",
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 242, 11, 134),),)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("Max = ",
-                                style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("${formatter.format(double.parse(maxSqm2))}\$",
+                                  color: Color.fromARGB(255, 242, 11, 134),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Max = ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "${formatter.format(double.parse(maxSqm2))}\$",
                                 style: const TextStyle(
-                                    color: Color.fromARGB(255, 242, 11, 134),),)
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                                  color: Color.fromARGB(255, 242, 11, 134),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                ' $commune /  $district',
-                style:
-                    const TextStyle(fontStyle: FontStyle.italic, fontSize: 10),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ).show();
+                Text(
+                  ' $commune /  $district',
+                  style: const TextStyle(
+                      fontStyle: FontStyle.italic, fontSize: 10),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ).show();
+        }
       });
-      // await Check_price_Area_commercial();
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     action: SnackBarAction(
-      //         label: "View",
-      //         onPressed: () {
-      //           showDialog(
-      //             context: context,
-      //             builder: (BuildContext context) {
-      //               return AlertDialog(
-      //                 title: const Text('Delial Image'),
-      //                 content: Container(
-      //                   height: 200,
-      //                   decoration: BoxDecoration(
-      //                       image: DecorationImage(
-      //                           image: NetworkImage(
-      //                               'https://maps.googleapis.com/maps/api/staticmap?center=${lati},${longi}&zoom=20&size=500x500&maptype=hybrid&markers=color:red%7Clabel:K%7C${lati},${longi}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI'))),
-      //                 ),
-      //               );
-      //             },
-      //           );
-      //         }),
-      //     content: Text(' $commune /  $district'),
-      //   ),
-      // );
     } else {
       // Error or invalid response
-      print(response.statusCode);
+      // print(response.statusCode);
     }
   }
 
   List name_place = [];
   Future<void> Find_Lat_log(var place) async {
-    final checkCharetor = place.split(',');
+    var checkCharetor = place.split(',');
     if (checkCharetor.length == 1) {
-      final String url =
+      String url =
           'https://maps.googleapis.com/maps/api/geocode/json?address=${checkCharetor[0]}&region=kh&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI';
       final response = await http.get(Uri.parse(url));
       final jsonResponse = json.decode(response.body);
-      final location = jsonResponse['results'][0]['geometry']['location'];
-      final lati = location['lat'];
-      final longi = location['lng'];
+      var location = jsonResponse['results'][0]['geometry']['location'];
+      var lati = location['lat'];
+      var longi = location['lng'];
       // widget.lat(lati.toString());
       // widget.log(longi.toString());
       latLng = LatLng(lati, longi);
-      final Marker newMarker = Marker(
+      Marker newMarker = Marker(
         draggable: true,
         markerId: MarkerId(latLng.toString()),
         position: latLng,
@@ -765,9 +699,12 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
       // print('------------------- $latitude');
       // print('------------------- $longitude');
 
-      mapController?.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: latLng, zoom: 13),),);
-      final List ls = jsonResponse['results'];
+      mapController?.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: latLng, zoom: 13),
+        ),
+      );
+      List ls = jsonResponse['results'];
       List ac;
       for (int j = 0; j < ls.length; j++) {
         ac = jsonResponse['results'][j]['address_components'];
@@ -790,18 +727,21 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
         }
       }
     } else {
-      final response = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${checkCharetor[0]},${checkCharetor[1]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+      final response = await http.get(
+        Uri.parse(
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${checkCharetor[0]},${checkCharetor[1]}&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+        ),
+      );
 
       // Successful response
-      final jsonResponse = json.decode(response.body);
-      final location = jsonResponse['results'][0]['geometry']['location'];
-      final lati = location['lat'];
-      final longi = location['lng'];
+      var jsonResponse = json.decode(response.body);
+      var location = jsonResponse['results'][0]['geometry']['location'];
+      var lati = location['lat'];
+      var longi = location['lng'];
       // widget.lat(lati.toString());
       // widget.log(longi.toString());
       latLng = LatLng(lati, longi);
-      final Marker newMarker = Marker(
+      Marker newMarker = Marker(
         draggable: true,
         markerId: MarkerId(latLng.toString()),
         position: latLng,
@@ -820,9 +760,12 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
       // print('------------------- $latitude');
       // print('------------------- $longitude');
 
-      mapController?.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: latLng, zoom: 13),),);
-      final List ls = jsonResponse['results'];
+      mapController?.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: latLng, zoom: 13),
+        ),
+      );
+      List ls = jsonResponse['results'];
       List ac;
       for (int j = 0; j < ls.length; j++) {
         ac = jsonResponse['results'][j]['address_components'];
@@ -855,17 +798,17 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
   List ln = [];
   List lg = [];
   Future<void> get_name_search(var name) async {
-    final String url =
+    String url =
         'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$name&radius=1000&language=km&region=KH&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI&libraries=places';
     final response = await http.get(Uri.parse(url));
     final jsonResponse = json.decode(response.body);
-    final List ls = jsonResponse['results'];
+    List ls = jsonResponse['results'];
     List ac;
     for (int j = 0; j < ls.length; j++) {
       // ac = ls[j]['formatted_address'];
 
-      final name = ls[j]['name'].toString();
-      final dataLnlg = jsonResponse['results'][j]['geometry']['location'];
+      var name = ls[j]['name'].toString();
+      var dataLnlg = jsonResponse['results'][j]['geometry']['location'];
       if (h == 0 || h < 250) {
         h += 40;
       }
@@ -878,11 +821,14 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
   }
 
   Future<void> poin_map_by_search(var ln, var lg) async {
-    final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lg,$ln&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
-    final jsonResponse = json.decode(response.body);
+    final response = await http.get(
+      Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lg,$ln&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+      ),
+    );
+    var jsonResponse = json.decode(response.body);
     latLng = LatLng(double.parse(lg), double.parse(ln));
-    final Marker newMarker = Marker(
+    Marker newMarker = Marker(
       draggable: true,
       markerId: MarkerId(latLng.toString()),
       position: latLng,
@@ -896,9 +842,12 @@ class _SearchPlacesScreenState extends State<Map_verbal_add> {
       _marker.clear();
       _marker.add(newMarker);
     });
-    mapController?.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: latLng, zoom: 13),),);
-    final List ls = jsonResponse['results'];
+    mapController?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: latLng, zoom: 13),
+      ),
+    );
+    List ls = jsonResponse['results'];
     List ac;
     for (int j = 0; j < ls.length; j++) {
       ac = jsonResponse['results'][j]['address_components'];

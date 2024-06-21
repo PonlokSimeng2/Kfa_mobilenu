@@ -4,11 +4,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kfa_mobilenu/afa/screens/Auth/register.dart';
 import 'package:kfa_mobilenu/providers/cache_provider.dart';
 import 'package:kfa_mobilenu/screen/Home/Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'afa/screens/paginatdatatable.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,10 +42,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //home: const HomePage1(),
-      home: Detialbody_screen(
-        list: null,
-      ),
+      home: const HomePage1(),
+      //home: RegisterPage(),
+      //home: MyDataTablePage(),
+      // home: const save_image_after_add_verbal(
+      //   set_data_verbal: '219K591F219Aacxfdiqmu',
+      // ),
+      // home: detail_verbal(
+      //   set_data_verbal: '219K591F219Aacxfdiqmu',
+      // ),
+      // home:
       builder: BotToastInit(),
       //home: MyHomePageMeng()
       // home: HomePage1()

@@ -6,10 +6,10 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'dart:ui' as ui;
 import 'package:geolocator/geolocator.dart';
 import 'package:getwidget/components/animation/gf_animation.dart';
 import 'package:getwidget/types/gf_animation_type.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:kfa_mobilenu/Memory_local/database.dart';
 import 'package:kfa_mobilenu/afa/screens/AutoVerbal/printer/save_image_for_Autoverbal.dart';
-import 'package:kfa_mobilenu/afa/screens/paginatdatatable.dart';
+import 'package:kfa_mobilenu/providers/auth_provider.dart';
+import 'package:kfa_mobilenu/providers/v_point_provider.dart';
 import 'package:kfa_mobilenu/screen/components/LandBuilding.dart';
 import 'package:kfa_mobilenu/screen/payment/top_up.dart';
 import 'package:kfa_mobilenu/widgets/auth_wrapper_widget.dart';
@@ -27,6 +28,7 @@ import '../../../../contants.dart';
 import '../../../api/api_service.dart';
 import '../../../models/autoVerbal.dart';
 import '../../../models/model_bl_new.dart';
+import '../../../models/user_model.dart';
 import '../../../screen/Customs/form.dart';
 import '../../../screen/Customs/formTwinN.dart';
 import '../../../screen/Profile/components/Drop.dart';
@@ -34,211 +36,32 @@ import '../../../screen/components/code.dart';
 import '../../../screen/components/comment.dart';
 import '../../../screen/components/map_all/map_in_add_verbal.dart';
 import '../../../screen/components/property.dart';
-import '../../components/slideUp.dart';
 
-class Menu_Add_verbal extends StatelessWidget {
-  const Menu_Add_verbal({
-    super.key,
-    required this.id,
-  });
-  final String id;
+class AddAutoVerbalPage extends ConsumerWidget {
+  const AddAutoVerbalPage({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    const colorizeColors = [
-      Colors.white,
-      Colors.yellow,
-      Colors.lightGreen,
-      Color.fromRGBO(169, 255, 194, 1),
-    ];
-    const colorizeTextStyle = TextStyle(
-      fontSize: 25.0,
-      fontFamily: 'Horizon',
-      shadows: [Shadow(blurRadius: 2, color: Colors.deepPurpleAccent)],
-    );
-    return Scaffold(
-      backgroundColor: Colors.indigo[900],
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(blurRadius: 15, color: Colors.yellowAccent)
-                ],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(220),
-                  bottomRight: Radius.circular(220),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => Add(
-                      //       id: id, id_control_user: ,
-                      //     ),
-                      //   ),
-                      // );
-                    },
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(left: 50, bottom: 50),
-                      decoration: BoxDecoration(
-                        color: Colors.indigo[900],
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(90)),
-                        boxShadow: [
-                          BoxShadow(blurRadius: 5, color: Colors.yellowAccent)
-                        ],
-                      ),
-                      child: AnimatedTextKit(
-                        animatedTexts: [
-                          ColorizeAnimatedText(
-                            'Add Auto Verbal',
-                            textStyle: colorizeTextStyle,
-                            colors: colorizeColors,
-                            speed: const Duration(milliseconds: 70),
-                          ),
-                        ],
-                        isRepeatingAnimation: true,
-                        repeatForever: true,
-                        onTap: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => Add(id: id),
-                          //   ),
-                          // );
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: 40,
-              right: 50,
-              child: SizedBox(
-                height: 180,
-                width: 230,
-                child: Image.asset(
-                  'assets/images/New_KFA_Logo.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 1,
-              left: 1,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.chevron_left_outlined,
-                  size: 35,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AuthWrapperWidget(child: _AddAutoVerbalPage());
   }
 }
 
-class RPSCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 1;
-    paint0.shader = ui.Gradient.linear(
-      Offset(size.width * 0.50, 0),
-      Offset(size.width * 0.50, size.height * 1.00),
-      [Color(0xff5bf03d), Color(0xff11376e)],
-      [0.00, 1.00],
-    );
-
-    final Path path0 = Path();
-    path0.moveTo(0, 0);
-    path0.lineTo(size.width * 0.5000000, size.height * 0.9985714);
-    path0.lineTo(size.width, 0);
-    path0.quadraticBezierTo(
-      size.width,
-      size.height * 0.1564286,
-      size.width,
-      size.height * 0.2085714,
-    );
-    path0.cubicTo(
-      size.width * 0.8331250,
-      size.height * 0.5014286,
-      size.width * 0.5835417,
-      size.height * 0.4285714,
-      size.width * 0.4991667,
-      size.height * 0.7857143,
-    );
-    path0.cubicTo(
-      size.width * 0.4160417,
-      size.height * 0.4267857,
-      size.width * 0.1647917,
-      size.height * 0.4975000,
-      0,
-      size.height * 0.2128571,
-    );
-    path0.quadraticBezierTo(0, size.height * 0.1596429, 0, 0);
-    path0.close();
-
-    canvas.drawPath(path0, paint0);
-  }
+// ===========================          Add_Auto       =====================
+class _AddAutoVerbalPage extends ConsumerStatefulWidget {
+  const _AddAutoVerbalPage();
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
+  ConsumerState<_AddAutoVerbalPage> createState() => __AddAutoVerbalPageState();
 }
 
-var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-String RandomString(int strlen) {
-  Random rnd = new Random(new DateTime.now().millisecondsSinceEpoch);
-  String result = "";
-  for (var i = 0; i < strlen; i++) {
-    result += chars[rnd.nextInt(chars.length)];
-  }
-  return result;
-}
-
-// ===========================          Add_Auto_by new map       =====================
-class Add extends StatefulWidget {
-  const Add({super.key, required this.id, required this.id_control_user});
-  final String id;
-  final String id_control_user;
-  @override
-  State<Add> createState() => _AddState();
-}
-
-class _AddState extends State<Add> with TickerProviderStateMixin {
+class __AddAutoVerbalPageState extends ConsumerState<_AddAutoVerbalPage>
+    with SingleTickerProviderStateMixin {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   String fromValue = 'Bank';
   String genderValue = 'Female';
   int? opt;
+  var verbal_id;
   double asking_price = 1;
   Uint8List? get_image_byte;
   String address = '';
@@ -246,6 +69,14 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
   var code = 0;
   TextEditingController dateinput = TextEditingController();
   late AutoVerbalRequestModel requestModelAuto;
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.elasticOut,
+  );
   var from = [
     'Bank',
     'Private',
@@ -259,14 +90,14 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
   var district;
 
   late List<dynamic> list_Khan;
-
+  MyDb mydb_lb = new MyDb();
+  MyDb mydb_vb = new MyDb();
   int id_khan = 0;
   double? lat1;
   double? log2;
   var a;
   String? filePath;
-  MyDb mydb_lb = new MyDb();
-  MyDb mydb_vb = new MyDb();
+  String? control_user;
   var opt_type_id = '0';
   var list;
   List<L_B> lb = [L_B('null', 'null', 'null', 'null', '', 0, 0, 0, 0, 0)];
@@ -274,51 +105,6 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
     setState(() {
       lb.removeAt(Id);
     });
-  }
-
-  File? file;
-  Uint8List? get_bytes;
-  late AnimationController controller;
-  late Animation<double> animation;
-  late Animation<Offset> offsetAnimation;
-  var id_verbal;
-  var formatter = NumberFormat("##,###,###,###", "en_US");
-  int? number;
-  String? control_user;
-  Future get_control_user(String id) async {
-    var rs = await http.get(
-      Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/user/${id}',
-      ),
-    );
-    if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
-
-      setState(() {
-        control_user = jsonData[0]['control_user'].toString();
-        get_count();
-      });
-    }
-  }
-
-  Future<void> get_count() async {
-    await mydb_vb.open_verbal();
-    await mydb_lb.open_land_verbal();
-    setState(() {
-      control_user = widget.id_control_user;
-    });
-    var rs = await http.get(
-      Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/check_count?id_user_control=${control_user}',
-      ),
-    );
-    if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
-      setState(() {
-        number = jsonData['number_count'];
-        // list_user = jsonData['user'];
-      });
-    }
   }
 
   Future<void> payment_done(BuildContext context) async {
@@ -362,10 +148,9 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
         onDismissCallback: (type) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => MyDataTablePage(
-                  // verbal_id: widget.id,
-                  // id_control_user: widget.id_control_user,
-                  ),
+              builder: (context) {
+                return AddAutoVerbalPage();
+              },
             ),
           );
         },
@@ -373,41 +158,46 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
     }
   }
 
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticOut,
-  );
-  var verbal_id;
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  String RandomString(int strlen) {
+    Random rnd = new Random(new DateTime.now().millisecondsSinceEpoch);
+    String result = "";
+    for (var i = 0; i < strlen; i++) {
+      result += chars[rnd.nextInt(chars.length)];
+    }
+    return result;
   }
+
+  File? file;
+  Uint8List? get_bytes;
+
+  late AnimationController controller;
+  late Animation<double> animation;
+  late Animation<Offset> offsetAnimation;
+  var id_verbal;
+  var formatter = NumberFormat("##,###,###,###", "en_US");
+
+  late final UserModel user;
 
   @override
   void initState() {
-    verbal_id = widget.id_control_user.toString() + RandomString(9);
+    user = ref.read(authProvider)!.user;
+    verbal_id = user.controlUser;
     _getCurrentPosition();
-    get_count();
-    mydb_vb.open_verbal();
-    mydb_lb.open_land_verbal();
+    addVerbal(context);
     lat1;
     log2;
     controller =
         AnimationController(duration: Duration(milliseconds: 645), vsync: this);
     animation = new CurvedAnimation(parent: controller, curve: Curves.linear);
-    controller.reset();
+    controller.repeat();
     offsetAnimation = Tween<Offset>(
       begin: Offset(0, 0),
       end: const Offset(0, -0.3),
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Curves.easeInOutBack,
+        curve: Curves.easeIn,
       ),
     );
     lb;
@@ -415,119 +205,71 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
     super.initState();
 
     requestModelAuto = AutoVerbalRequestModel(
-      property_type_id: "0",
-      lat: "0",
-      lng: "0",
-      address: '0',
-      approve_id: "0",
-      agent: "0",
-      bank_branch_id: "0",
-      bank_contact: "0",
-      bank_id: "0",
-      bank_officer: "0",
-      code: "0",
-      comment: "0",
-      contact: "0",
-      date: "0",
-      image: "0",
-      option: "0",
-      owner: "0",
-      user: widget.id_control_user,
-      verbal_com: '0',
+      property_type_id: "",
+      lat: "",
+      lng: "",
+      address: '',
+      approve_id: "",
+      agent: "",
+      bank_branch_id: "",
+      bank_contact: "",
+      bank_id: "",
+      bank_officer: "",
+      code: "",
+      comment: "",
+      contact: "",
+      date: "",
+      image: "",
+      option: "",
+      owner: "",
+      user: "",
+      verbal_com: '',
       verbal_con: "30",
       verbal: [],
       verbal_id: '0',
-      verbal_khan: '0',
+      verbal_khan: '',
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (number != null) {
-      setState(() {
-        number;
-      });
-    }
-
-    return (number != null)
-        ? Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color.fromARGB(235, 7, 9, 145),
-              elevation: 0,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back_ios),
-              ),
-              actions: <Widget>[
-                InkWell(
-                  onTap: () async {
-                    await get_count();
-                    setState(() {
-                      requestModelAuto.user = widget.id;
-                      requestModelAuto.verbal_id = code.toString();
-                      requestModelAuto.verbal_khan = '${commune}.${district}';
-                    });
-                    List<Map<String, dynamic>> jsonList =
-                        lb.map((item) => item.toJson()).toList();
-                    if (number! >= 1) {
-                      Uint8List? imagebytes =
-                          await FlutterImageCompress.compressWithFile(
-                        _image!.absolute.path,
-                        minHeight: 1280,
-                        minWidth: 720,
-                        quality: 80,
-                      );
-                      String base64string = base64.encode(imagebytes!);
-                      requestModelAuto.image = base64string;
-                      requestModelAuto.verbal = jsonList;
-                      APIservice apIservice = APIservice();
-                      apIservice.saveAutoVerbal(requestModelAuto).then(
-                        (value) async {
-                          if (requestModelAuto.verbal.isEmpty) {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'Error',
-                              desc: "Please add Land/Building at least 1!",
-                              btnOkOnPress: () {},
-                              btnOkIcon: Icons.cancel,
-                              btnOkColor: Colors.red,
-                            ).show();
-                          } else {
-                            if (value.message == "Save Successfully") {
-                              if (_file != null) {
-                                uploadt_image(_file!);
-                              }
-                              uploadt_image_map();
-                              const snackBar = SnackBar(
-                                content: Text('processing payment...'),
-                                duration: Duration(seconds: 7),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                              payment_done(context);
-                            } else {
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                headerAnimationLoop: false,
-                                title: 'Error',
-                                desc: value.message,
-                                btnOkOnPress: () {},
-                                btnOkIcon: Icons.cancel,
-                                btnOkColor: Colors.red,
-                              ).show();
-                            }
-                          }
-                        },
-                      );
-                    } else {
-                      if (jsonList.length <= 1) {
+    return AuthWrapperWidget(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(235, 7, 9, 145),
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          actions: <Widget>[
+            InkWell(
+              onTap: () async {
+                final number = await ref.read(vPointProvider.future);
+                setState(() {
+                  requestModelAuto.user = user.id.toString();
+                  requestModelAuto.verbal_id = code.toString();
+                  requestModelAuto.verbal_khan = '${commune}.${district}';
+                });
+                List<Map<String, dynamic>> jsonList =
+                    lb.map((item) => item.toJson()).toList();
+                if (number! >= 1) {
+                  Uint8List? imagebytes =
+                      await FlutterImageCompress.compressWithFile(
+                    _image!.absolute.path,
+                    minHeight: 1280,
+                    minWidth: 720,
+                    quality: 80,
+                  );
+                  String base64string = base64.encode(imagebytes!);
+                  requestModelAuto.image = base64string;
+                  requestModelAuto.verbal = jsonList;
+                  APIservice apIservice = APIservice();
+                  apIservice.saveAutoVerbal(requestModelAuto).then(
+                    (value) async {
+                      if (requestModelAuto.verbal.isEmpty) {
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.error,
@@ -540,315 +282,327 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
                           btnOkColor: Colors.red,
                         ).show();
                       } else {
-                        int lb = 0, vb = 0;
-                        for (int i = 1; i < jsonList.length; i++) {
-                          lb = await mydb_lb.db.rawInsert(
-                              "INSERT INTO comverbal_land_models (verbal_landid, verbal_land_dp, verbal_land_type, verbal_land_des, verbal_land_area, verbal_land_minsqm, verbal_land_maxsqm, verbal_land_minvalue, verbal_land_maxvalue, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-                              [
-                                verbal_id.toString(),
-                                int.parse(jsonList[i]['verbal_land_dp']),
-                                (jsonList[i]['verbal_land_type'].toString() ??
-                                    "0"),
-                                (jsonList[i]['verbal_land_des'].toString() ??
-                                    "0"),
-                                double.parse(
-                                  jsonList[i]['verbal_land_area'].toString(),
-                                ),
-                                double.parse(
-                                  jsonList[i]['verbal_land_minsqm'].toString(),
-                                ),
-                                double.parse(
-                                  jsonList[i]['verbal_land_maxsqm'].toString(),
-                                ),
-                                double.parse(
-                                  jsonList[i]['verbal_land_minvalue']
-                                      .toString(),
-                                ),
-                                double.parse(
-                                  jsonList[i]['verbal_land_maxvalue']
-                                      .toString(),
-                                ),
-                                (jsonList[i]['address'].toString() ?? "0")
-                              ]);
-                        }
-                        if (_image != null) {
-                          Uint8List? imagebytes =
-                              await FlutterImageCompress.compressWithFile(
-                            _image!.absolute.path,
-                            minHeight: 1280,
-                            minWidth: 720,
-                            quality: 80,
+                        if (value.message == "Save Successfully") {
+                          if (_file != null) {
+                            uploadt_image(_file!);
+                          }
+                          uploadt_image_map();
+                          const snackBar = SnackBar(
+                            content: Text('processing payment...'),
+                            duration: Duration(seconds: 7),
                           );
-                          String base64string = base64.encode(imagebytes!);
-                          vb = await mydb_vb.db.rawInsert(
-                              "INSERT INTO verbal_models (verbal_id, verbal_khan, verbal_property_id, verbal_bank_id, verbal_bank_branch_id, verbal_bank_contact, verbal_owner, verbal_contact, verbal_date, verbal_bank_officer,verbal_address,verbal_approve_id,VerifyAgent,verbal_comment,latlong_log,latlong_la,verbal_image,verbal_com,verbal_con,verbal_property_code,verbal_user,verbal_option) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);",
-                              [
-                                verbal_id ?? "No",
-                                requestModelAuto.verbal_khan,
-                                requestModelAuto.property_type_id,
-                                requestModelAuto.bank_id,
-                                requestModelAuto.bank_branch_id,
-                                requestModelAuto.bank_contact,
-                                requestModelAuto.owner,
-                                requestModelAuto.contact,
-                                requestModelAuto.date,
-                                requestModelAuto.bank_officer,
-                                requestModelAuto.address,
-                                requestModelAuto.approve_id,
-                                requestModelAuto.agent,
-                                requestModelAuto.comment,
-                                requestModelAuto.lat,
-                                requestModelAuto.lng,
-                                base64string,
-                                requestModelAuto.verbal_com,
-                                requestModelAuto.verbal_con,
-                                "No",
-                                widget.id_control_user,
-                                requestModelAuto.option
-                              ]);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          payment_done(context);
                         } else {
-                          vb = await mydb_vb.db.rawInsert(
-                              "INSERT INTO verbal_models (verbal_id, verbal_khan, verbal_property_id, verbal_bank_id, verbal_bank_branch_id, verbal_bank_contact, verbal_owner, verbal_contact, verbal_date, verbal_bank_officer,verbal_address,verbal_approve_id,VerifyAgent,verbal_comment,latlong_log,latlong_la,verbal_image ,verbal_com,verbal_con,verbal_property_code,verbal_user,verbal_option) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);",
-                              [
-                                verbal_id,
-                                requestModelAuto.verbal_khan,
-                                requestModelAuto.property_type_id,
-                                requestModelAuto.bank_id,
-                                requestModelAuto.bank_branch_id,
-                                requestModelAuto.bank_contact,
-                                requestModelAuto.owner,
-                                requestModelAuto.contact,
-                                requestModelAuto.date,
-                                requestModelAuto.bank_officer,
-                                requestModelAuto.address,
-                                requestModelAuto.approve_id,
-                                requestModelAuto.agent,
-                                requestModelAuto.comment,
-                                requestModelAuto.lat,
-                                requestModelAuto.lng,
-                                "null",
-                                requestModelAuto.verbal_com,
-                                requestModelAuto.verbal_con,
-                                "No",
-                                widget.id_control_user,
-                                requestModelAuto.option
-                              ]);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            headerAnimationLoop: false,
+                            title: 'Error',
+                            desc: value.message,
+                            btnOkOnPress: () {},
+                            btnOkIcon: Icons.cancel,
+                            btnOkColor: Colors.red,
+                          ).show();
                         }
-                        setState(() {
-                          if (lb == 1 && vb == 1) {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.success,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'Success',
-                              desc:
-                                  "Please go to payment for processing this Data",
-                              autoHide: Duration(seconds: 3),
-                              onDismissCallback: (type) {
-                                // debugPrint('Dialog Dissmiss from callback $type');
-
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => ProtectDataCrossCheck(
-                                //       id_user: widget.id_control_user,
-                                //     ),
-                                //   ),
-                                // );
-                              },
-                            ).show();
-                          } else if (lb == 0 && vb == 1) {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'Error',
-                              desc: "Please add Land/Building at least 1!",
-                              btnOkOnPress: () {},
-                              btnOkIcon: Icons.cancel,
-                              btnOkColor: Colors.red,
-                            ).show();
-                          } else if (lb == 1 && vb == 0) {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'Error',
-                              desc: "Please check find that your input",
-                              btnOkOnPress: () {},
-                              btnOkIcon: Icons.cancel,
-                              btnOkColor: Colors.red,
-                            ).show();
-                          } else {}
-                        });
                       }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TopUpPage(
-                            set_phone: "",
-                            id_user: widget.id,
-                            set_id_user: widget.id_control_user,
-                          ),
-                        ),
-                      );
+                    },
+                  );
+                } else {
+                  if (jsonList.length <= 1) {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.error,
+                      animType: AnimType.rightSlide,
+                      headerAnimationLoop: false,
+                      title: 'Error',
+                      desc: "Please add Land/Building at least 1!",
+                      btnOkOnPress: () {},
+                      btnOkIcon: Icons.cancel,
+                      btnOkColor: Colors.red,
+                    ).show();
+                  } else {
+                    int lb = 0, vb = 0;
+                    for (int i = 1; i < jsonList.length; i++) {
+                      lb = await mydb_lb.db.rawInsert(
+                          "INSERT INTO comverbal_land_models (verbal_landid, verbal_land_dp, verbal_land_type, verbal_land_des, verbal_land_area, verbal_land_minsqm, verbal_land_maxsqm, verbal_land_minvalue, verbal_land_maxvalue, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                          [
+                            verbal_id.toString(),
+                            int.parse(jsonList[i]['verbal_land_dp']),
+                            (jsonList[i]['verbal_land_type'].toString() ?? "0"),
+                            (jsonList[i]['verbal_land_des'].toString() ?? "0"),
+                            double.parse(
+                              jsonList[i]['verbal_land_area'].toString(),
+                            ),
+                            double.parse(
+                              jsonList[i]['verbal_land_minsqm'].toString(),
+                            ),
+                            double.parse(
+                              jsonList[i]['verbal_land_maxsqm'].toString(),
+                            ),
+                            double.parse(
+                              jsonList[i]['verbal_land_minvalue'].toString(),
+                            ),
+                            double.parse(
+                              jsonList[i]['verbal_land_maxvalue'].toString(),
+                            ),
+                            (jsonList[i]['address'].toString() ?? "0")
+                          ]);
                     }
-                  },
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(left: 5, top: 15, bottom: 15, right: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.lightGreen[700],
-                      boxShadow: [
-                        BoxShadow(color: Colors.green, blurRadius: 5)
-                      ],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(80),
-                        bottomLeft: Radius.circular(80),
+                    if (_image != null) {
+                      Uint8List? imagebytes =
+                          await FlutterImageCompress.compressWithFile(
+                        _image!.absolute.path,
+                        minHeight: 1280,
+                        minWidth: 720,
+                        quality: 80,
+                      );
+                      String base64string = base64.encode(imagebytes!);
+                      vb = await mydb_vb.db.rawInsert(
+                          "INSERT INTO verbal_models (verbal_id, verbal_khan, verbal_property_id, verbal_bank_id, verbal_bank_branch_id, verbal_bank_contact, verbal_owner, verbal_contact, verbal_date, verbal_bank_officer,verbal_address,verbal_approve_id,VerifyAgent,verbal_comment,latlong_log,latlong_la,verbal_image,verbal_com,verbal_con,verbal_property_code,verbal_user,verbal_option) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);",
+                          [
+                            verbal_id ?? "No",
+                            requestModelAuto.verbal_khan,
+                            requestModelAuto.property_type_id,
+                            requestModelAuto.bank_id,
+                            requestModelAuto.bank_branch_id,
+                            requestModelAuto.bank_contact,
+                            requestModelAuto.owner,
+                            requestModelAuto.contact,
+                            requestModelAuto.date,
+                            requestModelAuto.bank_officer,
+                            requestModelAuto.address,
+                            requestModelAuto.approve_id,
+                            requestModelAuto.agent,
+                            requestModelAuto.comment,
+                            requestModelAuto.lat,
+                            requestModelAuto.lng,
+                            base64string,
+                            requestModelAuto.verbal_com,
+                            requestModelAuto.verbal_con,
+                            "No",
+                            user.controlUser,
+                            requestModelAuto.option
+                          ]);
+                    } else {
+                      vb = await mydb_vb.db.rawInsert(
+                          "INSERT INTO verbal_models (verbal_id, verbal_khan, verbal_property_id, verbal_bank_id, verbal_bank_branch_id, verbal_bank_contact, verbal_owner, verbal_contact, verbal_date, verbal_bank_officer,verbal_address,verbal_approve_id,VerifyAgent,verbal_comment,latlong_log,latlong_la,verbal_image ,verbal_com,verbal_con,verbal_property_code,verbal_user,verbal_option) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);",
+                          [
+                            verbal_id,
+                            requestModelAuto.verbal_khan,
+                            requestModelAuto.property_type_id,
+                            requestModelAuto.bank_id,
+                            requestModelAuto.bank_branch_id,
+                            requestModelAuto.bank_contact,
+                            requestModelAuto.owner,
+                            requestModelAuto.contact,
+                            requestModelAuto.date,
+                            requestModelAuto.bank_officer,
+                            requestModelAuto.address,
+                            requestModelAuto.approve_id,
+                            requestModelAuto.agent,
+                            requestModelAuto.comment,
+                            requestModelAuto.lat,
+                            requestModelAuto.lng,
+                            "null",
+                            requestModelAuto.verbal_com,
+                            requestModelAuto.verbal_con,
+                            "No",
+                            user.controlUser,
+                            requestModelAuto.option
+                          ]);
+                    }
+                    setState(() {
+                      if (lb == 1 && vb == 1) {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.success,
+                          animType: AnimType.rightSlide,
+                          headerAnimationLoop: false,
+                          title: 'Success',
+                          desc: "Please go to payment for processing this Data",
+                          autoHide: Duration(seconds: 3),
+                          onDismissCallback: (type) {
+                            // debugPrint('Dialog Dissmiss from callback $type');
+
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => ProtectDataCrossCheck(
+                            //       id_user: user.controlUser,
+                            //     ),
+                            //   ),
+                            // );
+                          },
+                        ).show();
+                      } else if (lb == 0 && vb == 1) {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          animType: AnimType.rightSlide,
+                          headerAnimationLoop: false,
+                          title: 'Error',
+                          desc: "Please add Land/Building at least 1!",
+                          btnOkOnPress: () {},
+                          btnOkIcon: Icons.cancel,
+                          btnOkColor: Colors.red,
+                        ).show();
+                      } else if (lb == 1 && vb == 0) {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          animType: AnimType.rightSlide,
+                          headerAnimationLoop: false,
+                          title: 'Error',
+                          desc: "Please check find that your input",
+                          btnOkOnPress: () {},
+                          btnOkIcon: Icons.cancel,
+                          btnOkColor: Colors.red,
+                        ).show();
+                      } else {}
+                    });
+                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TopUpPage(
+                        set_phone: "",
+                        id_user: user.id?.toString(),
+                        set_id_user: user.controlUser,
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Submit"),
-                        Icon(Icons.save_alt_outlined),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          width: 10,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            color: Colors.red[700],
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              bottomLeft: Radius.circular(5),
-                            ),
-                          ),
-                          alignment: Alignment.topRight,
-                        )
-                      ],
+                  );
+                }
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 5, top: 15, bottom: 15, right: 4),
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen[700],
+                  boxShadow: [BoxShadow(color: Colors.green, blurRadius: 5)],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(80),
+                    bottomLeft: Radius.circular(80),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
                     ),
+                    Text("Submit"),
+                    Icon(Icons.save_alt_outlined),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      width: 10,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: Colors.red[700],
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          bottomLeft: Radius.circular(5),
+                        ),
+                      ),
+                      alignment: Alignment.topRight,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+          title: DefaultTextStyle(
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  'Auto Verbal',
+                  textAlign: TextAlign.center,
+                  textStyle: TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 20,
                   ),
                 ),
               ],
-              title: DefaultTextStyle(
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                child: AnimatedTextKit(
-                  animatedTexts: [
-                    WavyAnimatedText(
-                      'Auto Verbal',
-                      textAlign: TextAlign.center,
-                      textStyle: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                  pause: const Duration(milliseconds: 900),
-                  isRepeatingAnimation: true,
-                  repeatForever: true,
-                  onTap: () {},
-                ),
-              ),
-              toolbarHeight: 80,
+              pause: const Duration(milliseconds: 900),
+              isRepeatingAnimation: true,
+              repeatForever: true,
+              onTap: () {},
             ),
-            backgroundColor: Color.fromARGB(235, 7, 9, 145),
-            body: RefreshIndicator(
-              onRefresh: () => get_count(),
-              child: Container(
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+          ),
+          toolbarHeight: 80,
+        ),
+        backgroundColor: Color.fromARGB(235, 7, 9, 145),
+        body: RefreshIndicator(
+          onRefresh: () => ref.refresh(vPointProvider.future),
+          child: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: addVerbal(context),
+            ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton.small(
+          backgroundColor: Colors.white,
+          onPressed: () {
+            setState(() {
+              _controller.dispose();
+            });
+          },
+          child: ref.watch(vPointProvider).maybeWhen(
+                orElse: () => SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
-                child: SingleChildScrollView(
-                  child: addVerbal(context),
-                ),
-              ),
-            ),
-            floatingActionButton: (number! > 0)
-                ? FloatingActionButton.small(
-                    onPressed: () {
-                      setState(() {
-                        number;
-                        _controller.dispose();
-                      });
-                    },
-                    backgroundColor: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '${number}',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.amber[800],
-                          ),
-                        ),
-                        RotationTransition(
-                          turns: _animation,
-                          child: Container(
-                            height: 15,
-                            width: 15,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/v.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : InkWell(
-                    child: Container(
-                      color: Colors.blue[900],
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        'Please, Top up now for cross check value',
+                data: (number) {
+                  return Row(
+                    children: [
+                      Text(
+                        // '',
+                        '${number}',
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.amber[800],
                         ),
                       ),
-                    ),
-                  ),
-          )
-        : Scaffold(
-            body: Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(235, 7, 9, 145),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/KFA_CRM.png"),
-                  opacity: 0.5,
-                ),
+                      Container(
+                        height: 15,
+                        width: 15,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/v.png"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          );
+        ),
+      ),
+    );
   }
 
   Widget addVerbal(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 10),
         Code(
           cd: verbal_id,
           code: (value) {
@@ -1176,7 +930,7 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
                 height: 200,
                 width: 400,
                 // child: Image.file(File(_file!.path)),
-                child: Image.file(_image!),
+                child: Image.memory(imagebytes!),
               ),
             // if (_file == null)
             TextButton(
@@ -1339,7 +1093,7 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
           ),
         ),
         SizedBox(
-          height: 30.0,
+          height: 3.0,
         ),
       ],
     );
@@ -1384,6 +1138,9 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
       ),
     );
 
+    setState(() {
+      requestModelAuto.image = code.toString();
+    });
     if (!mounted) return;
   }
 
@@ -1393,14 +1150,14 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
   ) async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
-    File file = File('$path/$fileName');
+    final File file = File('$path/$fileName');
     await file.writeAsBytes(imageBytes);
     return file;
   }
 
   Random random = new Random();
   Future<dynamic> uploadt_image_map() async {
-    var request = http.MultipartRequest(
+    final request = http.MultipartRequest(
       'POST',
       Uri.parse(
         'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image_map',
@@ -1414,7 +1171,7 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
         ),
       );
       final byte = response1.bodyBytes;
-      Uint8List get_image_byte1 = Uint8List.fromList(byte);
+      final Uint8List get_image_byte1 = Uint8List.fromList(byte);
       request.files.add(
         await http.MultipartFile.fromBytes(
           'image',
@@ -1429,7 +1186,7 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
         ),
       );
       final byte = response2.bodyBytes;
-      Uint8List get_image_byte2 = Uint8List.fromList(byte);
+      final Uint8List get_image_byte2 = Uint8List.fromList(byte);
       request.files.add(
         await http.MultipartFile.fromBytes(
           'image',
@@ -1439,11 +1196,11 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
       );
     }
 
-    var res = await request.send();
+    final res = await request.send();
   }
 
 //===================== Upload Image to MySql Server
-  File? _image;
+  late File _image;
   final picker = ImagePicker();
   late String base64string;
   XFile? _file;
@@ -1477,23 +1234,28 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
             CropAspectRatioPreset.square,
           ],
         );
-
+        _file = XFile(cropFile!.path);
+        // imagebytes = _file.path;
+        // imagepath = pickedFile.path;
+        File? imagefile = File(cropFile.path); //convert Path to File
+        imagebytes = await imagefile.readAsBytes(); //convert to bytes
+        final String base64string =
+            base64.encode(imagebytes!); //convert bytes to base64 string
+        final Uint8List decodedbytes = base64.decode(base64string);
+        //decode base64 stirng to bytes
         setState(() {
-          _file = XFile(cropFile!.path);
-          // imagebytes = _file.path;
-          // imagepath = pickedFile.path;
-          _image = File(cropFile.path); //
+          _file = imagefile as XFile;
         });
       } else {
-        // print("No image is selected.");
+        print("No image is selected.");
       }
     } catch (e) {
-      // print("error while picking file.");
+      print("error while picking file.");
     }
   }
 
   Future<dynamic> uploadt_image(XFile _image) async {
-    var request = await http.MultipartRequest(
+    final request = await http.MultipartRequest(
       "POST",
       Uri.parse(
         "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",
@@ -1513,21 +1275,21 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
         _image.path,
       ),
     );
-    var response = await request.send();
-    var responseData = await response.stream.toBytes();
-    var result = String.fromCharCodes(responseData);
+    final response = await request.send();
+    final responseData = await response.stream.toBytes();
+    final result = String.fromCharCodes(responseData);
   }
 
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    var rs = await http.get(
+    final rs = await http.get(
       Uri.parse(
         'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=${district}',
       ),
     );
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_Khan = jsonData;
         id_khan = int.parse(list_Khan[0]['Khan_ID'].toString());
@@ -1539,13 +1301,13 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    var rs = await http.get(
+    final rs = await http.get(
       Uri.parse(
         'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=${id}',
       ),
     );
     if (rs.statusCode == 200) {
-      var jsonData = jsonDecode(rs.body);
+      final jsonData = jsonDecode(rs.body);
       setState(() {
         list_sangkat = jsonData;
         id_Sangkat = int.parse(list_sangkat[0]['Sangkat_ID'].toString());
@@ -1577,7 +1339,7 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
                     requestModelAuto.verbal = value;
                   });
                 },
-                landId: verbal_id,
+                landId: code.toString(),
                 Avt: (value) {
                   a = value;
                   setState(() {});
@@ -1662,7 +1424,7 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
   }
 
   Future<void> _getCurrentPosition() async {
-    Position position = await Geolocator.getCurrentPosition(
+    final Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
 
@@ -1680,9 +1442,9 @@ class _AddState extends State<Add> with TickerProviderStateMixin {
 
     if (response.statusCode == 200) {
       // Successful response
-      var jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(response.body);
 
-      List ls = jsonResponse['results'];
+      final List ls = jsonResponse['results'];
       List ac;
       bool check_sk = false, check_kn = false;
       for (int j = 0; j < ls.length; j++) {

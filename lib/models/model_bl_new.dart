@@ -2,7 +2,7 @@
 
 class L_B {
   String verbal_land_type, verbal_land_des, verbal_land_dp, address;
-  int verbal_landid;
+  String verbal_landid;
   double verbal_land_area,
       verbal_land_minsqm,
       verbal_land_maxsqm,
@@ -10,16 +10,17 @@ class L_B {
       verbal_land_maxvalue;
 
   L_B(
-      this.verbal_land_type,
-      this.verbal_land_des,
-      this.verbal_land_dp,
-      this.address,
-      this.verbal_landid,
-      this.verbal_land_area,
-      this.verbal_land_minsqm,
-      this.verbal_land_maxsqm,
-      this.verbal_land_minvalue,
-      this.verbal_land_maxvalue,);
+    this.verbal_land_type,
+    this.verbal_land_des,
+    this.verbal_land_dp,
+    this.address,
+    this.verbal_landid,
+    this.verbal_land_area,
+    this.verbal_land_minsqm,
+    this.verbal_land_maxsqm,
+    this.verbal_land_minvalue,
+    this.verbal_land_maxvalue,
+  );
 
   factory L_B.fromJson(Map<String, dynamic> json) {
     return L_B(

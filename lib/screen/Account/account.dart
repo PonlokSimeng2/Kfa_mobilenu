@@ -190,6 +190,9 @@ class _AccountState extends ConsumerState<Account> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      // get_control_user_image;
+    });
   }
 
   @override
@@ -282,6 +285,7 @@ class _AccountState extends ConsumerState<Account> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Icon(
+                                        // ignore: unnecessary_null_comparison
                                         (url != null) ? Icons.edit : Icons.crop,
                                         color: Colors.white,
                                       ),
@@ -301,7 +305,16 @@ class _AccountState extends ConsumerState<Account> {
                                 children: [
                                   Text(
                                     // controller: controller,
-                                    'Name : ${user?.username}',
+                                    'Name : ',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    // controller: controller,
+                                    'Name : ',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -331,8 +344,8 @@ class _AccountState extends ConsumerState<Account> {
                         TwinBox(
                           labelText1: 'Firstname',
                           labelText2: 'Lastname',
-                          fname: user?.first_name ?? "",
-                          lname: user?.last_name ?? "",
+                          fname: '',
+                          lname: '',
                           get_fname: (value) {
                             setState(() {
                               requestModel!.first_name = value;
@@ -408,14 +421,14 @@ class _AccountState extends ConsumerState<Account> {
                           height: 2,
                         ),
                         SingleBox(
-                          phone: user?.tel ?? "",
+                          phone: '',
                         ),
                         SizedBox(
                           height: 2,
                         ),
                         Field_box(
                           name: 'email',
-                          email: user?.email ?? "",
+                          email: '',
                           get_email: (value) {
                             setState(() {
                               requestModel!.email = value;
@@ -481,7 +494,7 @@ class _AccountState extends ConsumerState<Account> {
                               final APIservice apIservice = APIservice();
                               await apIservice.update_user(
                                 requestModel!,
-                                user?.id ?? 0,
+                                user!.id ?? 0,
                               );
                               logOut();
                             },

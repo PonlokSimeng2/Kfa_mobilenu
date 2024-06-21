@@ -6,13 +6,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/services.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobilenu/afa/screens/Auth/register.dart';
 import 'package:kfa_mobilenu/helper/build_context_helper.dart';
 import 'package:kfa_mobilenu/providers/auth_provider.dart';
 import 'package:kfa_mobilenu/providers/cache_provider.dart';
-import '../../../Memory_local/show_data_saved_offline.dart';
+
 import '../../../screen/Customs/responsive.dart';
 import '../../../screen/Home/Home.dart';
 import '../../components/contants.dart';
@@ -66,53 +65,6 @@ class _LoginState extends ConsumerState<Login> {
       } else {
         setState(() {
           chec_internet = false;
-          final snackBar = SnackBar(
-            backgroundColor: const Color.fromARGB(255, 245, 245, 245),
-            padding: const EdgeInsets.all(0),
-            content: GFCard(
-              padding: const EdgeInsets.all(0),
-              boxFit: BoxFit.cover,
-              title: const GFListTile(
-                avatar: Icon(
-                  Icons.download_for_offline_outlined,
-                  color: Colors.blue,
-                  size: 50,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black,
-                      blurRadius: 5,
-                      offset: Offset(1, 0.5),
-                    )
-                  ],
-                ),
-                title: Text('You\'re offline'),
-                subTitle: Text('Watch saved data in your Library'),
-              ),
-              content: const Text("All data had save!"),
-              buttonBar: GFButtonBar(
-                children: <Widget>[
-                  GFButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const data_verbal_saved(),
-                        ),
-                      );
-                    },
-                    color: GFColors.SUCCESS,
-                    text: 'Go to watch',
-                  ),
-                  GFButton(
-                    onPressed: () {},
-                    color: GFColors.DANGER,
-                    text: '\tCancel\t',
-                  ),
-                ],
-              ),
-            ),
-          );
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         });
       }
     } on PlatformException catch (e) {
@@ -361,7 +313,15 @@ class _LoginState extends ConsumerState<Login> {
                           title: "Login Successfully!",
                           autoHide: const Duration(seconds: 3),
                           onDismissCallback: (type) {
-                            context.pushReplace((context) => HomePage1());
+                            setState(() {});
+                            context.push((context) => const HomePage1());
+                            // Navigator.push<void>(
+                            //   context,
+                            //   MaterialPageRoute<void>(
+                            //     builder: (BuildContext context) =>
+                            //         const HomePage1(),
+                            //   ),
+                            // );
                           },
                         ).show();
                       } else {

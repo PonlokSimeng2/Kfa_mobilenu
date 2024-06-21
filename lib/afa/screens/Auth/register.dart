@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, avoid_print
-
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:http/http.dart' as http;
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -12,15 +10,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../Memory_local/Local_data.dart';
-import '../../../api/api_service.dart';
-import '../../../models/register_model.dart';
-import '../../../screen/Customs/ProgressHUD.dart';
-import '../../../screen/Customs/formVLD.dart';
+import 'package:kfa_mobilenu/Memory_local/database.dart';
+import 'package:kfa_mobilenu/afa/components/contants.dart';
+import 'package:kfa_mobilenu/afa/components/formVLD.dart';
+import 'package:kfa_mobilenu/afa/screens/Auth/login_page.dart';
+import 'package:kfa_mobilenu/api/api_service.dart';
+import 'package:kfa_mobilenu/models/register_model.dart';
+import 'package:kfa_mobilenu/screen/Customs/ProgressHUD.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:pinput/pinput.dart';
 import '../../../screen/Customs/responsive.dart';
-import '../../components/contants.dart';
 import '../../customs/formTwin.dart';
-import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -40,8 +40,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  FirebaseAuth auth = FirebaseAuth.instance;
-
   String fromValue = 'Bank';
   String genderValue = 'Female';
   // List of items in our dropdown menu
@@ -55,63 +53,28 @@ class _RegisterState extends State<Register> {
     'Male',
     'Other',
   ];
-  XFile? _file;
+  MyDb mydb = MyDb();
   Uint8List? imagebytes;
   final ImagePicker imgpicker = ImagePicker();
   String imagepath = "";
-  dynamic openImage(ImageSource source) async {
-    try {
-      XFile? pickedFile = await ImagePicker().pickImage(source: source);
-      //you can use ImageCourse.camera for Camera capture
-      if (pickedFile != null) {
-        imagepath = pickedFile.path;
-        CroppedFile? cropFile = await ImageCropper().cropImage(
-          sourcePath: pickedFile.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.ratio16x9,
-            CropAspectRatioPreset.ratio3x2,
-            CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio5x3,
-            CropAspectRatioPreset.ratio5x4,
-            CropAspectRatioPreset.ratio7x5,
-            CropAspectRatioPreset.square,
-          ],
-          uiSettings: [
-            AndroidUiSettings(
-              lockAspectRatio: false,
-              backgroundColor: Colors.black,
-              initAspectRatio: CropAspectRatioPreset.original,
-            )
-          ],
-        );
-        _file = XFile(cropFile!.path);
-        imagepath = pickedFile.path;
-        // _file = imagefile;
-        // XFile? imagefile;
-
-        //output /data/user/0/com.example.testapp/cache/image_picker7973898508152261600.jpg
-        File? imagefile = File(imagepath); //convert Path to File
-        // saveAutoVerbal(imagefile);
-        get_bytes = await imagefile
-            .readAsBytes(); //convert to bytes //convert bytes to base64 string
-
-        //decode base64 stirng to bytes
-        setState(() async {
-          _file = imagefile as XFile;
-        });
-      } else {
-        print("No image is selected.");
-      }
-    } catch (e) {
-      print("error while picking file.");
+  File? imagefile;
+  Future<void> openImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? media = await picker.pickMedia();
+    //you can use ImageCourse.camera for Camera capture
+    if (media != null) {
+      imagepath = media.path;
+      imagefile = File(imagepath); //convert Path to File
+      get_bytes = await imagefile!.readAsBytes(); //convert to bytes
+    } else {
+      // print("No image is selected.");
     }
   }
 
-  Future cut_again(XFile pickedFile) async {
-    imagepath = pickedFile.path;
+  Future cut_again() async {
+    imagepath = imagefile!.path;
     CroppedFile? cropFile = await ImageCropper().cropImage(
-      sourcePath: pickedFile.path,
+      sourcePath: imagefile!.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.original,
         CropAspectRatioPreset.ratio16x9,
@@ -127,25 +90,21 @@ class _RegisterState extends State<Register> {
           lockAspectRatio: false,
           backgroundColor: Colors.black,
           initAspectRatio: CropAspectRatioPreset.original,
-        )
+        ),
       ],
     );
 
-    _file = XFile(cropFile!.path);
-    imagepath = pickedFile.path;
-    // _file = imagefile;
-    // XFile? imagefile;
-
-    //output /data/user/0/com.example.testapp/cache/image_picker7973898508152261600.jpg
-    File? imagefile = File(imagepath); //convert Path to File
-    // saveAutoVerbal(imagefile);
-    get_bytes = await imagefile.readAsBytes(); //convert to bytes
-    //decode base64 stirng to bytes
+    get_bytes = await imagefile!.readAsBytes(); //convert to bytes
     setState(() {
-      _file = imagefile as XFile;
+      get_bytes;
+      imagepath = imagefile!.path;
+      imagefile = File(imagepath); //convert Path to File
     });
   }
 
+  // FirebaseAuth auth = FirebaseAuth.instance;
+  // PhoneAuthCredential? credential;
+  String? smsCode;
   String? set_id_user;
   int? user_last_id;
   Random random = Random();
@@ -154,13 +113,14 @@ class _RegisterState extends State<Register> {
   Uint8List? _byesData;
   void get_user_last_id() async {
     setState(() {});
-    final rs = await http.get(
+    // await Firebase.initializeApp();
+    var rs = await http.get(
       Uri.parse(
         'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/get_last_user',
       ),
     );
     if (rs.statusCode == 200) {
-      final jsonData = jsonDecode(rs.body);
+      var jsonData = jsonDecode(rs.body);
 
       setState(() {
         user_last_id = jsonData;
@@ -170,15 +130,29 @@ class _RegisterState extends State<Register> {
     }
   }
 
+  Future _getStoragePermission() async {
+    if (await Permission.storage.request().isGranted) {
+      // setState(() {
+      //   permissionGranted = true;
+      // });
+    } else if (await Permission.storage.request().isPermanentlyDenied) {
+      await openAppSettings();
+    } else if (await Permission.storage.request().isDenied) {
+      // setState(() {
+      //   permissionGranted = false;
+      // });
+    }
+  }
+
   Future<void> uploadImage() async {
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',
-      ),
-    );
-    request.fields['id_user'] = set_id_user ?? '';
     if (get_bytes != null) {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+          'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_profile_user',
+        ),
+      );
+      request.fields['id_user'] = set_id_user ?? '';
       request.files.add(
         http.MultipartFile.fromBytes(
           'image',
@@ -186,14 +160,27 @@ class _RegisterState extends State<Register> {
           filename: 'User ID :$set_id_user photo ${random.nextInt(999)}.jpg',
         ),
       );
+      var res = await request.send();
+    }
+  }
+
+  var otp, field_otp;
+  Future<void> getOTP() async {
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/getotp/user?tel_num=${requestModel.tel_num}'));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(await response.stream.bytesToString());
+      setState(() {
+        otp = jsonResponse['otp'].toString();
+        print("\nkokokok $otp\n");
+      });
     } else {
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'image',
-          _byesData!,
-          filename: 'User ID :$set_id_user Photo ${random.nextInt(999)}.jpg',
-        ),
-      );
+      print(response.reasonPhrase);
     }
   }
 
@@ -208,11 +195,13 @@ class _RegisterState extends State<Register> {
     tel_num: '',
     password_confirmation: '',
     control_user: '',
+    OTP_Code: '',
   );
   bool isApiCallProcess = false;
   @override
   void initState() {
     get_user_last_id();
+    // mydb.open();
 
     super.initState();
   }
@@ -235,10 +224,20 @@ class _RegisterState extends State<Register> {
         centerTitle: true,
         title: Image.asset(
           'assets/images/KFA-Logo.png',
-          height: 120,
-          width: 150,
+          height: 160,
+          width: 160,
         ),
         toolbarHeight: 100,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.chevron_left_outlined,
+            color: Colors.white,
+            size: 40,
+          ),
+        ),
       ),
       backgroundColor: kwhite_new,
       body: Container(
@@ -264,7 +263,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             desktop: Row(
@@ -279,7 +278,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
             phone: register(context),
@@ -289,9 +288,6 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  bool check_phone = false;
-  PhoneAuthCredential? credential;
-  var smsCode;
   Padding register(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -305,51 +301,54 @@ class _RegisterState extends State<Register> {
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: kPrimaryColor,
+                  color: kwhite_new,
                 ),
               ),
               SizedBox(
                 height: 10.0,
               ),
-              Text.rich(
-                TextSpan(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    TextSpan(
-                      text: "ONE CLICK ",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: kImageColor,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "1\$",
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                        color: kerror,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Text.rich(
+              //   TextSpan(
+              //     // ignore: prefer_const_literals_to_create_immutables
+              //     children: [
+              //       TextSpan(
+              //         text: "ONE CLICK ",
+              //         style: TextStyle(
+              //           fontSize: 20.0,
+              //           fontWeight: FontWeight.bold,
+              //           color: kImageColor,
+              //         ),
+              //       ),
+              //       TextSpan(
+              //         text: "1\$",
+              //         style: TextStyle(
+              //           fontSize: 30.0,
+              //           fontWeight: FontWeight.bold,
+              //           color: kerror,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               InkWell(
                 onTap: () async {
-                  if (_file == null) {
+                  if (get_bytes == null) {
+                    await _getStoragePermission();
                     await openImage(ImageSource.gallery);
                   } else {
-                    await cut_again(_file!);
+                    await cut_again();
                     setState(() {
-                      _file;
+                      imagefile;
+                      get_bytes;
                     });
                   }
                   setState(() {
-                    _file;
+                    get_bytes;
+                    imagefile;
                   });
                 },
                 child: Center(
-                  child: (_file == null)
+                  child: (get_bytes == null)
                       ? Stack(
                           alignment: AlignmentDirectional.bottomCenter,
                           // ignore: prefer_const_literals_to_create_immutables
@@ -371,7 +370,7 @@ class _RegisterState extends State<Register> {
                                 Icons.camera_alt_outlined,
                                 color: Colors.white,
                               ),
-                            )
+                            ),
                           ],
                         )
                       : Stack(
@@ -379,7 +378,7 @@ class _RegisterState extends State<Register> {
                           children: [
                             GFAvatar(
                               size: 100,
-                              backgroundImage: FileImage(File(_file!.path)),
+                              backgroundImage: MemoryImage(get_bytes!),
                             ),
                             Container(
                               height: 20,
@@ -393,54 +392,44 @@ class _RegisterState extends State<Register> {
                                 Icons.crop,
                                 color: Colors.white,
                               ),
-                            )
+                            ),
                           ],
                         ),
                 ),
               ),
               SizedBox(
-                height: 30.0,
+                height: 20.0,
               ),
               if (user_last_id != null)
                 SizedBox(
-                  height: 55,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    child: TextFormField(
-                      readOnly: true,
-                      initialValue: 'Identity $set_id_user',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
-                      ),
-                      decoration: InputDecoration(
-                        fillColor: kwhite,
-                        filled: true,
-                        prefixIcon: Icon(
-                          Icons.info_outline_rounded,
-                          color: kImageColor,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: kPrimaryColor,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: kPrimaryColor,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
+                  height: 58,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'This\'s your personal id:',
+                        //initialValue: '${set_id_user}',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          color: kwhite_new,
                         ),
                       ),
-                    ),
+                      Text(
+                        '$set_id_user',
+                        //initialValue: '${set_id_user}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: kwhite_new,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              SizedBox(
-                height: 10.0,
-              ),
+              // SizedBox(
+              //   height: 10.0,
+              // ),
               FormTwin(
                 Label1: 'First Name',
                 Label2: 'Last Name',
@@ -467,7 +456,7 @@ class _RegisterState extends State<Register> {
                 height: 10,
               ),
               // FormValidate(
-              //     onSaved: (input) => requestModel.username = input!,
+              //   //  onSaved: (input) => requestModel.username = input!,
               //     label: 'Username',
               //     iconname: Icon(
               //       Icons.person,
@@ -476,7 +465,7 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 10,
               ),
-              // ignore: sized_box_for_whitespace
+              //ignore: sized_box_for_whitespace
               Container(
                 height: 60,
                 child: Padding(
@@ -486,7 +475,7 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         genderValue = newValue!;
                         requestModel.gender = genderValue.toString();
-                        print(newValue);
+                        // print(newValue);
                       });
                     },
                     items: gender
@@ -502,7 +491,6 @@ class _RegisterState extends State<Register> {
                       Icons.arrow_drop_down,
                       color: kImageColor,
                     ),
-
                     decoration: InputDecoration(
                       fillColor: kwhite,
                       filled: true,
@@ -531,31 +519,39 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 10,
               ),
-              FormValidate(
-                onSaved: (input) {
-                  setState(() {
-                    requestModel.email = input!;
-                  });
-                },
-                label: 'Email',
-                iconname: Icon(
-                  Icons.email,
-                  color: kImageColor,
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: FormValidate(
+                  onSaved: (input) {
+                    setState(() {
+                      requestModel.email = input!;
+                    });
+                  },
+                  label: 'Email',
+                  type: TextInputType.emailAddress,
+                  iconname: Icon(
+                    Icons.email,
+                    color: kImageColor,
+                  ),
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              FormValidate(
-                onSaved: (input) {
-                  setState(() {
-                    requestModel.tel_num = input!;
-                  });
-                },
-                label: 'Phone Number',
-                iconname: Icon(
-                  Icons.phone,
-                  color: kImageColor,
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: FormValidate(
+                  onSaved: (input) {
+                    setState(() {
+                      requestModel.tel_num = input!;
+                    });
+                  },
+                  label: 'Phone Number',
+                  type: TextInputType.phone,
+                  iconname: Icon(
+                    Icons.phone,
+                    color: kImageColor,
+                  ),
                 ),
               ),
               Padding(
@@ -567,6 +563,7 @@ class _RegisterState extends State<Register> {
                       requestModel.password = input;
                     });
                   },
+                  keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     fillColor: kwhite,
                     filled: true,
@@ -578,7 +575,7 @@ class _RegisterState extends State<Register> {
                     suffixIcon: IconButton(
                       icon: Icon(
                         color: kImageColor,
-                        _isObscure ? Icons.visibility : Icons.visibility_off,
+                        _isObscure ? Icons.visibility_off : Icons.visibility,
                       ),
                       onPressed: () {
                         setState(() {
@@ -624,12 +621,13 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
                 child: TextFormField(
-                  obscureText: _isObscure,
+                  obscureText: true,
                   onChanged: (input) {
                     setState(() {
                       requestModel.password_confirmation = input;
                     });
                   },
+                  keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     fillColor: kwhite,
                     filled: true,
@@ -638,17 +636,17 @@ class _RegisterState extends State<Register> {
                       Icons.key,
                       color: kImageColor,
                     ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        color: kImageColor,
-                        _isObscure ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isObscure = !_isObscure;
-                        });
-                      },
-                    ),
+                    // suffixIcon: IconButton(
+                    //   icon: Icon(
+                    //     color: kImageColor,
+                    //     _isObscure ? Icons.visibility : Icons.visibility_off,
+                    //   ),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       _isObscure = !_isObscure;
+                    //     });
+                    //   },
+                    // ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(color: kPrimaryColor, width: 2.0),
@@ -762,95 +760,124 @@ class _RegisterState extends State<Register> {
                 width: 150,
                 child: AnimatedButton(
                   text: 'Register',
-                  color: kPrimaryColor,
+                  color: kwhite_new,
                   pressEvent: () async {
                     if (validateAndSave()) {
-                      setState(() {
-                        isApiCallProcess = true;
-                        requestModel.control_user = set_id_user.toString();
-                      });
-                      if (get_bytes != null || _byesData != null) {
-                        await uploadImage();
-                      }
-                      // await FirebaseAuth.instance.verifyPhoneNumber(
-                      //   phoneNumber: '+855${requestModel.tel_num}',
-                      //   timeout: const Duration(seconds: 30),
-                      //   verificationCompleted:
-                      //       (PhoneAuthCredential credential) async {
-                      //     await auth.signInWithCredential(credential);
-                      //   },
-                      //   verificationFailed: (FirebaseAuthException e) {},
-                      //   codeSent:
-                      //       (String verificationId, int? resendToken) async {
-                      //     await Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => MyVerify(
-                      //                   code: (value) {
-                      //                     setState(() {
-                      //                       smsCode = value;
-                      //                     });
-                      //                   },
-                      //                 )));
-                      //     // Create a PhoneAuthCredential with the code
-                      //     credential = PhoneAuthProvider.credential(
-                      //         verificationId: verificationId, smsCode: smsCode);
-                      //     print("SMS KOKO " +
-                      //         credential!.smsCode.toString() +
-                      //         '\n' +
-                      //         smsCode);
-                      //     // Sign the user in (or link) with the credential
-                      //     final user =
-                      //         await auth.signInWithCredential(credential!);
-
-                      //   },
-                      //   codeAutoRetrievalTimeout: (String verificationId) {},
-                      // );
-                      final APIservice apIservice = APIservice();
-
-                      await apIservice.register(requestModel).then((value) {
-                        setState(() {
-                          isApiCallProcess = false;
-                        });
-                        if (value.message == "User successfully registered") {
-                          final people = PeopleModel(
-                            id: 0,
-                            name: requestModel.email,
-                            password: requestModel.password,
-                          );
-                          PeopleController().insertPeople(people);
-                          AwesomeDialog(
-                            context: context,
-                            animType: AnimType.leftSlide,
-                            headerAnimationLoop: false,
-                            dialogType: DialogType.success,
-                            showCloseIcon: false,
-                            title: value.message,
-                            autoHide: Duration(seconds: 3),
-                            onDismissCallback: (type) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Login(),
+                      if (otp == null || otp != field_otp) {
+                        await getOTP();
+                        // ignore: use_build_context_synchronously
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.scale,
+                          dialogType: DialogType.info,
+                          keyboardAware: true,
+                          body: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Enter OTP Code',
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
-                              );
-                            },
-                          ).show();
-                        } else {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            title: 'Error',
-                            desc: value.message,
-                            btnOkOnPress: () {},
-                            btnOkIcon: Icons.cancel,
-                            btnOkColor: Colors.red,
-                          ).show();
-                          print(value.message);
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Pinput(
+                                  length: 6,
+                                  showCursor: true,
+                                  senderPhoneNumber: requestModel.tel_num,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      field_otp = value;
+                                      requestModel.OTP_Code = value;
+                                      if (otp == field_otp) {
+                                        Navigator.pop(context);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                            "Correct OTP",
+                                          )),
+                                        );
+                                      }
+                                    });
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                AnimatedButton(
+                                  isFixedHeight: false,
+                                  text: 'Close',
+                                  pressEvent: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                        ).show();
+                      } else if (otp == field_otp) {
+                        setState(() {
+                          isApiCallProcess = true;
+                          requestModel.control_user = set_id_user.toString();
+                        });
+                        if (get_bytes != null || _byesData != null) {
+                          await uploadImage();
                         }
-                      });
+                        APIservice apIservice = APIservice();
+                        apIservice.register(requestModel).then((value) async {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+                          if (value.message == "User successfully registered") {
+                            await mydb.open_user();
+                            await mydb.db.rawInsert(
+                                "INSERT INTO user (id, first_name, last_name, username, gender, tel_num, known_from, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ?);",
+                                [
+                                  value.user['id'],
+                                  requestModel.first_name,
+                                  requestModel.last_name,
+                                  requestModel.control_user,
+                                  requestModel.gender ?? "",
+                                  requestModel.tel_num,
+                                  requestModel.known_from,
+                                  requestModel.email,
+                                  requestModel.password,
+                                ]);
+                            // ignore: use_build_context_synchronously
+                            AwesomeDialog(
+                              context: context,
+                              animType: AnimType.leftSlide,
+                              headerAnimationLoop: false,
+                              dialogType: DialogType.success,
+                              showCloseIcon: false,
+                              title: value.message,
+                              autoHide: Duration(seconds: 3),
+                              onDismissCallback: (type) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("New User Added")),
+                                );
+                                Get.to(() => Login());
+                              },
+                            ).show();
+                          } else if (value.message ==
+                              "User unsuccessfully registered") {
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              headerAnimationLoop: false,
+                              title: 'Error',
+                              desc: "This Email is already registered",
+                              btnOkOnPress: () {},
+                              btnOkIcon: Icons.cancel,
+                              btnOkColor: Colors.red,
+                            ).show();
+                            // print(value.message);
+                          }
+                        });
+                      }
                     }
                   },
                 ),
@@ -873,8 +900,7 @@ class _RegisterState extends State<Register> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  LoginPage(lat: 0, log: 0, thi: 0),
+                              builder: (context) => Login(),
                             ),
                           );
                         },

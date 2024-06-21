@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
@@ -11,6 +12,7 @@ class UserModel {
   final String gender;
   final String from;
   final String tel;
+  final String controlUser;
 
   const UserModel({
     required this.id,
@@ -21,7 +23,10 @@ class UserModel {
     required this.gender,
     required this.from,
     required this.tel,
+    required this.controlUser,
   });
+
+  get known_from => null;
 
   UserModel copyWith({
     int? id,
@@ -32,6 +37,7 @@ class UserModel {
     String? gender,
     String? from,
     String? tel,
+    String? controlUser,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -42,6 +48,7 @@ class UserModel {
       gender: gender ?? this.gender,
       from: from ?? this.from,
       tel: tel ?? this.tel,
+      controlUser: controlUser ?? this.controlUser,
     );
   }
 
@@ -55,6 +62,7 @@ class UserModel {
       'gender': gender,
       'known_from': from,
       'tel_num': tel,
+      'control_user': controlUser,
     };
   }
 
@@ -68,6 +76,7 @@ class UserModel {
       gender: map['gender'] as String,
       from: map['known_from'] as String,
       tel: map['tel_num'] as String,
+      controlUser: map['control_user'] as String,
     );
   }
 
@@ -78,7 +87,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, first_name: $first_name, last_name: $last_name, email: $email, gender: $gender, from: $from, tel: $tel)';
+    return 'UserModel(id: $id, username: $username, first_name: $first_name, last_name: $last_name, email: $email, gender: $gender, from: $from, tel: $tel, controlUser: $controlUser)';
   }
 
   @override
@@ -92,7 +101,8 @@ class UserModel {
         other.email == email &&
         other.gender == gender &&
         other.from == from &&
-        other.tel == tel;
+        other.tel == tel &&
+        other.controlUser == controlUser;
   }
 
   @override
@@ -104,6 +114,7 @@ class UserModel {
         email.hashCode ^
         gender.hashCode ^
         from.hashCode ^
-        tel.hashCode;
+        tel.hashCode ^
+        controlUser.hashCode;
   }
 }

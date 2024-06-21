@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_print
-
-import '../components/contants.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
+import '../../afa/components/contants.dart';
 
 typedef OnChangeCallback = void Function(dynamic value);
 
@@ -27,12 +27,12 @@ class _CodeState extends State<Code> {
   late int codedisplay;
   @override
   void initState() {
-    if (widget.check_property == 1) {
-      Load1();
-    }
-    if (widget.check_property == 2) {
-      Load2();
-    }
+    // if (widget.check_property == 1) {
+    //   Load1();
+    // }
+    // if (widget.check_property == 2) {
+    //   Load2();
+    // }
     code = [];
     codedisplay = 0;
     super.initState();
@@ -42,10 +42,13 @@ class _CodeState extends State<Code> {
     setState(() {
       loading = true; //make loading true to show progressindicator
     });
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal?verbal_published=0',),);
+    var rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbal?verbal_published=0',
+      ),
+    );
     if (rs.statusCode == 200) {
-      final jsonData = jsonDecode(rs.body);
+      var jsonData = jsonDecode(rs.body);
 
       setState(() {
         loading = false;
@@ -60,10 +63,13 @@ class _CodeState extends State<Code> {
     setState(() {
       loading = true; //make loading true to show progressindicator
     });
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbals?verbal_published=0',),);
+    var rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/verbals?verbal_published=0',
+      ),
+    );
     if (rs.statusCode == 200) {
-      final jsonData = jsonDecode(rs.body);
+      var jsonData = jsonDecode(rs.body);
       setState(() {
         loading = false;
         code = jsonData;
@@ -75,6 +81,9 @@ class _CodeState extends State<Code> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      codedisplay;
+    });
     return Container(
       alignment: Alignment.topLeft,
       child: loading
@@ -94,16 +103,18 @@ class _CodeState extends State<Code> {
                     ? Text(
                         codedisplay.toString(),
                         style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryColor,),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: kPrimaryColor,
+                        ),
                       )
                     : Text(
                         widget.cd.toString(),
                         style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryColor,),
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: kPrimaryColor,
+                        ),
                       )),
               ],
             ),

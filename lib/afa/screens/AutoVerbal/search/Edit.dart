@@ -26,36 +26,37 @@ import '../../../components/contants.dart';
 import '../../../customs/uplandBuilding.dart';
 
 class Edit extends StatefulWidget {
-  const Edit(
-      {super.key,
-      required this.image,
-      required this.user,
-      required this.property_type_id,
-      required this.verbal_id,
-      required this.bank_id,
-      required this.bank_branch_id,
-      required this.bank_contact,
-      required this.owner,
-      required this.contact,
-      required this.bank_officer,
-      required this.address,
-      required this.approve_id,
-      required this.agent,
-      required this.comment,
-      required this.lat,
-      required this.lng,
-      required this.verbal_con,
-      required this.verbal_com,
-      required this.option,
-      required this.verbal,
-      required this.n_pro,
-      required this.n_bank,
-      required this.n_appro,
-      required this.n_agent,
-      this.image_map,
-      this.image_photo,
-      this.cell_land,
-      this.land_list,});
+  const Edit({
+    super.key,
+    required this.image,
+    required this.user,
+    required this.property_type_id,
+    required this.verbal_id,
+    required this.bank_id,
+    required this.bank_branch_id,
+    required this.bank_contact,
+    required this.owner,
+    required this.contact,
+    required this.bank_officer,
+    required this.address,
+    required this.approve_id,
+    required this.agent,
+    required this.comment,
+    required this.lat,
+    required this.lng,
+    required this.verbal_con,
+    required this.verbal_com,
+    required this.option,
+    required this.verbal,
+    required this.n_pro,
+    required this.n_bank,
+    required this.n_appro,
+    required this.n_agent,
+    this.image_map,
+    this.image_photo,
+    this.cell_land,
+    this.land_list,
+  });
   final int verbal_id;
   final String property_type_id;
   final String bank_id;
@@ -115,7 +116,7 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   bool isApiCallProcess = false;
   var opt_type_id = '0';
   List list = [];
-  List<L_B> lb = [L_B('', '', '', '', 0, 0, 0, 0, 0, 0)];
+  List<L_B> lb = [L_B('null', 'null', 'null', 'null', '', 0, 0, 0, 0, 0)];
   late List<dynamic> list_Khan;
   var id_khan;
   var district;
@@ -123,8 +124,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   //get khan
   void Load_khan(String district) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=$district',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/khan?Khan_Name=$district',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -138,8 +142,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   List<dynamic> list_sangkat = [];
   void Load_sangkat(String id) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=$id',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/sangkat?Sangkat_Name=$id',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
       setState(() {
@@ -150,8 +157,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   }
 
   Future<void> Find_by_piont(double la, double lo) async {
-    final response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',),);
+    final response = await http.get(
+      Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$la,$lo&key=AIzaSyAJt0Zghbk3qm_ZClIQOYeUT0AaV5TeOsI',
+      ),
+    );
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
@@ -207,16 +217,20 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   void initState() {
     Find_by_piont(double.parse(widget.lng), double.parse(widget.lat));
     controller = AnimationController(
-        duration: const Duration(milliseconds: 645), vsync: this,);
+      duration: const Duration(milliseconds: 645),
+      vsync: this,
+    );
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     controller.repeat();
     offsetAnimation = Tween<Offset>(
       begin: Offset(0, 0),
       end: const Offset(0, -0.3),
-    ).animate(CurvedAnimation(
-      parent: controller,
-      curve: Curves.easeIn,
-    ),);
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeIn,
+      ),
+    );
     image_photo = widget.image_photo;
     image_map = widget.image_map;
     lb = widget.cell_land!;
@@ -283,17 +297,18 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                     } else {
                       if (value.message == "Save Successfully") {
                         AwesomeDialog(
-                            context: context,
-                            animType: AnimType.leftSlide,
-                            headerAnimationLoop: false,
-                            dialogType: DialogType.success,
-                            showCloseIcon: false,
-                            title: value.message,
-                            autoHide: Duration(seconds: 3),
-                            onDismissCallback: (type) {
-                              Get.back();
-                              Get.back();
-                            },).show();
+                          context: context,
+                          animType: AnimType.leftSlide,
+                          headerAnimationLoop: false,
+                          dialogType: DialogType.success,
+                          showCloseIcon: false,
+                          title: value.message,
+                          autoHide: Duration(seconds: 3),
+                          onDismissCallback: (type) {
+                            Get.back();
+                            Get.back();
+                          },
+                        ).show();
                       } else {
                         AwesomeDialog(
                           context: context,
@@ -346,7 +361,6 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
         ],
         title: Text.rich(
           TextSpan(
-            // ignore: prefer_const_literals_to_create_immutables
             children: [
               TextSpan(
                 text: "ADD ONE CLICK ",
@@ -422,7 +436,6 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
 
   Widget addVerbal(BuildContext context) {
     return Column(
-      // ignore: prefer_const_literals_to_create_immutables, duplicate_ignore
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -572,7 +585,8 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                       child: Image.network(
                         image_map!,
                         fit: BoxFit.fill,
-                      ),)
+                      ),
+                    )
                   : SizedBox(),
               TextButton(
                 onPressed: () {
@@ -597,21 +611,23 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                         ),
                       ),
                       child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            // ignore: prefer_const_literals_to_create_immutables
-                            children: [
-                              SizedBox(width: 10),
-                              Icon(
-                                Icons.map_sharp,
-                                color: kImageColor,
-                              ),
-                              SizedBox(width: 10),
-                              Text((map == true)
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.map_sharp,
+                              color: kImageColor,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              (map == true)
                                   ? 'Location Changed'
-                                  : 'Change Location',),
-                            ],
-                          ),),
+                                  : 'Change Location',
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -656,20 +672,23 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
                             ),
                             // padding: EdgeInsets.only(left: 30, right: 30),
                             child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Row(
-                                  children: [
-                                    SizedBox(width: 10),
-                                    Icon(
-                                      Icons.map_sharp,
-                                      color: kImageColor,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text((imagepath == "")
+                              alignment: Alignment.centerLeft,
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 10),
+                                  Icon(
+                                    Icons.map_sharp,
+                                    color: kImageColor,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    (imagepath == "")
                                         ? 'Choose Photo'
-                                        : 'choosed Photo',),
-                                  ],
-                                ),),
+                                        : 'choosed Photo',
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -776,28 +795,31 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
 
   Future<void> SlideUp(BuildContext context) async {
     //=============================================================
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (context) => Map_verbal_edit(
-              get_commune: (value) {
-                setState(() {
-                  commune = value;
-                  Load_sangkat(value);
-                });
-              },
-              get_district: (value) {
-                setState(() {
-                  district = value;
-                  Load_khan(district);
-                });
-              },
-              get_lat: (value) {
-                requestModelAuto.lat = value;
-              },
-              get_log: (value) {
-                requestModelAuto.lng = value;
-              },
-              get_province: (value) {},
-            ),),);
+          get_commune: (value) {
+            setState(() {
+              commune = value;
+              Load_sangkat(value);
+            });
+          },
+          get_district: (value) {
+            setState(() {
+              district = value;
+              Load_khan(district);
+            });
+          },
+          get_lat: (value) {
+            requestModelAuto.lat = value;
+          },
+          get_log: (value) {
+            requestModelAuto.lng = value;
+          },
+          get_province: (value) {},
+        ),
+      ),
+    );
     // final result = await Navigator.of(context).push(MaterialPageRoute(
     //     builder: (context) => HomePage(
     //           c_id: code.toString(),
@@ -882,7 +904,6 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
     // requestModelAuto.lng = result[0]['lng'];
   }
 
-  late File _image;
   final picker = ImagePicker();
   late String base64string;
   // File? _file;
@@ -917,22 +938,26 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
       //you can use ImageCourse.camera for Camera capture
       if (pickedFile != null) {
         imagepath = pickedFile.path;
-        CroppedFile? cropFile = await ImageCropper()
-            .cropImage(sourcePath: pickedFile.path, aspectRatioPresets: [
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio16x9,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio5x3,
-          CropAspectRatioPreset.ratio5x4,
-          CropAspectRatioPreset.ratio7x5,
-          CropAspectRatioPreset.square,
-        ], uiSettings: [
-          AndroidUiSettings(
+        CroppedFile? cropFile = await ImageCropper().cropImage(
+          sourcePath: pickedFile.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio16x9,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio5x3,
+            CropAspectRatioPreset.ratio5x4,
+            CropAspectRatioPreset.ratio7x5,
+            CropAspectRatioPreset.square,
+          ],
+          uiSettings: [
+            AndroidUiSettings(
               lockAspectRatio: false,
               backgroundColor: Colors.blue,
-              initAspectRatio: CropAspectRatioPreset.original,)
-        ],);
+              initAspectRatio: CropAspectRatioPreset.original,
+            )
+          ],
+        );
         _file = XFile(cropFile!.path);
         // imagebytes = _file.path;
         // imagepath = pickedFile.path;
@@ -955,9 +980,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
 
   Future<dynamic> uploadt_image(XFile image) async {
     final request = http.MultipartRequest(
-        "POST",
-        Uri.parse(
-            "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",),);
+      "POST",
+      Uri.parse(
+        "https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/set_image",
+      ),
+    );
     Map<String, String> headers = {
       "content-type": "application/json",
       "Connection": "keep-alive",
@@ -1028,8 +1055,11 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
   late List<dynamic> _list2;
   void Load2(id) async {
     setState(() {});
-    final rs = await http.get(Uri.parse(
-        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options?opt_id=$id',),);
+    final rs = await http.get(
+      Uri.parse(
+        'https://www.oneclickonedollar.com/laravel_kfa_2023/public/api/options?opt_id=$id',
+      ),
+    );
     if (rs.statusCode == 200) {
       final jsonData = jsonDecode(rs.body);
 
@@ -1047,11 +1077,17 @@ class _EditState extends State<Edit> with SingleTickerProviderStateMixin {
 
   TextStyle Name() {
     return TextStyle(
-        color: kImageColor, fontSize: 14, fontWeight: FontWeight.bold,);
+      color: kImageColor,
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
   }
 
   TextStyle NameProperty() {
     return TextStyle(
-        color: kImageColor, fontSize: 11, fontWeight: FontWeight.bold,);
+      color: kImageColor,
+      fontSize: 11,
+      fontWeight: FontWeight.bold,
+    );
   }
 }

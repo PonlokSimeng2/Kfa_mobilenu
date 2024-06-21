@@ -5,13 +5,13 @@ class Responsive extends StatelessWidget {
   final Widget mobile;
   final Widget tablet;
   final Widget desktop;
-  const Responsive(
-      {Key? key,
-      required this.phone,
-      required this.mobile,
-      required this.tablet,
-      required this.desktop,})
-      : super(key: key);
+  const Responsive({
+    Key? key,
+    required this.phone,
+    required this.mobile,
+    required this.tablet,
+    required this.desktop,
+  }) : super(key: key);
 
 //This size work fine with the design
   static bool isMobiles(BuildContext context) =>
