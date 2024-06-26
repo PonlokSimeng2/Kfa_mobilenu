@@ -126,15 +126,6 @@ class _HomePageState extends ConsumerState<HomePage1> {
             id = slist[i]['id'];
             control_user = slist[i]['username'];
             password = slist[i]['password'];
-
-            // OneSignal.login("$control_user");
-            // OneSignal.User.addAlias(
-            //   "$user",
-            //   "$control_user",
-            // );
-            // OneSignal.User.addTagWithKey(
-            //     "fb_id$id", slist[i]['username'].toString(),);
-            // OneSignal.User.addTags({'fb_id$id': '${slist[i]['username']}'});
           }
         });
         setState(() {
@@ -152,21 +143,6 @@ class _HomePageState extends ConsumerState<HomePage1> {
     id = ref.read(authProvider)?.user.id.toString() ?? "";
     control_user = ref.read(authProvider)?.user.controlUser.toString() ?? "";
   }
-
-  // @override
-  // Future<void> first_time() async {
-  //   property_type_id_province_0;
-  //   isLoading = true;
-  //   await Future.wait([
-  //     // controller_hometype.verbal_Hometype(),
-  //     // controller_2.value_all_list_2(),
-  //     controller_value.value_all_list(property_type_id_province_0),
-  //     controller_rent.value_all_list_property_id(property_type_id_province_0),
-  //   ]);
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  // }
 
   final int _currentIndex = 0;
 
@@ -267,78 +243,11 @@ class _HomePageState extends ConsumerState<HomePage1> {
                       );
                     },
                   ),
-                  // MyDrawerList(
-                  //   icon: Icons.search_rounded,
-                  //   title: 'Search',
-                  //   Press: () {
-                  //     context.push(
-                  //       (context) => Menu_of_Autoverval(
-                  //         id: id,
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
                   MyDrawerList(
                     icon: Icons.contact_phone,
                     title: 'Contact Us',
                     Press: () {
                       context.push((context) => ContactsSidebar());
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return PasscodeScreen(
-                      //       passwordDigits: 4,
-                      //       title: Text("data"),
-                      //       isValidCallback: () {},
-                      //       passwordEnteredCallback: (Val) {
-                      //         setState(() {
-                      //           password = int.parse(Val);
-                      //           if (password == 1234) {
-                      //             c = true;
-                      //             number = 4;
-                      //             Navigator.push(
-                      //               context,
-                      //               MaterialPageRoute(
-                      //                 builder: (context) {
-                      //                   return ContactsSidebar();
-                      //                 },
-                      //               ),
-                      //             );
-                      //           } else {
-                      //             setState(() {
-                      //               number = 0;
-                      //               c = false;
-                      //               Navigator.of(context).pop();
-                      //               showDialog(
-                      //                 context: context,
-                      //                 builder: (context) {
-                      //                   return AlertDialog(
-                      //                     actions: [],
-                      //                     title: Text("Error Password"),
-                      //                     content:
-                      //                         Text("Please try again later."),
-                      //                   );
-                      //                 },
-                      //               );
-                      //             });
-                      //           }
-                      //         });
-                      //       },
-                      //       cancelButton: Text('Cancel'),
-                      //       cancelCallback: () {
-                      //         setState(() {
-                      //           number = 0;
-                      //           c = false;
-                      //           password = null;
-                      //           Navigator.of(context).pop();
-                      //         });
-                      //       },
-                      //       deleteButton: Text('Delete'),
-                      //       shouldTriggerVerification:
-                      //           (_verificationNotifier).stream,
-                      //     );
-                      //   },
-                      // );
                     },
                   ),
                 ],
@@ -360,46 +269,6 @@ class _HomePageState extends ConsumerState<HomePage1> {
             ],
           ),
         ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   selectedItemColor: kwhite_new,
-        //   currentIndex: _currentIndex,
-        //   type: BottomNavigationBarType.fixed,
-        //   iconSize: 25,
-        //   items: [
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.home,
-        //       ),
-        //       label: "Home",
-        //       backgroundColor: kwhite_new,
-        //     ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.question_answer),
-        //   label: "FAQ",
-        //   backgroundColor: kwhite_new,
-        // ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.contact_phone),
-        //   label: "Contact",
-        //   backgroundColor: kwhite_new,
-        // ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.people),
-        //       label: "About",
-        //       backgroundColor: kwhite_new,
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.contact_phone),
-        //       label: "FeedBack",
-        //       backgroundColor: kwhite_new,
-        //     ),
-        //   ],
-        //   onTap: (index) {
-        //     setState(() {
-        //       _currentIndex = index;
-        //     });
-        //   },
-        // ),
       ),
     );
   }

@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
@@ -22,7 +21,6 @@ import 'package:kfa_mobilenu/providers/cache_provider.dart';
 import 'package:kfa_mobilenu/widgets/auth_wrapper_widget.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../Memory_local/Local_data.dart';
 import '../../afa/components/contants.dart';
 import '../../afa/screens/Auth/login_page.dart';
@@ -494,7 +492,7 @@ class _AccountState extends ConsumerState<Account> {
                               final APIservice apIservice = APIservice();
                               await apIservice.update_user(
                                 requestModel!,
-                                user!.id ?? 0,
+                                user!.id,
                               );
                               logOut();
                             },

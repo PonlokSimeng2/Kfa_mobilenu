@@ -182,7 +182,7 @@ class __AddAutoVerbalPageState extends ConsumerState<_AddAutoVerbalPage>
   @override
   void initState() {
     user = ref.read(authProvider)!.user;
-    verbal_id = user.controlUser;
+    verbal_id = user.controlUser + RandomString(9);
     _getCurrentPosition();
     addVerbal(context);
     lat1;
@@ -563,8 +563,8 @@ class __AddAutoVerbalPageState extends ConsumerState<_AddAutoVerbalPage>
           },
           child: ref.watch(vPointProvider).maybeWhen(
                 orElse: () => SizedBox(
-                  width: 10,
-                  height: 10,
+                  width: 15,
+                  height: 15,
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -573,16 +573,15 @@ class __AddAutoVerbalPageState extends ConsumerState<_AddAutoVerbalPage>
                   return Row(
                     children: [
                       Text(
-                        // '',
                         '${number}',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 13,
                           color: Colors.amber[800],
                         ),
                       ),
                       Container(
-                        height: 15,
-                        width: 15,
+                        height: 13,
+                        width: 13,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/images/v.png"),

@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kfa_mobilenu/Memory_local/database.dart';
 import 'package:kfa_mobilenu/afa/components/contants.dart';
@@ -73,26 +72,6 @@ class _RegisterState extends State<Register> {
 
   Future cut_again() async {
     imagepath = imagefile!.path;
-    CroppedFile? cropFile = await ImageCropper().cropImage(
-      sourcePath: imagefile!.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio16x9,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio5x3,
-        CropAspectRatioPreset.ratio5x4,
-        CropAspectRatioPreset.ratio7x5,
-        CropAspectRatioPreset.square,
-      ],
-      uiSettings: [
-        AndroidUiSettings(
-          lockAspectRatio: false,
-          backgroundColor: Colors.black,
-          initAspectRatio: CropAspectRatioPreset.original,
-        ),
-      ],
-    );
 
     get_bytes = await imagefile!.readAsBytes(); //convert to bytes
     setState(() {
@@ -839,7 +818,7 @@ class _RegisterState extends State<Register> {
                                   requestModel.first_name,
                                   requestModel.last_name,
                                   requestModel.control_user,
-                                  requestModel.gender ?? "",
+                                  requestModel.gender,
                                   requestModel.tel_num,
                                   requestModel.known_from,
                                   requestModel.email,

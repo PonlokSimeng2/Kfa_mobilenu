@@ -6,10 +6,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobilenu/helper/build_context_helper.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:kfa_mobilenu/providers/auth_provider.dart';
 import 'package:kfa_mobilenu/screen/detialbody_screen_property.dart';
 import '../../afa/components/contants.dart';
 import '../../models/autoVerbal.dart';
@@ -60,12 +62,12 @@ final List<Widget> imageSliders = imgList
     )
     .toList();
 
-class Body extends StatefulWidget {
+class Body extends ConsumerStatefulWidget {
   @override
-  State<Body> createState() => _BodyState();
+  ConsumerState<Body> createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> {
+class _BodyState extends ConsumerState<Body> {
   late AutoVerbalRequestModel requestModelAuto;
   Uint8List? get_bytes;
   Future<bool> _handleLocationPermission() async {
@@ -269,6 +271,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(authProvider.select((value) => value?.user));
     final w = MediaQuery.of(context).size.width;
     if (w < 600) {
       wth = w * 0.6;
@@ -384,6 +387,18 @@ class _BodyState extends State<Body> {
                                 errorWidget: (context, url, error) =>
                                     Icon(Icons.error),
                               ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 2,
+                          bottom: 20,
+                          child: Text(
+                            'Address: ${list_value_all_2SR[index]['address'] ?? "N/A".toString()}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Colors.white,
                             ),
                           ),
                         ),

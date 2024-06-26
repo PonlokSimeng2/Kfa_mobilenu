@@ -63,7 +63,6 @@ dependencies:
   carousel_slider: ^4.1.1
   shared_preferences: ^2.0.15
   image_gallery_saver: ^1.7.1
-  aba_payment: ^0.0.3
   flutter_easyloading: ^3.0.5
   flutter_dotenv: ^5.0.2
   sizer: ^2.0.15
@@ -136,6 +135,7 @@ dev_dependencies:
   custom_lint:
   riverpod_generator: ^2.3.9
   riverpod_lint: ^2.3.7
+  retrofit_generator: ^8.1.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

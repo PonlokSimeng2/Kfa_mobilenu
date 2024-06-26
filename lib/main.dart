@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kfa_mobilenu/afa/screens/Auth/register.dart';
 import 'package:kfa_mobilenu/providers/cache_provider.dart';
 import 'package:kfa_mobilenu/screen/Home/Home.dart';
+import 'package:kfa_mobilenu/testpdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      //home: MyAppTestPDF(),
       home: const HomePage1(),
       //home: RegisterPage(),
       //home: MyDataTablePage(),

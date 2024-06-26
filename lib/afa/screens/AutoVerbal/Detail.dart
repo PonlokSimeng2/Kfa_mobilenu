@@ -2248,12 +2248,19 @@ class _detail_searchingState extends State<detail_verbal> {
     );
 
     // Get the bytes of the PDF document
-    final pdfBytes = pdf.save();
+    //final pdfBytes = pdf.save();
 
-    // Print the PDF document to the default printer
-    await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => pdfBytes,
-    );
+    // Get the temporary directory
+    final output = await getTemporaryDirectory();
+    final file = File("${output.path}/Verbalform.pdf");
+
+    // Save the PDF file
+    await file.writeAsBytes(await pdf.save());
+    print('PDF saved to ${file.path}');
+
+    // Share the PDF file
+    // ignore: deprecated_member_use
+    // await Share.shareFiles([file.path], text: 'Check out this PDF file!');
     return pdf.save();
   }
 }
